@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gunzip -c \"/Users/sms/.claude/projects/-Users-sms-Desktop-monorepo/4e67c54c-bb89-482a-a2c6-077de71becb6/tool-results/webfetch-1778074658852-kvxrri.bin\")",
+      "Bash(tar -t)",
+      "Bash(tar -x -O \"wedding-invite/project/v6-full.jsx\")",
+      "Bash(tar -x -O \"wedding-invite/project/common.jsx\")",
+      "Bash(npx tsc *)"
+    ]
+  }
+}
