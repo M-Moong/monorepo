@@ -20,20 +20,30 @@ export function Ch05Calendar() {
 
   return (
     <ChapterSection chIndex={4}>
-      <ChHeader num={5} label="WHEN" title={<>The<br />day.</>} />
+      <ChHeader
+        num={5}
+        label="WHEN"
+        title={
+          <>
+            The
+            <br />
+            day.
+          </>
+        }
+      />
 
       {/* 달력 */}
-      <div className="bg-warm p-[18px] mb-[22px]">
-        <div className="flex justify-between mb-[14px]">
-          <div className="font-serif text-[22px] italic text-fg">October 2026</div>
-          <div className="text-[10px] tracking-[.2em] text-gold">SAT 14:00</div>
+      <div className="bg-warm mb-[22px] p-[18px]">
+        <div className="mb-[14px] flex justify-between">
+          <div className="text-fg font-serif text-[22px] italic">October 2026</div>
+          <div className="text-gold text-[10px] tracking-[.2em]">SAT 14:00</div>
         </div>
 
         <div className="grid grid-cols-7 gap-1 text-[9px] tracking-[.1em]">
           {DAYS_HEADER.map((d, i) => (
             <div
               key={i}
-              className={`text-center py-1 ${
+              className={`py-1 text-center ${
                 i === 0 ? 'text-[#d97777]' : i === 6 ? 'text-gold' : 'text-fg/50'
               }`}
             >
@@ -46,16 +56,16 @@ export function Ch05Calendar() {
             return (
               <div
                 key={i}
-                className={`text-center py-2 text-[13px] ${
+                className={`py-2 text-center text-[13px] ${
                   !d
                     ? 'text-transparent'
                     : isWedding
-                    ? 'bg-gold text-bg font-bold'
-                    : dow === 0
-                    ? 'text-[#d97777]'
-                    : dow === 6
-                    ? 'text-gold'
-                    : 'text-fg'
+                      ? 'bg-gold text-bg font-bold'
+                      : dow === 0
+                        ? 'text-[#d97777]'
+                        : dow === 6
+                          ? 'text-gold'
+                          : 'text-fg'
                 }`}
               >
                 {d ?? '·'}
@@ -67,21 +77,25 @@ export function Ch05Calendar() {
 
       {/* 카운트다운 브릭 */}
       <div className="grid grid-cols-4 gap-1.5">
-        {([['DAYS', cd.d], ['HRS', cd.h], ['MIN', cd.m], ['SEC', cd.s]] as [string, number][]).map(([label, val]) => (
-          <div
-            key={label}
-            className="bg-warm py-[14px] px-1.5 text-center border border-fg/[.08]"
-          >
-            <div className="font-serif text-[28px] italic text-gold leading-none tabular-nums">
+        {(
+          [
+            ['DAYS', cd.d],
+            ['HRS', cd.h],
+            ['MIN', cd.m],
+            ['SEC', cd.s],
+          ] as [string, number][]
+        ).map(([label, val]) => (
+          <div key={label} className="bg-warm border-fg/[.08] border px-1.5 py-[14px] text-center">
+            <div className="text-gold font-serif text-[28px] italic tabular-nums leading-none">
               {String(val).padStart(2, '0')}
             </div>
-            <div className="text-[9px] tracking-[.25em] text-fg/50 mt-1.5">{label}</div>
+            <div className="text-fg/50 mt-1.5 text-[9px] tracking-[.25em]">{label}</div>
           </div>
         ))}
       </div>
 
       {/* 캘린더 추가 버튼 (UI만) */}
-      <button className="mt-[18px] w-full py-[14px] bg-transparent border border-gold text-gold tracking-[.25em] text-[11px] cursor-pointer">
+      <button className="border-gold text-gold mt-[18px] w-full cursor-pointer border bg-transparent py-[14px] text-[11px] tracking-[.25em]">
         + ADD TO CALENDAR
       </button>
     </ChapterSection>

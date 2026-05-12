@@ -11,7 +11,14 @@ interface HUDProps {
   onToggleSound: () => void;
 }
 
-export function HUD({ chapter, progressPct, sound, totalChapters, containerRef, onToggleSound }: HUDProps) {
+export function HUD({
+  chapter,
+  progressPct,
+  sound,
+  totalChapters,
+  containerRef,
+  onToggleSound,
+}: HUDProps) {
   const jumpTo = (i: number) => {
     const el = containerRef.current?.querySelector<HTMLElement>(`[data-ch="${i}"]`);
     if (el) el.scrollIntoView({ behavior: 'smooth' });
@@ -21,21 +28,24 @@ export function HUD({ chapter, progressPct, sound, totalChapters, containerRef, 
     <>
       {/* HUD 바 */}
       <div
-        className="sticky top-0 z-50 px-[14px] pt-3 pb-[10px] flex justify-between items-center backdrop-blur-[8px]"
-        style={{ background: 'linear-gradient(180deg, rgba(10,10,10,.96) 0%, rgba(10,10,10,.6) 80%, transparent 100%)' }}
+        className="sticky top-0 z-50 flex items-center justify-between px-[14px] pb-[10px] pt-3 backdrop-blur-[8px]"
+        style={{
+          background:
+            'linear-gradient(180deg, rgba(10,10,10,.96) 0%, rgba(10,10,10,.6) 80%, transparent 100%)',
+        }}
       >
         {/* 챕터 번호 */}
-        <div className="text-[9px] tracking-[.3em] text-gold">
+        <div className="text-gold text-[9px] tracking-[.3em]">
           CH. {String(chapter + 1).padStart(2, '0')} / {String(totalChapters).padStart(2, '0')}
         </div>
 
         {/* 도트 바 */}
-        <div className="flex gap-1 items-center">
+        <div className="flex items-center gap-1">
           {Array.from({ length: totalChapters }).map((_, i) => (
             <button
               key={i}
               onClick={() => jumpTo(i)}
-              className="w-3 h-[1.5px] p-0 border-0 cursor-pointer transition-[background] duration-300"
+              className="h-[1.5px] w-3 cursor-pointer border-0 p-0 transition-[background] duration-300"
               style={{ background: i <= chapter ? '#e8c87c' : 'rgba(240,232,216,.18)' }}
             />
           ))}
@@ -44,10 +54,10 @@ export function HUD({ chapter, progressPct, sound, totalChapters, containerRef, 
         {/* BGM 토글 */}
         <button
           onClick={onToggleSound}
-          className={`px-[9px] py-1 text-[9px] tracking-[.2em] cursor-pointer transition-all duration-200 ${
+          className={`cursor-pointer px-[9px] py-1 text-[9px] tracking-[.2em] transition-all duration-200 ${
             sound
-              ? 'bg-gold text-bg border border-gold'
-              : 'bg-transparent text-fg border border-fg/30'
+              ? 'bg-gold text-bg border-gold border'
+              : 'text-fg border-fg/30 border bg-transparent'
           }`}
         >
           {sound ? '♪ ON' : '♪ OFF'}
@@ -55,9 +65,9 @@ export function HUD({ chapter, progressPct, sound, totalChapters, containerRef, 
       </div>
 
       {/* Progress bar */}
-      <div className="sticky top-9 z-[49] h-px bg-fg/[.06]">
+      <div className="bg-fg/[.06] sticky top-9 z-[49] h-px">
         <div
-          className="h-full bg-gold transition-[width] duration-150"
+          className="bg-gold h-full transition-[width] duration-150"
           style={{ width: `${progressPct * 100}%` }}
         />
       </div>

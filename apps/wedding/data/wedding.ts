@@ -32,21 +32,25 @@ export const WEDDING = {
     detail: '본관 3층 그랜드볼룸',
     mapUrl: '',
     transport: {
-      subway: { icon: '🚇', title: '지하철', body: '6호선 한강진역 1번 출구\n도보 8분 (셔틀버스 5분 간격)' },
-      bus:    { icon: '🚌', title: '버스',   body: '광역 9408, 간선 110A · 400\n한강진역 정류장 하차' },
-      car:    { icon: '🚗', title: '자가용', body: '내비 "그랜드하얏트 서울"\n발렛파킹 무료 (4시간)' },
-      taxi:   { icon: '🚕', title: '택시',   body: '서울역에서 약 15분\n강남역에서 약 20분' },
+      subway: {
+        icon: '🚇',
+        title: '지하철',
+        body: '6호선 한강진역 1번 출구\n도보 8분 (셔틀버스 5분 간격)',
+      },
+      bus: { icon: '🚌', title: '버스', body: '광역 9408, 간선 110A · 400\n한강진역 정류장 하차' },
+      car: { icon: '🚗', title: '자가용', body: '내비 "그랜드하얏트 서울"\n발렛파킹 무료 (4시간)' },
+      taxi: { icon: '🚕', title: '택시', body: '서울역에서 약 15분\n강남역에서 약 20분' },
     },
   },
 
   accounts: {
     groom: [
-      { who: '신랑',      name: '김민준', bank: '신한', number: '110-123-456789' },
+      { who: '신랑', name: '김민준', bank: '신한', number: '110-123-456789' },
       { who: '신랑 아버지', name: '김영호', bank: '신한', number: '110-987-654321' },
       { who: '신랑 어머니', name: '이정희', bank: '신한', number: '110-456-789012' },
     ],
     bride: [
-      { who: '신부',      name: '이서연', bank: '국민', number: '123-45-6789-012' },
+      { who: '신부', name: '이서연', bank: '국민', number: '123-45-6789-012' },
       { who: '신부 아버지', name: '이상철', bank: '국민', number: '987-65-4321-098' },
       { who: '신부 어머니', name: '박미경', bank: '국민', number: '456-78-9012-345' },
     ],

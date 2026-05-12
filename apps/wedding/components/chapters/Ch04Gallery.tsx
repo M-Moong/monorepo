@@ -16,29 +16,39 @@ export function Ch04Gallery() {
   const total = TONES.length;
 
   const handlePrev = () => {
-    setLightboxIndex((prev) => prev !== null ? (prev - 1 + total) % total : 0);
+    setLightboxIndex((prev) => (prev !== null ? (prev - 1 + total) % total : 0));
   };
   const handleNext = () => {
-    setLightboxIndex((prev) => prev !== null ? (prev + 1) % total : 0);
+    setLightboxIndex((prev) => (prev !== null ? (prev + 1) % total : 0));
   };
 
   return (
     <ChapterSection chIndex={3}>
-      <ChHeader num={4} label="GALLERY" title={<>Frames<br />of us.</>} />
+      <ChHeader
+        num={4}
+        label="GALLERY"
+        title={
+          <>
+            Frames
+            <br />
+            of us.
+          </>
+        }
+      />
 
       <div className="grid grid-cols-3 gap-1">
         {TONES.map((tone, i) => (
           <div
             key={i}
             onClick={() => setLightboxIndex(i)}
-            className="aspect-square cursor-pointer relative overflow-hidden"
+            className="relative aspect-square cursor-pointer overflow-hidden"
           >
             <PhotoFrame label={String(i + 1).padStart(2, '0')} tone={tone} />
           </div>
         ))}
       </div>
 
-      <div className="text-[10px] text-fg/40 mt-[14px] tracking-[.2em] text-center">
+      <div className="text-fg/40 mt-[14px] text-center text-[10px] tracking-[.2em]">
         TAP ANY FRAME TO ENLARGE · {total} PHOTOS
       </div>
 

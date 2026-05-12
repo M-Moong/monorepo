@@ -28,12 +28,12 @@ export default function InvitationPage() {
   };
 
   return (
-    <div className="flex justify-center items-start min-h-dvh bg-bg">
+    <div className="bg-bg flex min-h-dvh items-start justify-center">
       {/* 모바일 프레임 */}
-      <div className="w-full max-w-[390px] relative">
+      <div className="relative w-full max-w-[390px]">
         <div
           ref={containerRef}
-          className="h-dvh overflow-y-scroll [scroll-snap-type:y_proximity] bg-bg text-fg relative"
+          className="bg-bg text-fg relative h-dvh overflow-y-scroll [scroll-snap-type:y_proximity]"
           style={{ fontFamily: 'var(--font-sans)' }}
         >
           <HUD
@@ -60,7 +60,7 @@ export default function InvitationPage() {
         {chapter > 0 && chapter < 7 && (
           <button
             onClick={jumpToGuestbook}
-            className="fixed bottom-5 right-5 z-60 px-4 py-3 bg-gold text-bg border-0 text-[10px] tracking-[.25em] font-bold cursor-pointer animate-pulse-btn"
+            className="z-60 bg-gold text-bg animate-pulse-btn fixed bottom-5 right-5 cursor-pointer border-0 px-4 py-3 text-[10px] font-bold tracking-[.25em]"
           >
             방명록 →
           </button>

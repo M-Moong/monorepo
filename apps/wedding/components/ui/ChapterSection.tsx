@@ -7,11 +7,16 @@ interface ChapterSectionProps {
   minHeightAuto?: boolean;
 }
 
-export function ChapterSection({ chIndex, children, className = '', minHeightAuto = false }: ChapterSectionProps) {
+export function ChapterSection({
+  chIndex,
+  children,
+  className = '',
+  minHeightAuto = false,
+}: ChapterSectionProps) {
   return (
     <section
       data-ch={chIndex}
-      className={`scroll-start relative flex flex-col justify-center px-[22px] pt-16 pb-12 box-border ${minHeightAuto ? '' : 'min-h-full'} ${className}`}
+      className={`scroll-start relative box-border flex flex-col justify-center px-[22px] pb-12 pt-16 ${minHeightAuto ? '' : 'min-h-full'} ${className}`}
     >
       {children}
     </section>

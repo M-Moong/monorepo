@@ -41,42 +41,52 @@ export function Ch03Couple() {
 
   return (
     <ChapterSection chIndex={2}>
-      <ChHeader num={3} label="THE COUPLE" title={<>Two<br />people.</>} />
+      <ChHeader
+        num={3}
+        label="THE COUPLE"
+        title={
+          <>
+            Two
+            <br />
+            people.
+          </>
+        }
+      />
 
       <div className="flex flex-col gap-[14px]">
         {CARDS.map((c, i) => (
           <div
             key={c.who}
             onClick={() => setOpenIndex(openIndex === i ? null : i)}
-            className={`relative cursor-pointer bg-warm overflow-hidden border transition-[border-color] duration-[350ms] ${
+            className={`bg-warm relative cursor-pointer overflow-hidden border transition-[border-color] duration-[350ms] ${
               openIndex === i ? 'border-gold' : 'border-fg/[.12]'
             }`}
           >
             <div className="flex items-stretch">
-              <div className="w-[110px] aspect-[3/4] shrink-0">
+              <div className="aspect-[3/4] w-[110px] shrink-0">
                 <PhotoFrame label={c.who} tone={c.tone} />
               </div>
               <div className="flex-1 p-[14px_16px]">
-                <div className="text-[9px] tracking-[.3em] text-gold mb-1.5">{c.who}</div>
-                <div className="font-serif text-[28px] italic leading-none font-light text-fg">
+                <div className="text-gold mb-1.5 text-[9px] tracking-[.3em]">{c.who}</div>
+                <div className="text-fg font-serif text-[28px] font-light italic leading-none">
                   {c.name}
                 </div>
-                <div className="text-[12px] text-fg/60 mt-1">{c.kor}</div>
-                <div className="font-serif text-[14px] italic text-gold mt-3">
+                <div className="text-fg/60 mt-1 text-[12px]">{c.kor}</div>
+                <div className="text-gold mt-3 font-serif text-[14px] italic">
                   &ldquo;{c.tagline}&rdquo;
                 </div>
-                <div className="text-[10px] tracking-[.2em] text-fg/40 mt-[14px]">
+                <div className="text-fg/40 mt-[14px] text-[10px] tracking-[.2em]">
                   {openIndex === i ? '— LESS' : 'MORE +'}
                 </div>
               </div>
             </div>
 
             {openIndex === i && (
-              <div className="px-4 pb-[18px] border-t border-fg/10">
+              <div className="border-fg/10 border-t px-4 pb-[18px]">
                 {c.facts.map((f) => (
                   <div
                     key={f}
-                    className="text-[12px] text-fg/75 py-2 border-b border-fg/[.05] flex gap-2.5 items-center"
+                    className="text-fg/75 border-fg/[.05] flex items-center gap-2.5 border-b py-2 text-[12px]"
                   >
                     <span className="text-gold">—</span>
                     {f}
@@ -88,7 +98,7 @@ export function Ch03Couple() {
         ))}
       </div>
 
-      <div className="text-[10px] text-fg/40 mt-[14px] tracking-[.2em] text-center">
+      <div className="text-fg/40 mt-[14px] text-center text-[10px] tracking-[.2em]">
         TAP TO READ MORE
       </div>
     </ChapterSection>
