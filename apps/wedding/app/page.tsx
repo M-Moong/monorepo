@@ -1,65 +1,71 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import { useRef, useState } from 'react';
+import { HUD } from '@/components/hud/HUD';
+import { Ch01Cover } from '@/components/chapters/Ch01Cover';
+import { Ch02Invite } from '@/components/chapters/Ch02Invite';
+import { Ch03Couple } from '@/components/chapters/Ch03Couple';
+import { Ch04Gallery } from '@/components/chapters/Ch04Gallery';
+import { Ch05Calendar } from '@/components/chapters/Ch05Calendar';
+import { Ch06Venue } from '@/components/chapters/Ch06Venue';
+import { Ch07Fortune } from '@/components/chapters/Ch07Fortune';
+import { Ch08Guestbook } from '@/components/chapters/Ch08Guestbook';
+import { Ch09Finale } from '@/components/chapters/Ch09Finale';
+import { useScroll } from '@/hooks/useScroll';
+import { useBGM } from '@/hooks/useBGM';
+
+const TOTAL_CHAPTERS = 9;
+
+export default function InvitationPage() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [sound, setSound] = useState(false);
+  const { chapter, progressPct } = useScroll(containerRef);
+  useBGM(sound);
+
+  const jumpToGuestbook = () => {
+    const el = containerRef.current?.querySelector<HTMLElement>('[data-ch="7"]');
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="flex justify-center items-start min-h-dvh bg-bg">
+      {/* 모바일 프레임 */}
+      <div className="w-full max-w-[390px] relative">
+        <div
+          ref={containerRef}
+          className="h-dvh overflow-y-scroll [scroll-snap-type:y_proximity] bg-bg text-fg relative"
+          style={{ fontFamily: 'var(--font-sans)' }}
+        >
+          <HUD
+            chapter={chapter}
+            progressPct={progressPct}
+            sound={sound}
+            totalChapters={TOTAL_CHAPTERS}
+            containerRef={containerRef}
+            onToggleSound={() => setSound((s) => !s)}
+          />
+
+          <Ch01Cover />
+          <Ch02Invite />
+          <Ch03Couple />
+          <Ch04Gallery />
+          <Ch05Calendar />
+          <Ch06Venue />
+          <Ch07Fortune />
+          <Ch08Guestbook />
+          <Ch09Finale />
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+
+        {/* 플로팅 방명록 버튼 (CH01~CH07 구간) */}
+        {chapter > 0 && chapter < 7 && (
+          <button
+            onClick={jumpToGuestbook}
+            className="fixed bottom-5 right-5 z-60 px-4 py-3 bg-gold text-bg border-0 text-[10px] tracking-[.25em] font-bold cursor-pointer animate-pulse-btn"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+            방명록 →
+          </button>
+        )}
+      </div>
     </div>
   );
 }
