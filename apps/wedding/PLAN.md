@@ -2,43 +2,47 @@
 
 ## 스택
 
-| 항목 | 값 |
-|---|---|
-| 프레임워크 | Next.js 16 (App Router) + React 19 |
-| 언어 | TypeScript (strict, `any` 금지) |
-| 스타일 | Tailwind CSS v4 (`@theme` 토큰, `tailwind.config.js` 없음) |
-| 폰트 | Cormorant Garamond (serif) · Space Grotesk (sans) |
-| 타겟 | 모바일 전용 · max-width 390px |
+| 항목       | 값                                                         |
+| ---------- | ---------------------------------------------------------- |
+| 프레임워크 | Next.js 16 (App Router) + React 19                         |
+| 언어       | TypeScript (strict, `any` 금지)                            |
+| 스타일     | Tailwind CSS v4 (`@theme` 토큰, `tailwind.config.js` 없음) |
+| 폰트       | Cormorant Garamond (serif) · Space Grotesk (sans)          |
+| 타겟       | 모바일 전용 · max-width 390px                              |
 
 ---
 
 ## 디자인 시스템
 
 ### 컬러 토큰 (`app/globals.css @theme`)
-| 클래스 | 값 | 용도 |
-|---|---|---|
-| `bg-bg` / `text-bg` | `#0a0a0a` | 배경 (거의 블랙) |
-| `text-fg` / `bg-fg` | `#f0e8d8` | 본문 텍스트 (크림) |
-| `text-gold` / `bg-gold` | `#e8c87c` | 강조 (골드) |
-| `bg-warm` | `#15110b` | 카드·섹션 배경 (따뜻한 다크) |
+
+| 클래스                  | 값        | 용도                         |
+| ----------------------- | --------- | ---------------------------- |
+| `bg-bg` / `text-bg`     | `#0a0a0a` | 배경 (거의 블랙)             |
+| `text-fg` / `bg-fg`     | `#f0e8d8` | 본문 텍스트 (크림)           |
+| `text-gold` / `bg-gold` | `#e8c87c` | 강조 (골드)                  |
+| `bg-warm`               | `#15110b` | 카드·섹션 배경 (따뜻한 다크) |
 
 투명도: Tailwind opacity suffix 사용 (`text-fg/60`, `border-fg/20` 등)
 
 ### 폰트 클래스
+
 - `font-serif` → Cormorant Garamond (제목, 이름, italic)
 - `font-sans` → Space Grotesk (본문, UI 텍스트, 기본값)
 
 ### 애니메이션 (`globals.css @theme --animate-*`)
-| 클래스 | 설명 |
-|---|---|
-| `animate-shimmer` | 불투명도 0.4 ↔ 1 (3s) |
-| `animate-drift` | Y축 -8px 유도 화살표 (2s) |
-| `animate-pulse-ring` | 지도 핀 pulse (2s) |
-| `animate-flip` | 카드 뒤집기 rotateY (0.5s) |
-| `animate-glow` | gold box-shadow glow (2s) |
-| `animate-pulse-btn` | FAB 그림자 pulse (3s) |
+
+| 클래스               | 설명                       |
+| -------------------- | -------------------------- |
+| `animate-shimmer`    | 불투명도 0.4 ↔ 1 (3s)      |
+| `animate-drift`      | Y축 -8px 유도 화살표 (2s)  |
+| `animate-pulse-ring` | 지도 핀 pulse (2s)         |
+| `animate-flip`       | 카드 뒤집기 rotateY (0.5s) |
+| `animate-glow`       | gold box-shadow glow (2s)  |
+| `animate-pulse-btn`  | FAB 그림자 pulse (3s)      |
 
 ### 스타일 규칙
+
 - 인라인 `style={}` 최소화 — 동적 gradient·transform 값만 허용
 - 버튼 primary: `bg-gold text-bg font-bold`
 - 버튼 ghost: `bg-transparent border border-gold text-gold`
