@@ -47,13 +47,63 @@
   }
 }
 
-@theme {
+/* ── 테마 토큰 (dark-gold 기본값) ── */
+:root {
   --color-bg: #0a0a0a;
   --color-fg: #f0e8d8;
   --color-gold: #e8c87c;
   --color-warm: #15110b;
   --color-dim: rgba(240, 232, 216, 0.3);
   --color-overlay: rgba(10, 10, 10, 0.6);
+  --color-hud-gradient: linear-gradient(
+    180deg,
+    rgba(10, 10, 10, 0.96) 0%,
+    rgba(10, 10, 10, 0.6) 80%,
+    transparent 100%
+  );
+  --color-dot-inactive: rgba(240, 232, 216, 0.18);
+}
+
+[data-theme='ivory-rose'] {
+  --color-bg: #faf6f1;
+  --color-fg: #2d1f1a;
+  --color-gold: #b5736a;
+  --color-warm: #f0e6dc;
+  --color-dim: rgba(45, 31, 26, 0.25);
+  --color-overlay: rgba(250, 246, 241, 0.7);
+  --color-hud-gradient: linear-gradient(
+    180deg,
+    rgba(250, 246, 241, 0.97) 0%,
+    rgba(250, 246, 241, 0.7) 80%,
+    transparent 100%
+  );
+  --color-dot-inactive: rgba(45, 31, 26, 0.18);
+}
+
+[data-theme='sage-linen'] {
+  --color-bg: #f2ede6;
+  --color-fg: #1e2820;
+  --color-gold: #6b8c6e;
+  --color-warm: #e5ddd4;
+  --color-dim: rgba(30, 40, 32, 0.25);
+  --color-overlay: rgba(242, 237, 230, 0.7);
+  --color-hud-gradient: linear-gradient(
+    180deg,
+    rgba(242, 237, 230, 0.97) 0%,
+    rgba(242, 237, 230, 0.7) 80%,
+    transparent 100%
+  );
+  --color-dot-inactive: rgba(30, 40, 32, 0.18);
+}
+
+/* Tailwind v4: CSS 변수를 동적으로 참조 */
+@theme inline {
+  --color-bg: var(--color-bg);
+  --color-fg: var(--color-fg);
+  --color-gold: var(--color-gold);
+  --color-warm: var(--color-warm);
+  --color-dim: var(--color-dim);
+  --color-overlay: var(--color-overlay);
 
   --font-serif: 'Cormorant Garamond', Georgia, serif;
   --font-sans: 'Space Grotesk', system-ui, sans-serif;
@@ -77,8 +127,8 @@ html,
 body {
   margin: 0;
   padding: 0;
-  background: #0a0a0a;
-  color: #f0e8d8;
+  background: var(--color-bg);
+  color: var(--color-fg);
   font-family: 'Space Grotesk', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
