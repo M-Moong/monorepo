@@ -10,13 +10,7 @@ export function Ch01Cover() {
   return (
     <ChapterSection chIndex={0}>
       {/* gold glow 배경 */}
-      <div
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            'radial-gradient(circle at 50% 65%, rgba(232,200,124,.20) 0%, transparent 55%)',
-        }}
-      />
+      <div className="cover-glow pointer-events-none absolute inset-0" />
 
       <div className="relative text-center">
         <div className="text-gold animate-shimmer mb-7 text-[9px] tracking-[.5em]">

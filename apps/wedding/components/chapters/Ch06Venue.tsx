@@ -31,42 +31,78 @@ export function Ch06Venue() {
           {/* 도로 */}
           <path
             d="M-10 120 Q 80 80, 150 100 T 320 90"
-            stroke="rgba(240,232,216,.18)"
+            style={{ stroke: 'var(--color-svg-road)' }}
             strokeWidth="14"
             fill="none"
           />
           <path
             d="M-10 120 Q 80 80, 150 100 T 320 90"
-            stroke="rgba(240,232,216,.06)"
+            style={{ stroke: 'var(--color-svg-road-center)' }}
             strokeWidth="12"
             fill="none"
             strokeDasharray="2 8"
           />
-          <path d="M50 -10 L 70 200" stroke="rgba(240,232,216,.12)" strokeWidth="8" fill="none" />
-          <path d="M220 -10 L 200 200" stroke="rgba(240,232,216,.12)" strokeWidth="8" fill="none" />
+          <path
+            d="M50 -10 L 70 200"
+            style={{ stroke: 'var(--color-svg-road)' }}
+            strokeWidth="8"
+            fill="none"
+          />
+          <path
+            d="M220 -10 L 200 200"
+            style={{ stroke: 'var(--color-svg-road)' }}
+            strokeWidth="8"
+            fill="none"
+          />
           {/* 강 */}
           <path
             d="M0 160 Q 100 150, 180 165 T 320 155"
-            stroke="rgba(232,200,124,.15)"
+            style={{ stroke: 'var(--color-svg-river)' }}
             strokeWidth="20"
             fill="none"
           />
           {/* 레이블 */}
-          <text x="14" y="20" fill="rgba(240,232,216,.4)" fontSize="8" letterSpacing="2">
+          <text
+            x="14"
+            y="20"
+            style={{ fill: 'var(--color-svg-label)' }}
+            fontSize="8"
+            letterSpacing="2"
+          >
             SOUTH GATE
           </text>
-          <text x="220" y="20" fill="rgba(240,232,216,.4)" fontSize="8" letterSpacing="2">
+          <text
+            x="220"
+            y="20"
+            style={{ fill: 'var(--color-svg-label)' }}
+            fontSize="8"
+            letterSpacing="2"
+          >
             ITAEWON
           </text>
           {/* 핀 pulse */}
-          <circle cx="150" cy="90" r="22" fill="#e8c87c" opacity=".15">
+          <circle cx="150" cy="90" r="22" style={{ fill: 'var(--color-svg-pin-glow)' }}>
             <animate attributeName="r" values="22;30;22" dur="2s" repeatCount="indefinite" />
           </circle>
-          <circle cx="150" cy="90" r="8" fill="#e8c87c" />
-          <text x="150" y="78" fill="#e8c87c" fontSize="9" textAnchor="middle" letterSpacing="2">
+          <circle cx="150" cy="90" r="8" style={{ fill: 'var(--color-gold)' }} />
+          <text
+            x="150"
+            y="78"
+            style={{ fill: 'var(--color-gold)' }}
+            fontSize="9"
+            textAnchor="middle"
+            letterSpacing="2"
+          >
             ★
           </text>
-          <text x="150" y="115" fill="#f0e8d8" fontSize="9" textAnchor="middle" letterSpacing="3">
+          <text
+            x="150"
+            y="115"
+            style={{ fill: 'var(--color-fg)' }}
+            fontSize="9"
+            textAnchor="middle"
+            letterSpacing="3"
+          >
             GRAND HYATT
           </text>
         </svg>

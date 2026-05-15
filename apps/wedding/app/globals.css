@@ -62,6 +62,11 @@
     transparent 100%
   );
   --color-dot-inactive: rgba(240, 232, 216, 0.18);
+  --color-svg-road: rgba(240, 232, 216, 0.12);
+  --color-svg-road-center: rgba(240, 232, 216, 0.06);
+  --color-svg-river: rgba(232, 200, 124, 0.15);
+  --color-svg-label: rgba(240, 232, 216, 0.4);
+  --color-svg-pin-glow: rgba(232, 200, 124, 0.15);
 }
 
 [data-theme='ivory-rose'] {
@@ -78,6 +83,11 @@
     transparent 100%
   );
   --color-dot-inactive: rgba(45, 31, 26, 0.18);
+  --color-svg-road: rgba(45, 31, 26, 0.12);
+  --color-svg-road-center: rgba(45, 31, 26, 0.06);
+  --color-svg-river: rgba(181, 115, 106, 0.15);
+  --color-svg-label: rgba(45, 31, 26, 0.4);
+  --color-svg-pin-glow: rgba(181, 115, 106, 0.15);
 }
 
 [data-theme='sage-linen'] {
@@ -94,6 +104,11 @@
     transparent 100%
   );
   --color-dot-inactive: rgba(30, 40, 32, 0.18);
+  --color-svg-road: rgba(30, 40, 32, 0.12);
+  --color-svg-road-center: rgba(30, 40, 32, 0.06);
+  --color-svg-river: rgba(107, 140, 110, 0.15);
+  --color-svg-label: rgba(30, 40, 32, 0.4);
+  --color-svg-pin-glow: rgba(107, 140, 110, 0.15);
 }
 
 /* Tailwind v4: CSS 변수를 동적으로 참조 */
@@ -139,6 +154,15 @@ body {
 }
 *::-webkit-scrollbar {
   display: none;
+}
+
+/* ── 유틸리티 ── */
+.cover-glow {
+  background: radial-gradient(
+    circle at 50% 65%,
+    color-mix(in srgb, var(--color-gold) 20%, transparent) 0%,
+    transparent 55%
+  );
 }
 
 /* ── 애니메이션 keyframes ── */
