@@ -5,17 +5,71 @@ import { ChapterSection } from '@/components/ui/ChapterSection';
 import { ChHeader } from '@/components/ui/ChHeader';
 import { WEDDING } from '@/data/wedding';
 
+declare global {
+  interface Window {
+    Kakao: {
+      init: (key: string) => void;
+      isInitialized: () => boolean;
+      Share: {
+        sendDefault: (config: object) => void;
+      };
+    };
+  }
+}
+
 type AccountSide = 'groom' | 'bride';
 
 export function Ch09Finale() {
   const [openSection, setOpenSection] = useState<AccountSide | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [linkCopied, setLinkCopied] = useState(false);
 
   const copy = (id: string, text: string) => {
     navigator.clipboard?.writeText(text);
     setCopiedId(id);
     setTimeout(() => setCopiedId(null), 1600);
   };
+
+  const shareLink = () => {
+    navigator.clipboard?.writeText(window.location.href);
+    setLinkCopied(true);
+    setTimeout(() => setLinkCopied(false), 1600);
+  };
+
+  const shareSms = () => {
+    const text = `${WEDDING.groom.name} & ${WEDDING.bride.name} 결혼식에 초대합니다.\n${WEDDING.dateText}\n${WEDDING.venue.short}\n\n${window.location.href}`;
+    window.location.href = `sms:?body=${encodeURIComponent(text)}`;
+  };
+
+  const shareKakao = () => {
+    const appKey = process.env.NEXT_PUBLIC_KAKAO_APP_KEY;
+    if (!window.Kakao || !appKey) {
+      shareLink();
+      return;
+    }
+    if (!window.Kakao.isInitialized()) {
+      window.Kakao.init(appKey);
+    }
+    window.Kakao.Share.sendDefault({
+      objectType: 'text',
+      text: `${WEDDING.groom.name} & ${WEDDING.bride.name}\n${WEDDING.dateText}\n${WEDDING.venue.short}\n\n청첩장을 확인해 주세요.`,
+      link: {
+        mobileWebUrl: window.location.href,
+        webUrl: window.location.href,
+      },
+    });
+  };
+
+  const SHARE_ACTIONS = [
+    { key: 'kakao', label: 'KAKAO', sub: '카카오톡', onClick: shareKakao },
+    {
+      key: 'link',
+      label: linkCopied ? '✓ COPIED' : 'LINK',
+      sub: linkCopied ? '복사됨' : '링크 복사',
+      onClick: shareLink,
+    },
+    { key: 'sms', label: 'SMS', sub: '문자', onClick: shareSms },
+  ] as const;
 
   return (
     <ChapterSection chIndex={8} minHeightAuto>
@@ -99,16 +153,21 @@ export function Ch09Finale() {
       <div className="mt-7">
         <div className="text-gold mb-3 text-[9px] tracking-[.4em]">· SHARE ·</div>
         <div className="grid grid-cols-3 gap-1.5">
-          {[
-            { n: 'KAKAO', sub: '카카오톡' },
-            { n: 'LINK', sub: '링크 복사' },
-            { n: 'SMS', sub: '문자' },
-          ].map((s) => (
+          {SHARE_ACTIONS.map((s) => (
             <button
-              key={s.n}
-              className="border-fg/20 text-fg cursor-pointer border bg-transparent py-[14px] text-center"
+              key={s.key}
+              onClick={s.onClick}
+              className={`border-fg/20 cursor-pointer border bg-transparent py-[14px] text-center transition-all duration-200 ${
+                s.key === 'link' && linkCopied ? 'border-gold' : ''
+              }`}
             >
-              <div className="text-gold text-[10px] tracking-[.25em]">{s.n}</div>
+              <div
+                className={`text-[10px] tracking-[.25em] transition-colors duration-200 ${
+                  s.key === 'link' && linkCopied ? 'text-gold' : 'text-gold'
+                }`}
+              >
+                {s.label}
+              </div>
               <div className="text-fg/50 mt-1 text-[10px]">{s.sub}</div>
             </button>
           ))}
