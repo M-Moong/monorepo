@@ -1,63 +1,93 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ChapterSection } from '@/components/ui/ChapterSection';
 import { ChHeader } from '@/components/ui/ChHeader';
 
 type AttendStatus = 'yes' | 'maybe' | 'no' | null;
-type GuestSide = 'groom' | 'bride' | 'guest';
 
 interface GuestEntry {
-  n: string;
-  m: string;
-  t: string;
-  r: string;
-  side: GuestSide;
+  id: string;
+  name: string;
+  message: string;
+  reaction: string;
+  side: string;
+  attend: string | null;
+  createdAt: string;
 }
-
-const INITIAL_ENTRIES: GuestEntry[] = [
-  { n: '민지', m: '두 분 진짜 잘 어울려요. 행복하세요!', t: '2일 전', r: '🥹', side: 'bride' },
-  { n: '준호', m: '오빠 드디어 가는구나. 축하한다.', t: '5일 전', r: '🥂', side: 'groom' },
-  {
-    n: '수아',
-    m: '청첩장 디자인에 감탄하는 중. 너무 두 분 답다.',
-    t: '1주 전',
-    r: '✨',
-    side: 'bride',
-  },
-  { n: '재현', m: '그날 봐요. 사진 많이 찍어드릴게요 📷', t: '1주 전', r: '📷', side: 'groom' },
-  { n: '예린', m: 'YES! 무조건 갑니다. 드레스 너무 기대돼요', t: '2주 전', r: '👰', side: 'bride' },
-];
 
 const REACTIONS = ['🥹', '🥂', '✨', '🫶', '📷', '🎉', '💍', '🌷'];
 
+function formatRelativeTime(dateStr: string): string {
+  const diff = Date.now() - new Date(dateStr).getTime();
+  const mins = Math.floor(diff / 60000);
+  const hours = Math.floor(diff / 3600000);
+  const days = Math.floor(diff / 86400000);
+  const weeks = Math.floor(days / 7);
+  if (mins < 1) return '방금';
+  if (mins < 60) return `${mins}분 전`;
+  if (hours < 24) return `${hours}시간 전`;
+  if (days < 7) return `${days}일 전`;
+  return `${weeks}주 전`;
+}
+
 export function Ch08Guestbook() {
+  const [entries, setEntries] = useState<GuestEntry[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
   const [name, setName] = useState('');
   const [msg, setMsg] = useState('');
   const [reaction, setReaction] = useState<string | null>(null);
   const [attend, setAttend] = useState<AttendStatus>(null);
-  const [book, setBook] = useState<GuestEntry[]>(INITIAL_ENTRIES);
 
-  const canSubmit = name.trim().length > 0 && msg.trim().length > 0;
+  useEffect(() => {
+    fetch('/api/guestbook')
+      .then((r) => r.json())
+      .then((data) => {
+        if (Array.isArray(data)) setEntries(data);
+      })
+      .catch(() => setError('방명록을 불러오지 못했어요.'))
+      .finally(() => setLoading(false));
+  }, []);
 
-  const submit = () => {
+  const canSubmit = name.trim().length > 0 && msg.trim().length > 0 && !submitting;
+
+  const submit = async () => {
     if (!canSubmit) return;
-    setBook((prev) => [
-      { n: name.trim(), m: msg.trim(), t: '방금', r: reaction ?? '🫶', side: 'guest' },
-      ...prev,
-    ]);
-    setName('');
-    setMsg('');
-    setReaction(null);
-    setAttend(null);
+    setSubmitting(true);
+    setError(null);
+    try {
+      const res = await fetch('/api/guestbook', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, message: msg, reaction, attend }),
+      });
+      if (!res.ok) {
+        const d = await res.json();
+        setError(d.error ?? '저장에 실패했어요.');
+        return;
+      }
+      const newEntry: GuestEntry = await res.json();
+      setEntries((prev) => [newEntry, ...prev]);
+      setName('');
+      setMsg('');
+      setReaction(null);
+      setAttend(null);
+    } catch {
+      setError('네트워크 오류가 발생했어요.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
-  const counts = book.reduce<Record<GuestSide, number>>(
+  const counts = entries.reduce<Record<string, number>>(
     (acc, g) => {
       acc[g.side] = (acc[g.side] ?? 0) + 1;
       return acc;
     },
-    { groom: 0, bride: 0, guest: 0 }
+    { groom: 0, bride: 0 }
   );
 
   const inputClass =
@@ -87,7 +117,7 @@ export function Ch08Guestbook() {
       <div className="bg-warm border-fg/[.08] mb-[22px] grid grid-cols-3 border">
         {(
           [
-            ['전체', book.length],
+            ['전체', entries.length],
             ['신랑측', counts.groom],
             ['신부측', counts.bride],
           ] as [string, number][]
@@ -127,6 +157,7 @@ export function Ch08Guestbook() {
             <button
               key={r}
               onClick={() => setReaction(reaction === r ? null : r)}
+              aria-label={`이모지 ${r} 선택`}
               className={`h-[38px] w-[38px] cursor-pointer rounded-lg border p-0 text-[18px] transition-all duration-150 ${
                 reaction === r ? 'bg-gold/[.18] border-gold' : 'bg-fg/[.05] border-transparent'
               }`}
@@ -136,7 +167,7 @@ export function Ch08Guestbook() {
           ))}
         </div>
 
-        {/* 참석여부 (선택) */}
+        {/* 참석여부 */}
         <div className="text-fg/55 mb-2 text-[9px] tracking-[.3em]">
           참석 여부 (선택 — 나중에 알려주셔도 OK)
         </div>
@@ -162,6 +193,8 @@ export function Ch08Guestbook() {
           ))}
         </div>
 
+        {error && <p className="text-[11px] text-red-400 mb-2">{error}</p>}
+
         <button
           onClick={submit}
           disabled={!canSubmit}
@@ -171,26 +204,33 @@ export function Ch08Guestbook() {
               : 'bg-gold/20 text-fg/40 cursor-not-allowed'
           }`}
         >
-          방명록에 남기기 →
+          {submitting ? '저장 중…' : '방명록에 남기기 →'}
         </button>
       </div>
 
       {/* 피드 */}
-      <div className="text-gold mb-3 text-[9px] tracking-[.4em]">· {book.length} NOTES ·</div>
-      <div className="flex flex-col gap-2">
-        {book.map((g, i) => (
-          <div key={i} className="bg-warm border-gold border-l-2 p-[14px]">
-            <div className="mb-1.5 flex items-baseline justify-between">
-              <div className="flex items-center gap-2">
-                <span className="text-[18px]">{g.r}</span>
-                <span className="text-gold text-[13px] tracking-[.05em]">{g.n}</span>
+      <div className="text-gold mb-3 text-[9px] tracking-[.4em]">· {entries.length} NOTES ·</div>
+
+      {loading ? (
+        <div className="text-fg/40 py-8 text-center text-[11px] tracking-[.2em]">불러오는 중…</div>
+      ) : (
+        <div className="flex flex-col gap-2">
+          {entries.map((g) => (
+            <div key={g.id} className="bg-warm border-gold border-l-2 p-[14px]">
+              <div className="mb-1.5 flex items-baseline justify-between">
+                <div className="flex items-center gap-2">
+                  <span className="text-[18px]">{g.reaction}</span>
+                  <span className="text-gold text-[13px] tracking-[.05em]">{g.name}</span>
+                </div>
+                <div className="text-fg/40 text-[9px] tracking-[.15em]">
+                  {formatRelativeTime(g.createdAt)}
+                </div>
               </div>
-              <div className="text-fg/40 text-[9px] tracking-[.15em]">{g.t}</div>
+              <div className="text-fg/88 text-[13px] leading-[1.6]">{g.message}</div>
             </div>
-            <div className="text-fg/88 text-[13px] leading-[1.6]">{g.m}</div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </ChapterSection>
   );
 }
