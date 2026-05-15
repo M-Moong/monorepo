@@ -37,12 +37,12 @@
 
 ### 2.1 현재 색상 시스템 문제점
 
-| 구분 | 문제 |
-|------|------|
-| HUD.tsx | `var(--color-hud-gradient)`, `var(--color-dot-inactive)` 미정의 |
-| globals.css | 테마 분기 없이 전역 CSS 변수만 존재 |
-| 여러 컴포넌트 | 인라인 `style={{ background: '#e8c87c' }}` 하드코딩 |
-| shadcn 변수 | 테마와 무관한 별도 light/dark 체계 |
+| 구분          | 문제                                                            |
+| ------------- | --------------------------------------------------------------- |
+| HUD.tsx       | `var(--color-hud-gradient)`, `var(--color-dot-inactive)` 미정의 |
+| globals.css   | 테마 분기 없이 전역 CSS 변수만 존재                             |
+| 여러 컴포넌트 | 인라인 `style={{ background: '#e8c87c' }}` 하드코딩             |
+| shadcn 변수   | 테마와 무관한 별도 light/dark 체계                              |
 
 ### 2.2 현재 정의된 CSS 변수
 
@@ -57,14 +57,14 @@
 
 ### 2.3 컴포넌트별 색상 사용 현황
 
-| 컴포넌트 | CSS 변수 | 하드코딩 | Tailwind 유틸 |
-|---------|---------|---------|-------------|
-| HUD.tsx | `--color-gold` | 그라디언트 (이미 교체됨) | `text-gold`, `bg-gold` |
-| GoldButton.tsx | - | - | `bg-gold`, `text-bg`, `border-gold` |
-| ChHeader.tsx | - | - | `text-gold`, `text-fg` |
-| Ch07Fortune.tsx | - | 12가지 팔레트 하드코딩 | - |
-| PhotoFrame.tsx | - | 8가지 톤 하드코딩 | - |
-| Ch01~Ch09 | `--color-warm` | 부분 하드코딩 | `text-gold`, `text-fg`, `bg-warm` |
+| 컴포넌트        | CSS 변수       | 하드코딩                 | Tailwind 유틸                       |
+| --------------- | -------------- | ------------------------ | ----------------------------------- |
+| HUD.tsx         | `--color-gold` | 그라디언트 (이미 교체됨) | `text-gold`, `bg-gold`              |
+| GoldButton.tsx  | -              | -                        | `bg-gold`, `text-bg`, `border-gold` |
+| ChHeader.tsx    | -              | -                        | `text-gold`, `text-fg`              |
+| Ch07Fortune.tsx | -              | 12가지 팔레트 하드코딩   | -                                   |
+| PhotoFrame.tsx  | -              | 8가지 톤 하드코딩        | -                                   |
+| Ch01~Ch09       | `--color-warm` | 부분 하드코딩            | `text-gold`, `text-fg`, `bg-warm`   |
 
 ---
 
@@ -73,46 +73,49 @@
 ### 3.1 테마별 색상 팔레트
 
 #### `dark-gold` (기본 · 현재)
+
 > 콘셉트: 야간 갤러리, 럭셔리 웨딩
 
-| 변수 | 값 | 용도 |
-|------|-----|------|
-| `--color-bg` | `#0a0a0a` | 페이지 배경 |
-| `--color-fg` | `#f0e8d8` | 기본 텍스트 |
-| `--color-gold` | `#e8c87c` | 포인트 컬러 |
-| `--color-warm` | `#15110b` | 카드/섹션 배경 |
-| `--color-dim` | `rgba(240,232,216,.3)` | 구분선, 서브텍스트 |
-| `--color-overlay` | `rgba(10,10,10,.6)` | 오버레이 |
-| `--color-hud-gradient` | `linear-gradient(180deg, rgba(10,10,10,.96) 0%, rgba(10,10,10,.6) 80%, transparent 100%)` | HUD 배경 |
-| `--color-dot-inactive` | `rgba(240,232,216,.18)` | HUD 비활성 도트 |
+| 변수                   | 값                                                                                        | 용도               |
+| ---------------------- | ----------------------------------------------------------------------------------------- | ------------------ |
+| `--color-bg`           | `#0a0a0a`                                                                                 | 페이지 배경        |
+| `--color-fg`           | `#f0e8d8`                                                                                 | 기본 텍스트        |
+| `--color-gold`         | `#e8c87c`                                                                                 | 포인트 컬러        |
+| `--color-warm`         | `#15110b`                                                                                 | 카드/섹션 배경     |
+| `--color-dim`          | `rgba(240,232,216,.3)`                                                                    | 구분선, 서브텍스트 |
+| `--color-overlay`      | `rgba(10,10,10,.6)`                                                                       | 오버레이           |
+| `--color-hud-gradient` | `linear-gradient(180deg, rgba(10,10,10,.96) 0%, rgba(10,10,10,.6) 80%, transparent 100%)` | HUD 배경           |
+| `--color-dot-inactive` | `rgba(240,232,216,.18)`                                                                   | HUD 비활성 도트    |
 
 #### `ivory-rose`
+
 > 콘셉트: 낮의 정원, 로맨틱 클래식
 
-| 변수 | 값 | 용도 |
-|------|-----|------|
-| `--color-bg` | `#faf6f1` | 아이보리 배경 |
-| `--color-fg` | `#2d1f1a` | 딥 브라운 텍스트 |
-| `--color-gold` | `#b5736a` | 로즈골드 포인트 |
-| `--color-warm` | `#f0e6dc` | 카드/섹션 배경 |
-| `--color-dim` | `rgba(45,31,26,.25)` | 구분선, 서브텍스트 |
-| `--color-overlay` | `rgba(250,246,241,.7)` | 오버레이 |
-| `--color-hud-gradient` | `linear-gradient(180deg, rgba(250,246,241,.97) 0%, rgba(250,246,241,.7) 80%, transparent 100%)` | HUD 배경 |
-| `--color-dot-inactive` | `rgba(45,31,26,.18)` | HUD 비활성 도트 |
+| 변수                   | 값                                                                                              | 용도               |
+| ---------------------- | ----------------------------------------------------------------------------------------------- | ------------------ |
+| `--color-bg`           | `#faf6f1`                                                                                       | 아이보리 배경      |
+| `--color-fg`           | `#2d1f1a`                                                                                       | 딥 브라운 텍스트   |
+| `--color-gold`         | `#b5736a`                                                                                       | 로즈골드 포인트    |
+| `--color-warm`         | `#f0e6dc`                                                                                       | 카드/섹션 배경     |
+| `--color-dim`          | `rgba(45,31,26,.25)`                                                                            | 구분선, 서브텍스트 |
+| `--color-overlay`      | `rgba(250,246,241,.7)`                                                                          | 오버레이           |
+| `--color-hud-gradient` | `linear-gradient(180deg, rgba(250,246,241,.97) 0%, rgba(250,246,241,.7) 80%, transparent 100%)` | HUD 배경           |
+| `--color-dot-inactive` | `rgba(45,31,26,.18)`                                                                            | HUD 비활성 도트    |
 
 #### `sage-linen`
+
 > 콘셉트: 봄날 들판, 내추럴 미니멀
 
-| 변수 | 값 | 용도 |
-|------|-----|------|
-| `--color-bg` | `#f2ede6` | 린넨 배경 |
-| `--color-fg` | `#1e2820` | 딥 그린 텍스트 |
-| `--color-gold` | `#6b8c6e` | 세이지 포인트 |
-| `--color-warm` | `#e5ddd4` | 카드/섹션 배경 |
-| `--color-dim` | `rgba(30,40,32,.25)` | 구분선, 서브텍스트 |
-| `--color-overlay` | `rgba(242,237,230,.7)` | 오버레이 |
-| `--color-hud-gradient` | `linear-gradient(180deg, rgba(242,237,230,.97) 0%, rgba(242,237,230,.7) 80%, transparent 100%)` | HUD 배경 |
-| `--color-dot-inactive` | `rgba(30,40,32,.18)` | HUD 비활성 도트 |
+| 변수                   | 값                                                                                              | 용도               |
+| ---------------------- | ----------------------------------------------------------------------------------------------- | ------------------ |
+| `--color-bg`           | `#f2ede6`                                                                                       | 린넨 배경          |
+| `--color-fg`           | `#1e2820`                                                                                       | 딥 그린 텍스트     |
+| `--color-gold`         | `#6b8c6e`                                                                                       | 세이지 포인트      |
+| `--color-warm`         | `#e5ddd4`                                                                                       | 카드/섹션 배경     |
+| `--color-dim`          | `rgba(30,40,32,.25)`                                                                            | 구분선, 서브텍스트 |
+| `--color-overlay`      | `rgba(242,237,230,.7)`                                                                          | 오버레이           |
+| `--color-hud-gradient` | `linear-gradient(180deg, rgba(242,237,230,.97) 0%, rgba(242,237,230,.7) 80%, transparent 100%)` | HUD 배경           |
+| `--color-dot-inactive` | `rgba(30,40,32,.18)`                                                                            | HUD 비활성 도트    |
 
 ### 3.2 CSS 셀렉터 전략
 
@@ -162,12 +165,14 @@
 ### Phase 1 — CSS 변수 기반 완성 (globals.css)
 
 **작업 내용**
+
 1. `:root`에 `dark-gold` 전체 토큰 정의 (`--color-hud-gradient`, `--color-dot-inactive` 포함)
 2. `[data-theme='ivory-rose']` 블록 추가
 3. `[data-theme='sage-linen']` 블록 추가
 4. `@theme` 블록에 신규 변수 등록 (필요 시)
 
 **검증 기준**
+
 - `theme.config.ts`에서 `ACTIVE_THEME`을 세 가지로 바꿔가며 빌드 후 색상 전환 확인
 - HUD 그라디언트·도트 색상 정상 표시
 
@@ -177,13 +182,14 @@
 
 **대상 파일 및 작업**
 
-| 파일 | 현재 | 변경 |
-|------|------|------|
-| `components/ui/PhotoFrame.tsx` | 8개 톤 하드코딩 | CSS 변수 or `data-tone` 속성 분리 (테마 영향 최소화) |
-| `components/chapters/Ch07Fortune.tsx` | 12가지 팔레트 | 팔레트 자체는 유지, 배경/텍스트 오버레이만 변수화 |
-| 기타 chapter 컴포넌트 | `rgba(...)` 직접 사용 | `var(--color-overlay)` 등으로 치환 |
+| 파일                                  | 현재                  | 변경                                                 |
+| ------------------------------------- | --------------------- | ---------------------------------------------------- |
+| `components/ui/PhotoFrame.tsx`        | 8개 톤 하드코딩       | CSS 변수 or `data-tone` 속성 분리 (테마 영향 최소화) |
+| `components/chapters/Ch07Fortune.tsx` | 12가지 팔레트         | 팔레트 자체는 유지, 배경/텍스트 오버레이만 변수화    |
+| 기타 chapter 컴포넌트                 | `rgba(...)` 직접 사용 | `var(--color-overlay)` 등으로 치환                   |
 
 **원칙**
+
 - PhotoFrame·Fortune의 사진 톤은 테마와 무관한 콘텐츠 속성 → 변경하지 않음
 - 배경, 오버레이, 구분선, 텍스트 색상만 변수화
 
@@ -231,12 +237,12 @@ apps/wedding/
 
 ## 6. 비기능 요구사항
 
-| 항목 | 요구사항 |
-|------|---------|
-| 성능 | 테마 적용으로 인한 추가 JS 번들 없음 (순수 CSS) |
-| 빌드 | `ACTIVE_THEME` 변경 후 `pnpm build` 한 번으로 배포 가능 |
+| 항목     | 요구사항                                                              |
+| -------- | --------------------------------------------------------------------- |
+| 성능     | 테마 적용으로 인한 추가 JS 번들 없음 (순수 CSS)                       |
+| 빌드     | `ACTIVE_THEME` 변경 후 `pnpm build` 한 번으로 배포 가능               |
 | 유지보수 | 4번째 테마 추가 시 `theme.config.ts` 타입 + `globals.css` 블록만 추가 |
-| 접근성 | 각 테마의 텍스트/배경 대비비 WCAG AA 기준 충족 |
+| 접근성   | 각 테마의 텍스트/배경 대비비 WCAG AA 기준 충족                        |
 
 ---
 
