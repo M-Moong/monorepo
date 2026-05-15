@@ -29,10 +29,7 @@ export function HUD({
       {/* HUD 바 */}
       <div
         className="sticky top-0 z-50 flex items-center justify-between px-[14px] pb-[10px] pt-3 backdrop-blur-[8px]"
-        style={{
-          background:
-            'linear-gradient(180deg, rgba(10,10,10,.96) 0%, rgba(10,10,10,.6) 80%, transparent 100%)',
-        }}
+        style={{ background: 'var(--color-hud-gradient)' }}
       >
         {/* 챕터 번호 */}
         <div className="text-gold text-[9px] tracking-[.3em]">
@@ -46,7 +43,9 @@ export function HUD({
               key={i}
               onClick={() => jumpTo(i)}
               className="h-[1.5px] w-3 cursor-pointer border-0 p-0 transition-[background] duration-300"
-              style={{ background: i <= chapter ? '#e8c87c' : 'rgba(240,232,216,.18)' }}
+              style={{
+                background: i <= chapter ? 'var(--color-gold)' : 'var(--color-dot-inactive)',
+              }}
             />
           ))}
         </div>

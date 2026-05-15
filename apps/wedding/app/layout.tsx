@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Cormorant_Garamond, Space_Grotesk } from 'next/font/google';
 import './globals.css';
+import { ACTIVE_THEME } from '@/config/theme.config';
 
 const cormorant = Cormorant_Garamond({
   variable: '--font-serif',
@@ -31,7 +32,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ko">
+    <html lang="ko" data-theme={ACTIVE_THEME}>
       <body className={`${cormorant.variable} ${spaceGrotesk.variable}`}>{children}</body>
     </html>
   );
