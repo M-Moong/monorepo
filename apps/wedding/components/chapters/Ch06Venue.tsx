@@ -6,9 +6,16 @@ import { ChHeader } from '@/components/ui/ChHeader';
 import { WEDDING, TransportKey } from '@/data/wedding';
 
 const TRANSPORT_KEYS: TransportKey[] = ['subway', 'bus', 'car', 'taxi'];
+type MapProvider = 'kakao' | 'naver';
+
+const MAP_PROVIDERS: { key: MapProvider; label: string }[] = [
+  { key: 'kakao', label: '카카오맵' },
+  { key: 'naver', label: '네이버지도' },
+];
 
 export function Ch06Venue() {
   const [tab, setTab] = useState<TransportKey>('subway');
+  const [mapProvider, setMapProvider] = useState<MapProvider>('kakao');
   const dir = WEDDING.venue.transport[tab];
 
   return (
@@ -140,16 +147,41 @@ export function Ch06Venue() {
         {dir.body}
       </div>
 
-      {/* 지도 버튼 */}
-      <div className="mt-[14px] grid grid-cols-3 gap-1">
-        {['T MAP', 'KAKAO', 'NAVER'].map((n) => (
-          <button
-            key={n}
-            className="border-fg/20 text-fg cursor-pointer border bg-transparent py-3 text-[10px] tracking-[.2em]"
-          >
-            {n} →
-          </button>
-        ))}
+      {/* 지도 앱 탭 */}
+      <div className="mt-[14px]">
+        <div className="mb-2 grid grid-cols-2 gap-1">
+          {MAP_PROVIDERS.map(({ key, label }) => (
+            <button
+              key={key}
+              onClick={() => setMapProvider(key)}
+              className={`cursor-pointer border py-2.5 text-[10px] tracking-[.2em] transition-all duration-200 ${
+                mapProvider === key
+                  ? 'bg-gold text-bg border-gold'
+                  : 'text-fg border-fg/[.15] bg-transparent'
+              }`}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+
+        <a
+          href={WEDDING.venue.mapUrls[mapProvider]}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="border-gold text-gold mb-1 flex w-full cursor-pointer items-center justify-center border bg-transparent py-3 text-[11px] tracking-[.2em] transition-opacity duration-150 active:opacity-70"
+        >
+          {mapProvider === 'kakao' ? '카카오맵' : '네이버지도'}으로 열기 →
+        </a>
+
+        <a
+          href={WEDDING.venue.mapUrls.tmap}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="border-fg/20 text-fg/50 flex w-full cursor-pointer items-center justify-center border bg-transparent py-2 text-[10px] tracking-[.2em] transition-opacity duration-150 active:opacity-70"
+        >
+          T MAP →
+        </a>
       </div>
     </ChapterSection>
   );

@@ -31,6 +31,11 @@ export const WEDDING = {
     address: '서울시 용산구 소월로 322',
     detail: '본관 3층 그랜드볼룸',
     mapUrl: '',
+    mapUrls: {
+      kakao: 'https://map.kakao.com/link/map/그랜드하얏트서울,37.539565,126.992161',
+      naver: 'https://map.naver.com/v5/search/그랜드하얏트서울',
+      tmap: 'https://tmap.life/place?lat=37.539565&lng=126.992161&name=그랜드하얏트서울',
+    },
     transport: {
       subway: {
         icon: '🚇',
