@@ -193,7 +193,7 @@ export function Ch08Guestbook() {
           ))}
         </div>
 
-        {error && <p className="text-[11px] text-red-400 mb-2">{error}</p>}
+        {error && <p className="mb-2 text-[11px] text-red-400">{error}</p>}
 
         <button
           onClick={submit}
