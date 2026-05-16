@@ -1,20 +1,11 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import type { GuestEntry } from '@repo/types';
 import { ChapterSection } from '@/components/ui/ChapterSection';
 import { ChHeader } from '@/components/ui/ChHeader';
 
 type AttendStatus = 'yes' | 'maybe' | 'no' | null;
-
-interface GuestEntry {
-  id: string;
-  name: string;
-  message: string;
-  reaction: string;
-  side: string;
-  attend: string | null;
-  createdAt: string;
-}
 
 const REACTIONS = ['🥹', '🥂', '✨', '🫶', '📷', '🎉', '💍', '🌷'];
 
