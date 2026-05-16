@@ -44,3 +44,6 @@ next-env.d.ts
 prisma/*.db
 prisma/*.db-journal
 !.env.example
+
+# 자동 생성된 플레이스홀더 사진 (실제 사진으로 교체 시 이 줄 제거)
+/public/photos/

@@ -62,15 +62,15 @@ export const WEDDING = {
   },
 
   photos: [
-    '/photos/01.jpg',
-    '/photos/02.jpg',
-    '/photos/03.jpg',
-    '/photos/04.jpg',
-    '/photos/05.jpg',
-    '/photos/06.jpg',
-    '/photos/07.jpg',
-    '/photos/08.jpg',
-    '/photos/09.jpg',
+    '/photos/01.png',
+    '/photos/02.png',
+    '/photos/03.png',
+    '/photos/04.png',
+    '/photos/05.png',
+    '/photos/06.png',
+    '/photos/07.png',
+    '/photos/08.png',
+    '/photos/09.png',
   ],
 } as const;
 
