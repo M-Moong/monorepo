@@ -21,17 +21,17 @@ importers:
         specifier: 5.9.2
         version: 5.9.2
 
-  apps/api:
+  apps/wedding/backend:
     dependencies:
       '@prisma/client':
         specifier: ^5.22.0
         version: 5.22.0(prisma@5.22.0)
       '@repo/eslint-config':
         specifier: workspace:*
-        version: link:../../packages/eslint-config
+        version: link:../../../packages/eslint-config
       '@repo/types':
         specifier: workspace:*
-        version: link:../../packages/types
+        version: link:../../../packages/types
       next:
         specifier: 16.1.6
         version: 16.1.6(@babel/core@7.29.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
@@ -47,7 +47,7 @@ importers:
     devDependencies:
       '@repo/typescript-config':
         specifier: workspace:*
-        version: link:../../packages/typescript-config
+        version: link:../../../packages/typescript-config
       '@types/node':
         specifier: ^20
         version: 20.19.41
@@ -67,14 +67,14 @@ importers:
         specifier: ^5
         version: 5.9.2
 
-  apps/web:
+  apps/wedding/frontend:
     dependencies:
       '@repo/types':
         specifier: workspace:*
-        version: link:../../packages/types
+        version: link:../../../packages/types
       '@repo/ui':
         specifier: workspace:*
-        version: link:../../packages/ui
+        version: link:../../../packages/ui
       lucide-react:
         specifier: ^1.14.0
         version: 1.14.0(react@19.2.3)
@@ -90,7 +90,7 @@ importers:
     devDependencies:
       '@repo/eslint-config':
         specifier: workspace:*
-        version: link:../../packages/eslint-config
+        version: link:../../../packages/eslint-config
       '@tailwindcss/postcss':
         specifier: ^4
         version: 4.3.0

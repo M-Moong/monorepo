@@ -1,31 +1,30 @@
 {
-  "name": "web",
+  "name": "wedding-backend",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3000",
+    "dev": "next dev -p 3001",
     "build": "next build",
-    "start": "next start -p 3000",
+    "start": "next start -p 3001",
     "lint": "eslint",
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
+    "@prisma/client": "^5.22.0",
+    "@repo/eslint-config": "workspace:*",
     "@repo/types": "workspace:*",
-    "@repo/ui": "workspace:*",
-    "lucide-react": "^1.14.0",
     "next": "16.1.6",
+    "prisma": "^5.22.0",
     "react": "19.2.3",
     "react-dom": "19.2.3"
   },
   "devDependencies": {
-    "@repo/eslint-config": "workspace:*",
-    "@tailwindcss/postcss": "^4",
+    "@repo/typescript-config": "workspace:*",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
-    "tailwindcss": "^4",
     "typescript": "^5"
   }
 }
