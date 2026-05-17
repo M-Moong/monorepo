@@ -1,0 +1,20 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+// 로컬 개발: SQLite (file:./dev.db)
+// 배포(Supabase): provider를 "postgresql"로 변경 후 DATABASE_URL 교체
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model GuestEntry {
+  id        String   @id @default(cuid())
+  name      String
+  message   String
+  reaction  String   @default("🫶")
+  side      String   @default("guest") // "groom" | "bride" | "guest"
+  attend    String? // "yes" | "maybe" | "no"
+  createdAt DateTime @default(now())
+}

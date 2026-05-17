@@ -1,0 +1,27 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "pnpm --filter wedding lint 2>&1 | tail -10 && pnpm --filter wedding build 2>&1 | tail -15",
+            "timeout": 120,
+            "statusMessage": "lint & build 검사 중..."
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cmd=$(jq -r '.tool_input.command // empty' 2>/dev/null); if echo \"$cmd\" | grep -qE '^npm( |$)'; then echo '{\"decision\":\"block\",\"reason\":\"npm 사용 금지: pnpm을 사용하세요.\"}'; fi"
+          }
+        ]
+      }
+    ]
+  }
+}
