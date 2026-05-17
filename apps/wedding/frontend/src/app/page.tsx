@@ -13,12 +13,14 @@ import { Ch08Guestbook } from '@/components/chapters/Ch08Guestbook';
 import { Ch09Finale } from '@/components/chapters/Ch09Finale';
 import { useScroll } from '@/hooks/useScroll';
 import { useBGM } from '@/hooks/useBGM';
+import { Splash } from '@/components/ui/Splash';
 
 const TOTAL_CHAPTERS = 9;
 
 export default function InvitationPage() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [sound, setSound] = useState(false);
+  const [splashDone, setSplashDone] = useState(false);
   const { chapter, progressPct } = useScroll(containerRef);
   useBGM(sound);
 
@@ -29,6 +31,7 @@ export default function InvitationPage() {
 
   return (
     <div className="bg-bg flex min-h-dvh items-start justify-center">
+      {!splashDone && <Splash onDone={() => setSplashDone(true)} />}
       {/* 모바일 프레임 */}
       <div className="relative w-full max-w-[390px]">
         <div
