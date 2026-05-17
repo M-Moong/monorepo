@@ -22,7 +22,7 @@ export function Ch02Invite() {
       <p className="text-fg mb-[26px] whitespace-pre-line font-serif text-[17px] italic leading-[1.85]">
         {WEDDING.inviteMessage.split('\n').map((line, i, arr) => (
           <span key={i}>
-            {i === 3 ? <span className="text-gold">{line}</span> : line}
+            {i === WEDDING.inviteHighlightLine ? <span className="text-gold">{line}</span> : line}
             {i < arr.length - 1 && <br />}
           </span>
         ))}

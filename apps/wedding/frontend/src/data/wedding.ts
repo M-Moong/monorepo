@@ -24,6 +24,7 @@ export const WEDDING = {
   },
 
   inviteMessage: `함께 걸어온 5년의 길 끝에서\n새로운 길의 시작을 약속하려 합니다.\n\n맑은 가을 어느 토요일,\n가장 아끼는 분들 앞에서\n서로의 평생을 약속하는 자리에\n당신을 정중히 모십니다.`,
+  inviteHighlightLine: 3,
 
   venue: {
     name: '그랜드하얏트 서울 그랜드볼룸',

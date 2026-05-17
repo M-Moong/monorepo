@@ -14,7 +14,10 @@ export function GuestbookStats({ total, groomCount, brideCount }: GuestbookStats
   return (
     <div className="bg-warm border-fg/[.08] mb-[22px] grid grid-cols-3 border">
       {stats.map(([label, count]) => (
-        <div key={label} className="border-fg/[.06] border-r px-1 py-[14px] text-center">
+        <div
+          key={label}
+          className="border-fg/[.06] border-r px-1 py-[14px] text-center last:border-r-0"
+        >
           <div className="text-gold font-serif text-[26px] italic tabular-nums leading-none">
             {count}
           </div>

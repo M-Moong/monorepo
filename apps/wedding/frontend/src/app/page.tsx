@@ -63,7 +63,7 @@ export default function InvitationPage() {
         {chapter > 0 && chapter < 7 && (
           <button
             onClick={jumpToGuestbook}
-            className="z-60 bg-gold text-bg animate-pulse-btn fixed bottom-5 right-5 cursor-pointer border-0 px-4 py-3 text-[10px] font-bold tracking-[.25em]"
+            className="bg-gold text-bg animate-pulse-btn absolute bottom-5 right-5 z-[60] cursor-pointer border-0 px-4 py-3 text-[10px] font-bold tracking-[.25em]"
           >
             방명록 →
           </button>

@@ -3,12 +3,14 @@
 import { useState } from 'react';
 
 export type AttendStatus = 'yes' | 'maybe' | 'no' | null;
+export type Side = 'groom' | 'bride' | null;
 
 export interface GuestbookFormData {
   name: string;
   message: string;
   reaction: string | null;
   attend: AttendStatus;
+  side: Side;
 }
 
 interface GuestbookFormProps {
@@ -23,6 +25,11 @@ const ATTEND_OPTIONS: [AttendStatus, string][] = [
   ['no', '못 가요'],
 ];
 
+const SIDE_OPTIONS: [Side, string][] = [
+  ['groom', '신랑측'],
+  ['bride', '신부측'],
+];
+
 const inputClass =
   'w-full py-3 bg-transparent border-0 border-b border-fg/30 text-fg text-[15px] outline-none box-border placeholder:text-fg/30';
 
@@ -31,6 +38,7 @@ export function GuestbookForm({ onSubmit }: GuestbookFormProps) {
   const [msg, setMsg] = useState('');
   const [reaction, setReaction] = useState<string | null>(null);
   const [attend, setAttend] = useState<AttendStatus>(null);
+  const [side, setSide] = useState<Side>(null);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -41,11 +49,12 @@ export function GuestbookForm({ onSubmit }: GuestbookFormProps) {
     setSubmitting(true);
     setError(null);
     try {
-      await onSubmit({ name, message: msg, reaction, attend });
+      await onSubmit({ name, message: msg, reaction, attend, side });
       setName('');
       setMsg('');
       setReaction(null);
       setAttend(null);
+      setSide(null);
     } catch (err) {
       setError(err instanceof Error ? err.message : '저장에 실패했어요.');
     } finally {
@@ -84,6 +93,23 @@ export function GuestbookForm({ onSubmit }: GuestbookFormProps) {
             }`}
           >
             {r}
+          </button>
+        ))}
+      </div>
+
+      <div className="text-fg/55 mb-2 text-[9px] tracking-[.3em]">
+        어느 분 쪽으로 오시나요? (선택)
+      </div>
+      <div className="mb-[14px] grid grid-cols-2 gap-1">
+        {SIDE_OPTIONS.map(([k, l]) => (
+          <button
+            key={k}
+            onClick={() => setSide(side === k ? null : k)}
+            className={`cursor-pointer border py-2.5 text-[11px] tracking-[.05em] transition-all duration-200 ${
+              side === k ? 'bg-gold text-bg border-gold' : 'text-fg border-fg/[.18] bg-transparent'
+            }`}
+          >
+            {l}
           </button>
         ))}
       </div>
