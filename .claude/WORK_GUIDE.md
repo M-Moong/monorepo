@@ -24,6 +24,7 @@
 | 신부 부모       | `이상철 · 박미경`                  | `bride.father` / `bride.mother`          |
 | 신부 소개글     | `문장이 되는 사람` 외              | `bride.tagline` / `bride.facts[]`        |
 | 초대 문구       | `함께 걸어온 5년...`               | `inviteMessage` (개행은 `\n` 사용)       |
+| 초대 문구 강조줄 | `3` (0-based 인덱스)              | `inviteHighlightLine` — 금색으로 표시할 줄 번호 |
 | 예식장 이름     | `그랜드하얏트 서울 그랜드볼룸`     | `venue.name`                             |
 | 예식장 약칭     | `그랜드하얏트 서울`                | `venue.short`                            |
 | 예식장 상세     | `본관 3층 그랜드볼룸`              | `venue.detail`                           |
