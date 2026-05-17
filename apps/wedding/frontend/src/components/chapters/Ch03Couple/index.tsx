@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { ChapterSection } from '@/components/ui/ChapterSection';
 import { ChHeader } from '@/components/ui/ChHeader';
-import { CoupleCard, CoupleCardData } from '@/components/ui/CoupleCard';
+import { CoupleCard, CoupleCardData } from './CoupleCard';
 import { WEDDING } from '@/data/wedding';
 
 const CARDS: CoupleCardData[] = [

@@ -1,7 +1,7 @@
 import { ChapterSection } from '@/components/ui/ChapterSection';
 import { ChHeader } from '@/components/ui/ChHeader';
-import { AccountSection } from '@/components/ui/AccountSection';
-import { ShareButtons } from '@/components/ui/ShareButtons';
+import { AccountSection } from './AccountSection';
+import { ShareButtons } from './ShareButtons';
 import { WEDDING } from '@/data/wedding';
 
 export function Ch09Finale() {

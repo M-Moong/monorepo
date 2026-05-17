@@ -1,8 +1,8 @@
 import { ChapterSection } from '@/components/ui/ChapterSection';
 import { ChHeader } from '@/components/ui/ChHeader';
-import { VenueMap } from '@/components/ui/VenueMap';
-import { TransportTabs } from '@/components/ui/TransportTabs';
-import { MapLinks } from '@/components/ui/MapLinks';
+import { VenueMap } from './VenueMap';
+import { TransportTabs } from './TransportTabs';
+import { MapLinks } from './MapLinks';
 import { WEDDING } from '@/data/wedding';
 
 export function Ch06Venue() {

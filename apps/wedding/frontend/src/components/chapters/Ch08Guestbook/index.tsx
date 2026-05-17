@@ -4,9 +4,9 @@ import { useEffect, useState } from 'react';
 import type { GuestEntry } from '@repo/types';
 import { ChapterSection } from '@/components/ui/ChapterSection';
 import { ChHeader } from '@/components/ui/ChHeader';
-import { GuestbookStats } from '@/components/ui/GuestbookStats';
-import { GuestbookForm, GuestbookFormData } from '@/components/ui/GuestbookForm';
-import { GuestbookEntry } from '@/components/ui/GuestbookEntry';
+import { GuestbookStats } from './GuestbookStats';
+import { GuestbookForm, GuestbookFormData } from './GuestbookForm';
+import { GuestbookEntry } from './GuestbookEntry';
 
 export function Ch08Guestbook() {
   const [entries, setEntries] = useState<GuestEntry[]>([]);

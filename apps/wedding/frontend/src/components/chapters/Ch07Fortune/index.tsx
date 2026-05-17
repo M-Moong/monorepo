@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { ChapterSection } from '@/components/ui/ChapterSection';
 import { ChHeader } from '@/components/ui/ChHeader';
-import { FortuneCard } from '@/components/ui/FortuneCard';
+import { FortuneCard } from './FortuneCard';
 import { VIBES, PALETTES } from '@/data/fortune';
 
 export function Ch07Fortune() {
