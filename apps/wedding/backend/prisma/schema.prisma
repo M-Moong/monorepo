@@ -2,11 +2,11 @@ generator client {
   provider = "prisma-client-js"
 }
 
-// 로컬 개발: SQLite (file:./dev.db)
-// 배포(Supabase): provider를 "postgresql"로 변경 후 DATABASE_URL 교체
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  // Supabase connection pooling (Vercel 서버리스 환경)
+  directUrl = env("DIRECT_URL")
 }
 
 model GuestEntry {

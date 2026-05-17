@@ -8,41 +8,44 @@ import { GuestbookStats } from './GuestbookStats';
 import { GuestbookForm, GuestbookFormData } from './GuestbookForm';
 import { GuestbookEntry } from './GuestbookEntry';
 
+const POLL_INTERVAL = 10_000;
+
+async function fetchEntries(): Promise<GuestEntry[]> {
+  const r = await fetch('/api/guestbook');
+  const data = await r.json();
+  return Array.isArray(data) ? data : [];
+}
+
 export function Ch08Guestbook() {
   const [entries, setEntries] = useState<GuestEntry[]>([]);
   const [loading, setLoading] = useState(true);
-  const seenIds = useRef(new Set<string>());
+  const latestIdRef = useRef<string | null>(null);
 
-  // 초기 목록 로드
+  // 초기 로드
   useEffect(() => {
-    fetch('/api/guestbook')
-      .then((r) => r.json())
-      .then((data: GuestEntry[]) => {
-        if (Array.isArray(data)) {
-          data.forEach((e) => seenIds.current.add(e.id));
-          setEntries(data);
-        }
+    fetchEntries()
+      .then((data) => {
+        setEntries(data);
+        latestIdRef.current = data[0]?.id ?? null;
       })
       .catch(() => {})
       .finally(() => setLoading(false));
   }, []);
 
-  // SSE 실시간 수신 — 다른 사람이 남긴 방명록 즉시 반영
+  // 폴링 — 10초마다 새 항목 확인
   useEffect(() => {
-    const es = new EventSource('/api/guestbook/stream');
-
-    es.onmessage = (e) => {
+    const timer = setInterval(async () => {
       try {
-        const data = JSON.parse(e.data) as GuestEntry & { type?: string };
-        if (data.type === 'connected' || !data.id || seenIds.current.has(data.id)) return;
-        seenIds.current.add(data.id);
-        setEntries((prev) => [data, ...prev]);
+        const data = await fetchEntries();
+        if (data[0]?.id !== latestIdRef.current) {
+          setEntries(data);
+          latestIdRef.current = data[0]?.id ?? null;
+        }
       } catch {
-        // 파싱 실패 무시
+        // 네트워크 오류 무시
       }
-    };
-
-    return () => es.close();
+    }, POLL_INTERVAL);
+    return () => clearInterval(timer);
   }, []);
 
   const handleSubmit = async (data: GuestbookFormData) => {
@@ -55,7 +58,10 @@ export function Ch08Guestbook() {
       const d = await res.json();
       throw new Error(d.error ?? '저장에 실패했어요.');
     }
-    // SSE로 자동 수신되므로 수동 추가 불필요
+    // 제출 후 즉시 반영
+    const newEntry: GuestEntry = await res.json();
+    setEntries((prev) => [newEntry, ...prev]);
+    latestIdRef.current = newEntry.id;
   };
 
   const counts = entries.reduce<Record<string, number>>(

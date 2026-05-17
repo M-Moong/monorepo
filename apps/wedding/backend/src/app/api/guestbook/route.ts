@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { emitNewEntry } from '@/lib/emitter';
 
 export async function GET() {
   try {
@@ -31,7 +30,6 @@ export async function POST(req: Request) {
       },
     });
 
-    emitNewEntry({ ...entry, createdAt: entry.createdAt.toISOString() });
     return NextResponse.json(entry, { status: 201 });
   } catch {
     return NextResponse.json({ error: '저장 실패' }, { status: 500 });
