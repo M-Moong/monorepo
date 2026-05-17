@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { GuestEntry } from '@repo/types';
 import { ChapterSection } from '@/components/ui/ChapterSection';
 import { ChHeader } from '@/components/ui/ChHeader';
@@ -11,15 +11,38 @@ import { GuestbookEntry } from './GuestbookEntry';
 export function Ch08Guestbook() {
   const [entries, setEntries] = useState<GuestEntry[]>([]);
   const [loading, setLoading] = useState(true);
+  const seenIds = useRef(new Set<string>());
 
+  // 초기 목록 로드
   useEffect(() => {
     fetch('/api/guestbook')
       .then((r) => r.json())
-      .then((data) => {
-        if (Array.isArray(data)) setEntries(data);
+      .then((data: GuestEntry[]) => {
+        if (Array.isArray(data)) {
+          data.forEach((e) => seenIds.current.add(e.id));
+          setEntries(data);
+        }
       })
       .catch(() => {})
       .finally(() => setLoading(false));
+  }, []);
+
+  // SSE 실시간 수신 — 다른 사람이 남긴 방명록 즉시 반영
+  useEffect(() => {
+    const es = new EventSource('/api/guestbook/stream');
+
+    es.onmessage = (e) => {
+      try {
+        const data = JSON.parse(e.data) as GuestEntry & { type?: string };
+        if (data.type === 'connected' || !data.id || seenIds.current.has(data.id)) return;
+        seenIds.current.add(data.id);
+        setEntries((prev) => [data, ...prev]);
+      } catch {
+        // 파싱 실패 무시
+      }
+    };
+
+    return () => es.close();
   }, []);
 
   const handleSubmit = async (data: GuestbookFormData) => {
@@ -32,8 +55,7 @@ export function Ch08Guestbook() {
       const d = await res.json();
       throw new Error(d.error ?? '저장에 실패했어요.');
     }
-    const newEntry: GuestEntry = await res.json();
-    setEntries((prev) => [newEntry, ...prev]);
+    // SSE로 자동 수신되므로 수동 추가 불필요
   };
 
   const counts = entries.reduce<Record<string, number>>(
