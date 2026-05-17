@@ -227,3 +227,47 @@ body {
     box-shadow: 0 6px 28px color-mix(in srgb, var(--color-gold) 60%, transparent);
   }
 }
+
+@keyframes splash-particle {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-60px) scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes splash-seam-glow {
+  0%,
+  100% {
+    opacity: 0.5;
+    box-shadow: 0 0 6px color-mix(in srgb, var(--color-gold) 40%, transparent);
+  }
+  50% {
+    opacity: 1;
+    box-shadow: 0 0 18px color-mix(in srgb, var(--color-gold) 80%, transparent);
+  }
+}
+
+@keyframes splash-initial-float {
+  0%,
+  100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-6px);
+  }
+}
+
+@keyframes splash-bloom {
+  0% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
