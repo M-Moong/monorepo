@@ -31,7 +31,7 @@ export function Lightbox({ index, total, tones, photos, onClose, onPrev, onNext 
   return (
     <div
       onClick={onClose}
-      className="bg-bg/95 absolute inset-0 z-[100] flex flex-col items-center justify-center p-5"
+      className="bg-bg/95 fixed inset-0 z-[100] flex flex-col items-center justify-center p-5"
     >
       <div className="aspect-[3/4] max-h-[70%] w-full" onClick={(e) => e.stopPropagation()}>
         {hasRealPhoto ? (

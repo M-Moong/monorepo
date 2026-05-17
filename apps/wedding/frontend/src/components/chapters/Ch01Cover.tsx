@@ -19,17 +19,35 @@ export function Ch01Cover() {
 
         {/* 대형 display */}
         <div className="text-fg font-serif text-[88px] font-light italic leading-[0.85] tracking-[-0.02em]">
-          until
-          <br />
-          <span className="text-gold">we</span>
-          <br />
-          meet
+          {cd.isPast ? (
+            <>
+              we
+              <br />
+              <span className="text-gold">did</span>
+              <br />
+              meet
+            </>
+          ) : (
+            <>
+              until
+              <br />
+              <span className="text-gold">we</span>
+              <br />
+              meet
+            </>
+          )}
         </div>
 
         {/* D-Day */}
         <div className="text-fg/60 mt-7 text-[11px] tabular-nums tracking-[.3em]">
-          <span className="text-gold text-[18px]">{cd.d}</span> DAYS · {cd.h}H {cd.m}M{' '}
-          {String(cd.s).padStart(2, '0')}S
+          {cd.isPast ? (
+            <span className="text-gold text-[15px] tracking-[.2em]">MARRIED · 17.10.2026</span>
+          ) : (
+            <>
+              <span className="text-gold text-[18px]">{cd.d}</span> DAYS · {cd.h}H {cd.m}M{' '}
+              {String(cd.s).padStart(2, '0')}S
+            </>
+          )}
         </div>
 
         {/* 이름 */}
