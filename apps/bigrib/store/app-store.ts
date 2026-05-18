@@ -1,5 +1,4 @@
-import { create } from "zustand";
-import { devtools } from "zustand/middleware";
+import { createStore } from "@repo/store/create-store";
 
 interface AppState {
   count: number;
@@ -8,14 +7,9 @@ interface AppState {
   reset: () => void;
 }
 
-export const useAppStore = create<AppState>()(
-  devtools(
-    (set) => ({
-      count: 0,
-      increment: () => set((state) => ({ count: state.count + 1 })),
-      decrement: () => set((state) => ({ count: state.count - 1 })),
-      reset: () => set({ count: 0 }),
-    }),
-    { name: "app-store" }
-  )
-);
+export const useAppStore = createStore<AppState>("app-store", (set) => ({
+  count: 0,
+  increment: () => set((state) => ({ count: state.count + 1 })),
+  decrement: () => set((state) => ({ count: state.count - 1 })),
+  reset: () => set({ count: 0 }),
+}));
