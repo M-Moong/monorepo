@@ -12,6 +12,7 @@ export function Ch07Fortune() {
   const [copied, setCopied] = useState(false);
 
   const v = VIBES[idx];
+  if (!v) return null;
 
   const next = () => {
     setFlipping(true);
@@ -57,7 +58,7 @@ export function Ch07Fortune() {
 
       <FortuneCard
         vibe={v}
-        palette={PALETTES[idx % PALETTES.length]}
+        palette={PALETTES[idx % PALETTES.length]!}
         idx={idx}
         total={VIBES.length}
         flipping={flipping}
