@@ -1,0 +1,23 @@
+{
+  "$schema": "https://turborepo.dev/schema.json",
+  // 루트 turbo.json 파이프라인(build, dev, lint, check-types)을 상속합니다.
+  // 이 파일은 wedding 앱 전용 태스크만 추가·오버라이드하는 용도입니다.
+  "extends": ["//"],
+  "tasks": {
+    // ──────────────────────────────────────────────────────
+    // wedding 앱 전용 태스크를 여기에 정의하세요.
+    //
+    // 예) DB 관련 태스크
+    // "db:generate": {
+    //   "cache": false
+    // },
+    // "db:migrate": {
+    //   "cache": false,
+    //   "dependsOn": ["db:generate"]
+    // },
+    // "db:push": {
+    //   "cache": false
+    // }
+    // ──────────────────────────────────────────────────────
+  }
+}
