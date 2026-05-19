@@ -1,9 +1,9 @@
-import { ChapterSection } from '@/components/ui/ChapterSection';
-import { ChHeader } from '@/components/ui/ChHeader';
-import { VenueMap } from './VenueMap';
-import { TransportTabs } from './TransportTabs';
-import { MapLinks } from './MapLinks';
-import { WEDDING } from '@/data/wedding';
+import { ChapterSection } from "@/components/ui/ChapterSection";
+import { ChHeader } from "@/components/ui/ChHeader";
+import { VenueMap } from "./VenueMap";
+import { TransportTabs } from "./TransportTabs";
+import { MapLinks } from "./MapLinks";
+import { WEDDING } from "@/data/wedding";
 
 export function Ch06Venue() {
   return (
@@ -22,10 +22,16 @@ export function Ch06Venue() {
 
       <VenueMap />
 
-      <div className="border-fg/[.15] mb-[14px] border-b border-t py-[14px]">
-        <div className="text-fg font-serif text-[22px] italic">{WEDDING.venue.short}</div>
-        <div className="text-fg/65 mt-1 text-[11px]">{WEDDING.venue.detail}</div>
-        <div className="text-fg/50 mt-2 font-mono text-[11px]">{WEDDING.venue.address}</div>
+      <div className="mb-[14px] border-t border-b border-fg/[.15] py-[14px]">
+        <div className="font-serif text-[22px] text-fg italic">
+          {WEDDING.venue.short}
+        </div>
+        <div className="mt-1 text-[11px] text-fg/65">
+          {WEDDING.venue.detail}
+        </div>
+        <div className="mt-2 font-mono text-[11px] text-fg/50">
+          {WEDDING.venue.address}
+        </div>
       </div>
 
       <TransportTabs />

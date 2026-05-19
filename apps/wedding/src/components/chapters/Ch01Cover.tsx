@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { ChapterSection } from '@/components/ui/ChapterSection';
-import { useCountdown } from '@/hooks/useCountdown';
-import { WEDDING } from '@/data/wedding';
+import { ChapterSection } from "@/components/ui/ChapterSection";
+import { useCountdown } from "@/hooks/useCountdown";
+import { WEDDING } from "@/data/wedding";
 
 export function Ch01Cover() {
   const cd = useCountdown(WEDDING.date);
@@ -13,12 +13,12 @@ export function Ch01Cover() {
       <div className="cover-glow pointer-events-none absolute inset-0" />
 
       <div className="relative text-center">
-        <div className="text-gold animate-shimmer mb-7 text-[9px] tracking-[.5em]">
+        <div className="mb-7 animate-shimmer text-[9px] tracking-[.5em] text-gold">
           ★ A LOVE STORY ★
         </div>
 
         {/* 대형 display */}
-        <div className="text-fg font-serif text-[88px] font-light italic leading-[0.85] tracking-[-0.02em]">
+        <div className="font-serif text-[88px] leading-[0.85] font-light tracking-[-0.02em] text-fg italic">
           {cd.isPast ? (
             <>
               we
@@ -39,27 +39,33 @@ export function Ch01Cover() {
         </div>
 
         {/* D-Day */}
-        <div className="text-fg/60 mt-7 text-[11px] tabular-nums tracking-[.3em]">
+        <div className="mt-7 text-[11px] tracking-[.3em] text-fg/60 tabular-nums">
           {cd.isPast ? (
-            <span className="text-gold text-[15px] tracking-[.2em]">MARRIED · 17.10.2026</span>
+            <span className="text-[15px] tracking-[.2em] text-gold">
+              MARRIED · {WEDDING.dateShort}
+            </span>
           ) : (
             <>
-              <span className="text-gold text-[18px]">{cd.d}</span> DAYS · {cd.h}H {cd.m}M{' '}
-              {String(cd.s).padStart(2, '0')}S
+              <span className="text-[18px] text-gold">{cd.d}</span> DAYS ·{" "}
+              {cd.h}H {cd.m}M {String(cd.s).padStart(2, "0")}S
             </>
           )}
         </div>
 
         {/* 이름 */}
-        <div className="text-fg mt-[30px] font-serif text-2xl italic">Minjun &amp; Seoyeon</div>
+        <div className="mt-[30px] font-serif text-2xl text-fg italic">
+          {WEDDING.groom.en} &amp; {WEDDING.bride.en}
+        </div>
 
-        <div className="text-fg/50 mt-2 text-[10px] tracking-[.3em]">17 · 10 · 2026</div>
+        <div className="mt-2 text-[10px] tracking-[.3em] text-fg/50">
+          {WEDDING.dateShort}
+        </div>
       </div>
 
       {/* 스크롤 유도 화살표 */}
-      <div className="text-fg/40 animate-drift absolute bottom-8 left-1/2 text-center">
+      <div className="absolute bottom-8 left-1/2 animate-drift text-center text-fg/40">
         <div className="mb-1.5 text-[9px] tracking-[.3em]">SCROLL</div>
-        <div className="bg-fg/40 mx-auto h-7 w-px" />
+        <div className="mx-auto h-7 w-px bg-fg/40" />
       </div>
     </ChapterSection>
   );

@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { WEDDING, TransportKey } from '@/data/wedding';
+import { useState } from "react";
+import { WEDDING, TransportKey } from "@/data/wedding";
 
-const TRANSPORT_KEYS: TransportKey[] = ['subway', 'bus', 'car', 'taxi'];
+const TRANSPORT_KEYS: TransportKey[] = ["subway", "bus", "car", "taxi"];
 
 export function TransportTabs() {
-  const [tab, setTab] = useState<TransportKey>('subway');
+  const [tab, setTab] = useState<TransportKey>("subway");
   const dir = WEDDING.venue.transport[tab];
 
   return (
@@ -20,7 +20,9 @@ export function TransportTabs() {
               key={key}
               onClick={() => setTab(key)}
               className={`cursor-pointer border px-1 py-2.5 text-[9px] tracking-[.2em] transition-all duration-200 ${
-                active ? 'bg-gold text-bg border-gold' : 'text-fg border-fg/[.15] bg-transparent'
+                active
+                  ? "border-gold bg-gold text-bg"
+                  : "border-fg/[.15] bg-transparent text-fg"
               }`}
             >
               <div className="mb-0.5 text-[16px]">{t.icon}</div>
@@ -30,7 +32,7 @@ export function TransportTabs() {
         })}
       </div>
 
-      <div className="bg-warm text-fg/85 border-gold whitespace-pre-line border-l-2 p-[14px] text-[12px] leading-[1.7]">
+      <div className="border-l-2 border-gold bg-warm p-[14px] text-[12px] leading-[1.7] whitespace-pre-line text-fg/85">
         {dir.body}
       </div>
     </>

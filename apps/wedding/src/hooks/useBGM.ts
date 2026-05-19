@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 export function useBGM(enabled: boolean): void {
   useEffect(() => {
@@ -8,7 +8,8 @@ export function useBGM(enabled: boolean): void {
 
     const AudioCtx =
       window.AudioContext ??
-      (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+      (window as unknown as { webkitAudioContext: typeof AudioContext })
+        .webkitAudioContext;
     if (!AudioCtx) return;
 
     const ctx = new AudioCtx();
@@ -17,9 +18,9 @@ export function useBGM(enabled: boolean): void {
     gain.connect(ctx.destination);
 
     const freqs: [number, OscillatorType][] = [
-      [110, 'sine'],
-      [165, 'sine'],
-      [220, 'triangle'],
+      [110, "sine"],
+      [165, "sine"],
+      [220, "triangle"],
     ];
 
     const oscs = freqs.map(([freq, type]) => {

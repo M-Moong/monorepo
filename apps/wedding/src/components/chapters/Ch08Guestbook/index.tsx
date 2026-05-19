@@ -1,17 +1,17 @@
-'use client';
+"use client";
 
-import { useEffect, useRef, useState } from 'react';
-import type { GuestEntry } from '@repo/types';
-import { ChapterSection } from '@/components/ui/ChapterSection';
-import { ChHeader } from '@/components/ui/ChHeader';
-import { GuestbookStats } from './GuestbookStats';
-import { GuestbookForm, GuestbookFormData } from './GuestbookForm';
-import { GuestbookEntry } from './GuestbookEntry';
+import { useEffect, useRef, useState } from "react";
+import type { GuestEntry } from "@repo/types";
+import { ChapterSection } from "@/components/ui/ChapterSection";
+import { ChHeader } from "@/components/ui/ChHeader";
+import { GuestbookStats } from "./GuestbookStats";
+import { GuestbookForm, GuestbookFormData } from "./GuestbookForm";
+import { GuestbookEntry } from "./GuestbookEntry";
 
 const POLL_INTERVAL = 10_000;
 
 async function fetchEntries(): Promise<GuestEntry[]> {
-  const r = await fetch('/api/guestbook');
+  const r = await fetch("/api/guestbook");
   const data = await r.json();
   return Array.isArray(data) ? data : [];
 }
@@ -49,14 +49,14 @@ export function Ch08Guestbook() {
   }, []);
 
   const handleSubmit = async (data: GuestbookFormData) => {
-    const res = await fetch('/api/guestbook', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    const res = await fetch("/api/guestbook", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
     if (!res.ok) {
       const d = await res.json();
-      throw new Error(d.error ?? '저장에 실패했어요.');
+      throw new Error(d.error ?? "저장에 실패했어요.");
     }
     // 제출 후 즉시 반영
     const newEntry: GuestEntry = await res.json();
@@ -69,7 +69,7 @@ export function Ch08Guestbook() {
       acc[g.side] = (acc[g.side] ?? 0) + 1;
       return acc;
     },
-    { groom: 0, bride: 0 }
+    { groom: 0, bride: 0 },
   );
 
   return (
@@ -86,20 +86,30 @@ export function Ch08Guestbook() {
         }
       />
 
-      <p className="text-fg/70 mb-[18px] text-[12px] leading-[1.65]">
+      <p className="mb-[18px] text-[12px] leading-[1.65] text-fg/70">
         식 당일 스크린에 띄워질 따뜻한 한마디.
         <br />
-        <span className="text-gold">참석 여부는 천천히 알려주셔도 괜찮아요.</span>
+        <span className="text-gold">
+          참석 여부는 천천히 알려주셔도 괜찮아요.
+        </span>
       </p>
 
-      <GuestbookStats total={entries.length} groomCount={counts.groom} brideCount={counts.bride} />
+      <GuestbookStats
+        total={entries.length}
+        groomCount={counts.groom}
+        brideCount={counts.bride}
+      />
 
       <GuestbookForm onSubmit={handleSubmit} />
 
-      <div className="text-gold mb-3 text-[9px] tracking-[.4em]">· {entries.length} NOTES ·</div>
+      <div className="mb-3 text-[9px] tracking-[.4em] text-gold">
+        · {entries.length} NOTES ·
+      </div>
 
       {loading ? (
-        <div className="text-fg/40 py-8 text-center text-[11px] tracking-[.2em]">불러오는 중…</div>
+        <div className="py-8 text-center text-[11px] tracking-[.2em] text-fg/40">
+          불러오는 중…
+        </div>
       ) : (
         <div className="flex flex-col gap-2">
           {entries.map((entry) => (

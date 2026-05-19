@@ -1,13 +1,11 @@
 import { nextJsConfig } from '@repo/eslint-config/next-js';
-import globals from 'globals';
+import { nodeScriptConfig } from '@repo/eslint-config/node-script';
 
 /** @type {import("eslint").Linter.Config[]} */
 export default [
   ...nextJsConfig,
   {
     files: ['scripts/**/*.mjs'],
-    languageOptions: {
-      globals: globals.node,
-    },
+    ...nodeScriptConfig[0],
   },
 ];

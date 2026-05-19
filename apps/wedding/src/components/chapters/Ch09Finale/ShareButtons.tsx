@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { WEDDING } from '@/data/wedding';
+import { useState } from "react";
+import { WEDDING } from "@/data/wedding";
 
 declare global {
   interface Window {
@@ -35,37 +35,42 @@ export function ShareButtons() {
     }
     if (!window.Kakao.isInitialized()) window.Kakao.init(appKey);
     window.Kakao.Share.sendDefault({
-      objectType: 'text',
+      objectType: "text",
       text: `${WEDDING.groom.name} & ${WEDDING.bride.name}\n${WEDDING.dateText}\n${WEDDING.venue.short}\n\n청첩장을 확인해 주세요.`,
-      link: { mobileWebUrl: window.location.href, webUrl: window.location.href },
+      link: {
+        mobileWebUrl: window.location.href,
+        webUrl: window.location.href,
+      },
     });
   };
 
   const SHARE_ACTIONS = [
-    { key: 'kakao', label: 'KAKAO', sub: '카카오톡', onClick: shareKakao },
+    { key: "kakao", label: "KAKAO", sub: "카카오톡", onClick: shareKakao },
     {
-      key: 'link',
-      label: linkCopied ? '✓ COPIED' : 'LINK',
-      sub: linkCopied ? '복사됨' : '링크 복사',
+      key: "link",
+      label: linkCopied ? "✓ COPIED" : "LINK",
+      sub: linkCopied ? "복사됨" : "링크 복사",
       onClick: shareLink,
     },
-    { key: 'sms', label: 'SMS', sub: '문자', onClick: shareSms },
+    { key: "sms", label: "SMS", sub: "문자", onClick: shareSms },
   ] as const;
 
   return (
     <div className="mt-7">
-      <div className="text-gold mb-3 text-[9px] tracking-[.4em]">· SHARE ·</div>
+      <div className="mb-3 text-[9px] tracking-[.4em] text-gold">· SHARE ·</div>
       <div className="grid grid-cols-3 gap-1.5">
         {SHARE_ACTIONS.map((s) => (
           <button
             key={s.key}
             onClick={s.onClick}
-            className={`border-fg/20 cursor-pointer border bg-transparent py-[14px] text-center transition-all duration-200 ${
-              s.key === 'link' && linkCopied ? 'border-gold' : ''
+            className={`cursor-pointer border border-fg/20 bg-transparent py-[14px] text-center transition-all duration-200 ${
+              s.key === "link" && linkCopied ? "border-gold" : ""
             }`}
           >
-            <div className="text-gold text-[10px] tracking-[.25em]">{s.label}</div>
-            <div className="text-fg/50 mt-1 text-[10px]">{s.sub}</div>
+            <div className="text-[10px] tracking-[.25em] text-gold">
+              {s.label}
+            </div>
+            <div className="mt-1 text-[10px] text-fg/50">{s.sub}</div>
           </button>
         ))}
       </div>

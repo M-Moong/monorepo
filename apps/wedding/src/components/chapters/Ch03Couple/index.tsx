@@ -1,27 +1,27 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { ChapterSection } from '@/components/ui/ChapterSection';
-import { ChHeader } from '@/components/ui/ChHeader';
-import { CoupleCard, CoupleCardData } from './CoupleCard';
-import { WEDDING } from '@/data/wedding';
+import { useState } from "react";
+import { ChapterSection } from "@/components/ui/ChapterSection";
+import { ChHeader } from "@/components/ui/ChHeader";
+import { CoupleCard, CoupleCardData } from "./CoupleCard";
+import { WEDDING } from "@/data/wedding";
 
 const CARDS: CoupleCardData[] = [
   {
-    who: 'GROOM',
+    who: "GROOM",
     name: WEDDING.groom.en,
     kor: WEDDING.groom.name,
     tagline: WEDDING.groom.tagline,
     facts: WEDDING.groom.facts,
-    tone: 'mono',
+    tone: "mono",
   },
   {
-    who: 'BRIDE',
+    who: "BRIDE",
     name: WEDDING.bride.en,
     kor: WEDDING.bride.name,
     tagline: WEDDING.bride.tagline,
     facts: WEDDING.bride.facts,
-    tone: 'sepia',
+    tone: "sepia",
   },
 ];
 
@@ -53,7 +53,7 @@ export function Ch03Couple() {
         ))}
       </div>
 
-      <div className="text-fg/40 mt-[14px] text-center text-[10px] tracking-[.2em]">
+      <div className="mt-[14px] text-center text-[10px] tracking-[.2em] text-fg/40">
         TAP TO READ MORE
       </div>
     </ChapterSection>

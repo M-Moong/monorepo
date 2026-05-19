@@ -1,19 +1,19 @@
-'use client';
+"use client";
 
-import { useRef, useState } from 'react';
-import { HUD } from '@/components/hud/HUD';
-import { Ch01Cover } from '@/components/chapters/Ch01Cover';
-import { Ch02Invite } from '@/components/chapters/Ch02Invite';
-import { Ch03Couple } from '@/components/chapters/Ch03Couple';
-import { Ch04Gallery } from '@/components/chapters/Ch04Gallery';
-import { Ch05Calendar } from '@/components/chapters/Ch05Calendar';
-import { Ch06Venue } from '@/components/chapters/Ch06Venue';
-import { Ch07Fortune } from '@/components/chapters/Ch07Fortune';
-import { Ch08Guestbook } from '@/components/chapters/Ch08Guestbook';
-import { Ch09Finale } from '@/components/chapters/Ch09Finale';
-import { useScroll } from '@/hooks/useScroll';
-import { useBGM } from '@/hooks/useBGM';
-import { Splash } from '@/components/ui/Splash';
+import { useRef, useState } from "react";
+import { HUD } from "@/components/hud/HUD";
+import { Ch01Cover } from "@/components/chapters/Ch01Cover";
+import { Ch02Invite } from "@/components/chapters/Ch02Invite";
+import { Ch03Couple } from "@/components/chapters/Ch03Couple";
+import { Ch04Gallery } from "@/components/chapters/Ch04Gallery";
+import { Ch05Calendar } from "@/components/chapters/Ch05Calendar";
+import { Ch06Venue } from "@/components/chapters/Ch06Venue";
+import { Ch07Fortune } from "@/components/chapters/Ch07Fortune";
+import { Ch08Guestbook } from "@/components/chapters/Ch08Guestbook";
+import { Ch09Finale } from "@/components/chapters/Ch09Finale";
+import { useScroll } from "@/hooks/useScroll";
+import { useBGM } from "@/hooks/useBGM";
+import { Splash } from "@/components/ui/Splash";
 
 const TOTAL_CHAPTERS = 9;
 
@@ -25,19 +25,20 @@ export default function InvitationPage() {
   useBGM(sound);
 
   const jumpToGuestbook = () => {
-    const el = containerRef.current?.querySelector<HTMLElement>('[data-ch="7"]');
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    const el =
+      containerRef.current?.querySelector<HTMLElement>('[data-ch="7"]');
+    if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
-    <div className="bg-bg flex min-h-dvh items-start justify-center">
+    <div className="flex min-h-dvh items-start justify-center bg-bg">
       {!splashDone && <Splash onDone={() => setSplashDone(true)} />}
       {/* 모바일 프레임 */}
       <div className="relative w-full max-w-[390px]">
         <div
           ref={containerRef}
-          className="bg-bg text-fg relative h-dvh overflow-y-scroll [scroll-snap-type:y_proximity]"
-          style={{ fontFamily: 'var(--font-sans)' }}
+          className="relative h-dvh [scroll-snap-type:y_proximity] overflow-y-scroll bg-bg text-fg"
+          style={{ fontFamily: "var(--font-sans)" }}
         >
           <HUD
             chapter={chapter}
@@ -63,7 +64,7 @@ export default function InvitationPage() {
         {chapter > 0 && chapter < 7 && (
           <button
             onClick={jumpToGuestbook}
-            className="bg-gold text-bg animate-pulse-btn absolute bottom-5 right-5 z-[60] cursor-pointer border-0 px-4 py-3 text-[10px] font-bold tracking-[.25em]"
+            className="absolute right-5 bottom-5 z-[60] animate-pulse-btn cursor-pointer border-0 bg-gold px-4 py-3 text-[10px] font-bold tracking-[.25em] text-bg"
           >
             방명록 →
           </button>
