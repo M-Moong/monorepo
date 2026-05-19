@@ -29,7 +29,7 @@ pnpm --filter @repo/ui format:check  # packages/ui prettier 검사만
 
 - **ESLint**: `@repo/eslint-config/next-js` 기반 — TypeScript + React Hooks + Next.js 규칙 포함
 - **Prettier**: 루트 `.prettierrc` 기준 전역 적용. `prettier-plugin-tailwindcss`로 Tailwind 클래스 자동 정렬
-  - Tailwind v4이므로 `.prettierrc`에 `"tailwindStylesheet": "./apps/wedding/app/globals.css"` 지정 필요
+  - Tailwind v4이므로 `.prettierrc`에 `"tailwindStylesheet": "./apps/wedding/src/app/globals.css"` 지정 필요
   - 코드 작성 후 반드시 `pnpm format` 실행하거나 에디터 저장 시 자동 포맷 적용
 
 ## 브랜치 & 커밋
@@ -56,3 +56,5 @@ packages/
 @.claude/shadcn.md
 @.claude/design-system.md
 @.claude/architecture.md
+@.claude/chapters.md
+@.claude/WORK_GUIDE.md

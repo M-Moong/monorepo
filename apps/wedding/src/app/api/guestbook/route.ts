@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { desc } from 'drizzle-orm';
-import { db } from '@/lib/db';
+import { db } from '@/db';
 import { guestEntries } from '@/db/schema';
 import { createId } from '@paralleldrive/cuid2';
 

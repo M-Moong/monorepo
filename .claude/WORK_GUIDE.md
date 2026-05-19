@@ -1,42 +1,36 @@
 # 웨딩 청첩장 작업 지침서
 
-> 직접 코드를 작성할 때 참고하는 가이드.
-> 모든 콘텐츠 데이터는 `apps/wedding/frontend/src/data/wedding.ts` 한 파일에서 관리됩니다.
+> 모든 콘텐츠 데이터는 `apps/wedding/src/data/wedding.ts` 한 파일에서 관리됩니다.
 
 ---
 
 ## 1. 콘텐츠 교체 (wedding.ts)
 
-파일 위치: `apps/wedding/frontend/src/data/wedding.ts`
+파일 위치: `apps/wedding/src/data/wedding.ts`
 
-교체 항목과 현재 값:
+| 항목             | 현재 값                            | 교체 방법                                       |
+| ---------------- | ---------------------------------- | ----------------------------------------------- |
+| 결혼식 날짜      | `2026-10-17T14:00:00+09:00`        | `date` 필드 수정                                |
+| 날짜 텍스트      | `2026년 10월 17일 토요일 오후 2시` | `dateText` 필드 수정                            |
+| 신랑 이름 (한)   | `김민준`                           | `groom.name`                                    |
+| 신랑 이름 (영)   | `Minjun` / `Minjun Kim`            | `groom.en` / `groom.full_en`                    |
+| 신랑 부모        | `김영호 · 이정희`                  | `groom.father` / `groom.mother`                 |
+| 신랑 소개글      | `느린 걸음, 깊은 마음` 외          | `groom.tagline` / `groom.facts[]`               |
+| 신부 이름 (한)   | `이서연`                           | `bride.name`                                    |
+| 신부 이름 (영)   | `Seoyeon` / `Seoyeon Lee`          | `bride.en` / `bride.full_en`                    |
+| 신부 부모        | `이상철 · 박미경`                  | `bride.father` / `bride.mother`                 |
+| 신부 소개글      | `문장이 되는 사람` 외              | `bride.tagline` / `bride.facts[]`               |
+| 초대 문구        | `함께 걸어온 5년...`               | `inviteMessage` (개행은 `\n` 사용)              |
+| 초대 문구 강조줄 | `3` (0-based 인덱스)               | `inviteHighlightLine` — 금색으로 표시할 줄 번호 |
+| 예식장 이름      | `그랜드하얏트 서울 그랜드볼룸`     | `venue.name`                                    |
+| 예식장 약칭      | `그랜드하얏트 서울`                | `venue.short`                                   |
+| 예식장 상세      | `본관 3층 그랜드볼룸`              | `venue.detail`                                  |
+| 예식장 주소      | `서울시 용산구 소월로 322`         | `venue.address`                                 |
+| 지도 좌표        | `37.539565, 126.992161`            | `venue.mapUrls.kakao` URL 안의 좌표 교체        |
+| 계좌번호 (신랑)  | 신한 3개                           | `accounts.groom[]` 배열                         |
+| 계좌번호 (신부)  | 국민 3개                           | `accounts.bride[]` 배열                         |
 
-| 항목            | 현재 값                            | 교체 방법                                |
-| --------------- | ---------------------------------- | ---------------------------------------- |
-| 결혼식 날짜     | `2026-10-17T14:00:00+09:00`        | `date` 필드 수정                         |
-| 날짜 텍스트     | `2026년 10월 17일 토요일 오후 2시` | `dateText` 필드 수정                     |
-| 신랑 이름 (한)  | `김민준`                           | `groom.name`                             |
-| 신랑 이름 (영)  | `Minjun` / `Minjun Kim`            | `groom.en` / `groom.full_en`             |
-| 신랑 부모       | `김영호 · 이정희`                  | `groom.father` / `groom.mother`          |
-| 신랑 소개글     | `느린 걸음, 깊은 마음` 외          | `groom.tagline` / `groom.facts[]`        |
-| 신부 이름 (한)  | `이서연`                           | `bride.name`                             |
-| 신부 이름 (영)  | `Seoyeon` / `Seoyeon Lee`          | `bride.en` / `bride.full_en`             |
-| 신부 부모       | `이상철 · 박미경`                  | `bride.father` / `bride.mother`          |
-| 신부 소개글     | `문장이 되는 사람` 외              | `bride.tagline` / `bride.facts[]`        |
-| 초대 문구       | `함께 걸어온 5년...`               | `inviteMessage` (개행은 `\n` 사용)       |
-| 초대 문구 강조줄 | `3` (0-based 인덱스)              | `inviteHighlightLine` — 금색으로 표시할 줄 번호 |
-| 예식장 이름     | `그랜드하얏트 서울 그랜드볼룸`     | `venue.name`                             |
-| 예식장 약칭     | `그랜드하얏트 서울`                | `venue.short`                            |
-| 예식장 상세     | `본관 3층 그랜드볼룸`              | `venue.detail`                           |
-| 예식장 주소     | `서울시 용산구 소월로 322`         | `venue.address`                          |
-| 지도 좌표       | `37.539565, 126.992161`            | `venue.mapUrls.kakao` URL 안의 좌표 교체 |
-| 계좌번호 (신랑) | 신한 3개                           | `accounts.groom[]` 배열                  |
-| 계좌번호 (신부) | 국민 3개                           | `accounts.bride[]` 배열                  |
-
-### 교통편 수정
-
-`venue.transport` 안의 `subway / bus / car / taxi` 각 항목의 `body` 텍스트 수정.
-개행은 `\n` 사용.
+교통편 수정: `venue.transport` 안의 `subway / bus / car / taxi` 각 항목의 `body` 텍스트 수정 (개행은 `\n`).
 
 ---
 
@@ -44,22 +38,18 @@
 
 ### 갤러리 사진 (9장)
 
-경로: `apps/wedding/frontend/public/photos/`
+경로: `apps/wedding/public/photos/`
 
 ```
-01.png ~ 09.png  ← 이 파일들을 실제 사진으로 교체
+01.png ~ 09.png  ← 실제 사진으로 교체
 ```
 
 - 권장 비율: **3:4 (세로)** — 750×1000px 이상
-- 형식: PNG 또는 JPG (파일명은 `.png` 유지, 또는 `wedding.ts`의 `photos[]` 경로 수정)
-- JPG로 바꿀 경우 `wedding.ts`의 `photos` 배열을 `/photos/01.jpg` 로 수정
+- JPG로 바꿀 경우 `wedding.ts`의 `photos` 배열을 `/photos/01.jpg`로 수정
 
 ### 커플 카드 사진
 
-현재 `PhotoFrame` 컴포넌트(체크무늬 플레이스홀더) 사용.
-실제 인물 사진으로 교체하려면:
-
-파일: `apps/wedding/frontend/src/components/chapters/Ch03Couple/CoupleCard.tsx`
+파일: `apps/wedding/src/components/chapters/Ch03Couple/CoupleCard.tsx`
 
 ```tsx
 // 현재
@@ -75,13 +65,11 @@
 
 ## 3. BGM 교체
 
-현재 Web Audio API 오실레이터(비프음) 사용 중.
-실제 음악 파일로 교체하는 방법:
+현재 Web Audio API 오실레이터(전자음) 사용 중. 실제 음악 파일로 교체:
 
-파일: `apps/wedding/frontend/src/hooks/useBGM.ts`
+파일: `apps/wedding/src/hooks/useBGM.ts`
 
 ```ts
-// 현재 오실레이터 코드 전체를 아래로 교체
 export function useBGM(enabled: boolean): void {
   useEffect(() => {
     if (!enabled) return;
@@ -97,140 +85,91 @@ export function useBGM(enabled: boolean): void {
 }
 ```
 
-음악 파일 위치: `apps/wedding/frontend/public/bgm.mp3`
-권장: 1~3분 루프 가능한 잔잔한 피아노/클래식 곡 (저작권 확인 필수)
+음악 파일 위치: `apps/wedding/public/bgm.mp3`
 
 ---
 
 ## 4. OG 이미지 (SNS 공유 썸네일)
 
-위치: `apps/wedding/frontend/public/`
+위치: `apps/wedding/public/`
 
 | 파일명                | 크기      | 용도                    |
 | --------------------- | --------- | ----------------------- |
 | `og-image.jpg`        | 1200×630  | 카카오톡·페북·슬랙 공유 |
 | `og-image-square.jpg` | 1200×1200 | 인스타·라인 공유        |
 
-**제작 팁:** Figma에서 커플 사진 + 이름 + 날짜 레이아웃으로 제작.
-미설정 시 공유할 때 썸네일이 빈칸으로 표시됨.
-
 ---
 
 ## 5. 환경변수 설정
 
-### 프론트엔드 (`apps/wedding/frontend/.env.local`)
+파일: `apps/wedding/.env.local`
 
 ```env
-# 배포 도메인 (Vercel 배포 후 실제 URL로 변경)
-NEXT_PUBLIC_SITE_URL="https://your-domain.vercel.app"
-
-# 백엔드 API URL
-API_URL="http://localhost:3001"  # 로컬
-# API_URL="https://your-backend.vercel.app"  # 배포 시
-
-# 카카오 JavaScript 앱키 (지도 + 카카오톡 공유 동시 활성화)
-# https://developers.kakao.com → 내 애플리케이션 → JavaScript 키
-NEXT_PUBLIC_KAKAO_APP_KEY="your_kakao_javascript_key"
-```
-
-### 백엔드 (`apps/wedding/backend/.env.local`)
-
-```env
-# Supabase → Settings → Database → Connection string
-# Transaction pooler (포트 6543) — Vercel 서버리스용
+# Supabase Transaction pooler (포트 6543) — Vercel 서버리스용
 DATABASE_URL="postgresql://postgres.[ref]:[pw]@aws-0-[region].pooler.supabase.com:6543/postgres?pgbouncer=true"
 
-# Direct connection (포트 5432) — 마이그레이션용
-DIRECT_URL="postgresql://postgres.[ref]:[pw]@aws-0-[region].pooler.supabase.com:5432/postgres"
+# 배포 도메인
+NEXT_PUBLIC_SITE_URL="https://your-domain.vercel.app"
 
-# 프론트엔드 도메인 (CORS 허용)
-WEB_URL="http://localhost:3000"  # 로컬
-# WEB_URL="https://your-frontend.vercel.app"  # 배포 시
+# 카카오 JavaScript 앱키 (지도 + 카카오톡 공유)
+NEXT_PUBLIC_KAKAO_APP_KEY="your_kakao_javascript_key"
 ```
 
 ---
 
 ## 6. 카카오 앱 설정
 
-1. https://developers.kakao.com 접속 → **내 애플리케이션 → 앱 추가**
-2. **앱 이름:** 원하는 이름 (예: MnS Wedding)
-3. **플랫폼 → Web → 사이트 도메인 추가:**
-   - 개발: `http://localhost:3000`
-   - 배포: `https://your-domain.vercel.app`
-4. **앱 키 → JavaScript 키** 복사 → `.env.local`의 `NEXT_PUBLIC_KAKAO_APP_KEY`에 입력
-5. **카카오 로그인 → 활성화 OFF** (청첩장에는 불필요)
+1. https://developers.kakao.com → **내 애플리케이션 → 앱 추가**
+2. **플랫폼 → Web → 사이트 도메인 추가:** `http://localhost:3000`, 배포 도메인
+3. **앱 키 → JavaScript 키** 복사 → `.env.local`의 `NEXT_PUBLIC_KAKAO_APP_KEY`에 입력
+4. **카카오 로그인 → 활성화 OFF**
 
-이 하나의 키로 **지도 미리보기 + 카카오톡 공유** 모두 활성화됩니다.
+하나의 키로 **지도 미리보기 + 카카오톡 공유** 모두 활성화됩니다.
 
 ---
 
 ## 7. Vercel 배포
 
-### 순서
-
 #### 1단계: Supabase DB 생성
 
 1. https://supabase.com → New Project
-2. **Settings → Database → Connection string** 에서 두 URL 복사
+2. **Settings → Database → Connection string** 에서 URL 복사
 
 #### 2단계: DB 마이그레이션 (최초 1회)
 
 ```bash
-cd apps/wedding/backend
-# .env.local에 DIRECT_URL 설정 후
-npx prisma migrate deploy
+pnpm --filter wedding db:push
 ```
 
-#### 3단계: 백엔드 Vercel 배포
+#### 3단계: Vercel 배포
 
-- Import Repository: `M-Moong/monorepo`
-- **Root Directory:** `apps/wedding/backend`
+- **Root Directory:** `apps/wedding`
 - 환경변수:
-  - `DATABASE_URL` (Transaction pooler URL)
-  - `DIRECT_URL` (Direct connection URL)
-  - `WEB_URL` (프론트엔드 Vercel 도메인 — 백엔드 먼저 배포 후 프론트 도메인 알게 되면 추가)
-
-#### 4단계: 프론트엔드 Vercel 배포
-
-- Import Repository: **동일 레포 다시 import**
-- **Root Directory:** `apps/wedding/frontend`
-- 환경변수:
-  - `NEXT_PUBLIC_SITE_URL` (이 프로젝트의 Vercel 도메인)
-  - `API_URL` (백엔드 Vercel 도메인)
+  - `DATABASE_URL`
+  - `NEXT_PUBLIC_SITE_URL`
   - `NEXT_PUBLIC_KAKAO_APP_KEY`
-
-#### 5단계: 도메인 교차 설정
-
-- 프론트엔드 도메인 확정 후 → 백엔드 환경변수 `WEB_URL` 업데이트
-- 백엔드 환경변수 변경 후 Vercel에서 **Redeploy** 필요
 
 ---
 
 ## 8. Daily Vibe 문구 교체
 
-파일: `apps/wedding/frontend/src/data/fortune.ts`
-
-`VIBES` 배열의 각 항목 수정:
+파일: `apps/wedding/src/data/fortune.ts`
 
 ```ts
 { tag: '#해시태그', q: '카드에 표시될\n문구', a: '— 출처 또는 서브텍스트' }
 ```
 
-현재 12개. 추가/삭제 자유. `PALETTES`도 같은 수로 맞춰야 함 (인덱스 `% PALETTES.length`로 순환하므로 달라도 무방).
-
 ---
 
 ## 9. 테마 변경
 
-파일: `apps/wedding/frontend/src/config/theme.config.ts`
+파일: `apps/wedding/src/config/theme.config.ts`
 
 ```ts
-export const ACTIVE_THEME = 'dark-gold'; // 기본값
-// 'ivory-rose' | 'sage-linen' 으로 변경 가능
+export const ACTIVE_THEME = 'dark-gold'; // 'ivory-rose' | 'sage-linen'
 ```
 
-각 테마의 색상 정의는 `apps/wedding/frontend/src/app/globals.css`의
-`[data-theme='ivory-rose']`, `[data-theme='sage-linen']` 블록에서 수정.
+색상 정의: `apps/wedding/src/app/globals.css`의 `[data-theme='...']` 블록에서 수정.
 
 ---
 
@@ -241,8 +180,7 @@ export const ACTIVE_THEME = 'dark-gold'; // 기본값
 - [ ] `public/bgm.mp3` 음악 파일 추가 + `useBGM.ts` 코드 교체
 - [ ] `public/og-image.jpg`, `og-image-square.jpg` 제작 후 추가
 - [ ] 카카오 앱키 발급 + 도메인 등록
-- [ ] Supabase DB 생성 + 마이그레이션 실행
-- [ ] Vercel 환경변수 설정 (프론트 + 백엔드)
-- [ ] 배포 후 카카오톡으로 공유 테스트
+- [ ] Supabase DB 생성 + `pnpm --filter wedding db:push` 실행
+- [ ] Vercel 환경변수 설정 후 배포
+- [ ] 배포 후 카카오톡 공유 테스트
 - [ ] 배포 후 방명록 작성 테스트
-- [ ] 배포 후 ADD TO CALENDAR 모바일 테스트 (iOS Safari)

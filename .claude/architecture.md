@@ -1,33 +1,54 @@
 # apps/wedding 아키텍처
 
-**싱글 페이지 모바일 청첩장** — 9개 챕터를 수직 스크롤로 이동. 자세한 내용은 `apps/wedding/PLAN.md` 참조.
+**싱글 페이지 모바일 청첩장** — 9개 챕터를 수직 스크롤로 이동.
+
+## 앱 구조
+
+단일 Next.js 앱. 프론트(페이지/컴포넌트)와 백엔드(API Route + DB)가 하나의 앱에 통합.
+
+```
+apps/wedding/
+├── src/
+│   ├── app/
+│   │   ├── api/guestbook/route.ts   # 방명록 API (GET / POST)
+│   │   ├── page.tsx                 # 메인 페이지
+│   │   ├── layout.tsx               # 루트 레이아웃 + 메타데이터
+│   │   └── globals.css              # Tailwind v4 + 테마 토큰
+│   ├── components/
+│   │   ├── chapters/                # Ch01Cover ~ Ch09Finale
+│   │   ├── hud/                     # HUD.tsx — 상단 진행 표시
+│   │   └── ui/                      # ChHeader, ChapterSection 등 공통 UI
+│   ├── db/
+│   │   ├── index.ts                 # Drizzle 클라이언트
+│   │   └── schema.ts                # DB 스키마 (GuestEntry)
+│   ├── hooks/                       # useBGM, useScroll, useCountdown
+│   ├── config/                      # theme.config.ts
+│   └── data/                        # wedding.ts, fortune.ts
+├── public/
+├── scripts/                         # generate-placeholder-photos.mjs
+└── drizzle.config.ts
+```
 
 ## 핵심 규칙
 
-- `apps/wedding/data/wedding.ts`의 `WEDDING` 상수가 **단일 데이터 수정 포인트**. 컴포넌트 내부 하드코딩 금지.
-- **모든 CSS는 Tailwind CSS v4 유틸리티 클래스**로 작성. `tailwind.config.js` 없음 — `app/globals.css`의 `@theme` 블록에서 토큰 정의.
+- `src/data/wedding.ts`의 `WEDDING` 상수가 **단일 데이터 수정 포인트**. 컴포넌트 내부 하드코딩 금지.
+- **모든 CSS는 Tailwind CSS v4 유틸리티 클래스**로 작성. `tailwind.config.js` 없음 — `src/app/globals.css`의 `@theme` 블록에서 토큰 정의.
 - `useState`/`useEffect`/`useRef` 사용 컴포넌트에 `'use client'` 필수.
-- import는 `@/` alias만 사용 (tsconfig `paths: { "@/*": ["./*"] }`).
+- import는 `@/` alias만 사용 (tsconfig `paths: { "@/*": ["./src/*"] }`).
 - `any` 타입 금지. Props는 `interface`로 명시.
 
 ## 데이터 흐름
 
 ```
-data/wedding.ts
+src/data/wedding.ts
   └─ 각 챕터 컴포넌트가 직접 import (전역 상태 없음)
 
-app/page.tsx
+src/app/page.tsx
   └─ useScroll(containerRef) 로 스크롤 상태 관리
        └─ HUD + 플로팅 FAB에 전달
-```
 
-## 컴포넌트 구조
-
-```
-components/
-  chapters/   # Ch01Cover ~ Ch09Finale — 챕터별 섹션
-  hud/        # HUD.tsx — 상단 진행 표시
-  ui/         # ChHeader, ChapterSection, GoldButton 등 공통 UI
+src/app/api/guestbook/route.ts
+  └─ src/db/index.ts (Drizzle) → Supabase PostgreSQL
 ```
 
 ## CSS 작성 규칙

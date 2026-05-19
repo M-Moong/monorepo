@@ -1,5 +1,5 @@
 {
-  "name": "wedding-frontend",
+  "name": "wedding",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,22 +10,31 @@
     "build": "next build",
     "start": "next start -p 3000",
     "lint": "eslint",
-    "check-types": "tsc --noEmit"
+    "check-types": "tsc --noEmit",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:push": "drizzle-kit push",
+    "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
+    "@paralleldrive/cuid2": "^3.3.0",
     "@repo/types": "workspace:*",
     "@repo/ui": "workspace:*",
+    "drizzle-orm": "^0.45.2",
     "lucide-react": "^1.14.0",
     "next": "16.1.6",
+    "postgres": "^3.4.9",
     "react": "19.2.3",
     "react-dom": "19.2.3"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "drizzle-kit": "^0.31.10",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
     "tailwindcss": "^4",
