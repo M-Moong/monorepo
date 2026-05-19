@@ -14,7 +14,13 @@ export function AccountSection({ side }: AccountSectionProps) {
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
   const label = side === 'groom' ? '신랑측 계좌' : '신부측 계좌';
-  const accounts = WEDDING.accounts[side];
+  const p = WEDDING[side];
+  const prefix = side === 'groom' ? '신랑' : '신부';
+  const accounts = [
+    { who: prefix, name: p.name, ...p.account },
+    { who: `${prefix} 아버지`, name: p.father.name, ...p.father.account },
+    { who: `${prefix} 어머니`, name: p.mother.name, ...p.mother.account },
+  ];
 
   const copy = (id: string, text: string) => {
     navigator.clipboard?.writeText(text);

@@ -2,15 +2,15 @@
 
 import { useState } from 'react';
 
-export type AttendStatus = 'yes' | 'maybe' | 'no' | null;
 export type Side = 'groom' | 'bride' | null;
+export type AttendStatus = 'yes' | 'maybe' | 'no' | null;
 
 export interface GuestbookFormData {
   name: string;
   message: string;
   reaction: string | null;
-  attend: AttendStatus;
   side: Side;
+  attend: AttendStatus;
 }
 
 interface GuestbookFormProps {
@@ -19,15 +19,15 @@ interface GuestbookFormProps {
 
 const REACTIONS = ['🥹', '🥂', '✨', '🫶', '📷', '🎉', '💍', '🌷'];
 
-const ATTEND_OPTIONS: [AttendStatus, string][] = [
+const SIDE_OPTIONS: [NonNullable<Side>, string][] = [
+  ['groom', '신랑측'],
+  ['bride', '신부측'],
+];
+
+const ATTEND_OPTIONS: [NonNullable<AttendStatus>, string][] = [
   ['yes', '갈게요'],
   ['maybe', '아직 몰라요'],
   ['no', '못 가요'],
-];
-
-const SIDE_OPTIONS: [Side, string][] = [
-  ['groom', '신랑측'],
-  ['bride', '신부측'],
 ];
 
 const inputClass =
@@ -37,8 +37,8 @@ export function GuestbookForm({ onSubmit }: GuestbookFormProps) {
   const [name, setName] = useState('');
   const [msg, setMsg] = useState('');
   const [reaction, setReaction] = useState<string | null>(null);
-  const [attend, setAttend] = useState<AttendStatus>(null);
   const [side, setSide] = useState<Side>(null);
+  const [attend, setAttend] = useState<AttendStatus>(null);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -49,12 +49,12 @@ export function GuestbookForm({ onSubmit }: GuestbookFormProps) {
     setSubmitting(true);
     setError(null);
     try {
-      await onSubmit({ name, message: msg, reaction, attend, side });
+      await onSubmit({ name, message: msg, reaction, side, attend });
       setName('');
       setMsg('');
       setReaction(null);
-      setAttend(null);
       setSide(null);
+      setAttend(null);
     } catch (err) {
       setError(err instanceof Error ? err.message : '저장에 실패했어요.');
     } finally {
@@ -97,9 +97,7 @@ export function GuestbookForm({ onSubmit }: GuestbookFormProps) {
         ))}
       </div>
 
-      <div className="text-fg/55 mb-2 text-[9px] tracking-[.3em]">
-        어느 분 쪽으로 오시나요? (선택)
-      </div>
+      <div className="text-fg/55 mb-2 text-[9px] tracking-[.3em]">어느 쪽으로 오세요? (선택)</div>
       <div className="mb-[14px] grid grid-cols-2 gap-1">
         {SIDE_OPTIONS.map(([k, l]) => (
           <button
