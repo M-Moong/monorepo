@@ -3,32 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "generate-photos": "node scripts/generate-placeholder-photos.mjs",
-    "predev": "node scripts/generate-placeholder-photos.mjs",
-    "dev": "next dev -p 3000",
-    "prebuild": "node scripts/generate-placeholder-photos.mjs",
+    "dev": "next dev",
     "build": "next build",
-    "start": "next start -p 3000",
-    "lint": "eslint",
-    "check-types": "tsc --noEmit",
-    "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate",
-    "db:push": "drizzle-kit push",
-    "db:studio": "drizzle-kit studio"
+    "start": "next start",
+    "lint": "eslint"
   },
   "dependencies": {
-    "@paralleldrive/cuid2": "^3.3.0",
-    "@repo/types": "workspace:*",
-    "@repo/ui": "workspace:*",
-    "lucide-react": "^1.14.0",
     "next": "16.1.6",
-    "postgres": "^3.4.9",
     "react": "19.2.3",
     "react-dom": "19.2.3"
   },
   "devDependencies": {
-    "@repo/eslint-config": "workspace:*",
-    "@repo/typescript-config": "workspace:*",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
@@ -36,6 +21,6 @@
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
     "tailwindcss": "^4",
-    "typescript": "5.9.2"
+    "typescript": "^5"
   }
 }
