@@ -19,19 +19,19 @@ interface GuestbookEntryProps {
 
 export function GuestbookEntry({ entry: g }: GuestbookEntryProps) {
   return (
-    <div className="border-l-2 border-gold bg-warm p-[14px]">
+    <div className="border-l-2 border-gold bg-warm p-3.5">
       <div className="mb-1.5 flex items-baseline justify-between">
         <div className="flex items-center gap-2">
-          <span className="text-[18px]">{g.reaction}</span>
-          <span className="text-[13px] tracking-[.05em] text-gold">
+          <span className="text-lg">{g.reaction}</span>
+          <span className="text-[0.8125rem] tracking-[0.05rem] text-gold">
             {g.name}
           </span>
         </div>
-        <div className="text-[9px] tracking-[.15em] text-fg/40">
+        <div className="text-[0.5625rem] tracking-[0.15rem] text-fg/40">
           {formatRelativeTime(g.createdAt)}
         </div>
       </div>
-      <div className="text-[13px] leading-[1.6] text-fg/88">{g.message}</div>
+      <div className="text-[0.8125rem] leading-[1.6] text-fg/88">{g.message}</div>
     </div>
   );
 }

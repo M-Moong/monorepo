@@ -26,32 +26,32 @@ export function CoupleCard({ card: c, isOpen, onToggle }: CoupleCardProps) {
       }`}
     >
       <div className="flex items-stretch">
-        <div className="aspect-[3/4] w-[110px] shrink-0">
+        <div className="aspect-[3/4] w-[6.875rem] shrink-0">
           <PhotoFrame label={c.who} tone={c.tone} />
         </div>
         <div className="flex-1 p-[14px_16px]">
-          <div className="mb-1.5 text-[9px] tracking-[.3em] text-gold">
+          <div className="mb-1.5 text-[0.5625rem] tracking-[0.3rem] text-gold">
             {c.who}
           </div>
-          <div className="font-serif text-[28px] leading-none font-light text-fg italic">
+          <div className="font-serif text-[1.75rem] leading-none font-light text-fg italic">
             {c.name}
           </div>
-          <div className="mt-1 text-[12px] text-fg/60">{c.kor}</div>
-          <div className="mt-3 font-serif text-[14px] text-gold italic">
+          <div className="mt-1 text-xs text-fg/60">{c.kor}</div>
+          <div className="mt-3 font-serif text-sm text-gold italic">
             &ldquo;{c.tagline}&rdquo;
           </div>
-          <div className="mt-[14px] text-[10px] tracking-[.2em] text-fg/40">
+          <div className="mt-3.5 text-[0.625rem] tracking-[0.2rem] text-fg/40">
             {isOpen ? "— LESS" : "MORE +"}
           </div>
         </div>
       </div>
 
       {isOpen && (
-        <div className="border-t border-fg/10 px-4 pb-[18px]">
+        <div className="border-t border-fg/10 px-4 pb-[1.125rem]">
           {c.facts.map((f) => (
             <div
               key={f}
-              className="flex items-center gap-2.5 border-b border-fg/[.05] py-2 text-[12px] text-fg/75"
+              className="flex items-center gap-2.5 border-b border-fg/[.05] py-2 text-xs text-fg/75"
             >
               <span className="text-gold">—</span>
               {f}

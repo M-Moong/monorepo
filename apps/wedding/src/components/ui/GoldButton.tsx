@@ -14,7 +14,7 @@ export function GoldButton({
   ...props
 }: GoldButtonProps) {
   const base =
-    "p-[14px] text-[11px] tracking-[.25em] cursor-pointer outline-none border-0";
+    "p-3.5 text-[0.6875rem] tracking-[0.25rem] cursor-pointer outline-none border-0";
   const solid = "bg-gold text-bg font-bold";
   const ghost = "bg-transparent text-gold border border-gold";
   const width = fullWidth ? "w-full" : "";

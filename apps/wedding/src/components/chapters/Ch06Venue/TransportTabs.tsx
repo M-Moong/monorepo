@@ -19,20 +19,20 @@ export function TransportTabs() {
             <button
               key={key}
               onClick={() => setTab(key)}
-              className={`cursor-pointer border px-1 py-2.5 text-[9px] tracking-[.2em] transition-all duration-200 ${
+              className={`cursor-pointer border px-1 py-2.5 text-[0.5625rem] tracking-[0.2rem] transition-all duration-200 ${
                 active
                   ? "border-gold bg-gold text-bg"
                   : "border-fg/[.15] bg-transparent text-fg"
               }`}
             >
-              <div className="mb-0.5 text-[16px]">{t.icon}</div>
+              <div className="mb-0.5 text-base">{t.icon}</div>
               {t.title}
             </button>
           );
         })}
       </div>
 
-      <div className="border-l-2 border-gold bg-warm p-[14px] text-[12px] leading-[1.7] whitespace-pre-line text-fg/85">
+      <div className="border-l-2 border-gold bg-warm p-3.5 text-xs leading-[1.7] whitespace-pre-line text-fg/85">
         {dir.body}
       </div>
     </>

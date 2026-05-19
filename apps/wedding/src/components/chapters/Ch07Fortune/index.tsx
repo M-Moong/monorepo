@@ -51,7 +51,7 @@ export function Ch07Fortune() {
         }
       />
 
-      <p className="mb-[18px] text-[12px] leading-[1.6] text-fg/70">
+      <p className="mb-[1.125rem] text-xs leading-[1.6] text-fg/70">
         랜덤으로 뽑히는 한 줄.
         <br />
         마음에 들면 캡처해서 SNS에 공유해 주세요.{" "}
@@ -69,13 +69,13 @@ export function Ch07Fortune() {
       <div className="mt-4 grid grid-cols-2 gap-1.5">
         <button
           onClick={next}
-          className="cursor-pointer border border-gold bg-transparent py-[14px] text-[11px] tracking-[.25em] text-gold"
+          className="cursor-pointer border border-gold bg-transparent py-3.5 text-[0.6875rem] tracking-[0.25rem] text-gold"
         >
           ↻ 다른 카드
         </button>
         <button
           onClick={share}
-          className="cursor-pointer border-0 bg-gold py-[14px] text-[11px] font-bold tracking-[.25em] text-bg"
+          className="cursor-pointer border-0 bg-gold py-3.5 text-[0.6875rem] font-bold tracking-[0.25rem] text-bg"
         >
           {copied ? "✓ 복사됨" : "↗ 공유하기"}
         </button>

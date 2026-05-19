@@ -66,24 +66,24 @@ export function Lightbox({
       </div>
 
       <div
-        className="mt-[18px] flex gap-6"
+        className="mt-[1.125rem] flex gap-6"
         onClick={(e) => e.stopPropagation()}
       >
         <button
           onClick={onPrev}
-          className="cursor-pointer border border-gold/40 bg-transparent px-[14px] py-2 text-[11px] tracking-[.2em] text-gold"
+          className="cursor-pointer border border-gold/40 bg-transparent px-3.5 py-2 text-[0.6875rem] tracking-[0.2rem] text-gold"
         >
           ← PREV
         </button>
         <button
           onClick={onNext}
-          className="cursor-pointer border border-gold/40 bg-transparent px-[14px] py-2 text-[11px] tracking-[.2em] text-gold"
+          className="cursor-pointer border border-gold/40 bg-transparent px-3.5 py-2 text-[0.6875rem] tracking-[0.2rem] text-gold"
         >
           NEXT →
         </button>
       </div>
 
-      <div className="mt-[14px] text-[9px] tracking-[.3em] text-fg/40">
+      <div className="mt-3.5 text-[0.5625rem] tracking-[0.3rem] text-fg/40">
         TAP ANYWHERE TO CLOSE
       </div>
     </div>

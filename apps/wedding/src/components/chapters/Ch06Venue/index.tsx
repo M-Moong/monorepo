@@ -22,14 +22,14 @@ export function Ch06Venue() {
 
       <VenueMap />
 
-      <div className="mb-[14px] border-t border-b border-fg/[.15] py-[14px]">
-        <div className="font-serif text-[22px] text-fg italic">
+      <div className="mb-3.5 border-t border-b border-fg/[.15] py-3.5">
+        <div className="font-serif text-[1.375rem] text-fg italic">
           {WEDDING.venue.short}
         </div>
-        <div className="mt-1 text-[11px] text-fg/65">
+        <div className="mt-1 text-[0.6875rem] text-fg/65">
           {WEDDING.venue.detail}
         </div>
-        <div className="mt-2 font-mono text-[11px] text-fg/50">
+        <div className="mt-2 font-mono text-[0.6875rem] text-fg/50">
           {WEDDING.venue.address}
         </div>
       </div>

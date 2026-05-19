@@ -100,7 +100,7 @@ export function Splash({ onDone }: Props) {
 
         <div className="flex flex-col items-end pr-4">
           <div
-            className="font-serif text-[88px] leading-none italic"
+            className="font-serif text-[5.5rem] leading-none italic"
             style={{
               color: "var(--color-gold)",
               textShadow:
@@ -114,7 +114,7 @@ export function Splash({ onDone }: Props) {
             {WEDDING.groom.initial}
           </div>
           <div
-            className="mt-3 text-right text-[10px] tracking-[.4em]"
+            className="mt-3 text-right text-[0.625rem] tracking-[0.4rem]"
             style={{
               color: "color-mix(in srgb, var(--color-fg) 55%, transparent)",
             }}
@@ -122,7 +122,7 @@ export function Splash({ onDone }: Props) {
             {WEDDING.groom.name}
           </div>
           <div
-            className="mt-1 text-right text-[8px] tracking-[.25em]"
+            className="mt-1 text-right text-[0.5rem] tracking-[0.25rem]"
             style={{
               color: "color-mix(in srgb, var(--color-gold) 50%, transparent)",
             }}
@@ -171,7 +171,7 @@ export function Splash({ onDone }: Props) {
 
         <div className="flex flex-col items-start pl-4">
           <div
-            className="font-serif text-[88px] leading-none italic"
+            className="font-serif text-[5.5rem] leading-none italic"
             style={{
               color: "var(--color-gold)",
               textShadow:
@@ -185,7 +185,7 @@ export function Splash({ onDone }: Props) {
             {WEDDING.bride.initial}
           </div>
           <div
-            className="mt-3 text-[10px] tracking-[.4em]"
+            className="mt-3 text-[0.625rem] tracking-[0.4rem]"
             style={{
               color: "color-mix(in srgb, var(--color-fg) 55%, transparent)",
             }}
@@ -193,7 +193,7 @@ export function Splash({ onDone }: Props) {
             {WEDDING.bride.name}
           </div>
           <div
-            className="mt-1 text-[8px] tracking-[.25em]"
+            className="mt-1 text-[0.5rem] tracking-[0.25rem]"
             style={{
               color: "color-mix(in srgb, var(--color-gold) 50%, transparent)",
             }}
@@ -237,15 +237,15 @@ export function Splash({ onDone }: Props) {
 
       {/* 하단 날짜 + 장소 — 디자인 검토 중 */}
       {/* <div
-        className="pointer-events-none absolute bottom-14 left-0 right-0 z-20 flex flex-col items-center gap-[6px]"
+        className="pointer-events-none absolute bottom-14 left-0 right-0 z-20 flex flex-col items-center gap-1.5"
         style={{
           opacity: isOpening ? 0 : isVisible ? 1 : 0,
           transition: isOpening ? 'opacity 250ms ease' : 'opacity 700ms ease 500ms',
         }}
       >
-        <div className="text-[8px] tracking-[.6em]">· {WEDDING.dateShort} ·</div>
-        <div className="text-[9px] tracking-[.35em]">{WEDDING.venue.short}</div>
-        <div className="mt-1 text-[7px] tracking-[.5em]">{WEDDING.timeText}</div>
+        <div className="text-[0.5rem] tracking-[0.6rem]">· {WEDDING.dateShort} ·</div>
+        <div className="text-[0.5625rem] tracking-[0.35rem]">{WEDDING.venue.short}</div>
+        <div className="mt-1 text-[0.4375rem] tracking-[0.5rem]">{WEDDING.timeText}</div>
       </div> */}
     </div>
   );

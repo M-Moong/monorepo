@@ -68,7 +68,7 @@ export function Ch04Gallery() {
         ))}
       </div>
 
-      <div className="mt-[14px] text-center text-[10px] tracking-[.2em] text-fg/40">
+      <div className="mt-3.5 text-center text-[0.625rem] tracking-[0.2rem] text-fg/40">
         TAP ANY FRAME TO ENLARGE · {total} PHOTOS
       </div>
 

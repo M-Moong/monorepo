@@ -16,16 +16,16 @@ export function GuestbookStats({
   ];
 
   return (
-    <div className="mb-[22px] grid grid-cols-3 border border-fg/[.08] bg-warm">
+    <div className="mb-[1.375rem] grid grid-cols-3 border border-fg/[.08] bg-warm">
       {stats.map(([label, count]) => (
         <div
           key={label}
-          className="border-r border-fg/[.06] px-1 py-[14px] text-center last:border-r-0"
+          className="border-r border-fg/[.06] px-1 py-3.5 text-center last:border-r-0"
         >
-          <div className="font-serif text-[26px] leading-none text-gold italic tabular-nums">
+          <div className="font-serif text-[1.625rem] leading-none text-gold italic tabular-nums">
             {count}
           </div>
-          <div className="mt-1 text-[9px] tracking-[.25em] text-fg/55">
+          <div className="mt-1 text-[0.5625rem] tracking-[0.25rem] text-fg/55">
             {label}
           </div>
         </div>

@@ -114,17 +114,17 @@ export function Ch05Calendar() {
       />
 
       {/* 달력 */}
-      <div className="mb-[22px] bg-warm p-[18px]">
-        <div className="mb-[14px] flex justify-between">
-          <div className="font-serif text-[22px] text-fg italic">
+      <div className="mb-[1.375rem] bg-warm p-[1.125rem]">
+        <div className="mb-3.5 flex justify-between">
+          <div className="font-serif text-[1.375rem] text-fg italic">
             {CAL_MONTH_LABEL}
           </div>
-          <div className="text-[10px] tracking-[.2em] text-gold">
+          <div className="text-[0.625rem] tracking-[0.2rem] text-gold">
             {WEDDING.timeText}
           </div>
         </div>
 
-        <div className="grid grid-cols-7 gap-1 text-[9px] tracking-[.1em]">
+        <div className="grid grid-cols-7 gap-1 text-[0.5625rem] tracking-[0.1rem]">
           {DAYS_HEADER.map((d, i) => (
             <div
               key={i}
@@ -145,7 +145,7 @@ export function Ch05Calendar() {
             return (
               <div
                 key={i}
-                className={`py-2 text-center text-[13px] ${
+                className={`py-2 text-center text-[0.8125rem] ${
                   !d
                     ? "text-transparent"
                     : isWedding
@@ -176,12 +176,12 @@ export function Ch05Calendar() {
         ).map(([label, val]) => (
           <div
             key={label}
-            className="border border-fg/[.08] bg-warm px-1.5 py-[14px] text-center"
+            className="border border-fg/[.08] bg-warm px-1.5 py-3.5 text-center"
           >
-            <div className="font-serif text-[28px] leading-none text-gold italic tabular-nums">
+            <div className="font-serif text-[1.75rem] leading-none text-gold italic tabular-nums">
               {String(val).padStart(2, "0")}
             </div>
-            <div className="mt-1.5 text-[9px] tracking-[.25em] text-fg/50">
+            <div className="mt-1.5 text-[0.5625rem] tracking-[0.25rem] text-fg/50">
               {label}
             </div>
           </div>
@@ -190,7 +190,7 @@ export function Ch05Calendar() {
 
       <button
         onClick={addToCalendar}
-        className="mt-[18px] w-full cursor-pointer border border-gold bg-transparent py-[14px] text-[11px] tracking-[.25em] text-gold transition-opacity duration-150 active:opacity-70"
+        className="mt-[1.125rem] w-full cursor-pointer border border-gold bg-transparent py-3.5 text-[0.6875rem] tracking-[0.25rem] text-gold transition-opacity duration-150 active:opacity-70"
       >
         + ADD TO CALENDAR
       </button>
@@ -205,7 +205,7 @@ export function Ch05Calendar() {
             className="mb-6 w-full max-w-[390px] border border-fg/[.15] bg-bg"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="px-4 py-3 text-center text-[9px] tracking-[.35em] text-fg/40">
+            <div className="px-4 py-3 text-center text-[0.5625rem] tracking-[0.35rem] text-fg/40">
               · 캘린더 앱 선택 ·
             </div>
 
@@ -214,10 +214,10 @@ export function Ch05Calendar() {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setShowPicker(false)}
-              className="flex w-full cursor-pointer items-center justify-between border-t border-fg/[.08] px-5 py-[18px] text-[13px] text-fg"
+              className="flex w-full cursor-pointer items-center justify-between border-t border-fg/[.08] px-5 py-[1.125rem] text-[0.8125rem] text-fg"
             >
               <span>구글 캘린더</span>
-              <span className="text-[10px] tracking-[.2em] text-gold">→</span>
+              <span className="text-[0.625rem] tracking-[0.2rem] text-gold">→</span>
             </a>
 
             <button
@@ -225,15 +225,15 @@ export function Ch05Calendar() {
                 downloadIcsFile();
                 setShowPicker(false);
               }}
-              className="flex w-full cursor-pointer items-center justify-between border-t border-fg/[.08] bg-transparent px-5 py-[18px] text-[13px] text-fg"
+              className="flex w-full cursor-pointer items-center justify-between border-t border-fg/[.08] bg-transparent px-5 py-[1.125rem] text-[0.8125rem] text-fg"
             >
               <span>애플 캘린더 · 기타 (.ics)</span>
-              <span className="text-[10px] tracking-[.2em] text-gold">↓</span>
+              <span className="text-[0.625rem] tracking-[0.2rem] text-gold">↓</span>
             </button>
 
             <button
               onClick={() => setShowPicker(false)}
-              className="w-full cursor-pointer border-t border-fg/[.08] bg-transparent py-4 text-[11px] tracking-[.2em] text-fg/40"
+              className="w-full cursor-pointer border-t border-fg/[.08] bg-transparent py-4 text-[0.6875rem] tracking-[0.2rem] text-fg/40"
             >
               닫기
             </button>

@@ -86,7 +86,7 @@ export function Ch08Guestbook() {
         }
       />
 
-      <p className="mb-[18px] text-[12px] leading-[1.65] text-fg/70">
+      <p className="mb-[1.125rem] text-xs leading-[1.65] text-fg/70">
         식 당일 스크린에 띄워질 따뜻한 한마디.
         <br />
         <span className="text-gold">
@@ -102,12 +102,12 @@ export function Ch08Guestbook() {
 
       <GuestbookForm onSubmit={handleSubmit} />
 
-      <div className="mb-3 text-[9px] tracking-[.4em] text-gold">
+      <div className="mb-3 text-[0.5625rem] tracking-[0.4rem] text-gold">
         · {entries.length} NOTES ·
       </div>
 
       {loading ? (
-        <div className="py-8 text-center text-[11px] tracking-[.2em] text-fg/40">
+        <div className="py-8 text-center text-[0.6875rem] tracking-[0.2rem] text-fg/40">
           불러오는 중…
         </div>
       ) : (

@@ -16,7 +16,7 @@ export function ChapterSection({
   return (
     <section
       data-ch={chIndex}
-      className={`scroll-start relative box-border flex flex-col justify-center px-[22px] pt-16 pb-12 ${minHeightAuto ? "" : "min-h-full"} ${className}`}
+      className={`scroll-start relative box-border flex flex-col justify-center px-[1.375rem] pt-16 pb-12 ${minHeightAuto ? "" : "min-h-full"} ${className}`}
     >
       {children}
     </section>

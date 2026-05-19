@@ -31,7 +31,7 @@ const ATTEND_OPTIONS: [NonNullable<AttendStatus>, string][] = [
 ];
 
 const inputClass =
-  "w-full py-3 bg-transparent border-0 border-b border-fg/30 text-fg text-[15px] outline-none box-border placeholder:text-fg/30";
+  "w-full py-3 bg-transparent border-0 border-b border-fg/30 text-fg text-[0.9375rem] outline-none box-border placeholder:text-fg/30";
 
 export function GuestbookForm({ onSubmit }: GuestbookFormProps) {
   const [name, setName] = useState("");
@@ -64,8 +64,8 @@ export function GuestbookForm({ onSubmit }: GuestbookFormProps) {
   };
 
   return (
-    <div className="mb-[22px] border border-fg/10 bg-warm p-4">
-      <div className="mb-3 text-[9px] tracking-[.3em] text-gold">
+    <div className="mb-[1.375rem] border border-fg/10 bg-warm p-4">
+      <div className="mb-3 text-[0.5625rem] tracking-[0.3rem] text-gold">
         · LEAVE A NOTE ·
       </div>
 
@@ -77,23 +77,23 @@ export function GuestbookForm({ onSubmit }: GuestbookFormProps) {
       />
 
       <textarea
-        className={`${inputClass} mt-1 mb-[14px] resize-none pt-2.5`}
+        className={`${inputClass} mt-1 mb-3.5 resize-none pt-2.5`}
         placeholder="짧고 따뜻한 한마디를 남겨주세요"
         value={msg}
         rows={3}
         onChange={(e) => setMsg(e.target.value)}
       />
 
-      <div className="mb-2 text-[9px] tracking-[.3em] text-fg/55">
+      <div className="mb-2 text-[0.5625rem] tracking-[0.3rem] text-fg/55">
         이모지를 골라주세요 (선택)
       </div>
-      <div className="mb-[14px] flex flex-wrap gap-1.5">
+      <div className="mb-3.5 flex flex-wrap gap-1.5">
         {REACTIONS.map((r) => (
           <button
             key={r}
             onClick={() => setReaction(reaction === r ? null : r)}
             aria-label={`이모지 ${r} 선택`}
-            className={`h-[38px] w-[38px] cursor-pointer rounded-lg border p-0 text-[18px] transition-all duration-150 ${
+            className={`h-[2.375rem] w-[2.375rem] cursor-pointer rounded-lg border p-0 text-lg transition-all duration-150 ${
               reaction === r
                 ? "border-gold bg-gold/[.18]"
                 : "border-transparent bg-fg/[.05]"
@@ -104,15 +104,15 @@ export function GuestbookForm({ onSubmit }: GuestbookFormProps) {
         ))}
       </div>
 
-      <div className="mb-2 text-[9px] tracking-[.3em] text-fg/55">
+      <div className="mb-2 text-[0.5625rem] tracking-[0.3rem] text-fg/55">
         어느 쪽으로 오세요? (선택)
       </div>
-      <div className="mb-[14px] grid grid-cols-2 gap-1">
+      <div className="mb-3.5 grid grid-cols-2 gap-1">
         {SIDE_OPTIONS.map(([k, l]) => (
           <button
             key={k}
             onClick={() => setSide(side === k ? null : k)}
-            className={`cursor-pointer border py-2.5 text-[11px] tracking-[.05em] transition-all duration-200 ${
+            className={`cursor-pointer border py-2.5 text-[0.6875rem] tracking-[0.05rem] transition-all duration-200 ${
               side === k
                 ? "border-gold bg-gold text-bg"
                 : "border-fg/[.18] bg-transparent text-fg"
@@ -123,15 +123,15 @@ export function GuestbookForm({ onSubmit }: GuestbookFormProps) {
         ))}
       </div>
 
-      <div className="mb-2 text-[9px] tracking-[.3em] text-fg/55">
+      <div className="mb-2 text-[0.5625rem] tracking-[0.3rem] text-fg/55">
         참석 여부 (선택 — 나중에 알려주셔도 OK)
       </div>
-      <div className="mb-[14px] grid grid-cols-3 gap-1">
+      <div className="mb-3.5 grid grid-cols-3 gap-1">
         {ATTEND_OPTIONS.map(([k, l]) => (
           <button
             key={k}
             onClick={() => setAttend(attend === k ? null : k)}
-            className={`cursor-pointer border py-2.5 text-[11px] tracking-[.05em] transition-all duration-200 ${
+            className={`cursor-pointer border py-2.5 text-[0.6875rem] tracking-[0.05rem] transition-all duration-200 ${
               attend === k
                 ? "border-gold bg-gold text-bg"
                 : "border-fg/[.18] bg-transparent text-fg"
@@ -142,12 +142,12 @@ export function GuestbookForm({ onSubmit }: GuestbookFormProps) {
         ))}
       </div>
 
-      {error && <p className="mb-2 text-[11px] text-red-400">{error}</p>}
+      {error && <p className="mb-2 text-[0.6875rem] text-red-400">{error}</p>}
 
       <button
         onClick={handleSubmit}
         disabled={!canSubmit}
-        className={`w-full border-0 py-[14px] text-[11px] font-bold tracking-[.25em] transition-all duration-150 ${
+        className={`w-full border-0 py-3.5 text-[0.6875rem] font-bold tracking-[0.25rem] transition-all duration-150 ${
           canSubmit
             ? "cursor-pointer bg-gold text-bg"
             : "cursor-not-allowed bg-gold/20 text-fg/40"

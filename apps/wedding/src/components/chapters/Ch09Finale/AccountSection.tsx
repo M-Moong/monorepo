@@ -32,11 +32,11 @@ export function AccountSection({ side }: AccountSectionProps) {
     <div className="mb-1.5">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex w-full cursor-pointer items-center justify-between border border-fg/10 bg-warm px-4 py-[14px] text-fg"
+        className="flex w-full cursor-pointer items-center justify-between border border-fg/10 bg-warm px-4 py-3.5 text-fg"
       >
-        <span className="text-[12px] tracking-[.15em]">{label}</span>
+        <span className="text-xs tracking-[0.15rem]">{label}</span>
         <span
-          className="text-[16px] text-gold transition-transform duration-300"
+          className="text-base text-gold transition-transform duration-300"
           style={{ transform: isOpen ? "rotate(45deg)" : "none" }}
         >
           +
@@ -48,14 +48,14 @@ export function AccountSection({ side }: AccountSectionProps) {
           {accounts.map((a) => (
             <div
               key={a.number}
-              className="flex items-center justify-between gap-2.5 border-b border-l border-gold border-b-fg/[.05] bg-warm/60 px-[14px] py-3"
+              className="flex items-center justify-between gap-2.5 border-b border-l border-gold border-b-fg/[.05] bg-warm/60 px-3.5 py-3"
             >
               <div className="min-w-0 flex-1">
-                <div className="text-[9px] tracking-[.2em] text-gold">
+                <div className="text-[0.5625rem] tracking-[0.2rem] text-gold">
                   {a.who}
                 </div>
-                <div className="mt-0.5 text-[13px] text-fg">{a.name}</div>
-                <div className="mt-0.5 font-mono text-[10px] text-fg/60">
+                <div className="mt-0.5 text-[0.8125rem] text-fg">{a.name}</div>
+                <div className="mt-0.5 font-mono text-[0.625rem] text-fg/60">
                   {a.bank} · {a.number}
                 </div>
               </div>
@@ -63,7 +63,7 @@ export function AccountSection({ side }: AccountSectionProps) {
                 onClick={() =>
                   copy(a.number, `${a.bank} ${a.number} ${a.name}`)
                 }
-                className={`shrink-0 cursor-pointer border border-gold px-2.5 py-1.5 text-[9px] tracking-[.2em] transition-all duration-200 ${
+                className={`shrink-0 cursor-pointer border border-gold px-2.5 py-1.5 text-[0.5625rem] tracking-[0.2rem] transition-all duration-200 ${
                   copiedId === a.number
                     ? "bg-gold text-bg"
                     : "bg-transparent text-gold"

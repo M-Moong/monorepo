@@ -10,11 +10,11 @@ export function ChHeader({ num, label, title }: ChHeaderProps) {
   const numStr = String(num).padStart(2, "0");
   return (
     <>
-      <div className="mb-[14px] text-[9px] tracking-[.4em] text-gold">
+      <div className="mb-3.5 text-[0.5625rem] tracking-[0.4rem] text-gold">
         CH. {numStr} · {label}
       </div>
 
-      <div className="mb-[22px] font-serif text-[44px] leading-[0.98] font-light text-fg italic">
+      <div className="mb-[1.375rem] font-serif text-[2.75rem] leading-[0.98] font-light text-fg italic">
         {title}
       </div>
     </>

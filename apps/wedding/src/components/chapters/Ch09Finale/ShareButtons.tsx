@@ -57,20 +57,20 @@ export function ShareButtons() {
 
   return (
     <div className="mt-7">
-      <div className="mb-3 text-[9px] tracking-[.4em] text-gold">· SHARE ·</div>
+      <div className="mb-3 text-[0.5625rem] tracking-[0.4rem] text-gold">· SHARE ·</div>
       <div className="grid grid-cols-3 gap-1.5">
         {SHARE_ACTIONS.map((s) => (
           <button
             key={s.key}
             onClick={s.onClick}
-            className={`cursor-pointer border border-fg/20 bg-transparent py-[14px] text-center transition-all duration-200 ${
+            className={`cursor-pointer border border-fg/20 bg-transparent py-3.5 text-center transition-all duration-200 ${
               s.key === "link" && linkCopied ? "border-gold" : ""
             }`}
           >
-            <div className="text-[10px] tracking-[.25em] text-gold">
+            <div className="text-[0.625rem] tracking-[0.25rem] text-gold">
               {s.label}
             </div>
-            <div className="mt-1 text-[10px] text-fg/50">{s.sub}</div>
+            <div className="mt-1 text-[0.625rem] text-fg/50">{s.sub}</div>
           </button>
         ))}
       </div>
