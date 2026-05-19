@@ -5,7 +5,30 @@
       "Bash(tar -t)",
       "Bash(tar -x -O \"wedding-invite/project/v6-full.jsx\")",
       "Bash(tar -x -O \"wedding-invite/project/common.jsx\")",
-      "Bash(npx tsc *)"
+      "Bash(npx tsc *)",
+      "Bash(xxd)",
+      "Bash(mkdir -p /tmp/wedding_bundle)",
+      "Read(//tmp/**)",
+      "Bash(tar -xf /tmp/wedding_design.html)",
+      "Bash(pnpm build *)",
+      "Bash(pnpm --filter wedding build)",
+      "Bash(pnpm --filter wedding dev)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000)",
+      "Bash(curl -s http://localhost:3000)",
+      "Bash(pnpm *)",
+      "mcp__context7__resolve-library-id",
+      "mcp__context7__query-docs",
+      "Bash(git -C /Users/sms/Desktop/monorepo status)",
+      "Bash(git -C /Users/sms/Desktop/monorepo diff --stat HEAD)",
+      "Bash(git *)",
+      "Bash(node *)",
+      "Bash(npx prettier *)",
+      "Bash(xargs ls -la)",
+      "Bash(grep -r \"from '@repo/ui'\" /Users/sms/Desktop/monorepo --include=\"*.tsx\" --include=\"*.ts\" ! -path \"*/node_modules/*\")"
     ]
-  }
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "vercel"
+  ]
 }

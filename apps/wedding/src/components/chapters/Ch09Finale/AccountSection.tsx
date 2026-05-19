@@ -1,0 +1,74 @@
+'use client';
+
+import { useState } from 'react';
+import { WEDDING } from '@/data/wedding';
+
+type AccountSide = 'groom' | 'bride';
+
+interface AccountSectionProps {
+  side: AccountSide;
+}
+
+export function AccountSection({ side }: AccountSectionProps) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+
+  const label = side === 'groom' ? '신랑측 계좌' : '신부측 계좌';
+  const p = WEDDING[side];
+  const prefix = side === 'groom' ? '신랑' : '신부';
+  const accounts = [
+    { who: prefix, name: p.name, ...p.account },
+    { who: `${prefix} 아버지`, name: p.father.name, ...p.father.account },
+    { who: `${prefix} 어머니`, name: p.mother.name, ...p.mother.account },
+  ];
+
+  const copy = (id: string, text: string) => {
+    navigator.clipboard?.writeText(text);
+    setCopiedId(id);
+    setTimeout(() => setCopiedId(null), 1600);
+  };
+
+  return (
+    <div className="mb-1.5">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex w-full cursor-pointer items-center justify-between border border-fg/10 bg-warm px-4 py-3.5 text-fg"
+      >
+        <span className="text-xs tracking-[0.15rem]">{label}</span>
+        <span
+          className="text-base text-gold transition-transform duration-300"
+          style={{ transform: isOpen ? 'rotate(45deg)' : 'none' }}
+        >
+          +
+        </span>
+      </button>
+
+      {isOpen && (
+        <div>
+          {accounts.map((a) => (
+            <div
+              key={a.number}
+              className="flex items-center justify-between gap-2.5 border-b border-l border-gold border-b-fg/[.05] bg-warm/60 px-3.5 py-3"
+            >
+              <div className="min-w-0 flex-1">
+                <div className="text-[0.5625rem] tracking-[0.2rem] text-gold">{a.who}</div>
+                <div className="mt-0.5 text-[0.8125rem] text-fg">{a.name}</div>
+                <div className="mt-0.5 font-mono text-[0.625rem] text-fg/60">
+                  {a.bank} · {a.number}
+                </div>
+              </div>
+              <button
+                onClick={() => copy(a.number, `${a.bank} ${a.number} ${a.name}`)}
+                className={`shrink-0 cursor-pointer border border-gold px-2.5 py-1.5 text-[0.5625rem] tracking-[0.2rem] transition-all duration-200 ${
+                  copiedId === a.number ? 'bg-gold text-bg' : 'bg-transparent text-gold'
+                }`}
+              >
+                {copiedId === a.number ? '✓ 복사됨' : 'COPY'}
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
