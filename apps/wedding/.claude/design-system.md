@@ -12,7 +12,7 @@ import { Heart, MapPin, Calendar } from 'lucide-react';
 
 ## 색상 토큰
 
-`apps/wedding/app/globals.css`의 `@theme` 블록에서 정의. Tailwind 유틸리티 클래스로 사용.
+`src/app/globals.css`의 `@theme` 블록에서 정의. Tailwind 유틸리티 클래스로 사용.
 
 | 클래스                      | 값                      | 용도               |
 | --------------------------- | ----------------------- | ------------------ |

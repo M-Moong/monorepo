@@ -54,7 +54,3 @@ packages/
 ## 상세 가이드
 
 @.claude/shadcn.md
-@.claude/design-system.md
-@.claude/architecture.md
-@.claude/chapters.md
-@.claude/WORK_GUIDE.md

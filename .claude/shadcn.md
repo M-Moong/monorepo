@@ -6,7 +6,7 @@
 
 - **컴포넌트**: `packages/ui/src/components/` — shadcn 컴포넌트를 여기에 추가
 - **유틸리티**: `packages/ui/src/lib/utils.ts` — `cn()` 함수 (clsx + tailwind-merge)
-- **CSS 변수**: `apps/wedding/app/globals.css` — shadcn 테마 변수 (`--background`, `--primary` 등)
+- **CSS 변수**: `apps/wedding/src/app/globals.css` — shadcn 테마 변수 (`--background`, `--primary` 등)
 - **설정 파일**: `packages/ui/components.json`, `apps/wedding/components.json`
 
 ## 새 컴포넌트 추가
