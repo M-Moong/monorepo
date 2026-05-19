@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { WEDDING } from "@/data/wedding";
+import { useState } from 'react';
+import { WEDDING } from '@/data/wedding';
 
-type MapProvider = "kakao" | "naver";
+type MapProvider = 'kakao' | 'naver';
 
 const MAP_PROVIDERS: { key: MapProvider; label: string }[] = [
-  { key: "kakao", label: "카카오맵" },
-  { key: "naver", label: "네이버지도" },
+  { key: 'kakao', label: '카카오맵' },
+  { key: 'naver', label: '네이버지도' },
 ];
 
 export function MapLinks() {
-  const [provider, setProvider] = useState<MapProvider>("kakao");
+  const [provider, setProvider] = useState<MapProvider>('kakao');
 
   return (
     <div className="mt-3.5">
@@ -22,8 +22,8 @@ export function MapLinks() {
             onClick={() => setProvider(key)}
             className={`cursor-pointer border py-2.5 text-[0.625rem] tracking-[0.2rem] transition-all duration-200 ${
               provider === key
-                ? "border-gold bg-gold text-bg"
-                : "border-fg/[.15] bg-transparent text-fg"
+                ? 'border-gold bg-gold text-bg'
+                : 'border-fg/[.15] bg-transparent text-fg'
             }`}
           >
             {label}
@@ -37,7 +37,7 @@ export function MapLinks() {
         rel="noopener noreferrer"
         className="mb-1 flex w-full cursor-pointer items-center justify-center border border-gold bg-transparent py-3 text-[0.6875rem] tracking-[0.2rem] text-gold transition-opacity duration-150 active:opacity-70"
       >
-        {provider === "kakao" ? "카카오맵" : "네이버지도"}으로 열기 →
+        {provider === 'kakao' ? '카카오맵' : '네이버지도'}으로 열기 →
       </a>
 
       <a

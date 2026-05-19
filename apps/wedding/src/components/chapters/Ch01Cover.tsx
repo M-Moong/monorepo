@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { ChapterSection } from "@/components/ui/ChapterSection";
-import { useCountdown } from "@/hooks/useCountdown";
-import { WEDDING } from "@/data/wedding";
+import { ChapterSection } from '@/components/ui/ChapterSection';
+import { useCountdown } from '@/hooks/useCountdown';
+import { WEDDING } from '@/data/wedding';
 
 export function Ch01Cover() {
   const cd = useCountdown(WEDDING.date);
@@ -46,8 +46,8 @@ export function Ch01Cover() {
             </span>
           ) : (
             <>
-              <span className="text-lg text-gold">{cd.d}</span> DAYS ·{" "}
-              {cd.h}H {cd.m}M {String(cd.s).padStart(2, "0")}S
+              <span className="text-lg text-gold">{cd.d}</span> DAYS · {cd.h}H {cd.m}M{' '}
+              {String(cd.s).padStart(2, '0')}S
             </>
           )}
         </div>
@@ -57,9 +57,7 @@ export function Ch01Cover() {
           {WEDDING.groom.en} &amp; {WEDDING.bride.en}
         </div>
 
-        <div className="mt-2 text-[0.625rem] tracking-[0.3rem] text-fg/50">
-          {WEDDING.dateShort}
-        </div>
+        <div className="mt-2 text-[0.625rem] tracking-[0.3rem] text-fg/50">{WEDDING.dateShort}</div>
       </div>
 
       {/* 스크롤 유도 화살표 */}

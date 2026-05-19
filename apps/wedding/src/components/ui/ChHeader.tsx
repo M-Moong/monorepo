@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 
 interface ChHeaderProps {
   num: number;
@@ -7,7 +7,7 @@ interface ChHeaderProps {
 }
 
 export function ChHeader({ num, label, title }: ChHeaderProps) {
-  const numStr = String(num).padStart(2, "0");
+  const numStr = String(num).padStart(2, '0');
   return (
     <>
       <div className="mb-3.5 text-[0.5625rem] tracking-[0.4rem] text-gold">

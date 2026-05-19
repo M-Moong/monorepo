@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 
 interface ChapterSectionProps {
   chIndex: number;
@@ -10,13 +10,13 @@ interface ChapterSectionProps {
 export function ChapterSection({
   chIndex,
   children,
-  className = "",
+  className = '',
   minHeightAuto = false,
 }: ChapterSectionProps) {
   return (
     <section
       data-ch={chIndex}
-      className={`scroll-start relative box-border flex flex-col justify-center px-[1.375rem] pt-16 pb-12 ${minHeightAuto ? "" : "min-h-full"} ${className}`}
+      className={`scroll-start relative box-border flex flex-col justify-center px-[1.375rem] pt-16 pb-12 ${minHeightAuto ? '' : 'min-h-full'} ${className}`}
     >
       {children}
     </section>

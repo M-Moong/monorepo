@@ -73,7 +73,7 @@
 export function useBGM(enabled: boolean): void {
   useEffect(() => {
     if (!enabled) return;
-    const audio = new Audio("/bgm.mp3");
+    const audio = new Audio('/bgm.mp3');
     audio.loop = true;
     audio.volume = 0.25;
     audio.play().catch(() => {});
@@ -166,7 +166,7 @@ pnpm --filter wedding db:push
 파일: `apps/wedding/src/config/theme.config.ts`
 
 ```ts
-export const ACTIVE_THEME = "dark-gold"; // 'ivory-rose' | 'sage-linen'
+export const ACTIVE_THEME = 'dark-gold'; // 'ivory-rose' | 'sage-linen'
 ```
 
 색상 정의: `apps/wedding/src/app/globals.css`의 `[data-theme='...']` 블록에서 수정.

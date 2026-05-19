@@ -5,7 +5,7 @@
 **lucide-react** 사용. 다른 아이콘 라이브러리 추가 금지.
 
 ```tsx
-import { Heart, MapPin, Calendar } from "lucide-react";
+import { Heart, MapPin, Calendar } from 'lucide-react';
 ```
 
 `lucide-react`는 `packages/ui` 의존성으로 설치되어 있고, `apps/wedding`에도 직접 의존성으로 추가되어 있음.

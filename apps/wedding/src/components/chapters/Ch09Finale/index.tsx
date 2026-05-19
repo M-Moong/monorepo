@@ -1,8 +1,8 @@
-import { ChapterSection } from "@/components/ui/ChapterSection";
-import { ChHeader } from "@/components/ui/ChHeader";
-import { AccountSection } from "./AccountSection";
-import { ShareButtons } from "./ShareButtons";
-import { WEDDING } from "@/data/wedding";
+import { ChapterSection } from '@/components/ui/ChapterSection';
+import { ChHeader } from '@/components/ui/ChHeader';
+import { AccountSection } from './AccountSection';
+import { ShareButtons } from './ShareButtons';
+import { WEDDING } from '@/data/wedding';
 
 export function Ch09Finale() {
   return (
@@ -28,9 +28,7 @@ export function Ch09Finale() {
         </div>
       </div>
 
-      <div className="mb-2 text-[0.5625rem] tracking-[0.4rem] text-gold">
-        · 마음 전하실 곳 ·
-      </div>
+      <div className="mb-2 text-[0.5625rem] tracking-[0.4rem] text-gold">· 마음 전하실 곳 ·</div>
       <p className="mb-3.5 text-[0.6875rem] leading-[1.55] text-fg/55">
         직접 축하 못 오시는 분들을 위해 계좌번호를 안내드립니다.
       </p>
@@ -40,9 +38,7 @@ export function Ch09Finale() {
 
       <ShareButtons />
 
-      <div className="mt-12 text-center text-[0.5625rem] tracking-[0.5rem] text-fg/40">
-        · FIN ·
-      </div>
+      <div className="mt-12 text-center text-[0.5625rem] tracking-[0.5rem] text-fg/40">· FIN ·</div>
       <div className="mt-3.5 text-center font-serif text-[1.375rem] text-gold italic">
         {WEDDING.groom.initial} &amp; {WEDDING.bride.initial}
       </div>

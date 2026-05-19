@@ -1,42 +1,22 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { ChapterSection } from "@/components/ui/ChapterSection";
-import { ChHeader } from "@/components/ui/ChHeader";
-import { PhotoFrame } from "@/components/ui/PhotoFrame";
-import { Lightbox } from "@/components/ui/Lightbox";
-import { WEDDING } from "@/data/wedding";
+import { useState } from 'react';
+import { ChapterSection } from '@/components/ui/ChapterSection';
+import { ChHeader } from '@/components/ui/ChHeader';
+import { PhotoFrame } from '@/components/ui/PhotoFrame';
+import { Lightbox } from '@/components/ui/Lightbox';
+import { WEDDING } from '@/data/wedding';
 
-type Tone =
-  | "warm"
-  | "cool"
-  | "sage"
-  | "paper"
-  | "mono"
-  | "blush"
-  | "sepia"
-  | "ink";
+type Tone = 'warm' | 'cool' | 'sage' | 'paper' | 'mono' | 'blush' | 'sepia' | 'ink';
 
-const TONES: Tone[] = [
-  "mono",
-  "sepia",
-  "warm",
-  "paper",
-  "sage",
-  "blush",
-  "cool",
-  "mono",
-  "sepia",
-];
+const TONES: Tone[] = ['mono', 'sepia', 'warm', 'paper', 'sage', 'blush', 'cool', 'mono', 'sepia'];
 
 export function Ch04Gallery() {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const total = TONES.length;
 
   const handlePrev = () => {
-    setLightboxIndex((prev) =>
-      prev !== null ? (prev - 1 + total) % total : 0,
-    );
+    setLightboxIndex((prev) => (prev !== null ? (prev - 1 + total) % total : 0));
   };
   const handleNext = () => {
     setLightboxIndex((prev) => (prev !== null ? (prev + 1) % total : 0));
@@ -63,7 +43,7 @@ export function Ch04Gallery() {
             onClick={() => setLightboxIndex(i)}
             className="relative aspect-square cursor-pointer overflow-hidden"
           >
-            <PhotoFrame label={String(i + 1).padStart(2, "0")} tone={tone} />
+            <PhotoFrame label={String(i + 1).padStart(2, '0')} tone={tone} />
           </div>
         ))}
       </div>

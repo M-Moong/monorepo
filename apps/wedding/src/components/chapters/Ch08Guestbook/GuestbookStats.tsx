@@ -4,15 +4,11 @@ interface GuestbookStatsProps {
   brideCount: number;
 }
 
-export function GuestbookStats({
-  total,
-  groomCount,
-  brideCount,
-}: GuestbookStatsProps) {
+export function GuestbookStats({ total, groomCount, brideCount }: GuestbookStatsProps) {
   const stats: [string, number][] = [
-    ["전체", total],
-    ["신랑측", groomCount],
-    ["신부측", brideCount],
+    ['전체', total],
+    ['신랑측', groomCount],
+    ['신부측', brideCount],
   ];
 
   return (
@@ -25,9 +21,7 @@ export function GuestbookStats({
           <div className="font-serif text-[1.625rem] leading-none text-gold italic tabular-nums">
             {count}
           </div>
-          <div className="mt-1 text-[0.5625rem] tracking-[0.25rem] text-fg/55">
-            {label}
-          </div>
+          <div className="mt-1 text-[0.5625rem] tracking-[0.25rem] text-fg/55">{label}</div>
         </div>
       ))}
     </div>
