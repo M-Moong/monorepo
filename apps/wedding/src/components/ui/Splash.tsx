@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useEffect, useRef, useState } from "react";
-import { WEDDING } from "@/data/wedding";
+import { useEffect, useRef, useState } from 'react';
+import { WEDDING } from '@/data/wedding';
 
-type Phase = "enter" | "hold" | "opening" | "done";
+type Phase = 'enter' | 'hold' | 'opening' | 'done';
 
 interface Props {
   onDone: () => void;
@@ -11,28 +11,28 @@ interface Props {
 
 // 파티클 위치는 고정 (SSR 안전)
 const PARTICLES = [
-  { left: "48%", top: "30%", delay: "0s", dur: "2.2s" },
-  { left: "52%", top: "45%", delay: "0.4s", dur: "1.8s" },
-  { left: "49%", top: "60%", delay: "0.8s", dur: "2.5s" },
-  { left: "51%", top: "25%", delay: "1.1s", dur: "2.0s" },
-  { left: "47%", top: "50%", delay: "0.2s", dur: "1.9s" },
-  { left: "53%", top: "38%", delay: "0.6s", dur: "2.3s" },
+  { left: '48%', top: '30%', delay: '0s', dur: '2.2s' },
+  { left: '52%', top: '45%', delay: '0.4s', dur: '1.8s' },
+  { left: '49%', top: '60%', delay: '0.8s', dur: '2.5s' },
+  { left: '51%', top: '25%', delay: '1.1s', dur: '2.0s' },
+  { left: '47%', top: '50%', delay: '0.2s', dur: '1.9s' },
+  { left: '53%', top: '38%', delay: '0.6s', dur: '2.3s' },
 ];
 
 export function Splash({ onDone }: Props) {
-  const [phase, setPhase] = useState<Phase>("enter");
+  const [phase, setPhase] = useState<Phase>('enter');
   const doneRef = useRef(false);
 
   useEffect(() => {
-    document.body.style.overflow = "hidden";
+    document.body.style.overflow = 'hidden';
 
-    const t1 = setTimeout(() => setPhase("hold"), 200);
-    const t2 = setTimeout(() => setPhase("opening"), 2200);
+    const t1 = setTimeout(() => setPhase('hold'), 200);
+    const t2 = setTimeout(() => setPhase('opening'), 2200);
     const t3 = setTimeout(() => {
       if (!doneRef.current) {
         doneRef.current = true;
-        setPhase("done");
-        document.body.style.overflow = "";
+        setPhase('done');
+        document.body.style.overflow = '';
         onDone();
       }
     }, 3600);
@@ -41,25 +41,23 @@ export function Splash({ onDone }: Props) {
       clearTimeout(t1);
       clearTimeout(t2);
       clearTimeout(t3);
-      document.body.style.overflow = "";
+      document.body.style.overflow = '';
     };
   }, [onDone]);
 
-  if (phase === "done") return null;
+  if (phase === 'done') return null;
 
-  const isOpening = phase === "opening";
-  const isVisible = phase !== "enter";
+  const isOpening = phase === 'opening';
+  const isVisible = phase !== 'enter';
 
-  const panelTransition = isOpening
-    ? "transform 1200ms cubic-bezier(0.76, 0, 0.24, 1)"
-    : "none";
+  const panelTransition = isOpening ? 'transform 1200ms cubic-bezier(0.76, 0, 0.24, 1)' : 'none';
 
   return (
     <div
       className="fixed inset-0 z-[100] overflow-hidden"
       style={{
         opacity: isVisible ? 1 : 0,
-        transition: "opacity 250ms ease",
+        transition: 'opacity 250ms ease',
       }}
     >
       {/* 뒤에서 퍼지는 골드 bloom (문 열릴 때) */}
@@ -67,9 +65,9 @@ export function Splash({ onDone }: Props) {
         className="pointer-events-none absolute inset-0 z-0"
         style={{
           background:
-            "radial-gradient(ellipse 60% 50% at 50% 50%, color-mix(in srgb, #e8c87c 18%, transparent) 0%, transparent 70%)",
+            'radial-gradient(ellipse 60% 50% at 50% 50%, color-mix(in srgb, #e8c87c 18%, transparent) 0%, transparent 70%)',
           opacity: isOpening ? 1 : 0,
-          transition: "opacity 800ms ease 200ms",
+          transition: 'opacity 800ms ease 200ms',
         }}
       />
 
@@ -77,8 +75,8 @@ export function Splash({ onDone }: Props) {
       <div
         className="absolute top-0 left-0 z-10 flex h-full w-1/2 flex-col items-end justify-center"
         style={{
-          background: "var(--color-bg)",
-          transform: isOpening ? "translateX(-100%)" : "translateX(0)",
+          background: 'var(--color-bg)',
+          transform: isOpening ? 'translateX(-100%)' : 'translateX(0)',
           transition: panelTransition,
         }}
       >
@@ -86,15 +84,13 @@ export function Splash({ onDone }: Props) {
         <div
           className="absolute top-[15%] right-[28px] h-[30%] w-px"
           style={{
-            background:
-              "color-mix(in srgb, var(--color-gold) 30%, transparent)",
+            background: 'color-mix(in srgb, var(--color-gold) 30%, transparent)',
           }}
         />
         <div
           className="absolute right-[28px] bottom-[15%] h-[30%] w-px"
           style={{
-            background:
-              "color-mix(in srgb, var(--color-gold) 30%, transparent)",
+            background: 'color-mix(in srgb, var(--color-gold) 30%, transparent)',
           }}
         />
 
@@ -102,13 +98,9 @@ export function Splash({ onDone }: Props) {
           <div
             className="font-serif text-[5.5rem] leading-none italic"
             style={{
-              color: "var(--color-gold)",
-              textShadow:
-                "0 0 40px color-mix(in srgb, var(--color-gold) 50%, transparent)",
-              animation:
-                isVisible && !isOpening
-                  ? "glow 2.5s ease-in-out infinite"
-                  : "none",
+              color: 'var(--color-gold)',
+              textShadow: '0 0 40px color-mix(in srgb, var(--color-gold) 50%, transparent)',
+              animation: isVisible && !isOpening ? 'glow 2.5s ease-in-out infinite' : 'none',
             }}
           >
             {WEDDING.groom.initial}
@@ -116,7 +108,7 @@ export function Splash({ onDone }: Props) {
           <div
             className="mt-3 text-right text-[0.625rem] tracking-[0.4rem]"
             style={{
-              color: "color-mix(in srgb, var(--color-fg) 55%, transparent)",
+              color: 'color-mix(in srgb, var(--color-fg) 55%, transparent)',
             }}
           >
             {WEDDING.groom.name}
@@ -124,7 +116,7 @@ export function Splash({ onDone }: Props) {
           <div
             className="mt-1 text-right text-[0.5rem] tracking-[0.25rem]"
             style={{
-              color: "color-mix(in srgb, var(--color-gold) 50%, transparent)",
+              color: 'color-mix(in srgb, var(--color-gold) 50%, transparent)',
             }}
           >
             GROOM
@@ -135,11 +127,9 @@ export function Splash({ onDone }: Props) {
         <div
           className="absolute top-0 right-0 h-full w-px"
           style={{
-            background: "var(--color-gold)",
+            background: 'var(--color-gold)',
             animation:
-              isVisible && !isOpening
-                ? "splash-seam-glow 2s ease-in-out infinite"
-                : "none",
+              isVisible && !isOpening ? 'splash-seam-glow 2s ease-in-out infinite' : 'none',
           }}
         />
       </div>
@@ -148,8 +138,8 @@ export function Splash({ onDone }: Props) {
       <div
         className="absolute top-0 right-0 z-10 flex h-full w-1/2 flex-col items-start justify-center"
         style={{
-          background: "var(--color-bg)",
-          transform: isOpening ? "translateX(100%)" : "translateX(0)",
+          background: 'var(--color-bg)',
+          transform: isOpening ? 'translateX(100%)' : 'translateX(0)',
           transition: panelTransition,
         }}
       >
@@ -157,15 +147,13 @@ export function Splash({ onDone }: Props) {
         <div
           className="absolute top-[15%] left-[28px] h-[30%] w-px"
           style={{
-            background:
-              "color-mix(in srgb, var(--color-gold) 30%, transparent)",
+            background: 'color-mix(in srgb, var(--color-gold) 30%, transparent)',
           }}
         />
         <div
           className="absolute bottom-[15%] left-[28px] h-[30%] w-px"
           style={{
-            background:
-              "color-mix(in srgb, var(--color-gold) 30%, transparent)",
+            background: 'color-mix(in srgb, var(--color-gold) 30%, transparent)',
           }}
         />
 
@@ -173,13 +161,9 @@ export function Splash({ onDone }: Props) {
           <div
             className="font-serif text-[5.5rem] leading-none italic"
             style={{
-              color: "var(--color-gold)",
-              textShadow:
-                "0 0 40px color-mix(in srgb, var(--color-gold) 50%, transparent)",
-              animation:
-                isVisible && !isOpening
-                  ? "glow 2.5s ease-in-out infinite 0.4s"
-                  : "none",
+              color: 'var(--color-gold)',
+              textShadow: '0 0 40px color-mix(in srgb, var(--color-gold) 50%, transparent)',
+              animation: isVisible && !isOpening ? 'glow 2.5s ease-in-out infinite 0.4s' : 'none',
             }}
           >
             {WEDDING.bride.initial}
@@ -187,7 +171,7 @@ export function Splash({ onDone }: Props) {
           <div
             className="mt-3 text-[0.625rem] tracking-[0.4rem]"
             style={{
-              color: "color-mix(in srgb, var(--color-fg) 55%, transparent)",
+              color: 'color-mix(in srgb, var(--color-fg) 55%, transparent)',
             }}
           >
             {WEDDING.bride.name}
@@ -195,7 +179,7 @@ export function Splash({ onDone }: Props) {
           <div
             className="mt-1 text-[0.5rem] tracking-[0.25rem]"
             style={{
-              color: "color-mix(in srgb, var(--color-gold) 50%, transparent)",
+              color: 'color-mix(in srgb, var(--color-gold) 50%, transparent)',
             }}
           >
             BRIDE
@@ -206,11 +190,9 @@ export function Splash({ onDone }: Props) {
         <div
           className="absolute top-0 left-0 h-full w-px"
           style={{
-            background: "var(--color-gold)",
+            background: 'var(--color-gold)',
             animation:
-              isVisible && !isOpening
-                ? "splash-seam-glow 2s ease-in-out infinite 0.2s"
-                : "none",
+              isVisible && !isOpening ? 'splash-seam-glow 2s ease-in-out infinite 0.2s' : 'none',
           }}
         />
       </div>
@@ -228,7 +210,7 @@ export function Splash({ onDone }: Props) {
             style={{
               left: p.left,
               top: p.top,
-              background: "var(--color-gold)",
+              background: 'var(--color-gold)',
               animation: `splash-particle ${p.dur} ${p.delay} ease-out infinite`,
               opacity: 0,
             }}

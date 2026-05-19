@@ -1,6 +1,6 @@
-import { ChapterSection } from "@/components/ui/ChapterSection";
-import { ChHeader } from "@/components/ui/ChHeader";
-import { WEDDING } from "@/data/wedding";
+import { ChapterSection } from '@/components/ui/ChapterSection';
+import { ChHeader } from '@/components/ui/ChHeader';
+import { WEDDING } from '@/data/wedding';
 
 export function Ch02Invite() {
   return (
@@ -22,11 +22,7 @@ export function Ch02Invite() {
       <p className="mb-[1.625rem] font-serif text-[1.0625rem] leading-[1.85] whitespace-pre-line text-fg italic">
         {WEDDING.inviteLines.map((line, i, arr) => (
           <span key={i}>
-            {"highlight" in line ? (
-              <span className="text-gold">{line.text}</span>
-            ) : (
-              line.text
-            )}
+            {'highlight' in line ? <span className="text-gold">{line.text}</span> : line.text}
             {i < arr.length - 1 && <br />}
           </span>
         ))}
@@ -42,8 +38,7 @@ export function Ch02Invite() {
             {WEDDING.groom.father.name} · {WEDDING.groom.mother.name}
           </div>
           <div className="mt-1 font-serif text-lg text-fg italic">
-            의 아들{" "}
-            <span className="text-gold">{WEDDING.groom.name.slice(1)}</span>
+            의 아들 <span className="text-gold">{WEDDING.groom.name.slice(1)}</span>
           </div>
         </div>
 
@@ -59,8 +54,7 @@ export function Ch02Invite() {
             {WEDDING.bride.father.name} · {WEDDING.bride.mother.name}
           </div>
           <div className="mt-1 font-serif text-lg text-fg italic">
-            의 딸{" "}
-            <span className="text-gold">{WEDDING.bride.name.slice(1)}</span>
+            의 딸 <span className="text-gold">{WEDDING.bride.name.slice(1)}</span>
           </div>
         </div>
       </div>

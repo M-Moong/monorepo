@@ -1,15 +1,13 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { ChapterSection } from "@/components/ui/ChapterSection";
-import { ChHeader } from "@/components/ui/ChHeader";
-import { FortuneCard } from "./FortuneCard";
-import { VIBES, PALETTES } from "@/data/fortune";
+import { useState } from 'react';
+import { ChapterSection } from '@/components/ui/ChapterSection';
+import { ChHeader } from '@/components/ui/ChHeader';
+import { FortuneCard } from './FortuneCard';
+import { VIBES, PALETTES } from '@/data/fortune';
 
 export function Ch07Fortune() {
-  const [idx, setIdx] = useState(() =>
-    Math.floor(Math.random() * VIBES.length),
-  );
+  const [idx, setIdx] = useState(() => Math.floor(Math.random() * VIBES.length));
   const [flipping, setFlipping] = useState(false);
   const [copied, setCopied] = useState(false);
 
@@ -28,7 +26,7 @@ export function Ch07Fortune() {
   };
 
   const share = () => {
-    const text = `"${v.q.replace(/\n/g, " ")}" ${v.a}\n\n${v.tag} via M & S 청첩장`;
+    const text = `"${v.q.replace(/\n/g, ' ')}" ${v.a}\n\n${v.tag} via M & S 청첩장`;
     if (navigator.share) {
       navigator.share({ text }).catch(() => {});
     } else {
@@ -54,8 +52,7 @@ export function Ch07Fortune() {
       <p className="mb-[1.125rem] text-xs leading-[1.6] text-fg/70">
         랜덤으로 뽑히는 한 줄.
         <br />
-        마음에 들면 캡처해서 SNS에 공유해 주세요.{" "}
-        <span className="text-gold">#MnS_2026</span>
+        마음에 들면 캡처해서 SNS에 공유해 주세요. <span className="text-gold">#MnS_2026</span>
       </p>
 
       <FortuneCard
@@ -77,7 +74,7 @@ export function Ch07Fortune() {
           onClick={share}
           className="cursor-pointer border-0 bg-gold py-3.5 text-[0.6875rem] font-bold tracking-[0.25rem] text-bg"
         >
-          {copied ? "✓ 복사됨" : "↗ 공유하기"}
+          {copied ? '✓ 복사됨' : '↗ 공유하기'}
         </button>
       </div>
     </ChapterSection>

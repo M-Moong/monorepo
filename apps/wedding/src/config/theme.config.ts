@@ -5,6 +5,6 @@
  * 'ivory-rose' — 아이보리 배경, 로즈골드 포인트
  * 'sage-linen' — 린넨 배경, 세이지 그린 포인트
  */
-export const ACTIVE_THEME = "dark-gold" as const;
+export const ACTIVE_THEME = 'dark-gold' as const;
 
-export type Theme = "dark-gold" | "ivory-rose" | "sage-linen";
+export type Theme = 'dark-gold' | 'ivory-rose' | 'sage-linen';

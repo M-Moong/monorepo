@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 /* ── shadcn/ui CSS 변수 ── */
 @layer base {
@@ -69,7 +69,7 @@
   --color-svg-pin-glow: rgba(232, 200, 124, 0.15);
 }
 
-[data-theme="ivory-rose"] {
+[data-theme='ivory-rose'] {
   --color-bg: #faf6f1;
   --color-fg: #2d1f1a;
   --color-gold: #b5736a;
@@ -90,7 +90,7 @@
   --color-svg-pin-glow: rgba(181, 115, 106, 0.15);
 }
 
-[data-theme="sage-linen"] {
+[data-theme='sage-linen'] {
   --color-bg: #f2ede6;
   --color-fg: #1e2820;
   --color-gold: #6b8c6e;
@@ -120,8 +120,8 @@
   --color-dim: var(--color-dim);
   --color-overlay: var(--color-overlay);
 
-  --font-serif: "Cormorant Garamond", Georgia, serif;
-  --font-sans: "Space Grotesk", system-ui, sans-serif;
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Space Grotesk', system-ui, sans-serif;
 
   --animate-shimmer: shimmer 3s infinite;
   --animate-drift: drift 2s ease-in-out infinite;
@@ -144,7 +144,7 @@ body {
   padding: 0;
   background: var(--color-bg);
   color: var(--color-fg);
-  font-family: "Space Grotesk", system-ui, sans-serif;
+  font-family: 'Space Grotesk', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -221,12 +221,10 @@ body {
 @keyframes pulse-btn {
   0%,
   100% {
-    box-shadow: 0 6px 20px
-      color-mix(in srgb, var(--color-gold) 30%, transparent);
+    box-shadow: 0 6px 20px color-mix(in srgb, var(--color-gold) 30%, transparent);
   }
   50% {
-    box-shadow: 0 6px 28px
-      color-mix(in srgb, var(--color-gold) 60%, transparent);
+    box-shadow: 0 6px 28px color-mix(in srgb, var(--color-gold) 60%, transparent);
   }
 }
 

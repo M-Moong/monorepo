@@ -1,19 +1,19 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { ChapterSection } from "@/components/ui/ChapterSection";
-import { ChHeader } from "@/components/ui/ChHeader";
-import { useCountdown } from "@/hooks/useCountdown";
-import { WEDDING } from "@/data/wedding";
+import { useState } from 'react';
+import { ChapterSection } from '@/components/ui/ChapterSection';
+import { ChHeader } from '@/components/ui/ChHeader';
+import { useCountdown } from '@/hooks/useCountdown';
+import { WEDDING } from '@/data/wedding';
 
-const DAYS_HEADER = ["S", "M", "T", "W", "T", "F", "S"];
+const DAYS_HEADER = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 
 const calYear = WEDDING.date.getFullYear();
 const calMonth = WEDDING.date.getMonth();
-const CAL_MONTH_LABEL = WEDDING.date.toLocaleString("en-US", {
-  month: "long",
-  year: "numeric",
-  timeZone: "Asia/Seoul",
+const CAL_MONTH_LABEL = WEDDING.date.toLocaleString('en-US', {
+  month: 'long',
+  year: 'numeric',
+  timeZone: 'Asia/Seoul',
 });
 const MONTH_START_DOW = new Date(calYear, calMonth, 1).getDay();
 const MONTH_DAYS = new Date(calYear, calMonth + 1, 0).getDate();
@@ -27,27 +27,27 @@ const calendarCells = Array.from({ length: 35 }, (_, i) => {
 function buildIcs(): string {
   const loc = `${WEDDING.venue.name}\\, ${WEDDING.venue.address}`;
   return [
-    "BEGIN:VCALENDAR",
-    "VERSION:2.0",
-    "PRODID:-//MnS Wedding//KO",
-    "CALSCALE:GREGORIAN",
-    "METHOD:PUBLISH",
-    "BEGIN:VEVENT",
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//MnS Wedding//KO',
+    'CALSCALE:GREGORIAN',
+    'METHOD:PUBLISH',
+    'BEGIN:VEVENT',
     `DTSTART:${WEDDING.utcStart}`,
     `DTEND:${WEDDING.utcEnd}`,
     `SUMMARY:${WEDDING.groom.name} & ${WEDDING.bride.name} 결혼식`,
     `DESCRIPTION:${WEDDING.groom.name} & ${WEDDING.bride.name}의 결혼을 축하해 주세요.`,
     `LOCATION:${loc}`,
     `UID:mns-${WEDDING.utcStart.slice(0, 8)}@wedding`,
-    "STATUS:CONFIRMED",
-    "END:VEVENT",
-    "END:VCALENDAR",
-  ].join("\r\n");
+    'STATUS:CONFIRMED',
+    'END:VEVENT',
+    'END:VCALENDAR',
+  ].join('\r\n');
 }
 
 const GOOGLE_CALENDAR_URL = (() => {
   const p = new URLSearchParams({
-    action: "TEMPLATE",
+    action: 'TEMPLATE',
     text: `${WEDDING.groom.name} & ${WEDDING.bride.name} 결혼식`,
     dates: `${WEDDING.utcStart}/${WEDDING.utcEnd}`,
     details: `${WEDDING.groom.name} & ${WEDDING.bride.name}의 결혼을 축하해 주세요.\n\n${WEDDING.venue.name}\n${WEDDING.venue.address}`,
@@ -57,11 +57,11 @@ const GOOGLE_CALENDAR_URL = (() => {
 })();
 
 function downloadIcsFile() {
-  const blob = new Blob([buildIcs()], { type: "text/calendar;charset=utf-8" });
+  const blob = new Blob([buildIcs()], { type: 'text/calendar;charset=utf-8' });
   const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
+  const a = document.createElement('a');
   a.href = url;
-  a.download = "mns-wedding-2026.ics";
+  a.download = 'mns-wedding-2026.ics';
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
@@ -75,15 +75,15 @@ export function Ch05Calendar() {
   const [showPicker, setShowPicker] = useState(false);
 
   const addToCalendar = async () => {
-    const file = new File([buildIcs()], "mns-wedding-2026.ics", {
-      type: "text/calendar",
+    const file = new File([buildIcs()], 'mns-wedding-2026.ics', {
+      type: 'text/calendar',
     });
 
     // Web Share API — iOS 15+ / Android Chrome 86+ 에서 네이티브 공유 시트 표시
     // 사용자가 "캘린더에 추가"를 선택하면 OS가 직접 처리
     if (
-      typeof navigator.share === "function" &&
-      typeof navigator.canShare === "function" &&
+      typeof navigator.share === 'function' &&
+      typeof navigator.canShare === 'function' &&
       navigator.canShare({ files: [file] })
     ) {
       try {
@@ -91,7 +91,7 @@ export function Ch05Calendar() {
         return;
       } catch (err) {
         // AbortError = 사용자가 직접 닫음 → 피커 불필요
-        if (err instanceof Error && err.name === "AbortError") return;
+        if (err instanceof Error && err.name === 'AbortError') return;
       }
     }
 
@@ -116,12 +116,8 @@ export function Ch05Calendar() {
       {/* 달력 */}
       <div className="mb-[1.375rem] bg-warm p-[1.125rem]">
         <div className="mb-3.5 flex justify-between">
-          <div className="font-serif text-[1.375rem] text-fg italic">
-            {CAL_MONTH_LABEL}
-          </div>
-          <div className="text-[0.625rem] tracking-[0.2rem] text-gold">
-            {WEDDING.timeText}
-          </div>
+          <div className="font-serif text-[1.375rem] text-fg italic">{CAL_MONTH_LABEL}</div>
+          <div className="text-[0.625rem] tracking-[0.2rem] text-gold">{WEDDING.timeText}</div>
         </div>
 
         <div className="grid grid-cols-7 gap-1 text-[0.5625rem] tracking-[0.1rem]">
@@ -129,11 +125,7 @@ export function Ch05Calendar() {
             <div
               key={i}
               className={`py-1 text-center ${
-                i === 0
-                  ? "text-[#d97777]"
-                  : i === 6
-                    ? "text-gold"
-                    : "text-fg/50"
+                i === 0 ? 'text-[#d97777]' : i === 6 ? 'text-gold' : 'text-fg/50'
               }`}
             >
               {d}
@@ -147,17 +139,17 @@ export function Ch05Calendar() {
                 key={i}
                 className={`py-2 text-center text-[0.8125rem] ${
                   !d
-                    ? "text-transparent"
+                    ? 'text-transparent'
                     : isWedding
-                      ? "bg-gold font-bold text-bg"
+                      ? 'bg-gold font-bold text-bg'
                       : dow === 0
-                        ? "text-[#d97777]"
+                        ? 'text-[#d97777]'
                         : dow === 6
-                          ? "text-gold"
-                          : "text-fg"
+                          ? 'text-gold'
+                          : 'text-fg'
                 }`}
               >
-                {d ?? "·"}
+                {d ?? '·'}
               </div>
             );
           })}
@@ -168,22 +160,17 @@ export function Ch05Calendar() {
       <div className="grid grid-cols-4 gap-1.5">
         {(
           [
-            ["DAYS", cd.d],
-            ["HRS", cd.h],
-            ["MIN", cd.m],
-            ["SEC", cd.s],
+            ['DAYS', cd.d],
+            ['HRS', cd.h],
+            ['MIN', cd.m],
+            ['SEC', cd.s],
           ] as [string, number][]
         ).map(([label, val]) => (
-          <div
-            key={label}
-            className="border border-fg/[.08] bg-warm px-1.5 py-3.5 text-center"
-          >
+          <div key={label} className="border border-fg/[.08] bg-warm px-1.5 py-3.5 text-center">
             <div className="font-serif text-[1.75rem] leading-none text-gold italic tabular-nums">
-              {String(val).padStart(2, "0")}
+              {String(val).padStart(2, '0')}
             </div>
-            <div className="mt-1.5 text-[0.5625rem] tracking-[0.25rem] text-fg/50">
-              {label}
-            </div>
+            <div className="mt-1.5 text-[0.5625rem] tracking-[0.25rem] text-fg/50">{label}</div>
           </div>
         ))}
       </div>

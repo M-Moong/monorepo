@@ -1,17 +1,9 @@
-"use client";
+'use client';
 
-import { useEffect } from "react";
-import { PhotoFrame } from "@/components/ui/PhotoFrame";
+import { useEffect } from 'react';
+import { PhotoFrame } from '@/components/ui/PhotoFrame';
 
-type Tone =
-  | "warm"
-  | "cool"
-  | "sage"
-  | "paper"
-  | "mono"
-  | "blush"
-  | "sepia"
-  | "ink";
+type Tone = 'warm' | 'cool' | 'sage' | 'paper' | 'mono' | 'blush' | 'sepia' | 'ink';
 
 interface LightboxProps {
   index: number;
@@ -23,36 +15,25 @@ interface LightboxProps {
   onNext: () => void;
 }
 
-export function Lightbox({
-  index,
-  total,
-  tones,
-  photos,
-  onClose,
-  onPrev,
-  onNext,
-}: LightboxProps) {
+export function Lightbox({ index, total, tones, photos, onClose, onPrev, onNext }: LightboxProps) {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-      if (e.key === "ArrowLeft") onPrev();
-      if (e.key === "ArrowRight") onNext();
+      if (e.key === 'Escape') onClose();
+      if (e.key === 'ArrowLeft') onPrev();
+      if (e.key === 'ArrowRight') onNext();
     };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
   }, [onClose, onPrev, onNext]);
 
-  const hasRealPhoto = photos[index] && !photos[index].includes("placeholder");
+  const hasRealPhoto = photos[index] && !photos[index].includes('placeholder');
 
   return (
     <div
       onClick={onClose}
       className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-bg/95 p-5"
     >
-      <div
-        className="aspect-[3/4] max-h-[70%] w-full"
-        onClick={(e) => e.stopPropagation()}
-      >
+      <div className="aspect-[3/4] max-h-[70%] w-full" onClick={(e) => e.stopPropagation()}>
         {hasRealPhoto ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
@@ -65,10 +46,7 @@ export function Lightbox({
         )}
       </div>
 
-      <div
-        className="mt-[1.125rem] flex gap-6"
-        onClick={(e) => e.stopPropagation()}
-      >
+      <div className="mt-[1.125rem] flex gap-6" onClick={(e) => e.stopPropagation()}>
         <button
           onClick={onPrev}
           className="cursor-pointer border border-gold/40 bg-transparent px-3.5 py-2 text-[0.6875rem] tracking-[0.2rem] text-gold"

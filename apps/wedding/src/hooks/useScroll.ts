@@ -1,15 +1,13 @@
-"use client";
+'use client';
 
-import { useState, useEffect, RefObject } from "react";
+import { useState, useEffect, RefObject } from 'react';
 
 interface ScrollState {
   chapter: number;
   progressPct: number;
 }
 
-export function useScroll(
-  containerRef: RefObject<HTMLElement | null>,
-): ScrollState {
+export function useScroll(containerRef: RefObject<HTMLElement | null>): ScrollState {
   const [state, setState] = useState<ScrollState>({
     chapter: 0,
     progressPct: 0,
@@ -20,7 +18,7 @@ export function useScroll(
     if (!el) return;
 
     const onScroll = () => {
-      const sections = el.querySelectorAll<HTMLElement>("[data-ch]");
+      const sections = el.querySelectorAll<HTMLElement>('[data-ch]');
       const top = el.scrollTop + 120;
       let cur = 0;
       sections.forEach((s) => {
@@ -30,9 +28,9 @@ export function useScroll(
       setState({ chapter: cur, progressPct: Math.min(1, Math.max(0, pct)) });
     };
 
-    el.addEventListener("scroll", onScroll, { passive: true });
+    el.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
-    return () => el.removeEventListener("scroll", onScroll);
+    return () => el.removeEventListener('scroll', onScroll);
   }, [containerRef]);
 
   return state;
