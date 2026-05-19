@@ -1,6 +1,21 @@
+function formatKoreanDateTime(date: Date): string {
+  const weekdays = ['일', '월', '화', '수', '목', '금', '토'];
+  const kst = new Date(date.toLocaleString('en-US', { timeZone: 'Asia/Seoul' }));
+  const year = kst.getFullYear();
+  const month = kst.getMonth() + 1;
+  const day = kst.getDate();
+  const weekday = weekdays[kst.getDay()];
+  const hour = kst.getHours();
+  const ampm = hour < 12 ? '오전' : '오후';
+  const h = hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
+  return `${year}년 ${month}월 ${day}일 ${weekday}요일 ${ampm} ${h}시`;
+}
+
+const weddingDate = new Date('2026-10-17T14:00:00+09:00');
+
 export const WEDDING = {
-  date: new Date('2026-10-17T14:00:00+09:00'),
-  dateText: '2026년 10월 17일 토요일 오후 2시',
+  date: weddingDate,
+  dateText: formatKoreanDateTime(weddingDate),
 
   groom: {
     name: '김민준',
@@ -22,8 +37,15 @@ export const WEDDING = {
     mother: { name: '박미경', account: { bank: '국민', number: '456-78-9012-345' } },
   },
 
-  inviteMessage: `함께 걸어온 5년의 길 끝에서\n새로운 길의 시작을 약속하려 합니다.\n\n맑은 가을 어느 토요일,\n가장 아끼는 분들 앞에서\n서로의 평생을 약속하는 자리에\n당신을 정중히 모십니다.`,
-  inviteHighlightLine: 3,
+  inviteLines: [
+    { text: '함께 걸어온 5년의 길 끝에서' },
+    { text: '새로운 길의 시작을 약속하려 합니다.' },
+    { text: '' },
+    { text: '맑은 가을 어느 토요일,', highlight: true },
+    { text: '가장 아끼는 분들 앞에서' },
+    { text: '서로의 평생을 약속하는 자리에' },
+    { text: '당신을 정중히 모십니다.' },
+  ],
 
   venue: {
     name: '그랜드하얏트 서울 그랜드볼룸',
