@@ -1,11 +1,11 @@
 import { signInWithPassword, signInWithOAuth } from "@/app/auth/actions";
 
 interface Props {
-  searchParams: Promise<{ next?: string; error?: string }>;
+  searchParams: Promise<{ next?: string; error?: string; message?: string }>;
 }
 
 export default async function LoginPage({ searchParams }: Props) {
-  const { next, error } = await searchParams;
+  const { next, error, message } = await searchParams;
 
   return (
     <div className="flex min-h-screen items-center justify-center">
@@ -14,6 +14,12 @@ export default async function LoginPage({ searchParams }: Props) {
           <h1 className="text-2xl font-bold">로그인</h1>
           <p className="text-sm text-muted-foreground">계정에 로그인하세요</p>
         </div>
+
+        {message && (
+          <p className="rounded-md bg-green-500/10 px-3 py-2 text-sm text-green-700 dark:text-green-400">
+            {message}
+          </p>
+        )}
 
         {error && (
           <p className="rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive">
@@ -50,6 +56,12 @@ export default async function LoginPage({ searchParams }: Props) {
               autoComplete="current-password"
               className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
             />
+          </div>
+
+          <div className="flex justify-end">
+            <a href="/auth/reset-password" className="text-xs text-muted-foreground underline">
+              비밀번호를 잊으셨나요?
+            </a>
           </div>
 
           <button
