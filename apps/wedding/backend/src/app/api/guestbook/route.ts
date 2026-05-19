@@ -1,11 +1,12 @@
 import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
+import { desc } from 'drizzle-orm';
+import { db } from '@/lib/db';
+import { guestEntries } from '@/db/schema';
+import { createId } from '@paralleldrive/cuid2';
 
 export async function GET() {
   try {
-    const entries = await prisma.guestEntry.findMany({
-      orderBy: { createdAt: 'desc' },
-    });
+    const entries = await db.select().from(guestEntries).orderBy(desc(guestEntries.createdAt));
     return NextResponse.json(entries);
   } catch {
     return NextResponse.json({ error: 'DB 조회 실패' }, { status: 500 });
@@ -22,15 +23,17 @@ export async function POST(req: Request) {
     }
 
     const validSides = ['groom', 'bride'];
-    const entry = await prisma.guestEntry.create({
-      data: {
+    const [entry] = await db
+      .insert(guestEntries)
+      .values({
+        id: createId(),
         name: name.trim().slice(0, 20),
         message: message.trim().slice(0, 300),
         reaction: reaction ?? '🫶',
         side: validSides.includes(side) ? side : 'guest',
         attend: attend ?? null,
-      },
-    });
+      })
+      .returning();
 
     return NextResponse.json(entry, { status: 201 });
   } catch {

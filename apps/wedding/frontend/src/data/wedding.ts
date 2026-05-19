@@ -11,27 +11,27 @@ function formatKoreanDateTime(date: Date): string {
   return `${year}년 ${month}월 ${day}일 ${weekday}요일 ${ampm} ${h}시`;
 }
 
-const weddingDate = new Date('2026-10-17T14:00:00+09:00');
+const weddingDate = new Date('2026-10-24T17:20:00+09:00');
 
 export const WEDDING = {
   date: weddingDate,
   dateText: formatKoreanDateTime(weddingDate),
 
   groom: {
-    name: '김민준',
-    en: 'Minjun',
+    name: '신승민',
+    en: 'Seungmin',
     tagline: '느린 걸음, 깊은 마음',
-    facts: ['건축가 · 1995', '커피 두 잔이 일상', '서연의 첫 청자, 마지막 청자'],
+    facts: ['개발자 · 1995', '커피 두 잔이 일상', '서연의 첫 청자, 마지막 청자'],
     account: { bank: '신한', number: '110-123-456789' },
     father: { name: '김영호', account: { bank: '신한', number: '110-987-654321' } },
     mother: { name: '이정희', account: { bank: '신한', number: '110-456-789012' } },
   },
 
   bride: {
-    name: '이서연',
-    en: 'Seoyeon',
+    name: '김시은',
+    en: 'Sieun',
     tagline: '문장이 되는 사람',
-    facts: ['에디터 · 1996', '책과 산책을 모음', '민준의 가장 솔직한 독자'],
+    facts: ['어린이집 교사 · 1998', '책과 산책을 모음', '민준의 가장 솔직한 독자'],
     account: { bank: '국민', number: '123-45-6789-012' },
     father: { name: '이상철', account: { bank: '국민', number: '987-65-4321-098' } },
     mother: { name: '박미경', account: { bank: '국민', number: '456-78-9012-345' } },
