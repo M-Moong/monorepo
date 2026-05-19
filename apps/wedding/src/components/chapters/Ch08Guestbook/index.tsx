@@ -92,7 +92,11 @@ export function Ch08Guestbook() {
         <span className="text-gold">참석 여부는 천천히 알려주셔도 괜찮아요.</span>
       </p>
 
-      <GuestbookStats total={entries.length} groomCount={counts.groom ?? 0} brideCount={counts.bride ?? 0} />
+      <GuestbookStats
+        total={entries.length}
+        groomCount={counts.groom ?? 0}
+        brideCount={counts.bride ?? 0}
+      />
 
       <GuestbookForm onSubmit={handleSubmit} />
 
