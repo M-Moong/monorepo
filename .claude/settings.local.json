@@ -22,7 +22,13 @@
       "Bash(git -C /Users/sms/Desktop/monorepo diff --stat HEAD)",
       "Bash(git *)",
       "Bash(node *)",
-      "Bash(npx prettier *)"
+      "Bash(npx prettier *)",
+      "Bash(xargs ls -la)",
+      "Bash(grep -r \"from '@repo/ui'\" /Users/sms/Desktop/monorepo --include=\"*.tsx\" --include=\"*.ts\" ! -path \"*/node_modules/*\")"
     ]
-  }
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "vercel"
+  ]
 }
