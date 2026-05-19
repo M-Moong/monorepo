@@ -16,7 +16,7 @@ export async function GET() {
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { name, message, reaction, attend } = body;
+    const { name, message, reaction, side, attend } = body;
 
     if (!name?.trim() || !message?.trim()) {
       return NextResponse.json({ error: '이름과 메시지는 필수입니다.' }, { status: 400 });
@@ -27,6 +27,7 @@ export async function POST(req: Request) {
         name: name.trim().slice(0, 20),
         message: message.trim().slice(0, 300),
         reaction: reaction ?? '🫶',
+        side: side === 'groom' || side === 'bride' ? side : 'guest',
         attend: attend ?? null,
       },
     });

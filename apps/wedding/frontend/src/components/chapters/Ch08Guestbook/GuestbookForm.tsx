@@ -2,12 +2,14 @@
 
 import { useState } from 'react';
 
+export type Side = 'groom' | 'bride' | null;
 export type AttendStatus = 'yes' | 'maybe' | 'no' | null;
 
 export interface GuestbookFormData {
   name: string;
   message: string;
   reaction: string | null;
+  side: Side;
   attend: AttendStatus;
 }
 
@@ -30,6 +32,7 @@ export function GuestbookForm({ onSubmit }: GuestbookFormProps) {
   const [name, setName] = useState('');
   const [msg, setMsg] = useState('');
   const [reaction, setReaction] = useState<string | null>(null);
+  const [side, setSide] = useState<Side>(null);
   const [attend, setAttend] = useState<AttendStatus>(null);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -41,10 +44,11 @@ export function GuestbookForm({ onSubmit }: GuestbookFormProps) {
     setSubmitting(true);
     setError(null);
     try {
-      await onSubmit({ name, message: msg, reaction, attend });
+      await onSubmit({ name, message: msg, reaction, side, attend });
       setName('');
       setMsg('');
       setReaction(null);
+      setSide(null);
       setAttend(null);
     } catch (err) {
       setError(err instanceof Error ? err.message : '저장에 실패했어요.');
@@ -84,6 +88,21 @@ export function GuestbookForm({ onSubmit }: GuestbookFormProps) {
             }`}
           >
             {r}
+          </button>
+        ))}
+      </div>
+
+      <div className="text-fg/55 mb-2 text-[9px] tracking-[.3em]">어느 쪽으로 오세요? (선택)</div>
+      <div className="mb-[14px] grid grid-cols-2 gap-1">
+        {(['groom', 'bride'] as const).map((s) => (
+          <button
+            key={s}
+            onClick={() => setSide(side === s ? null : s)}
+            className={`cursor-pointer border py-2.5 text-[11px] tracking-[.05em] transition-all duration-200 ${
+              side === s ? 'bg-gold text-bg border-gold' : 'text-fg border-fg/[.18] bg-transparent'
+            }`}
+          >
+            {s === 'groom' ? '신랑측' : '신부측'}
           </button>
         ))}
       </div>
