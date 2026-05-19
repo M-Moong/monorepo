@@ -106,7 +106,7 @@ export function useBGM(enabled: boolean): void {
 
 ```env
 # Supabase Transaction pooler (포트 6543) — Vercel 서버리스용
-DATABASE_URL="postgresql://postgres.[ref]:[pw]@aws-0-[region].pooler.supabase.com:6543/postgres?pgbouncer=true"
+WEDDING_DATABASE_URL="postgresql://postgres.[ref]:[pw]@aws-0-[region].pooler.supabase.com:6543/postgres?pgbouncer=true"
 
 # 배포 도메인
 NEXT_PUBLIC_SITE_URL="https://your-domain.vercel.app"
@@ -145,7 +145,7 @@ pnpm --filter wedding db:push
 
 - **Root Directory:** `apps/wedding`
 - 환경변수:
-  - `DATABASE_URL`
+  - `WEDDING_DATABASE_URL`
   - `NEXT_PUBLIC_SITE_URL`
   - `NEXT_PUBLIC_KAKAO_APP_KEY`
 
