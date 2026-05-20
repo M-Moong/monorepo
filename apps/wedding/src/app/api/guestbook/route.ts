@@ -1,13 +1,35 @@
 import { NextResponse } from 'next/server';
-import { desc } from 'drizzle-orm';
+import { desc, count, eq } from 'drizzle-orm';
 import { db } from '@/db';
 import { guestEntries } from '@/db/schema';
 import { createId } from '@paralleldrive/cuid2';
 
-export async function GET() {
+const PAGE_SIZE = 5;
+
+export async function GET(req: Request) {
   try {
-    const entries = await db.select().from(guestEntries).orderBy(desc(guestEntries.createdAt));
-    return NextResponse.json(entries);
+    const { searchParams } = new URL(req.url);
+    const page = Math.max(1, parseInt(searchParams.get('page') ?? '1', 10));
+    const offset = (page - 1) * PAGE_SIZE;
+
+    const [entries, totalRows, groomRows, brideRows] = await Promise.all([
+      db
+        .select()
+        .from(guestEntries)
+        .orderBy(desc(guestEntries.createdAt))
+        .limit(PAGE_SIZE)
+        .offset(offset),
+      db.select({ value: count() }).from(guestEntries),
+      db.select({ value: count() }).from(guestEntries).where(eq(guestEntries.side, 'groom')),
+      db.select({ value: count() }).from(guestEntries).where(eq(guestEntries.side, 'bride')),
+    ]);
+
+    const total = totalRows[0]?.value ?? 0;
+    const groomCount = groomRows[0]?.value ?? 0;
+    const brideCount = brideRows[0]?.value ?? 0;
+    const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+
+    return NextResponse.json({ entries, total, groomCount, brideCount, totalPages, page });
   } catch {
     return NextResponse.json({ error: 'DB 조회 실패' }, { status: 500 });
   }

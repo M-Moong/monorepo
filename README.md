@@ -43,10 +43,10 @@ pnpm --filter wedding db:studio     # Drizzle Studio 실행
 
 ### Prettier
 
-| | 루트 | `apps/wedding` |
-|---|---|---|
-| 설정 파일 | `.prettierrc` | `.prettierrc` (자체) |
-| `packages/ui` 적용 | 루트 상속 | — |
+|                    | 루트          | `apps/wedding`       |
+| ------------------ | ------------- | -------------------- |
+| 설정 파일          | `.prettierrc` | `.prettierrc` (자체) |
+| `packages/ui` 적용 | 루트 상속     | —                    |
 
 **루트 `.prettierrc`**
 
@@ -82,10 +82,10 @@ pnpm --filter wedding db:studio     # Drizzle Studio 실행
 
 루트에 설정 없음. 각 앱·패키지가 `@repo/eslint-config`에서 preset을 가져다 씀.
 
-| | 사용 preset |
-|---|---|
-| `apps/wedding` | `@repo/eslint-config/next-js` |
-| `packages/ui` | `@repo/eslint-config/react-internal` |
+|                | 사용 preset                          |
+| -------------- | ------------------------------------ |
+| `apps/wedding` | `@repo/eslint-config/next-js`        |
+| `packages/ui`  | `@repo/eslint-config/react-internal` |
 
 ---
 
@@ -93,10 +93,10 @@ pnpm --filter wedding db:studio     # Drizzle Studio 실행
 
 루트에 tsconfig 없음. 각 앱·패키지가 `@repo/typescript-config`를 `extends`해서 사용.
 
-| | extends |
-|---|---|
-| `apps/wedding` | `nextjs.json` + `@/*` 경로 별칭 |
-| `packages/ui` | `react-library.json` + `@repo/ui/*` 경로 별칭 |
+|                | extends                                       |
+| -------------- | --------------------------------------------- |
+| `apps/wedding` | `nextjs.json` + `@/*` 경로 별칭               |
+| `packages/ui`  | `react-library.json` + `@repo/ui/*` 경로 별칭 |
 
 **`packages/typescript-config/base.json`** — 공통 베이스
 
