@@ -1,14 +1,12 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
-import type { GuestEntry } from '@repo/types';
+import { useEffect, useState } from 'react';
+import type { GuestEntry } from '@/types/guestbook';
 import { ChapterSection } from '@/components/ui/ChapterSection';
 import { ChHeader } from '@/components/ui/ChHeader';
 import { GuestbookStats } from './GuestbookStats';
 import { GuestbookForm, GuestbookFormData } from './GuestbookForm';
 import { GuestbookEntry } from './GuestbookEntry';
-
-const POLL_INTERVAL = 10_000;
 
 async function fetchEntries(): Promise<GuestEntry[]> {
   const r = await fetch('/api/guestbook');
@@ -19,34 +17,26 @@ async function fetchEntries(): Promise<GuestEntry[]> {
 export function Ch08Guestbook() {
   const [entries, setEntries] = useState<GuestEntry[]>([]);
   const [loading, setLoading] = useState(true);
-  const latestIdRef = useRef<string | null>(null);
+  const [refreshing, setRefreshing] = useState(false);
 
   // 초기 로드
   useEffect(() => {
     fetchEntries()
-      .then((data) => {
-        setEntries(data);
-        latestIdRef.current = data[0]?.id ?? null;
-      })
+      .then(setEntries)
       .catch(() => {})
       .finally(() => setLoading(false));
   }, []);
 
-  // 폴링 — 10초마다 새 항목 확인
-  useEffect(() => {
-    const timer = setInterval(async () => {
-      try {
-        const data = await fetchEntries();
-        if (data[0]?.id !== latestIdRef.current) {
-          setEntries(data);
-          latestIdRef.current = data[0]?.id ?? null;
-        }
-      } catch {
-        // 네트워크 오류 무시
-      }
-    }, POLL_INTERVAL);
-    return () => clearInterval(timer);
-  }, []);
+  const refresh = async () => {
+    setRefreshing(true);
+    try {
+      setEntries(await fetchEntries());
+    } catch {
+      // 네트워크 오류 무시
+    } finally {
+      setRefreshing(false);
+    }
+  };
 
   const handleSubmit = async (data: GuestbookFormData) => {
     const res = await fetch('/api/guestbook', {
@@ -58,10 +48,8 @@ export function Ch08Guestbook() {
       const d = await res.json();
       throw new Error(d.error ?? '저장에 실패했어요.');
     }
-    // 제출 후 즉시 반영
     const newEntry: GuestEntry = await res.json();
     setEntries((prev) => [newEntry, ...prev]);
-    latestIdRef.current = newEntry.id;
   };
 
   const counts = entries.reduce<Record<string, number>>(
@@ -100,8 +88,17 @@ export function Ch08Guestbook() {
 
       <GuestbookForm onSubmit={handleSubmit} />
 
-      <div className="mb-3 text-[0.5625rem] tracking-[0.4rem] text-gold">
-        · {entries.length} NOTES ·
+      <div className="mb-3 flex items-center justify-between">
+        <div className="text-[0.5625rem] tracking-[0.4rem] text-gold">
+          · {entries.length} NOTES ·
+        </div>
+        <button
+          onClick={refresh}
+          disabled={refreshing}
+          className="cursor-pointer border-0 bg-transparent p-1 text-[0.5625rem] tracking-[0.2rem] text-fg/40 transition-opacity disabled:opacity-40"
+        >
+          {refreshing ? '···' : '↺ 새로고침'}
+        </button>
       </div>
 
       {loading ? (

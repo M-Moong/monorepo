@@ -1,4 +1,4 @@
-import type { GuestEntry } from '@repo/types';
+import type { GuestEntry } from '@/types/guestbook';
 
 function formatRelativeTime(dateStr: string): string {
   const diff = Date.now() - new Date(dateStr).getTime();

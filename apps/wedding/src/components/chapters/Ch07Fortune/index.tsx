@@ -1,13 +1,17 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ChapterSection } from '@/components/ui/ChapterSection';
 import { ChHeader } from '@/components/ui/ChHeader';
 import { FortuneCard } from './FortuneCard';
 import { VIBES, PALETTES } from '@/data/fortune';
 
 export function Ch07Fortune() {
-  const [idx, setIdx] = useState(() => Math.floor(Math.random() * VIBES.length));
+  const [idx, setIdx] = useState(0);
+
+  useEffect(() => {
+    setIdx(Math.floor(Math.random() * VIBES.length));
+  }, []);
   const [flipping, setFlipping] = useState(false);
   const [copied, setCopied] = useState(false);
 

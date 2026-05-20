@@ -12,9 +12,10 @@ interface CountdownResult {
 }
 
 export function useCountdown(target: Date): CountdownResult {
-  const [now, setNow] = useState(() => Date.now());
+  const [now, setNow] = useState(target.getTime());
 
   useEffect(() => {
+    setNow(Date.now());
     const timer = setInterval(() => setNow(Date.now()), 1000);
     return () => clearInterval(timer);
   }, []);
