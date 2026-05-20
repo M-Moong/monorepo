@@ -33,7 +33,7 @@ export default function InvitationPage() {
     <div className="flex min-h-dvh items-start justify-center bg-bg">
       {!splashDone && <Splash onDone={() => setSplashDone(true)} />}
       {/* 모바일 프레임 */}
-      <div className="relative w-full max-w-[390px]">
+      <div className="relative w-full max-w-[450px]">
         <div
           ref={containerRef}
           className="relative h-dvh [scroll-snap-type:y_proximity] overflow-y-scroll bg-bg text-fg"
@@ -63,7 +63,7 @@ export default function InvitationPage() {
         {chapter > 0 && chapter < 7 && (
           <button
             onClick={jumpToGuestbook}
-            className="absolute right-5 bottom-5 z-[60] animate-pulse-btn cursor-pointer border-0 bg-gold px-4 py-3 text-[0.625rem] font-bold tracking-[0.25rem] text-bg"
+            className="absolute right-5 bottom-5 z-60 animate-pulse-btn cursor-pointer border-0 bg-gold px-4 py-3 text-[0.625rem] font-bold tracking-[0.25rem] text-bg"
           >
             방명록 →
           </button>

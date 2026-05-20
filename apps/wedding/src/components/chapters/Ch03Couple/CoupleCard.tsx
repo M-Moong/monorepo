@@ -22,11 +22,11 @@ export function CoupleCard({ card: c, isOpen, onToggle }: CoupleCardProps) {
     <div
       onClick={onToggle}
       className={`relative cursor-pointer overflow-hidden border bg-warm transition-[border-color] duration-[350ms] ${
-        isOpen ? 'border-gold' : 'border-fg/[.12]'
+        isOpen ? 'border-gold' : 'border-fg/12'
       }`}
     >
       <div className="flex items-stretch">
-        <div className="aspect-[3/4] w-[6.875rem] shrink-0">
+        <div className="aspect-[3/4] w-27.5 shrink-0">
           <PhotoFrame label={c.who} tone={c.tone} />
         </div>
         <div className="flex-1 p-[14px_16px]">
@@ -43,11 +43,11 @@ export function CoupleCard({ card: c, isOpen, onToggle }: CoupleCardProps) {
       </div>
 
       {isOpen && (
-        <div className="border-t border-fg/10 px-4 pb-[1.125rem]">
+        <div className="border-t border-fg/10 px-4 pb-4.5">
           {c.facts.map((f) => (
             <div
               key={f}
-              className="flex items-center gap-2.5 border-b border-fg/[.05] py-2 text-xs text-fg/75"
+              className="flex items-center gap-2.5 border-b border-fg/5 py-2 text-xs text-fg/75"
             >
               <span className="text-gold">—</span>
               {f}

@@ -53,7 +53,7 @@ export function Ch01Cover() {
         </div>
 
         {/* 이름 */}
-        <div className="mt-[1.875rem] font-serif text-2xl text-fg italic">
+        <div className="mt-7.5 font-serif text-2xl text-fg italic">
           {WEDDING.groom.en} &amp; {WEDDING.bride.en}
         </div>
 

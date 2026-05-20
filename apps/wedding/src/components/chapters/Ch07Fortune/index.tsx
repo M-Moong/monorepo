@@ -5,6 +5,7 @@ import { ChapterSection } from '@/components/ui/ChapterSection';
 import { ChHeader } from '@/components/ui/ChHeader';
 import { FortuneCard } from './FortuneCard';
 import { VIBES, PALETTES } from '@/data/fortune';
+import { useCopy } from '@/hooks/useCopy';
 
 export function Ch07Fortune() {
   const [idx, setIdx] = useState(0);
@@ -13,7 +14,8 @@ export function Ch07Fortune() {
     setIdx(Math.floor(Math.random() * VIBES.length));
   }, []);
   const [flipping, setFlipping] = useState(false);
-  const [copied, setCopied] = useState(false);
+  const { copiedId, copy } = useCopy(1500);
+  const copied = copiedId === 'fortune';
 
   const v = VIBES[idx];
   if (!v) return null;
@@ -35,9 +37,7 @@ export function Ch07Fortune() {
     if (navigator.share) {
       navigator.share({ text }).catch(() => {});
     } else {
-      navigator.clipboard?.writeText(text);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1500);
+      copy('fortune', text);
     }
   };
 
@@ -54,7 +54,7 @@ export function Ch07Fortune() {
         }
       />
 
-      <p className="mb-[1.125rem] text-xs leading-[1.6] text-fg/70">
+      <p className="mb-4.5 text-xs leading-[1.6] text-fg/70">
         랜덤으로 뽑히는 한 줄.
         <br />
         마음에 들면 캡처해서 SNS에 공유해 주세요. <span className="text-gold">#MnS_2026</span>

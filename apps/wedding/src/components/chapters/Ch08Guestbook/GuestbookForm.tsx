@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { TabButton } from '@/components/ui/TabButton';
 
 export type Side = 'groom' | 'bride' | null;
 export type AttendStatus = 'yes' | 'maybe' | 'no' | null;
@@ -63,7 +64,7 @@ export function GuestbookForm({ onSubmit }: GuestbookFormProps) {
   };
 
   return (
-    <div className="mb-[1.375rem] border border-fg/10 bg-warm p-4">
+    <div className="mb-5.5 border border-fg/10 bg-warm p-4">
       <div className="mb-3 text-[0.5625rem] tracking-[0.3rem] text-gold">· LEAVE A NOTE ·</div>
 
       <input
@@ -91,7 +92,7 @@ export function GuestbookForm({ onSubmit }: GuestbookFormProps) {
             onClick={() => setReaction(reaction === r ? null : r)}
             aria-label={`이모지 ${r} 선택`}
             className={`h-[2.375rem] w-[2.375rem] cursor-pointer rounded-lg border p-0 text-lg transition-all duration-150 ${
-              reaction === r ? 'border-gold bg-gold/[.18]' : 'border-transparent bg-fg/[.05]'
+              reaction === r ? 'border-gold bg-gold/18' : 'border-transparent bg-fg/5'
             }`}
           >
             {r}
@@ -104,15 +105,14 @@ export function GuestbookForm({ onSubmit }: GuestbookFormProps) {
       </div>
       <div className="mb-3.5 grid grid-cols-2 gap-1">
         {SIDE_OPTIONS.map(([k, l]) => (
-          <button
+          <TabButton
             key={k}
+            active={side === k}
             onClick={() => setSide(side === k ? null : k)}
-            className={`cursor-pointer border py-2.5 text-[0.6875rem] tracking-[0.05rem] transition-all duration-200 ${
-              side === k ? 'border-gold bg-gold text-bg' : 'border-fg/[.18] bg-transparent text-fg'
-            }`}
+            className="text-[0.6875rem] tracking-[0.05rem]"
           >
             {l}
-          </button>
+          </TabButton>
         ))}
       </div>
 
@@ -121,17 +121,14 @@ export function GuestbookForm({ onSubmit }: GuestbookFormProps) {
       </div>
       <div className="mb-3.5 grid grid-cols-3 gap-1">
         {ATTEND_OPTIONS.map(([k, l]) => (
-          <button
+          <TabButton
             key={k}
+            active={attend === k}
             onClick={() => setAttend(attend === k ? null : k)}
-            className={`cursor-pointer border py-2.5 text-[0.6875rem] tracking-[0.05rem] transition-all duration-200 ${
-              attend === k
-                ? 'border-gold bg-gold text-bg'
-                : 'border-fg/[.18] bg-transparent text-fg'
-            }`}
+            className="text-[0.6875rem] tracking-[0.05rem]"
           >
             {l}
-          </button>
+          </TabButton>
         ))}
       </div>
 

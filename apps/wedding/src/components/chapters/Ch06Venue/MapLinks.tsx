@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { WEDDING } from '@/data/wedding';
+import { TabButton } from '@/components/ui/TabButton';
 
 type MapProvider = 'kakao' | 'naver';
 
@@ -17,17 +18,9 @@ export function MapLinks() {
     <div className="mt-3.5">
       <div className="mb-2 grid grid-cols-2 gap-1">
         {MAP_PROVIDERS.map(({ key, label }) => (
-          <button
-            key={key}
-            onClick={() => setProvider(key)}
-            className={`cursor-pointer border py-2.5 text-[0.625rem] tracking-[0.2rem] transition-all duration-200 ${
-              provider === key
-                ? 'border-gold bg-gold text-bg'
-                : 'border-fg/[.15] bg-transparent text-fg'
-            }`}
-          >
+          <TabButton key={key} active={provider === key} onClick={() => setProvider(key)}>
             {label}
-          </button>
+          </TabButton>
         ))}
       </div>
 

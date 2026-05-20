@@ -19,7 +19,7 @@ export function Ch02Invite() {
 
       <div className="my-3.5 border-t border-fg/20" />
 
-      <p className="mb-[1.625rem] font-serif text-[1.0625rem] leading-[1.85] whitespace-pre-line text-fg italic">
+      <p className="mb-6.5 font-serif text-[1.0625rem] leading-[1.85] whitespace-pre-line text-fg italic">
         {WEDDING.inviteLines.map((line, i, arr) => (
           <span key={i}>
             {'highlight' in line ? <span className="text-gold">{line.text}</span> : line.text}
@@ -28,7 +28,7 @@ export function Ch02Invite() {
         ))}
       </p>
 
-      <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-3.5 border-t border-b border-fg/20 py-[1.125rem]">
+      <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-3.5 border-t border-b border-fg/20 py-4.5">
         {/* 신랑측 */}
         <div className="text-right">
           <div className="mb-1 text-[0.5625rem] tracking-[0.3rem] text-gold">
@@ -59,7 +59,7 @@ export function Ch02Invite() {
         </div>
       </div>
 
-      <div className="mt-[1.375rem] text-center text-[0.625rem] tracking-[0.25rem] text-fg/50">
+      <div className="mt-5.5 text-center text-[0.625rem] tracking-[0.25rem] text-fg/50">
         {WEDDING.dateText}
       </div>
       <div className="mt-1 text-center text-[0.625rem] tracking-[0.2rem] text-fg/40">

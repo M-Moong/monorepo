@@ -46,7 +46,7 @@ export function Lightbox({ index, total, tones, photos, onClose, onPrev, onNext 
         )}
       </div>
 
-      <div className="mt-[1.125rem] flex gap-6" onClick={(e) => e.stopPropagation()}>
+      <div className="mt-4.5 flex gap-6" onClick={(e) => e.stopPropagation()}>
         <button
           onClick={onPrev}
           className="cursor-pointer border border-gold/40 bg-transparent px-3.5 py-2 text-[0.6875rem] tracking-[0.2rem] text-gold"

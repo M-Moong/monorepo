@@ -64,7 +64,7 @@ export function HUD({
       </div>
 
       {/* Progress bar */}
-      <div className="sticky top-9 z-[49] h-px bg-fg/[.06]">
+      <div className="sticky top-9 z-[49] h-px bg-fg/6">
         <div
           className="h-full bg-gold transition-[width] duration-150"
           style={{ width: `${progressPct * 100}%` }}

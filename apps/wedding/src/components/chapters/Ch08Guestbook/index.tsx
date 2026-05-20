@@ -74,7 +74,7 @@ export function Ch08Guestbook() {
         }
       />
 
-      <p className="mb-[1.125rem] text-xs leading-[1.65] text-fg/70">
+      <p className="mb-4.5 text-xs leading-[1.65] text-fg/70">
         식 당일 스크린에 띄워질 따뜻한 한마디.
         <br />
         <span className="text-gold">참석 여부는 천천히 알려주셔도 괜찮아요.</span>

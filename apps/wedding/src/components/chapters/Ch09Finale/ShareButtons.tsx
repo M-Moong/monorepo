@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
 import { WEDDING } from '@/data/wedding';
+import { useCopy } from '@/hooks/useCopy';
 
 declare global {
   interface Window {
@@ -14,13 +14,10 @@ declare global {
 }
 
 export function ShareButtons() {
-  const [linkCopied, setLinkCopied] = useState(false);
+  const { copiedId, copy } = useCopy();
+  const linkCopied = copiedId === 'link';
 
-  const shareLink = () => {
-    navigator.clipboard?.writeText(window.location.href);
-    setLinkCopied(true);
-    setTimeout(() => setLinkCopied(false), 1600);
-  };
+  const shareLink = () => copy('link', window.location.href);
 
   const shareSms = () => {
     const text = `${WEDDING.groom.name} & ${WEDDING.bride.name} 결혼식에 초대합니다.\n${WEDDING.dateText}\n${WEDDING.venue.short}\n\n${window.location.href}`;

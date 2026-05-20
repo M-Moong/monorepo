@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { WEDDING, TransportKey } from '@/data/wedding';
+import { TabButton } from '@/components/ui/TabButton';
 
 const TRANSPORT_KEYS: TransportKey[] = ['subway', 'bus', 'car', 'taxi'];
 
@@ -14,18 +15,11 @@ export function TransportTabs() {
       <div className="mb-3 grid grid-cols-4 gap-1">
         {TRANSPORT_KEYS.map((key) => {
           const t = WEDDING.venue.transport[key];
-          const active = tab === key;
           return (
-            <button
-              key={key}
-              onClick={() => setTab(key)}
-              className={`cursor-pointer border px-1 py-2.5 text-[0.5625rem] tracking-[0.2rem] transition-all duration-200 ${
-                active ? 'border-gold bg-gold text-bg' : 'border-fg/[.15] bg-transparent text-fg'
-              }`}
-            >
+            <TabButton key={key} active={tab === key} onClick={() => setTab(key)} className="px-1">
               <div className="mb-0.5 text-base">{t.icon}</div>
               {t.title}
-            </button>
+            </TabButton>
           );
         })}
       </div>

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { WEDDING } from '@/data/wedding';
+import { useCopy } from '@/hooks/useCopy';
 
 type AccountSide = 'groom' | 'bride';
 
@@ -11,7 +12,7 @@ interface AccountSectionProps {
 
 export function AccountSection({ side }: AccountSectionProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [copiedId, setCopiedId] = useState<string | null>(null);
+  const { copiedId, copy } = useCopy();
 
   const label = side === 'groom' ? '신랑측 계좌' : '신부측 계좌';
   const p = WEDDING[side];
@@ -21,12 +22,6 @@ export function AccountSection({ side }: AccountSectionProps) {
     { who: `${prefix} 아버지`, name: p.father.name, ...p.father.account },
     { who: `${prefix} 어머니`, name: p.mother.name, ...p.mother.account },
   ];
-
-  const copy = (id: string, text: string) => {
-    navigator.clipboard?.writeText(text);
-    setCopiedId(id);
-    setTimeout(() => setCopiedId(null), 1600);
-  };
 
   return (
     <div className="mb-1.5">
@@ -48,7 +43,7 @@ export function AccountSection({ side }: AccountSectionProps) {
           {accounts.map((a) => (
             <div
               key={a.number}
-              className="flex items-center justify-between gap-2.5 border-b border-l border-gold border-b-fg/[.05] bg-warm/60 px-3.5 py-3"
+              className="flex items-center justify-between gap-2.5 border-b border-l border-gold border-b-fg/5 bg-warm/60 px-3.5 py-3"
             >
               <div className="min-w-0 flex-1">
                 <div className="text-[0.5625rem] tracking-[0.2rem] text-gold">{a.who}</div>

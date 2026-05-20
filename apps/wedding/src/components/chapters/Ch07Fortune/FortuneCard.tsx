@@ -41,12 +41,12 @@ export function FortuneCard({
         </div>
       </div>
 
-      <div className="absolute inset-0 flex flex-col items-center justify-center px-[1.375rem] pt-[3.125rem] pb-[3.75rem] text-center">
+      <div className="absolute inset-0 flex flex-col items-center justify-center px-5.5 pt-12.5 pb-15 text-center">
         <div className="mb-2.5 text-[2rem] leading-none font-extrabold text-black/15">&ldquo;</div>
         <div className="font-serif text-[1.625rem] leading-[1.45] font-medium tracking-[-0.01rem] whitespace-pre-line text-[#1a1a1a]">
           {v.q}
         </div>
-        <div className="mt-[1.125rem] text-[0.6875rem] tracking-[0.2rem] text-black/55">{v.a}</div>
+        <div className="mt-4.5 text-[0.6875rem] tracking-[0.2rem] text-black/55">{v.a}</div>
       </div>
 
       <div className="absolute right-4 bottom-3.5 left-4 flex items-center justify-between text-[0.5625rem] tracking-[0.2rem] text-black/45">

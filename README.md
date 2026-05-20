@@ -1,135 +1,118 @@
-# Turborepo starter
+# Monorepo
 
-This Turborepo starter is maintained by the Turborepo core team.
+pnpm + Turborepo 기반 모노레포.
 
-## Using this example
-
-Run the following command:
-
-```sh
-npx create-turbo@latest
-```
-
-## What's inside?
-
-This Turborepo includes the following packages/apps:
-
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
+## 구조
 
 ```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build
-
-# Without [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build
-yarn dlx turbo build
-pnpm exec turbo build
+apps/
+  wedding/           # 모바일 웨딩 청첩장 (Next.js 16 + React 19 + Tailwind v4)
+packages/
+  ui/                # 공유 컴포넌트 라이브러리 (@repo/ui) — shadcn/ui 기반
+  eslint-config/     # ESLint 설정 공유 패키지 (@repo/eslint-config)
+  typescript-config/ # tsconfig 공유 패키지 (@repo/typescript-config)
 ```
 
-You can build a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
+## 명령어
 
-```
-# With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build --filter=docs
+```bash
+# 전체
+pnpm dev             # 모든 앱 개발 서버
+pnpm build           # 모든 앱 빌드
+pnpm lint            # 모든 앱 lint
+pnpm check-types     # 모든 앱 TypeScript 검사
+pnpm format          # prettier 전체 포맷 --write (ts,tsx,css,md)
+pnpm format:check    # prettier 검사만 (수정 없이)
 
-# Without [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build --filter=docs
-yarn exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
-```
-
-### Develop
-
-To develop all apps and packages, run the following command:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev
-
-# Without [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev
-yarn exec turbo dev
-pnpm exec turbo dev
+# 특정 앱/패키지만
+pnpm --filter wedding dev         # wedding 앱 개발 서버 (localhost:3000)
+pnpm --filter wedding build       # wedding 앱 빌드
+pnpm --filter wedding lint        # wedding ESLint
+pnpm --filter @repo/ui lint       # packages/ui ESLint
 ```
 
-You can develop a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
+---
 
+## 설정 현황
+
+각 앱·패키지가 어떤 설정을 전역(루트)에서 가져오고, 어떤 설정을 자체적으로 갖는지 정리.
+
+### Prettier
+
+|                | `.prettierrc`                                                    | `prettier-plugin-tailwindcss`                              |
+| -------------- | ---------------------------------------------------------------- | ---------------------------------------------------------- |
+| 루트           | `semi`, `singleQuote`, `tabWidth`, `trailingComma`, `printWidth` | 미사용                                                     |
+| `apps/wedding` | **자체 파일** — 루트와 동일한 5개 옵션 + 플러그인 추가           | `tailwindStylesheet: ./src/app/globals.css`                |
+| `packages/ui`  | 루트 설정 상속                                                   | 패키지에 설치되어 있으나 `.prettierrc` 없이 루트 설정 사용 |
+
+> Prettier는 `extends`가 없어서 wedding은 루트 옵션을 직접 복사한 뒤 Tailwind 관련 옵션을 추가한 구조.
+
+---
+
+### ESLint
+
+|                | 설정 파일                  | 사용하는 config                      |
+| -------------- | -------------------------- | ------------------------------------ |
+| `apps/wedding` | `eslint.config.mjs` (자체) | `@repo/eslint-config/next-js`        |
+| `packages/ui`  | `eslint.config.mjs` (자체) | `@repo/eslint-config/react-internal` |
+
+> 루트에 ESLint 설정 없음. 각 앱·패키지가 `@repo/eslint-config`에서 용도에 맞는 preset을 가져다 씀.
+
+**`@repo/eslint-config` preset 목록:**
+
+- `base.js` — 기본 TypeScript 규칙
+- `next.js` — Next.js + React Hooks + TypeScript (wedding이 사용)
+- `react-internal.js` — 패키지 내부 React 컴포넌트용 (ui가 사용)
+- `node-script.js` — Node.js 스크립트용
+
+---
+
+### TypeScript
+
+|                | `tsconfig.json` | `extends`                                                                  |
+| -------------- | --------------- | -------------------------------------------------------------------------- |
+| `apps/wedding` | 자체            | `@repo/typescript-config/nextjs.json` + `@/*` 경로 별칭 추가               |
+| `packages/ui`  | 자체            | `@repo/typescript-config/react-library.json` + `@repo/ui/*` 경로 별칭 추가 |
+
+> 루트에 tsconfig 없음. **`@repo/typescript-config` preset 목록:**
+>
+> - `base.json` — strict, ES2022, isolatedModules, noUncheckedIndexedAccess
+> - `nextjs.json` — base + Next.js 플러그인, Bundler 모듈 해석
+> - `react-library.json` — base + 선언 파일 생성 포함
+
+---
+
+### .gitignore
+
+|                | 관리 위치           | 주요 항목                                                                                                                                                     |
+| -------------- | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 루트           | `.gitignore`        | `node_modules`, `.turbo`, `.vercel`, `.next/`, `build`, `dist`, `.env` 계열, `*.tsbuildinfo`, `.DS_Store`, `**/supabase/.temp`, `.claude/settings.local.json` |
+| `apps/wedding` | `.gitignore` (자체) | `.env*` (루트보다 넓은 와일드카드), `next-env.d.ts`, `/drizzle`, `/public/photos/`                                                                            |
+
+---
+
+### Turborepo (`turbo.json`) — 루트 전용
+
+전체 태스크 파이프라인 정의. 모든 앱·패키지에 적용.
+
+- `build` — `^build` 의존 (패키지 먼저 빌드), `.env*` 변경 시 캐시 무효화, `.next/**` 출력 캐시
+- `lint` — `^lint` 의존, `NODE_ENV` 환경변수 인식
+- `check-types` — `^check-types` 의존
+- `dev` — 캐시 없음, persistent 모드
+
+---
+
+### Drizzle ORM — `apps/wedding` 전용
+
+루트 및 다른 패키지에는 없는 wedding 전용 설정.
+
+- 설정 파일: `drizzle.config.ts`
+- dialect: `postgresql` / schema: `./src/db/schema.ts` / out: `./drizzle`
+- 환경변수: `WEDDING_DATABASE_URL` (`.env.local`에서 로드)
+
+```bash
+pnpm --filter wedding db:generate   # 마이그레이션 파일 생성
+pnpm --filter wedding db:migrate    # 마이그레이션 실행
+pnpm --filter wedding db:push       # 스키마 직접 push
+pnpm --filter wedding db:studio     # Drizzle Studio 실행
 ```
-# With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev --filter=web
-
-# Without [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev --filter=web
-yarn exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
-```
-
-### Remote Caching
-
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended)
-turbo login
-
-# Without [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation), use your package manager
-npx turbo login
-yarn exec turbo login
-pnpm exec turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-# With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended)
-turbo link
-
-# Without [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation), use your package manager
-npx turbo link
-yarn exec turbo link
-pnpm exec turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turborepo.dev/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.dev/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.dev/docs/reference/configuration)
-- [CLI Usage](https://turborepo.dev/docs/reference/command-line-reference)
