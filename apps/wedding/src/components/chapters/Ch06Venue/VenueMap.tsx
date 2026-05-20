@@ -2,8 +2,8 @@
 
 import { useEffect, useRef } from 'react';
 
-const LAT = 37.539565;
-const LNG = 126.992161;
+const LAT = 37.3995;
+const LNG = 127.1272;
 const APP_KEY = process.env.NEXT_PUBLIC_KAKAO_MAP_KEY;
 
 declare global {
@@ -54,7 +54,7 @@ function SVGFallback() {
         fill="none"
       />
       <text x="14" y="20" style={{ fill: 'var(--color-svg-label)' }} fontSize="8" letterSpacing="2">
-        SOUTH GATE
+        YATAP
       </text>
       <text
         x="220"
@@ -63,7 +63,7 @@ function SVGFallback() {
         fontSize="8"
         letterSpacing="2"
       >
-        ITAEWON
+        BUNDANG
       </text>
       <circle cx="150" cy="90" r="22" style={{ fill: 'var(--color-svg-pin-glow)' }}>
         <animate attributeName="r" values="22;30;22" dur="2s" repeatCount="indefinite" />
@@ -87,7 +87,7 @@ function SVGFallback() {
         textAnchor="middle"
         letterSpacing="3"
       >
-        GRAND HYATT
+        BASILEUM
       </text>
     </svg>
   );
@@ -125,7 +125,7 @@ export function VenueMap() {
               letter-spacing:.1em;
               padding:4px 8px;
               white-space:nowrap;
-            ">GRAND HYATT</div>
+            ">THE BASILEUM</div>
             <div style="width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:6px solid #e8c87c;"></div>
           </div>`;
 

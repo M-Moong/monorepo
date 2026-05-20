@@ -1,7 +1,7 @@
 {
-  "name": "Minjun & Seoyeon Wedding",
-  "short_name": "M & S",
-  "description": "김민준 & 이서연 웨딩 청첩장",
+  "name": "Seung min & Si eun Wedding",
+  "short_name": "SM & SE",
+  "description": "신승민 & 김시은 웨딩 청첩장",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#f5efe8",

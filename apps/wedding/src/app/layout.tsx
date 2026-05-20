@@ -63,17 +63,16 @@ const jsonLdEvent = {
     name: WEDDING.venue.name,
     address: {
       '@type': 'PostalAddress',
-      streetAddress: '소월로 322',
-      addressLocality: '용산구',
-      addressRegion: '서울특별시',
-      postalCode: '04320',
+      streetAddress: WEDDING.venue.address,
+      addressLocality: '분당구',
+      addressRegion: '경기도',
+      postalCode: '13496',
       addressCountry: 'KR',
     },
-    // 지도 좌표 — venue.mapUrls의 위경도와 일치시킬 것
     geo: {
       '@type': 'GeoCoordinates',
-      latitude: 37.539565,
-      longitude: 126.992161,
+      latitude: 37.3995,
+      longitude: 127.1272,
     },
   },
   description: OG_DESCRIPTION,

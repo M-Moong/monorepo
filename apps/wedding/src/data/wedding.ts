@@ -119,7 +119,7 @@ export const WEDDING = {
       kakao: 'https://kko.to/HjMuUBXPae',
       // naver: 'https://map.naver.com/v5/search/그랜드하얏트서울',
       naver: 'https://map.naver.com/p/entry/place/1781336022?c=15.54,0,0,0,dh',
-      tmap: 'https://tmap.life/place?lat=37.539565&lng=126.992161&name=그랜드하얏트서울',
+      tmap: 'https://tmap.life/place?lat=37.3995&lng=127.1272&name=더바실리움',
     },
     transport: {
       subway: {
