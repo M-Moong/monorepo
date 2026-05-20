@@ -1,0 +1,6 @@
+{
+  "buildCommand": "pnpm --filter wedding build",
+  "installCommand": "pnpm install",
+  "outputDirectory": "apps/wedding/.next",
+  "framework": "nextjs"
+}
