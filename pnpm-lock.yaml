@@ -1,7 +1,7 @@
 lockfileVersion: '9.0'
 
 settings:
-  autoInstallPeers: true
+  autoInstallPeers: false
   excludeLinksFromLockfile: false
 
 importers:
@@ -10,7 +10,7 @@ importers:
     dependencies:
       drizzle-orm:
         specifier: ^0.45.2
-        version: 0.45.2(@prisma/client@5.22.0(prisma@5.22.0))(postgres@3.4.9)(prisma@5.22.0)
+        version: 0.45.2(postgres@3.4.9)
     devDependencies:
       drizzle-kit:
         specifier: ^0.31.10
@@ -41,7 +41,7 @@ importers:
         version: 1.14.0(react@19.2.3)
       next:
         specifier: 16.1.6
-        version: 16.1.6(@babel/core@7.29.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+        version: 16.1.6(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       postgres:
         specifier: ^3.4.9
         version: 3.4.9
@@ -75,7 +75,7 @@ importers:
         version: 9.39.1(jiti@2.7.0)
       eslint-config-next:
         specifier: 16.1.6
-        version: 16.1.6(@typescript-eslint/parser@8.50.0(eslint@9.39.1(jiti@2.7.0))(typescript@5.9.2))(eslint@9.39.1(jiti@2.7.0))(typescript@5.9.2)
+        version: 16.1.6(eslint@9.39.1(jiti@2.7.0))(typescript@5.9.2)
       tailwindcss:
         specifier: ^4
         version: 4.3.0
@@ -1003,30 +1003,6 @@ packages:
   '@paralleldrive/cuid2@3.3.0':
     resolution: {integrity: sha512-OqiFvSOF0dBSesELYY2CAMa4YINvlLpvKOz/rv6NeZEqiyttlHgv98Juwv4Ch+GrEV7IZ8jfI2VcEoYUjXXCjw==}
     hasBin: true
-
-  '@prisma/client@5.22.0':
-    resolution: {integrity: sha512-M0SVXfyHnQREBKxCgyo7sffrKttwE6R8PMq330MIUF0pTwjUhLbW84pFDlf06B27XyCR++VtjugEnIHdr07SVA==}
-    engines: {node: '>=16.13'}
-    peerDependencies:
-      prisma: '*'
-    peerDependenciesMeta:
-      prisma:
-        optional: true
-
-  '@prisma/debug@5.22.0':
-    resolution: {integrity: sha512-AUt44v3YJeggO2ZU5BkXI7M4hu9BF2zzH2iF2V5pyXT/lRTyWiElZ7It+bRH1EshoMRxHgpYg4VB6rCM+mG5jQ==}
-
-  '@prisma/engines-version@5.22.0-44.605197351a3c8bdd595af2d2a9bc3025bca48ea2':
-    resolution: {integrity: sha512-2PTmxFR2yHW/eB3uqWtcgRcgAbG1rwG9ZriSvQw+nnb7c4uCr3RAcGMb6/zfE88SKlC1Nj2ziUvc96Z379mHgQ==}
-
-  '@prisma/engines@5.22.0':
-    resolution: {integrity: sha512-UNjfslWhAt06kVL3CjkuYpHAWSO6L4kDCVPegV6itt7nD1kSJavd3vhgAEhjglLJJKEdJ7oIqDJ+yHk6qO8gPA==}
-
-  '@prisma/fetch-engine@5.22.0':
-    resolution: {integrity: sha512-bkrD/Mc2fSvkQBV5EpoFcZ87AvOgDxbG99488a5cexp5Ccny+UM6MAe/UFkUC0wLYD9+9befNOqGiIJhhq+HbA==}
-
-  '@prisma/get-platform@5.22.0':
-    resolution: {integrity: sha512-pHhpQdr1UPFpt+zFfnPazhulaZYCUqeIcPpJViYoq9R+D/yw4fjE+CtnsnKzPYm0ddUbeXUzjGVGIRVgPDCk4Q==}
 
   '@radix-ui/react-compose-refs@1.1.2':
     resolution: {integrity: sha512-z4eqJvfiNnFMHIIvXP3CY57y2WJs5g2v3X0zm9mEJkrkNv4rDxu+sg9Jh8EkXyeqBkB7SOcboo9dMVqhyrACIg==}
@@ -2483,11 +2459,6 @@ packages:
     resolution: {integrity: sha512-v6UNi1+3hSlVvv8fSaoUbggEM5VErKmmpGA7Pl3HF8V6uKY7rvClBOJlH6yNwQtfTueNkGVpOv/mtWL9L4bgRA==}
     engines: {node: '>=14'}
 
-  prisma@5.22.0:
-    resolution: {integrity: sha512-vtpjW3XuYCSnMsNVBjLMNkTj6OZbudcPPTPYHqX0CJfpcdWciI1dM8uHETwmDxxiqEwCIE6WvXucWUetJgfu/A==}
-    engines: {node: '>=16.13'}
-    hasBin: true
-
   prop-types@15.8.1:
     resolution: {integrity: sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==}
 
@@ -3431,37 +3402,6 @@ snapshots:
       bignumber.js: 9.3.1
       error-causes: 3.0.2
 
-  '@prisma/client@5.22.0(prisma@5.22.0)':
-    optionalDependencies:
-      prisma: 5.22.0
-    optional: true
-
-  '@prisma/debug@5.22.0':
-    optional: true
-
-  '@prisma/engines-version@5.22.0-44.605197351a3c8bdd595af2d2a9bc3025bca48ea2':
-    optional: true
-
-  '@prisma/engines@5.22.0':
-    dependencies:
-      '@prisma/debug': 5.22.0
-      '@prisma/engines-version': 5.22.0-44.605197351a3c8bdd595af2d2a9bc3025bca48ea2
-      '@prisma/fetch-engine': 5.22.0
-      '@prisma/get-platform': 5.22.0
-    optional: true
-
-  '@prisma/fetch-engine@5.22.0':
-    dependencies:
-      '@prisma/debug': 5.22.0
-      '@prisma/engines-version': 5.22.0-44.605197351a3c8bdd595af2d2a9bc3025bca48ea2
-      '@prisma/get-platform': 5.22.0
-    optional: true
-
-  '@prisma/get-platform@5.22.0':
-    dependencies:
-      '@prisma/debug': 5.22.0
-    optional: true
-
   '@radix-ui/react-compose-refs@1.1.2(@types/react@19.2.2)(react@19.2.0)':
     dependencies:
       react: 19.2.0
@@ -3965,11 +3905,9 @@ snapshots:
       esbuild: 0.25.12
       tsx: 4.22.2
 
-  drizzle-orm@0.45.2(@prisma/client@5.22.0(prisma@5.22.0))(postgres@3.4.9)(prisma@5.22.0):
+  drizzle-orm@0.45.2(postgres@3.4.9):
     optionalDependencies:
-      '@prisma/client': 5.22.0(prisma@5.22.0)
       postgres: 3.4.9
-      prisma: 5.22.0
 
   dunder-proto@1.0.1:
     dependencies:
@@ -4176,13 +4114,13 @@ snapshots:
 
   escape-string-regexp@4.0.0: {}
 
-  eslint-config-next@16.1.6(@typescript-eslint/parser@8.50.0(eslint@9.39.1(jiti@2.7.0))(typescript@5.9.2))(eslint@9.39.1(jiti@2.7.0))(typescript@5.9.2):
+  eslint-config-next@16.1.6(eslint@9.39.1(jiti@2.7.0))(typescript@5.9.2):
     dependencies:
       '@next/eslint-plugin-next': 16.1.6
       eslint: 9.39.1(jiti@2.7.0)
       eslint-import-resolver-node: 0.3.10
       eslint-import-resolver-typescript: 3.10.1(eslint-plugin-import@2.32.0)(eslint@9.39.1(jiti@2.7.0))
-      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.50.0(eslint@9.39.1(jiti@2.7.0))(typescript@5.9.2))(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.1(jiti@2.7.0))
+      eslint-plugin-import: 2.32.0(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.1(jiti@2.7.0))
       eslint-plugin-jsx-a11y: 6.10.2(eslint@9.39.1(jiti@2.7.0))
       eslint-plugin-react: 7.37.5(eslint@9.39.1(jiti@2.7.0))
       eslint-plugin-react-hooks: 7.1.1(eslint@9.39.1(jiti@2.7.0))
@@ -4219,22 +4157,21 @@ snapshots:
       tinyglobby: 0.2.15
       unrs-resolver: 1.11.1
     optionalDependencies:
-      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.50.0(eslint@9.39.1(jiti@2.7.0))(typescript@5.9.2))(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.1(jiti@2.7.0))
+      eslint-plugin-import: 2.32.0(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.1(jiti@2.7.0))
     transitivePeerDependencies:
       - supports-color
 
-  eslint-module-utils@2.12.1(@typescript-eslint/parser@8.50.0(eslint@9.39.1(jiti@2.7.0))(typescript@5.9.2))(eslint-import-resolver-node@0.3.10)(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0)(eslint@9.39.1(jiti@2.7.0)))(eslint@9.39.1(jiti@2.7.0)):
+  eslint-module-utils@2.12.1(eslint-import-resolver-node@0.3.10)(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0)(eslint@9.39.1(jiti@2.7.0)))(eslint@9.39.1(jiti@2.7.0)):
     dependencies:
       debug: 3.2.7
     optionalDependencies:
-      '@typescript-eslint/parser': 8.50.0(eslint@9.39.1(jiti@2.7.0))(typescript@5.9.2)
       eslint: 9.39.1(jiti@2.7.0)
       eslint-import-resolver-node: 0.3.10
       eslint-import-resolver-typescript: 3.10.1(eslint-plugin-import@2.32.0)(eslint@9.39.1(jiti@2.7.0))
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.50.0(eslint@9.39.1(jiti@2.7.0))(typescript@5.9.2))(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.1(jiti@2.7.0)):
+  eslint-plugin-import@2.32.0(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.1(jiti@2.7.0)):
     dependencies:
       '@rtsao/scc': 1.1.0
       array-includes: 3.1.9
@@ -4245,7 +4182,7 @@ snapshots:
       doctrine: 2.1.0
       eslint: 9.39.1(jiti@2.7.0)
       eslint-import-resolver-node: 0.3.10
-      eslint-module-utils: 2.12.1(@typescript-eslint/parser@8.50.0(eslint@9.39.1(jiti@2.7.0))(typescript@5.9.2))(eslint-import-resolver-node@0.3.10)(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0)(eslint@9.39.1(jiti@2.7.0)))(eslint@9.39.1(jiti@2.7.0))
+      eslint-module-utils: 2.12.1(eslint-import-resolver-node@0.3.10)(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0)(eslint@9.39.1(jiti@2.7.0)))(eslint@9.39.1(jiti@2.7.0))
       hasown: 2.0.2
       is-core-module: 2.16.1
       is-glob: 4.0.3
@@ -4256,8 +4193,6 @@ snapshots:
       semver: 6.3.1
       string.prototype.trimend: 1.0.9
       tsconfig-paths: 3.15.0
-    optionalDependencies:
-      '@typescript-eslint/parser': 8.50.0(eslint@9.39.1(jiti@2.7.0))(typescript@5.9.2)
     transitivePeerDependencies:
       - eslint-import-resolver-typescript
       - eslint-import-resolver-webpack
@@ -4825,7 +4760,7 @@ snapshots:
 
   natural-compare@1.4.0: {}
 
-  next@16.1.6(@babel/core@7.29.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3):
+  next@16.1.6(react-dom@19.2.3(react@19.2.3))(react@19.2.3):
     dependencies:
       '@next/env': 16.1.6
       '@swc/helpers': 0.5.15
@@ -4834,7 +4769,7 @@ snapshots:
       postcss: 8.4.31
       react: 19.2.3
       react-dom: 19.2.3(react@19.2.3)
-      styled-jsx: 5.1.6(@babel/core@7.29.0)(react@19.2.3)
+      styled-jsx: 5.1.6(react@19.2.3)
     optionalDependencies:
       '@next/swc-darwin-arm64': 16.1.6
       '@next/swc-darwin-x64': 16.1.6
@@ -4962,13 +4897,6 @@ snapshots:
       prettier: 3.7.4
 
   prettier@3.7.4: {}
-
-  prisma@5.22.0:
-    dependencies:
-      '@prisma/engines': 5.22.0
-    optionalDependencies:
-      fsevents: 2.3.3
-    optional: true
 
   prop-types@15.8.1:
     dependencies:
@@ -5224,12 +5152,10 @@ snapshots:
 
   strip-json-comments@3.1.1: {}
 
-  styled-jsx@5.1.6(@babel/core@7.29.0)(react@19.2.3):
+  styled-jsx@5.1.6(react@19.2.3):
     dependencies:
       client-only: 0.0.1
       react: 19.2.3
-    optionalDependencies:
-      '@babel/core': 7.29.0
 
   supports-color@7.2.0:
     dependencies:
