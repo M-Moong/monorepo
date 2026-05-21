@@ -66,6 +66,6 @@ export function Lightbox({ index, total, tones, photos, onClose, onPrev, onNext 
         TAP ANYWHERE TO CLOSE
       </div>
     </div>,
-    document.body,
+    document.body
   );
 }
