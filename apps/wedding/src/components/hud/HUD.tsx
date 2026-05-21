@@ -28,7 +28,7 @@ export function HUD({
     <>
       {/* HUD 바 */}
       <div
-        className="sticky top-0 z-50 flex items-center justify-between px-3.5 pt-3 pb-2.5 backdrop-blur-[8px]"
+        className="flex items-center justify-between px-3.5 pt-3 pb-2.5 backdrop-blur-[8px]"
         style={{ background: 'var(--color-hud-gradient)' }}
       >
         {/* 챕터 번호 */}
@@ -64,7 +64,7 @@ export function HUD({
       </div>
 
       {/* Progress bar */}
-      <div className="sticky top-9 z-[49] h-px bg-fg/6">
+      <div className="h-px bg-fg/6">
         <div
           className="h-full bg-gold transition-[width] duration-150"
           style={{ width: `${progressPct * 100}%` }}

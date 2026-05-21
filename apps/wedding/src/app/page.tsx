@@ -34,22 +34,27 @@ export default function InvitationPage() {
     <div className="flex min-h-dvh items-start justify-center bg-bg">
       {!splashDone && <Splash onDone={() => setSplashDone(true)} />}
       <div className="relative w-full max-w-[450px]">
+        {/* HUD: normal flow 밖에 두어 스크롤 컨테이너 레이아웃에 영향 없도록 */}
+        <div className="absolute top-0 right-0 left-0 z-50 pointer-events-none">
+          <div className="pointer-events-auto">
+            <HUD
+              chapter={chapter}
+              progressPct={progressPct}
+              sound={sound}
+              totalChapters={TOTAL_CHAPTERS}
+              containerRef={containerRef}
+              onToggleSound={() => setSound((s) => !s)}
+            />
+          </div>
+        </div>
+
         {/* data-scroll-container: SlideGroup이 스크롤 위치를 읽는 기준점 */}
         <div
           ref={containerRef}
           data-scroll-container
-          className="relative h-dvh overflow-y-scroll bg-bg text-fg"
+          className="relative h-dvh overflow-y-scroll bg-bg text-fg snap-y snap-mandatory"
           style={{ fontFamily: 'var(--font-sans)' }}
         >
-          <HUD
-            chapter={chapter}
-            progressPct={progressPct}
-            sound={sound}
-            totalChapters={TOTAL_CHAPTERS}
-            containerRef={containerRef}
-            onToggleSound={() => setSound((s) => !s)}
-          />
-
           {/* scroll 챕터: 1, 2, 3 */}
           <Ch01Cover />
           <Ch02Invite />
