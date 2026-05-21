@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { TabButton } from '@/components/ui/TabButton';
 
 const LAT = 37.3995;
 const LNG = 127.1272;
@@ -174,19 +175,25 @@ function SVGFallback() {
   );
 }
 
-function NaverMap({ container }: { container: React.RefObject<HTMLDivElement | null> }) {
+type MapTab = 'kakao' | 'naver';
+
+export function VenueMap() {
+  const naverRef = useRef<HTMLDivElement>(null);
+  const kakaoRef = useRef<HTMLDivElement>(null);
+  const [activeTab, setActiveTab] = useState<MapTab>('kakao');
+
   useEffect(() => {
+    if (!NAVER_KEY) return;
     const initMap = () => {
-      if (!container.current) return;
+      if (!naverRef.current) return;
       const center = new window.naver.maps.LatLng(LAT, LNG);
-      new window.naver.maps.Map(container.current, {
+      new window.naver.maps.Map(naverRef.current, {
         center,
         zoom: 16,
         mapTypeId: window.naver.maps.MapTypeId.NORMAL,
       });
-      new window.naver.maps.Marker({ position: center, map: container.current });
+      new window.naver.maps.Marker({ position: center, map: naverRef.current });
     };
-
     if (window.naver?.maps) {
       initMap();
     } else {
@@ -195,18 +202,15 @@ function NaverMap({ container }: { container: React.RefObject<HTMLDivElement | n
       script.onload = initMap;
       document.head.appendChild(script);
     }
-  }, [container]);
+  }, []);
 
-  return <div ref={container} className="h-full w-full" />;
-}
-
-function KakaoMap({ container }: { container: React.RefObject<HTMLDivElement | null> }) {
   useEffect(() => {
+    if (!KAKAO_KEY) return;
     const initMap = () => {
-      if (!container.current) return;
+      if (!kakaoRef.current) return;
       window.kakao.maps.load(() => {
         const center = new window.kakao.maps.LatLng(LAT, LNG);
-        const map = new window.kakao.maps.Map(container.current!, { center, level: 3 });
+        const map = new window.kakao.maps.Map(kakaoRef.current!, { center, level: 3 });
         const content = `
           <div style="position:relative;display:flex;flex-direction:column;align-items:center;transform:translateY(-100%);">
             <div style="background:#e8c87c;color:#0a0a0a;font-size:10px;font-weight:700;letter-spacing:.1em;padding:4px 8px;white-space:nowrap;">THE BASILEUM</div>
@@ -215,7 +219,6 @@ function KakaoMap({ container }: { container: React.RefObject<HTMLDivElement | n
         new window.kakao.maps.CustomOverlay({ position: center, content, yAnchor: 0 }).setMap(map);
       });
     };
-
     if (window.kakao?.maps) {
       initMap();
     } else {
@@ -224,33 +227,60 @@ function KakaoMap({ container }: { container: React.RefObject<HTMLDivElement | n
       script.onload = initMap;
       document.head.appendChild(script);
     }
-  }, [container]);
-
-  return <div ref={container} className="h-full w-full" />;
-}
-
-export function VenueMap() {
-  const mapRef = useRef<HTMLDivElement>(null);
-
-  if (NAVER_KEY) {
-    return (
-      <div className="relative mb-3.5 h-36 overflow-hidden border border-fg/10">
-        <NaverMap container={mapRef} />
-      </div>
-    );
-  }
-
-  if (KAKAO_KEY) {
-    return (
-      <div className="relative mb-3.5 h-36 overflow-hidden border border-fg/10">
-        <KakaoMap container={mapRef} />
-      </div>
-    );
-  }
+  }, []);
 
   return (
-    <div className="relative mb-3.5 h-36 overflow-hidden border border-fg/10 bg-warm">
-      <SVGFallback />
+    <div className="mb-3.5">
+      <div className="relative h-36 overflow-hidden border border-fg/10">
+        {!KAKAO_KEY && !NAVER_KEY && (
+          <div className="absolute inset-0 bg-warm">
+            <SVGFallback />
+          </div>
+        )}
+
+        {/* 카카오맵 컨테이너 — opacity로 전환해 초기화 후 재렌더 방지 */}
+        <div
+          className="absolute inset-0 transition-opacity duration-200"
+          style={{
+            opacity: activeTab === 'kakao' ? 1 : 0,
+            pointerEvents: activeTab === 'kakao' ? 'auto' : 'none',
+          }}
+        >
+          {KAKAO_KEY ? (
+            <div ref={kakaoRef} className="h-full w-full" />
+          ) : (
+            <div className="h-full w-full bg-warm">
+              <SVGFallback />
+            </div>
+          )}
+        </div>
+
+        {/* 네이버지도 컨테이너 */}
+        <div
+          className="absolute inset-0 transition-opacity duration-200"
+          style={{
+            opacity: activeTab === 'naver' ? 1 : 0,
+            pointerEvents: activeTab === 'naver' ? 'auto' : 'none',
+          }}
+        >
+          {NAVER_KEY ? (
+            <div ref={naverRef} className="h-full w-full" />
+          ) : (
+            <div className="h-full w-full bg-warm">
+              <SVGFallback />
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div className="mt-1 grid grid-cols-2 gap-1">
+        <TabButton active={activeTab === 'kakao'} onClick={() => setActiveTab('kakao')}>
+          카카오맵
+        </TabButton>
+        <TabButton active={activeTab === 'naver'} onClick={() => setActiveTab('naver')}>
+          네이버지도
+        </TabButton>
+      </div>
     </div>
   );
 }
