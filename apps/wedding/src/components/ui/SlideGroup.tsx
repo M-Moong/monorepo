@@ -55,6 +55,7 @@ export function SlideGroup({ count, children }: SlideGroupProps) {
     // outer: 세로 스크롤 공간 확보
     <div
       ref={outerRef}
+      data-slide-group={count}
       style={{ height: `calc(${count} * 100dvh)` }}
     >
       {/* track: 화면 상단에 sticky 고정. overflow-hidden으로 옆 슬라이드 클리핑 */}
