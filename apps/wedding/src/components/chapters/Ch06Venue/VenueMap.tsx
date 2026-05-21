@@ -52,7 +52,12 @@ function SVGFallback() {
       />
 
       {/* 성남대로 (세로 대로) */}
-      <path d="M72 0 L 68 200" stroke="var(--color-svg-road, #d8d0c4)" strokeWidth="16" fill="none" />
+      <path
+        d="M72 0 L 68 200"
+        stroke="var(--color-svg-road, #d8d0c4)"
+        strokeWidth="16"
+        fill="none"
+      />
       <path
         d="M72 0 L 68 200"
         stroke="var(--color-svg-road-center, #e8e2d8)"
@@ -62,7 +67,12 @@ function SVGFallback() {
       />
 
       {/* 양현로 (가로 — 더 바실리움 접근로) */}
-      <path d="M0 108 L 255 104" stroke="var(--color-svg-road, #d8d0c4)" strokeWidth="10" fill="none" />
+      <path
+        d="M0 108 L 255 104"
+        stroke="var(--color-svg-road, #d8d0c4)"
+        strokeWidth="10"
+        fill="none"
+      />
       <path
         d="M0 108 L 255 104"
         stroke="var(--color-svg-road-center, #e8e2d8)"
@@ -72,7 +82,12 @@ function SVGFallback() {
       />
 
       {/* 보조도로 (가로 위) */}
-      <path d="M0 58 L 255 55" stroke="var(--color-svg-road, #d8d0c4)" strokeWidth="6" fill="none" />
+      <path
+        d="M0 58 L 255 55"
+        stroke="var(--color-svg-road, #d8d0c4)"
+        strokeWidth="6"
+        fill="none"
+      />
 
       {/* 야탑역 블록 */}
       <rect x="44" y="70" width="48" height="24" rx="2" fill="var(--color-svg-block, #e2dbd0)" />
@@ -112,18 +127,47 @@ function SVGFallback() {
 
       {/* 장소 라벨 */}
       <rect x="108" y="74" width="100" height="18" rx="3" fill="var(--color-gold, #e8c87c)" />
-      <text x="158" y="86.5" fill="#1a1408" fontSize="8" fontWeight="700" textAnchor="middle" letterSpacing="1.5">
+      <text
+        x="158"
+        y="86.5"
+        fill="#1a1408"
+        fontSize="8"
+        fontWeight="700"
+        textAnchor="middle"
+        letterSpacing="1.5"
+      >
         THE BASILEUM
       </text>
 
       {/* 도로/지형 라벨 */}
-      <text x="30" y="51" fill="var(--color-svg-label, #8a7f72)" fontSize="6" letterSpacing="0.5" textAnchor="middle">
+      <text
+        x="30"
+        y="51"
+        fill="var(--color-svg-label, #8a7f72)"
+        fontSize="6"
+        letterSpacing="0.5"
+        textAnchor="middle"
+      >
         성남대로
       </text>
-      <text x="195" y="99" fill="var(--color-svg-label, #8a7f72)" fontSize="6" letterSpacing="0.5" textAnchor="middle">
+      <text
+        x="195"
+        y="99"
+        fill="var(--color-svg-label, #8a7f72)"
+        fontSize="6"
+        letterSpacing="0.5"
+        textAnchor="middle"
+      >
         양현로
       </text>
-      <text x="272" y="28" fill="var(--color-svg-label, #8a7f72)" fontSize="6" letterSpacing="0.5" textAnchor="middle">
+      <text
+        x="272"
+        y="28"
+        fill="var(--color-svg-label, #8a7f72)"
+        fontSize="6"
+        letterSpacing="0.5"
+        textAnchor="middle"
+      >
         탄천
       </text>
     </svg>
