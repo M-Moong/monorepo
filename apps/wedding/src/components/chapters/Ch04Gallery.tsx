@@ -11,7 +11,9 @@ type Tone = 'warm' | 'cool' | 'sage' | 'paper' | 'mono' | 'blush' | 'sepia' | 'i
 
 const TONES: Tone[] = ['mono', 'sepia', 'warm', 'paper', 'sage', 'blush', 'cool', 'mono', 'sepia'];
 
-export function Ch04Gallery() {
+interface Props { inSlideGroup?: boolean }
+
+export function Ch04Gallery({ inSlideGroup }: Props) {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const total = TONES.length;
 
@@ -23,7 +25,7 @@ export function Ch04Gallery() {
   };
 
   return (
-    <ChapterSection chIndex={3}>
+    <ChapterSection chIndex={3} inSlideGroup={inSlideGroup}>
       <ChHeader
         num={4}
         label="GALLERY"

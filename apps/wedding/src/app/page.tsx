@@ -11,6 +11,7 @@ import { Ch06Venue } from '@/components/chapters/Ch06Venue';
 import { Ch07Fortune } from '@/components/chapters/Ch07Fortune';
 import { Ch08Guestbook } from '@/components/chapters/Ch08Guestbook';
 import { Ch09Finale } from '@/components/chapters/Ch09Finale';
+import { SlideGroup } from '@/components/ui/SlideGroup';
 import { useScroll } from '@/hooks/useScroll';
 import { useBGM } from '@/hooks/useBGM';
 import { Splash } from '@/components/ui/Splash';
@@ -32,11 +33,12 @@ export default function InvitationPage() {
   return (
     <div className="flex min-h-dvh items-start justify-center bg-bg">
       {!splashDone && <Splash onDone={() => setSplashDone(true)} />}
-      {/* 모바일 프레임 */}
       <div className="relative w-full max-w-[450px]">
+        {/* data-scroll-container: SlideGroup이 스크롤 위치를 읽는 기준점 */}
         <div
           ref={containerRef}
-          className="relative h-dvh [scroll-snap-type:y_proximity] overflow-y-scroll bg-bg text-fg"
+          data-scroll-container
+          className="relative h-dvh overflow-x-hidden overflow-y-scroll bg-bg text-fg"
           style={{ fontFamily: 'var(--font-sans)' }}
         >
           <HUD
@@ -48,18 +50,24 @@ export default function InvitationPage() {
             onToggleSound={() => setSound((s) => !s)}
           />
 
+          {/* scroll 챕터: 1, 2, 3 */}
           <Ch01Cover />
           <Ch02Invite />
           <Ch03Couple />
-          <Ch04Gallery />
-          <Ch05Calendar />
-          <Ch06Venue />
+
+          {/* slide 챕터: 4, 5, 6 — 세로 스크롤이 가로 전환으로 변환됨 */}
+          <SlideGroup count={3}>
+            <Ch04Gallery inSlideGroup />
+            <Ch05Calendar inSlideGroup />
+            <Ch06Venue inSlideGroup />
+          </SlideGroup>
+
+          {/* scroll 챕터: 7, 8, 9 */}
           <Ch07Fortune />
           <Ch08Guestbook />
           <Ch09Finale />
         </div>
 
-        {/* 플로팅 방명록 버튼 (CH01~CH07 구간) */}
         {chapter > 0 && chapter < 7 && (
           <button
             onClick={jumpToGuestbook}

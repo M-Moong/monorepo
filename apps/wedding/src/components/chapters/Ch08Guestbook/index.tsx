@@ -69,7 +69,7 @@ export function Ch08Guestbook() {
   const totalPages = data?.totalPages ?? 1;
 
   return (
-    <ChapterSection chIndex={7} minHeightAuto>
+    <ChapterSection chIndex={7}>
       <ChHeader
         num={8}
         label="GUESTBOOK"

@@ -5,9 +5,11 @@ import { TransportTabs } from './TransportTabs';
 import { MapLinks } from './MapLinks';
 import { WEDDING } from '@/data/wedding';
 
-export function Ch06Venue() {
+interface Props { inSlideGroup?: boolean }
+
+export function Ch06Venue({ inSlideGroup }: Props) {
   return (
-    <ChapterSection chIndex={5}>
+    <ChapterSection chIndex={5} inSlideGroup={inSlideGroup}>
       <ChHeader
         num={6}
         label="WHERE"
