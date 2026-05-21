@@ -190,7 +190,7 @@ export function VenueMap() {
 
   if (NAVER_KEY) {
     return (
-      <div className="relative mb-3.5 h-45 overflow-hidden border border-fg/10">
+      <div className="relative mb-3.5 h-36 overflow-hidden border border-fg/10">
         <NaverMap container={mapRef} />
       </div>
     );
@@ -198,14 +198,14 @@ export function VenueMap() {
 
   if (KAKAO_KEY) {
     return (
-      <div className="relative mb-3.5 h-45 overflow-hidden border border-fg/10">
+      <div className="relative mb-3.5 h-36 overflow-hidden border border-fg/10">
         <KakaoMap container={mapRef} />
       </div>
     );
   }
 
   return (
-    <div className="relative mb-3.5 h-45 overflow-hidden border border-fg/10 bg-warm">
+    <div className="relative mb-3.5 h-36 overflow-hidden border border-fg/10 bg-warm">
       <SVGFallback />
     </div>
   );

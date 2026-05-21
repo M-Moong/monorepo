@@ -69,15 +69,14 @@ export function Ch08Guestbook() {
   const totalPages = data?.totalPages ?? 1;
 
   return (
-    <ChapterSection chIndex={7}>
+    <ChapterSection chIndex={7} autoHeight>
       <ChHeader
         num={8}
         label="GUESTBOOK"
         title={
           <>
-            한마디
-            <br />
-            남겨주세요.
+            Leave
+            <br />a note.
           </>
         }
       />

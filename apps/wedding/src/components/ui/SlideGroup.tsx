@@ -55,8 +55,18 @@ export function SlideGroup({ count, children }: SlideGroupProps) {
     // outer: 세로 스크롤 공간 확보
     <div
       ref={outerRef}
+      data-slide-group={count}
+      className="relative"
       style={{ height: `calc(${count} * 100dvh)` }}
     >
+      {/* 슬라이드마다 100dvh 간격으로 스냅 포인트 배치 */}
+      {Array.from({ length: count }).map((_, i) => (
+        <div
+          key={i}
+          className="snap-start"
+          style={{ position: 'absolute', top: `calc(${i} * 100dvh)`, height: '1px', width: '100%' }}
+        />
+      ))}
       {/* track: 화면 상단에 sticky 고정. overflow-hidden으로 옆 슬라이드 클리핑 */}
       <div className="sticky top-0 h-dvh overflow-hidden">
         {/* inner: 가로로 translateX 이동 */}

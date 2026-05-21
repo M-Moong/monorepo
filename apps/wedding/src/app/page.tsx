@@ -34,22 +34,27 @@ export default function InvitationPage() {
     <div className="flex min-h-dvh items-start justify-center bg-bg">
       {!splashDone && <Splash onDone={() => setSplashDone(true)} />}
       <div className="relative w-full max-w-[450px]">
+        {/* HUD: normal flow 밖에 두어 스크롤 컨테이너 레이아웃에 영향 없도록 */}
+        <div className="pointer-events-none absolute top-0 right-0 left-0 z-50">
+          <div className="pointer-events-auto">
+            <HUD
+              chapter={chapter}
+              progressPct={progressPct}
+              sound={sound}
+              totalChapters={TOTAL_CHAPTERS}
+              containerRef={containerRef}
+              onToggleSound={() => setSound((s) => !s)}
+            />
+          </div>
+        </div>
+
         {/* data-scroll-container: SlideGroup이 스크롤 위치를 읽는 기준점 */}
         <div
           ref={containerRef}
           data-scroll-container
-          className="relative h-dvh overflow-y-scroll bg-bg text-fg"
+          className="relative h-dvh snap-y snap-mandatory overflow-y-scroll bg-bg text-fg"
           style={{ fontFamily: 'var(--font-sans)' }}
         >
-          <HUD
-            chapter={chapter}
-            progressPct={progressPct}
-            sound={sound}
-            totalChapters={TOTAL_CHAPTERS}
-            containerRef={containerRef}
-            onToggleSound={() => setSound((s) => !s)}
-          />
-
           {/* scroll 챕터: 1, 2, 3 */}
           <Ch01Cover />
           <Ch02Invite />
@@ -68,7 +73,7 @@ export default function InvitationPage() {
           <Ch09Finale />
         </div>
 
-        {chapter > 0 && chapter < 7 && (
+        {chapter !== 7 && (
           <button
             onClick={jumpToGuestbook}
             className="absolute right-5 bottom-5 z-60 animate-pulse-btn cursor-pointer border-0 bg-gold px-4 py-3 text-[0.625rem] font-bold tracking-[0.25rem] text-bg"
