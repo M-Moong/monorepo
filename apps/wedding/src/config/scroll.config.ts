@@ -20,7 +20,7 @@ export type HeightMode = 'full' | 'auto';
 
 export interface ChapterConfig {
   chIndex: number; // data-ch 값 (0-based)
-  label: string;   // 가독성용 레이블
+  label: string; // 가독성용 레이블
   transition: TransitionType;
   heightMode: HeightMode;
 }
@@ -29,15 +29,15 @@ export interface ChapterConfig {
 // ↓ 전환 방식·높이를 바꾸고 싶다면 여기만 수정
 
 export const CHAPTER_CONFIGS: ChapterConfig[] = [
-  { chIndex: 0, label: 'Cover',     transition: 'scroll', heightMode: 'full' },
-  { chIndex: 1, label: 'Invite',    transition: 'scroll', heightMode: 'full' },
-  { chIndex: 2, label: 'Couple',    transition: 'scroll', heightMode: 'full' },
-  { chIndex: 3, label: 'Gallery',   transition: 'slide',  heightMode: 'full' },
-  { chIndex: 4, label: 'Calendar',  transition: 'slide',  heightMode: 'full' },
-  { chIndex: 5, label: 'Venue',     transition: 'slide',  heightMode: 'full' },
-  { chIndex: 6, label: 'Fortune',   transition: 'scroll', heightMode: 'full' },
+  { chIndex: 0, label: 'Cover', transition: 'scroll', heightMode: 'full' },
+  { chIndex: 1, label: 'Invite', transition: 'scroll', heightMode: 'full' },
+  { chIndex: 2, label: 'Couple', transition: 'scroll', heightMode: 'full' },
+  { chIndex: 3, label: 'Gallery', transition: 'slide', heightMode: 'full' },
+  { chIndex: 4, label: 'Calendar', transition: 'slide', heightMode: 'full' },
+  { chIndex: 5, label: 'Venue', transition: 'slide', heightMode: 'full' },
+  { chIndex: 6, label: 'Fortune', transition: 'scroll', heightMode: 'full' },
   { chIndex: 7, label: 'Guestbook', transition: 'scroll', heightMode: 'auto' },
-  { chIndex: 8, label: 'Finale',    transition: 'scroll', heightMode: 'auto' },
+  { chIndex: 8, label: 'Finale', transition: 'scroll', heightMode: 'auto' },
 ];
 
 // ─── 유틸 ─────────────────────────────────────────────────────────────────────

@@ -35,7 +35,7 @@ export default function InvitationPage() {
       {!splashDone && <Splash onDone={() => setSplashDone(true)} />}
       <div className="relative w-full max-w-[450px]">
         {/* HUD: normal flow 밖에 두어 스크롤 컨테이너 레이아웃에 영향 없도록 */}
-        <div className="absolute top-0 right-0 left-0 z-50 pointer-events-none">
+        <div className="pointer-events-none absolute top-0 right-0 left-0 z-50">
           <div className="pointer-events-auto">
             <HUD
               chapter={chapter}
@@ -52,7 +52,7 @@ export default function InvitationPage() {
         <div
           ref={containerRef}
           data-scroll-container
-          className="relative h-dvh overflow-y-scroll bg-bg text-fg snap-y snap-mandatory"
+          className="relative h-dvh snap-y snap-mandatory overflow-y-scroll bg-bg text-fg"
           style={{ fontFamily: 'var(--font-sans)' }}
         >
           {/* scroll 챕터: 1, 2, 3 */}

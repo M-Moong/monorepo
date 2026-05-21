@@ -70,7 +70,9 @@ function downloadIcsFile() {
 
 // ── 컴포넌트 ───────────────────────────────────────────────────────────────────
 
-interface Props { inSlideGroup?: boolean }
+interface Props {
+  inSlideGroup?: boolean;
+}
 
 export function Ch05Calendar({ inSlideGroup }: Props) {
   const cd = useCountdown(WEDDING.date);

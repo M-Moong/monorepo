@@ -18,7 +18,7 @@ export function FortuneCard({
 }: FortuneCardProps) {
   return (
     <div
-      className="relative aspect-[4/5] overflow-hidden rounded-[1.125rem] shadow-[0_20px_50px_rgba(0,0,0,.5)] transition-transform duration-[250ms]"
+      className="relative aspect-[4/3.5] overflow-hidden rounded-[1.125rem] shadow-[0_20px_50px_rgba(0,0,0,.5)] transition-transform duration-[250ms]"
       style={{
         background: `linear-gradient(135deg, ${p1} 0%, ${p2} 100%)`,
         transform: flipping ? 'rotateY(90deg)' : 'rotateY(0)',

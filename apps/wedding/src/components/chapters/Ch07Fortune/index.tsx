@@ -48,8 +48,9 @@ export function Ch07Fortune() {
         label="DAILY VIBE"
         title={
           <>
-            오늘의
-            <br />한 줄.
+            Today&apos;s
+            <br />
+            fortune.
           </>
         }
       />

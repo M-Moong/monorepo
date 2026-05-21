@@ -11,7 +11,9 @@ type Tone = 'warm' | 'cool' | 'sage' | 'paper' | 'mono' | 'blush' | 'sepia' | 'i
 
 const TONES: Tone[] = ['mono', 'sepia', 'warm', 'paper', 'sage', 'blush', 'cool', 'mono', 'sepia'];
 
-interface Props { inSlideGroup?: boolean }
+interface Props {
+  inSlideGroup?: boolean;
+}
 
 export function Ch04Gallery({ inSlideGroup }: Props) {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);

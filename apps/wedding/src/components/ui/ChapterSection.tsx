@@ -6,8 +6,8 @@ interface ChapterSectionProps {
   className?: string;
   /** slide 그룹 안에서 쓸 때 true — h-dvh + shrink-0으로 고정 */
   inSlideGroup?: boolean;
-  /** true면 scroll-snap에서 제외 (콘텐츠 길이가 가변인 챕터용) */
-  noSnap?: boolean;
+  /** 콘텐츠가 뷰포트보다 길어질 수 있는 챕터 — min-h-dvh로 늘어남 */
+  autoHeight?: boolean;
 }
 
 export function ChapterSection({
@@ -15,11 +15,15 @@ export function ChapterSection({
   children,
   className = '',
   inSlideGroup = false,
-  noSnap = false,
+  autoHeight = false,
 }: ChapterSectionProps) {
-  const sizeClass = inSlideGroup ? 'h-dvh w-full shrink-0' : 'h-dvh w-full overflow-y-auto';
-  const alignClass = inSlideGroup ? 'justify-start' : 'justify-center';
-  const snapClass = noSnap ? 'snap-none' : 'snap-start';
+  const sizeClass = inSlideGroup
+    ? 'h-dvh w-full shrink-0'
+    : autoHeight
+      ? 'min-h-dvh w-full'
+      : 'h-dvh w-full';
+  const alignClass = 'justify-center';
+  const snapClass = 'snap-start';
 
   return (
     <section

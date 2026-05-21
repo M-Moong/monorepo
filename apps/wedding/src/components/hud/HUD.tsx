@@ -20,8 +20,11 @@ export function HUD({
   onToggleSound,
 }: HUDProps) {
   const jumpTo = (i: number) => {
-    const el = containerRef.current?.querySelector<HTMLElement>(`[data-ch="${i}"]`);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    const container = containerRef.current;
+    if (!container) return;
+    const el = container.querySelector<HTMLElement>(`[data-ch="${i}"]`);
+    if (!el) return;
+    container.scrollTo({ top: el.offsetTop, behavior: 'smooth' });
   };
 
   return (
@@ -42,11 +45,15 @@ export function HUD({
             <button
               key={i}
               onClick={() => jumpTo(i)}
-              className="h-[1.5px] w-3 cursor-pointer border-0 p-0 transition-[background] duration-300"
-              style={{
-                background: i <= chapter ? 'var(--color-gold)' : 'var(--color-dot-inactive)',
-              }}
-            />
+              className="flex cursor-pointer items-center border-0 bg-transparent px-0 py-2"
+            >
+              <span
+                className="block h-[2px] w-4 transition-[background] duration-300"
+                style={{
+                  background: i <= chapter ? 'var(--color-gold)' : 'var(--color-dot-inactive)',
+                }}
+              />
+            </button>
           ))}
         </div>
 

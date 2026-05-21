@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import { Input } from '@repo/ui/components/input';
+import { Textarea } from '@repo/ui/components/textarea';
 import { TabButton } from '@/components/ui/TabButton';
 
 export type Side = 'groom' | 'bride' | null;
@@ -24,7 +26,7 @@ const SIDE_OPTIONS: [NonNullable<Side>, string][] = [
 ];
 
 const inputClass =
-  'w-full py-3 bg-transparent border-0 border-b border-fg/30 text-fg text-[0.9375rem] outline-none box-border placeholder:text-fg/30';
+  'w-full rounded-md border-0 bg-fg/5 px-3 py-3 text-[0.9375rem] text-fg shadow-none outline-none ring-0 placeholder:text-fg/30 focus-visible:ring-0';
 
 export function GuestbookForm({ onSubmit }: GuestbookFormProps) {
   const [name, setName] = useState('');
@@ -57,15 +59,15 @@ export function GuestbookForm({ onSubmit }: GuestbookFormProps) {
     <div className="mb-5.5 border border-fg/10 bg-warm p-4">
       <div className="mb-3 text-[0.5625rem] tracking-[0.3rem] text-gold">· LEAVE A NOTE ·</div>
 
-      <input
+      <Input
         className={inputClass}
         placeholder="이름 또는 닉네임"
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
 
-      <textarea
-        className={`${inputClass} mt-1 mb-3.5 resize-none pt-2.5`}
+      <Textarea
+        className={`${inputClass} mt-1.5 mb-3.5 resize-none pt-3`}
         placeholder="짧고 따뜻한 한마디를 남겨주세요"
         value={msg}
         rows={3}

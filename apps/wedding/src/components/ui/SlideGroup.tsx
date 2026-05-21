@@ -53,7 +53,12 @@ export function SlideGroup({ count, children }: SlideGroupProps) {
 
   return (
     // outer: 세로 스크롤 공간 확보
-    <div ref={outerRef} data-slide-group={count} className="relative" style={{ height: `calc(${count} * 100dvh)` }}>
+    <div
+      ref={outerRef}
+      data-slide-group={count}
+      className="relative"
+      style={{ height: `calc(${count} * 100dvh)` }}
+    >
       {/* 슬라이드마다 100dvh 간격으로 스냅 포인트 배치 */}
       {Array.from({ length: count }).map((_, i) => (
         <div

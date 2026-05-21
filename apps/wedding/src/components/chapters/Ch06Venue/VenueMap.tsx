@@ -149,14 +149,14 @@ export function VenueMap() {
 
   if (!APP_KEY) {
     return (
-      <div className="relative mb-3.5 h-45 overflow-hidden border border-fg/10 bg-warm">
+      <div className="relative mb-3.5 h-36 overflow-hidden border border-fg/10 bg-warm">
         <SVGFallback />
       </div>
     );
   }
 
   return (
-    <div className="relative mb-3.5 h-45 overflow-hidden border border-fg/10">
+    <div className="relative mb-3.5 h-36 overflow-hidden border border-fg/10">
       <div ref={mapRef} className="h-full w-full" />
     </div>
   );
