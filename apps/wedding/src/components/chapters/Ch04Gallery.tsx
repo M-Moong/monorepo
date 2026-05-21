@@ -11,7 +11,11 @@ type Tone = 'warm' | 'cool' | 'sage' | 'paper' | 'mono' | 'blush' | 'sepia' | 'i
 
 const TONES: Tone[] = ['mono', 'sepia', 'warm', 'paper', 'sage', 'blush', 'cool', 'mono', 'sepia'];
 
-export function Ch04Gallery() {
+interface Props {
+  inSlideGroup?: boolean;
+}
+
+export function Ch04Gallery({ inSlideGroup }: Props) {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const total = TONES.length;
 
@@ -23,7 +27,7 @@ export function Ch04Gallery() {
   };
 
   return (
-    <ChapterSection chIndex={3}>
+    <ChapterSection chIndex={3} inSlideGroup={inSlideGroup}>
       <ChHeader
         num={4}
         label="GALLERY"
@@ -36,20 +40,22 @@ export function Ch04Gallery() {
         }
       />
 
-      <div className="grid grid-cols-3 gap-1">
-        {TONES.map((tone, i) => (
-          <div
-            key={i}
-            onClick={() => setLightboxIndex(i)}
-            className="relative aspect-square cursor-pointer overflow-hidden"
-          >
-            <PhotoFrame label={String(i + 1).padStart(2, '0')} tone={tone} />
-          </div>
-        ))}
-      </div>
+      <div className="overflow-y-auto">
+        <div className="grid grid-cols-3 gap-1">
+          {TONES.map((tone, i) => (
+            <div
+              key={i}
+              onClick={() => setLightboxIndex(i)}
+              className="relative aspect-square cursor-pointer overflow-hidden"
+            >
+              <PhotoFrame label={String(i + 1).padStart(2, '0')} tone={tone} />
+            </div>
+          ))}
+        </div>
 
-      <div className="mt-3.5 text-center text-[0.625rem] tracking-[0.2rem] text-fg/40">
-        TAP ANY FRAME TO ENLARGE · {total} PHOTOS
+        <div className="mt-3.5 text-center text-[0.625rem] tracking-[0.2rem] text-fg/40">
+          TAP ANY FRAME TO ENLARGE · {total} PHOTOS
+        </div>
       </div>
 
       {lightboxIndex !== null && (

@@ -6,7 +6,7 @@ import { WEDDING } from '@/data/wedding';
 
 export function Ch09Finale() {
   return (
-    <ChapterSection chIndex={8} minHeightAuto>
+    <ChapterSection chIndex={8} autoHeight>
       <ChHeader
         num={9}
         label="END SCENE"

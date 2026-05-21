@@ -19,6 +19,7 @@
   "dependencies": {
     "@paralleldrive/cuid2": "^3.3.0",
     "@repo/ui": "workspace:*",
+    "framer-motion": "^12.39.0",
     "lucide-react": "^1.14.0",
     "next": "16.1.6",
     "postgres": "^3.4.9",

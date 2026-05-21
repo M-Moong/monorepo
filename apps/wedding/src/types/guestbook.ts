@@ -7,3 +7,12 @@ export interface GuestEntry {
   attend: string | null; // "yes" | "maybe" | "no" | null
   createdAt: string; // ISO 8601
 }
+
+export interface GuestbookPage {
+  entries: GuestEntry[];
+  total: number;
+  groomCount: number;
+  brideCount: number;
+  totalPages: number;
+  page: number;
+}

@@ -34,9 +34,10 @@ pnpm --filter @repo/ui format:check  # packages/ui prettier 검사만
 
 ## 브랜치 & 커밋
 
-- 작업 브랜치: `dev` → `main` PR 방식
 - 커밋 메시지: Conventional Commits (`feat` / `fix` / `docs` / `refactor` / `chore`)
 - 커밋 메시지는 한국어로 작성
+
+> 브랜치 전략 및 워크트리/PR 규칙 → @.claude/rules/git-workflow.md
 
 ## 모노레포 구조
 

@@ -1,17 +1,17 @@
 'use client';
 
 import { useState } from 'react';
+import { Input } from '@repo/ui/components/input';
+import { Textarea } from '@repo/ui/components/textarea';
 import { TabButton } from '@/components/ui/TabButton';
 
 export type Side = 'groom' | 'bride' | null;
-export type AttendStatus = 'yes' | 'maybe' | 'no' | null;
 
 export interface GuestbookFormData {
   name: string;
   message: string;
   reaction: string | null;
   side: Side;
-  attend: AttendStatus;
 }
 
 interface GuestbookFormProps {
@@ -25,21 +25,14 @@ const SIDE_OPTIONS: [NonNullable<Side>, string][] = [
   ['bride', '신부측'],
 ];
 
-const ATTEND_OPTIONS: [NonNullable<AttendStatus>, string][] = [
-  ['yes', '갈게요'],
-  ['maybe', '아직 몰라요'],
-  ['no', '못 가요'],
-];
-
 const inputClass =
-  'w-full py-3 bg-transparent border-0 border-b border-fg/30 text-fg text-[0.9375rem] outline-none box-border placeholder:text-fg/30';
+  'w-full rounded-md border-0 bg-fg/5 px-3 py-3 text-[0.9375rem] text-fg shadow-none outline-none ring-0 placeholder:text-fg/30 focus-visible:ring-0';
 
 export function GuestbookForm({ onSubmit }: GuestbookFormProps) {
   const [name, setName] = useState('');
   const [msg, setMsg] = useState('');
   const [reaction, setReaction] = useState<string | null>(null);
   const [side, setSide] = useState<Side>(null);
-  const [attend, setAttend] = useState<AttendStatus>(null);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -50,12 +43,11 @@ export function GuestbookForm({ onSubmit }: GuestbookFormProps) {
     setSubmitting(true);
     setError(null);
     try {
-      await onSubmit({ name, message: msg, reaction, side, attend });
+      await onSubmit({ name, message: msg, reaction, side });
       setName('');
       setMsg('');
       setReaction(null);
       setSide(null);
-      setAttend(null);
     } catch (err) {
       setError(err instanceof Error ? err.message : '저장에 실패했어요.');
     } finally {
@@ -67,15 +59,15 @@ export function GuestbookForm({ onSubmit }: GuestbookFormProps) {
     <div className="mb-5.5 border border-fg/10 bg-warm p-4">
       <div className="mb-3 text-[0.5625rem] tracking-[0.3rem] text-gold">· LEAVE A NOTE ·</div>
 
-      <input
+      <Input
         className={inputClass}
         placeholder="이름 또는 닉네임"
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
 
-      <textarea
-        className={`${inputClass} mt-1 mb-3.5 resize-none pt-2.5`}
+      <Textarea
+        className={`${inputClass} mt-1.5 mb-3.5 resize-none pt-3`}
         placeholder="짧고 따뜻한 한마디를 남겨주세요"
         value={msg}
         rows={3}
@@ -109,22 +101,6 @@ export function GuestbookForm({ onSubmit }: GuestbookFormProps) {
             key={k}
             active={side === k}
             onClick={() => setSide(side === k ? null : k)}
-            className="text-[0.6875rem] tracking-[0.05rem]"
-          >
-            {l}
-          </TabButton>
-        ))}
-      </div>
-
-      <div className="mb-2 text-[0.5625rem] tracking-[0.3rem] text-fg/55">
-        참석 여부 (선택 — 나중에 알려주셔도 OK)
-      </div>
-      <div className="mb-3.5 grid grid-cols-3 gap-1">
-        {ATTEND_OPTIONS.map(([k, l]) => (
-          <TabButton
-            key={k}
-            active={attend === k}
-            onClick={() => setAttend(attend === k ? null : k)}
             className="text-[0.6875rem] tracking-[0.05rem]"
           >
             {l}

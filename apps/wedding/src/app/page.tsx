@@ -11,6 +11,7 @@ import { Ch06Venue } from '@/components/chapters/Ch06Venue';
 import { Ch07Fortune } from '@/components/chapters/Ch07Fortune';
 import { Ch08Guestbook } from '@/components/chapters/Ch08Guestbook';
 import { Ch09Finale } from '@/components/chapters/Ch09Finale';
+import { SlideGroup } from '@/components/ui/SlideGroup';
 import { useScroll } from '@/hooks/useScroll';
 import { useBGM } from '@/hooks/useBGM';
 import { Splash } from '@/components/ui/Splash';
@@ -32,35 +33,47 @@ export default function InvitationPage() {
   return (
     <div className="flex min-h-dvh items-start justify-center bg-bg">
       {!splashDone && <Splash onDone={() => setSplashDone(true)} />}
-      {/* 모바일 프레임 */}
       <div className="relative w-full max-w-[450px]">
+        {/* HUD: normal flow 밖에 두어 스크롤 컨테이너 레이아웃에 영향 없도록 */}
+        <div className="pointer-events-none absolute top-0 right-0 left-0 z-50">
+          <div className="pointer-events-auto">
+            <HUD
+              chapter={chapter}
+              progressPct={progressPct}
+              sound={sound}
+              totalChapters={TOTAL_CHAPTERS}
+              containerRef={containerRef}
+              onToggleSound={() => setSound((s) => !s)}
+            />
+          </div>
+        </div>
+
+        {/* data-scroll-container: SlideGroup이 스크롤 위치를 읽는 기준점 */}
         <div
           ref={containerRef}
-          className="relative h-dvh [scroll-snap-type:y_proximity] overflow-y-scroll bg-bg text-fg"
+          data-scroll-container
+          className="relative h-dvh snap-y snap-mandatory overflow-y-scroll bg-bg text-fg"
           style={{ fontFamily: 'var(--font-sans)' }}
         >
-          <HUD
-            chapter={chapter}
-            progressPct={progressPct}
-            sound={sound}
-            totalChapters={TOTAL_CHAPTERS}
-            containerRef={containerRef}
-            onToggleSound={() => setSound((s) => !s)}
-          />
-
+          {/* scroll 챕터: 1, 2, 3 */}
           <Ch01Cover />
           <Ch02Invite />
           <Ch03Couple />
-          <Ch04Gallery />
-          <Ch05Calendar />
-          <Ch06Venue />
+
+          {/* slide 챕터: 4, 5, 6 — 세로 스크롤이 가로 전환으로 변환됨 */}
+          <SlideGroup count={3}>
+            <Ch04Gallery inSlideGroup />
+            <Ch05Calendar inSlideGroup />
+            <Ch06Venue inSlideGroup />
+          </SlideGroup>
+
+          {/* scroll 챕터: 7, 8, 9 */}
           <Ch07Fortune />
           <Ch08Guestbook />
           <Ch09Finale />
         </div>
 
-        {/* 플로팅 방명록 버튼 (CH01~CH07 구간) */}
-        {chapter > 0 && chapter < 7 && (
+        {chapter !== 7 && (
           <button
             onClick={jumpToGuestbook}
             className="absolute right-5 bottom-5 z-60 animate-pulse-btn cursor-pointer border-0 bg-gold px-4 py-3 text-[0.625rem] font-bold tracking-[0.25rem] text-bg"

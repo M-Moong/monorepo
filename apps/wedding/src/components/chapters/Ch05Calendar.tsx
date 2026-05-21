@@ -70,7 +70,11 @@ function downloadIcsFile() {
 
 // ── 컴포넌트 ───────────────────────────────────────────────────────────────────
 
-export function Ch05Calendar() {
+interface Props {
+  inSlideGroup?: boolean;
+}
+
+export function Ch05Calendar({ inSlideGroup }: Props) {
   const cd = useCountdown(WEDDING.date);
   const [showPicker, setShowPicker] = useState(false);
 
@@ -100,7 +104,7 @@ export function Ch05Calendar() {
   };
 
   return (
-    <ChapterSection chIndex={4}>
+    <ChapterSection chIndex={4} inSlideGroup={inSlideGroup}>
       <ChHeader
         num={5}
         label="WHEN"

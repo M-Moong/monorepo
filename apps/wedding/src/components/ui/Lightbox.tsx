@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { PhotoFrame } from '@/components/ui/PhotoFrame';
 
 type Tone = 'warm' | 'cool' | 'sage' | 'paper' | 'mono' | 'blush' | 'sepia' | 'ink';
@@ -28,7 +29,7 @@ export function Lightbox({ index, total, tones, photos, onClose, onPrev, onNext 
 
   const hasRealPhoto = photos[index] && !photos[index].includes('placeholder');
 
-  return (
+  return createPortal(
     <div
       onClick={onClose}
       className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-bg/95 p-5"
@@ -64,6 +65,7 @@ export function Lightbox({ index, total, tones, photos, onClose, onPrev, onNext 
       <div className="mt-3.5 text-[0.5625rem] tracking-[0.3rem] text-fg/40">
         TAP ANYWHERE TO CLOSE
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }

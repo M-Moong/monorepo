@@ -20,15 +20,18 @@ export function HUD({
   onToggleSound,
 }: HUDProps) {
   const jumpTo = (i: number) => {
-    const el = containerRef.current?.querySelector<HTMLElement>(`[data-ch="${i}"]`);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    const container = containerRef.current;
+    if (!container) return;
+    const el = container.querySelector<HTMLElement>(`[data-ch="${i}"]`);
+    if (!el) return;
+    container.scrollTo({ top: el.offsetTop, behavior: 'smooth' });
   };
 
   return (
     <>
       {/* HUD 바 */}
       <div
-        className="sticky top-0 z-50 flex items-center justify-between px-3.5 pt-3 pb-2.5 backdrop-blur-[8px]"
+        className="flex items-center justify-between px-3.5 pt-3 pb-2.5 backdrop-blur-[8px]"
         style={{ background: 'var(--color-hud-gradient)' }}
       >
         {/* 챕터 번호 */}
@@ -42,11 +45,15 @@ export function HUD({
             <button
               key={i}
               onClick={() => jumpTo(i)}
-              className="h-[1.5px] w-3 cursor-pointer border-0 p-0 transition-[background] duration-300"
-              style={{
-                background: i <= chapter ? 'var(--color-gold)' : 'var(--color-dot-inactive)',
-              }}
-            />
+              className="flex cursor-pointer items-center border-0 bg-transparent px-0 py-2"
+            >
+              <span
+                className="block h-[2px] w-4 transition-[background] duration-300"
+                style={{
+                  background: i <= chapter ? 'var(--color-gold)' : 'var(--color-dot-inactive)',
+                }}
+              />
+            </button>
           ))}
         </div>
 
@@ -64,7 +71,7 @@ export function HUD({
       </div>
 
       {/* Progress bar */}
-      <div className="sticky top-9 z-[49] h-px bg-fg/6">
+      <div className="h-px bg-fg/6">
         <div
           className="h-full bg-gold transition-[width] duration-150"
           style={{ width: `${progressPct * 100}%` }}
