@@ -38,7 +38,7 @@ export default function InvitationPage() {
         <div
           ref={containerRef}
           data-scroll-container
-          className="relative h-dvh overflow-x-hidden overflow-y-scroll bg-bg text-fg"
+          className="relative h-dvh overflow-y-scroll bg-bg text-fg"
           style={{ fontFamily: 'var(--font-sans)' }}
         >
           <HUD

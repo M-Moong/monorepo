@@ -13,7 +13,7 @@
  * translateX를 %가 아닌 px로 계산해 inner 너비 기준 오차 방지.
  */
 
-import { useRef, useEffect, useState, ReactNode } from 'react';
+import { useRef, useEffect, useState, ReactNode, Children } from 'react';
 
 interface SlideGroupProps {
   count: number;
@@ -52,14 +52,13 @@ export function SlideGroup({ count, children }: SlideGroupProps) {
   }, [count]);
 
   return (
-    // outer: 스크롤 공간 확보 + 가로 overflow 클리핑
+    // outer: 세로 스크롤 공간 확보
     <div
       ref={outerRef}
-      className="overflow-x-hidden"
       style={{ height: `calc(${count} * 100dvh)` }}
     >
-      {/* track: 화면 상단에 sticky 고정 */}
-      <div className="sticky top-0 h-dvh">
+      {/* track: 화면 상단에 sticky 고정. overflow-hidden으로 옆 슬라이드 클리핑 */}
+      <div className="sticky top-0 h-dvh overflow-hidden">
         {/* inner: 가로로 translateX 이동 */}
         <div
           className="flex h-full will-change-transform"
@@ -68,7 +67,12 @@ export function SlideGroup({ count, children }: SlideGroupProps) {
             transform: `translateX(-${translatePx}px)`,
           }}
         >
-          {children}
+          {/* 각 슬라이드를 1/count 너비로 강제 — children의 w-full이 inner 기준이 되는 걸 방지 */}
+          {Children.map(children, (child) => (
+            <div className="h-full" style={{ width: `${100 / count}%` }}>
+              {child}
+            </div>
+          ))}
         </div>
       </div>
     </div>

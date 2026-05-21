@@ -18,10 +18,13 @@ export function ChapterSection({
     ? 'h-dvh w-full shrink-0'
     : 'min-h-dvh w-full';
 
+  // slide 그룹 안에서는 justify-start — 콘텐츠가 h-dvh를 넘으면 내부에서 처리
+  const alignClass = inSlideGroup ? 'justify-start' : 'justify-center';
+
   return (
     <section
       data-ch={chIndex}
-      className={`relative box-border flex flex-col justify-center px-5.5 pt-16 pb-12 ${sizeClass} ${className}`}
+      className={`relative box-border flex flex-col px-5.5 pt-16 pb-12 ${alignClass} ${sizeClass} ${className}`}
     >
       {children}
     </section>
