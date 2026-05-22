@@ -56,7 +56,7 @@ export function GuestbookForm({ onSubmit }: GuestbookFormProps) {
   };
 
   return (
-    <div className="mb-5.5 border border-fg/10 bg-warm p-4">
+    <div className="mb-3.5 border border-fg/10 bg-warm p-4">
       <div className="mb-3 text-2xs tracking-[0.3rem] text-gold">· LEAVE A NOTE ·</div>
 
       <Input

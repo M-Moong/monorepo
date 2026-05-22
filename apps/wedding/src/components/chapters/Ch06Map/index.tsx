@@ -7,7 +7,7 @@ import { WEDDING } from '@/data/wedding';
 
 export function Ch06Map() {
   return (
-    <ChapterSection chIndex={5}>
+    <ChapterSection chIndex={5} scrollable>
       <ChHeader
         num={6}
         label="WHERE"
@@ -20,19 +20,17 @@ export function Ch06Map() {
         }
       />
 
-      <div className="min-h-0 flex-1 overflow-y-auto">
-        <VenueMap />
+      <VenueMap />
 
-        <div className="mb-3.5 border-y border-fg/15 py-3.5">
-          <div className="font-serif text-[1.375rem] text-fg italic">{WEDDING.venue.short}</div>
-          <div className="mt-1 text-xs3 text-fg/65">{WEDDING.venue.detail}</div>
-          <div className="mt-2 font-mono text-xs3 text-fg/50">{WEDDING.venue.address}</div>
-        </div>
-
-        <TransportTabs />
-
-        <MapLinks />
+      <div className="mb-3.5 border-y border-fg/15 py-3.5">
+        <div className="font-serif text-[1.375rem] text-fg italic">{WEDDING.venue.short}</div>
+        <div className="mt-1 text-xs3 text-fg/65">{WEDDING.venue.detail}</div>
+        <div className="mt-2 font-mono text-xs3 text-fg/50">{WEDDING.venue.address}</div>
       </div>
+
+      <TransportTabs />
+
+      <MapLinks />
     </ChapterSection>
   );
 }

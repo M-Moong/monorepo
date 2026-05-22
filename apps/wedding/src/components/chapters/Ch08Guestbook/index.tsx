@@ -47,7 +47,7 @@ export function Ch08Guestbook() {
 
   return (
     <>
-      <ChapterSection chIndex={7}>
+      <ChapterSection chIndex={7} scrollable>
         <ChHeader
           num={8}
           label="GUESTBOOK"
@@ -59,7 +59,7 @@ export function Ch08Guestbook() {
           }
         />
 
-        <p className="mb-4.5 text-xs leading-[1.65] text-fg/70">
+        <p className="mb-3 text-xs leading-[1.65] text-fg/70">
           식 당일 스크린에 띄워질 따뜻한 한마디.
           <br />
           <span className="text-gold">참석 여부는 천천히 알려주셔도 괜찮아요.</span>
@@ -71,7 +71,7 @@ export function Ch08Guestbook() {
 
         <button
           onClick={() => setSheetOpen(true)}
-          className="mt-auto w-full cursor-pointer border border-fg/15 bg-transparent py-3 text-2xs tracking-[0.3rem] text-fg/50 transition-colors hover:border-gold/40 hover:text-gold"
+          className="w-full cursor-pointer border border-fg/15 bg-transparent py-3 text-2xs tracking-[0.3rem] text-fg/50 transition-colors hover:border-gold/40 hover:text-gold"
         >
           방명록 전체 보기 ({total})
         </button>
