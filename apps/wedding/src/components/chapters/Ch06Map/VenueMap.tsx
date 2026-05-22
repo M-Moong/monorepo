@@ -10,6 +10,7 @@ declare global {
   interface Window {
     naver: {
       maps: {
+        onJSContentLoaded: (() => void) | undefined;
         Map: new (el: HTMLElement, opts: object) => object;
         LatLng: new (lat: number, lng: number) => object;
         Marker: new (opts: object) => object;

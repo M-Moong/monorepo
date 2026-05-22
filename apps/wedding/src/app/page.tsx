@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useState } from 'react';
+import { useScroll, useMotionValueEvent } from 'framer-motion';
 import { HUD } from '@/components/hud/HUD';
 import { Ch01Cover } from '@/components/chapters/Ch01Cover';
 import { Ch02Invite } from '@/components/chapters/Ch02Invite';
@@ -12,7 +13,6 @@ import { Ch07Fortune } from '@/components/chapters/Ch07Fortune';
 import { Ch08Guestbook } from '@/components/chapters/Ch08Guestbook';
 import { Ch09Finale } from '@/components/chapters/Ch09Finale';
 import { Ch10Quiz } from '@/components/chapters/Ch10Quiz';
-import { useScroll } from '@/hooks/useScroll';
 import { useBGM } from '@/hooks/useBGM';
 import { Splash } from '@/components/ui/Splash';
 
@@ -22,8 +22,24 @@ export default function InvitationPage() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [sound, setSound] = useState(false);
   const [splashDone, setSplashDone] = useState(false);
-  const { chapter, progressPct } = useScroll(containerRef);
+  const [chapter, setChapter] = useState(0);
+  const [progressPct, setProgressPct] = useState(0);
   useBGM(sound);
+
+  const { scrollY, scrollYProgress } = useScroll({ container: containerRef });
+
+  useMotionValueEvent(scrollYProgress, 'change', (v) => setProgressPct(v));
+
+  useMotionValueEvent(scrollY, 'change', (scrollTop) => {
+    const el = containerRef.current;
+    if (!el) return;
+    const vh = el.clientHeight;
+    let current = 0;
+    el.querySelectorAll<HTMLElement>('[data-ch]').forEach((s) => {
+      if (s.offsetTop <= scrollTop + vh / 2) current = Number(s.dataset.ch);
+    });
+    setChapter(current);
+  });
 
   const jumpToGuestbook = () => {
     const el = containerRef.current?.querySelector<HTMLElement>('[data-ch="7"]');
