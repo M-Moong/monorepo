@@ -13,7 +13,7 @@ export function GoldButton({
   className = '',
   ...props
 }: GoldButtonProps) {
-  const base = 'p-3.5 text-xs3 tracking-[0.25rem] cursor-pointer outline-none border-0';
+  const base = 'p-3.5 text-2xs tracking-[0.25rem] cursor-pointer outline-none border-0';
   const solid = 'bg-gold text-bg font-bold';
   const ghost = 'bg-transparent text-gold border border-gold';
   const width = fullWidth ? 'w-full' : '';

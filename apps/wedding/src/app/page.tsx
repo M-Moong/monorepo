@@ -92,7 +92,7 @@ export default function InvitationPage() {
         {chapter !== 7 && (
           <button
             onClick={jumpToGuestbook}
-            className="absolute right-5 bottom-5 z-60 animate-pulse-btn cursor-pointer border-0 bg-gold px-4 py-3 text-xs2 font-bold tracking-[0.25rem] text-bg"
+            className="absolute right-5 bottom-5 z-60 animate-pulse-btn cursor-pointer border-0 bg-gold px-4 py-3 text-2xs font-bold tracking-[0.25rem] text-bg"
           >
             방명록 →
           </button>

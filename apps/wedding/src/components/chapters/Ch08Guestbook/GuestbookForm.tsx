@@ -26,7 +26,7 @@ const SIDE_OPTIONS: [NonNullable<Side>, string][] = [
 ];
 
 const inputClass =
-  'w-full rounded-md border-0 bg-fg/5 px-3 py-3 text-sm3 text-fg shadow-none outline-none ring-0 placeholder:text-fg/30 focus-visible:ring-0';
+  'w-full rounded-md border-0 bg-fg/5 px-3 py-3 text-2sm text-fg shadow-none outline-none ring-0 placeholder:text-fg/30 focus-visible:ring-0';
 
 export function GuestbookForm({ onSubmit }: GuestbookFormProps) {
   const [name, setName] = useState('');
@@ -57,7 +57,7 @@ export function GuestbookForm({ onSubmit }: GuestbookFormProps) {
 
   return (
     <div className="mb-3.5 border border-fg/10 bg-warm p-4">
-      <div className="mb-3 text-2xs tracking-[0.3rem] text-gold">· LEAVE A NOTE ·</div>
+      <div className="mb-3 text-3xs tracking-[0.3rem] text-gold">· LEAVE A NOTE ·</div>
 
       <Input
         className={inputClass}
@@ -74,7 +74,7 @@ export function GuestbookForm({ onSubmit }: GuestbookFormProps) {
         onChange={(e) => setMsg(e.target.value)}
       />
 
-      <div className="mb-2 text-2xs tracking-[0.3rem] text-fg/55">이모지를 골라주세요 (선택)</div>
+      <div className="mb-2 text-3xs tracking-[0.3rem] text-fg/55">이모지를 골라주세요 (선택)</div>
       <div className="mb-3.5 flex flex-wrap gap-1.5">
         {REACTIONS.map((r) => (
           <button
@@ -90,26 +90,26 @@ export function GuestbookForm({ onSubmit }: GuestbookFormProps) {
         ))}
       </div>
 
-      <div className="mb-2 text-2xs tracking-[0.3rem] text-fg/55">어느 쪽으로 오세요? (선택)</div>
+      <div className="mb-2 text-3xs tracking-[0.3rem] text-fg/55">어느 쪽으로 오세요? (선택)</div>
       <div className="mb-3.5 grid grid-cols-2 gap-1">
         {SIDE_OPTIONS.map(([k, l]) => (
           <TabButton
             key={k}
             active={side === k}
             onClick={() => setSide(side === k ? null : k)}
-            className="text-xs3 tracking-[0.05rem]"
+            className="text-2xs tracking-[0.05rem]"
           >
             {l}
           </TabButton>
         ))}
       </div>
 
-      {error && <p className="mb-2 text-xs3 text-red-400">{error}</p>}
+      {error && <p className="mb-2 text-2xs text-red-400">{error}</p>}
 
       <button
         onClick={handleSubmit}
         disabled={!canSubmit}
-        className={`w-full border-0 py-3.5 text-xs3 font-bold tracking-[0.25rem] transition-all duration-150 ${
+        className={`w-full border-0 py-3.5 text-2xs font-bold tracking-[0.25rem] transition-all duration-150 ${
           canSubmit ? 'cursor-pointer bg-gold text-bg' : 'cursor-not-allowed bg-gold/20 text-fg/40'
         }`}
       >

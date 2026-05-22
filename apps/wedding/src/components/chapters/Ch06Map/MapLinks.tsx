@@ -7,7 +7,7 @@ export function MapLinks() {
         href={WEDDING.venue.mapUrls.tmap}
         target="_blank"
         rel="noopener noreferrer"
-        className="flex w-full items-center justify-center gap-1.5 border border-fg/15 bg-transparent py-2 text-xs2 tracking-[0.2rem] text-fg/50 transition-opacity duration-150 active:opacity-60"
+        className="flex w-full items-center justify-center gap-1.5 border border-fg/15 bg-transparent py-2 text-2xs tracking-[0.2rem] text-fg/50 transition-opacity duration-150 active:opacity-60"
       >
         {/* T map 로고 */}
         <svg width="11" height="11" viewBox="0 0 24 24" fill="none">

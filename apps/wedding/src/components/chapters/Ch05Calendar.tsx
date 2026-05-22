@@ -117,10 +117,10 @@ export function Ch05Calendar() {
       <div className="mb-5.5 bg-warm p-4.5">
         <div className="mb-3.5 flex justify-between">
           <div className="font-serif text-[1.375rem] text-fg italic">{CAL_MONTH_LABEL}</div>
-          <div className="text-xs2 tracking-[0.2rem] text-gold">{WEDDING.timeText}</div>
+          <div className="text-2xs tracking-[0.2rem] text-gold">{WEDDING.timeText}</div>
         </div>
 
-        <div className="grid grid-cols-7 gap-1 text-2xs tracking-[0.1rem]">
+        <div className="grid grid-cols-7 gap-1 text-3xs tracking-[0.1rem]">
           {DAYS_HEADER.map((d, i) => (
             <div
               key={i}
@@ -137,7 +137,7 @@ export function Ch05Calendar() {
             return (
               <div
                 key={i}
-                className={`py-2 text-center text-sm2 ${
+                className={`py-2 text-center text-2sm ${
                   !d
                     ? 'text-transparent'
                     : isWedding
@@ -170,14 +170,14 @@ export function Ch05Calendar() {
             <div className="font-serif text-[1.75rem] leading-none text-gold italic tabular-nums">
               {String(val).padStart(2, '0')}
             </div>
-            <div className="mt-1.5 text-2xs tracking-[0.25rem] text-fg/50">{label}</div>
+            <div className="mt-1.5 text-3xs tracking-[0.25rem] text-fg/50">{label}</div>
           </div>
         ))}
       </div>
 
       <button
         onClick={addToCalendar}
-        className="mt-4.5 w-full cursor-pointer border border-gold bg-transparent py-3.5 text-xs3 tracking-[0.25rem] text-gold transition-opacity duration-150 active:opacity-70"
+        className="mt-4.5 w-full cursor-pointer border border-gold bg-transparent py-3.5 text-2xs tracking-[0.25rem] text-gold transition-opacity duration-150 active:opacity-70"
       >
         + ADD TO CALENDAR
       </button>
@@ -192,7 +192,7 @@ export function Ch05Calendar() {
             className="mb-6 w-full max-w-[390px] border border-fg/15 bg-bg"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="px-4 py-3 text-center text-2xs tracking-[0.35rem] text-fg/40">
+            <div className="px-4 py-3 text-center text-3xs tracking-[0.35rem] text-fg/40">
               · 캘린더 앱 선택 ·
             </div>
 
@@ -201,10 +201,10 @@ export function Ch05Calendar() {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setShowPicker(false)}
-              className="flex w-full cursor-pointer items-center justify-between border-t border-fg/8 px-5 py-4.5 text-sm2 text-fg"
+              className="flex w-full cursor-pointer items-center justify-between border-t border-fg/8 px-5 py-4.5 text-2sm text-fg"
             >
               <span>구글 캘린더</span>
-              <span className="text-xs2 tracking-[0.2rem] text-gold">→</span>
+              <span className="text-2xs tracking-[0.2rem] text-gold">→</span>
             </a>
 
             <button
@@ -212,15 +212,15 @@ export function Ch05Calendar() {
                 downloadIcsFile();
                 setShowPicker(false);
               }}
-              className="flex w-full cursor-pointer items-center justify-between border-t border-fg/8 bg-transparent px-5 py-4.5 text-sm2 text-fg"
+              className="flex w-full cursor-pointer items-center justify-between border-t border-fg/8 bg-transparent px-5 py-4.5 text-2sm text-fg"
             >
               <span>애플 캘린더 · 기타 (.ics)</span>
-              <span className="text-xs2 tracking-[0.2rem] text-gold">↓</span>
+              <span className="text-2xs tracking-[0.2rem] text-gold">↓</span>
             </button>
 
             <button
               onClick={() => setShowPicker(false)}
-              className="w-full cursor-pointer border-t border-fg/8 bg-transparent py-4 text-xs3 tracking-[0.2rem] text-fg/40"
+              className="w-full cursor-pointer border-t border-fg/8 bg-transparent py-4 text-2xs tracking-[0.2rem] text-fg/40"
             >
               닫기
             </button>

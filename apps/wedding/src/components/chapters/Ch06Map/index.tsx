@@ -24,8 +24,8 @@ export function Ch06Map() {
 
       <div className="mb-3.5 border-y border-fg/15 py-3.5">
         <div className="font-serif text-[1.375rem] text-fg italic">{WEDDING.venue.short}</div>
-        <div className="mt-1 text-xs3 text-fg/65">{WEDDING.venue.detail}</div>
-        <div className="mt-2 font-mono text-xs3 text-fg/50">{WEDDING.venue.address}</div>
+        <div className="mt-1 text-2xs text-fg/65">{WEDDING.venue.detail}</div>
+        <div className="mt-2 font-mono text-2xs text-fg/50">{WEDDING.venue.address}</div>
       </div>
 
       <TransportTabs />

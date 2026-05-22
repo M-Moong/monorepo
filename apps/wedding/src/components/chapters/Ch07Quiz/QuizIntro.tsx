@@ -21,7 +21,7 @@ export function QuizIntro({ onStart }: QuizIntroProps) {
 
       <button
         onClick={onStart}
-        className="w-full cursor-pointer border-0 bg-gold py-4 text-xs3 font-bold tracking-[0.3rem] text-bg"
+        className="w-full cursor-pointer border-0 bg-gold py-4 text-2xs font-bold tracking-[0.3rem] text-bg"
       >
         퀴즈 풀기 →
       </button>

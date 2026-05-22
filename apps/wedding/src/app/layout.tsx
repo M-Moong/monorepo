@@ -35,7 +35,7 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://example.com';
 // 브랜드 컬러 — 아이콘/타일 배경색 등에 사용 (wedding.ts 테마와 맞춰 수정)
 const BRAND_COLOR = '#c9a96e';
 
-const OG_TITLE = `${WEDDING.groom.name} ♥ ${WEDDING.bride.name} · 결혼합니다`;
+const OG_TITLE = `${WEDDING.groom.name} ♥ ${WEDDING.bride.name}`;
 
 // SNS 공유 시 노출되는 설명 (최대 200자 권장)
 const OG_DESCRIPTION =

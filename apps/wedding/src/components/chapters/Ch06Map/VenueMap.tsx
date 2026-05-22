@@ -219,7 +219,7 @@ export function VenueMap() {
           href={WEDDING.venue.mapUrls.naver}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center justify-center gap-1.5 border border-fg/15 bg-transparent py-2.5 text-xs2 tracking-[0.15rem] text-fg/70 transition-opacity duration-150 active:opacity-60"
+          className="flex items-center justify-center gap-1.5 border border-fg/15 bg-transparent py-2.5 text-2xs tracking-[0.15rem] text-fg/70 transition-opacity duration-150 active:opacity-60"
         >
           <Image src="/logo/navermap.webp" alt="네이버지도" width={14} height={14} />
           네이버지도
@@ -228,7 +228,7 @@ export function VenueMap() {
           href={WEDDING.venue.mapUrls.kakao}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center justify-center gap-1.5 border border-fg/15 bg-transparent py-2.5 text-xs2 tracking-[0.15rem] text-fg/70 transition-opacity duration-150 active:opacity-60"
+          className="flex items-center justify-center gap-1.5 border border-fg/15 bg-transparent py-2.5 text-2xs tracking-[0.15rem] text-fg/70 transition-opacity duration-150 active:opacity-60"
         >
           <Image src="/logo/kakaomap.webp" alt="카카오맵" width={14} height={14} />
           카카오맵

@@ -36,7 +36,7 @@ export function QuizResult({ answers, onRetry }: QuizResultProps) {
           </div>
           <div className="text-[0.75rem] leading-[1.6] text-fg/60">{tier.desc}</div>
         </div>
-        <div className="text-2xs tracking-[0.3rem] text-fg/40">
+        <div className="text-3xs tracking-[0.3rem] text-fg/40">
           {score} / {QUIZ.length} 정답
         </div>
       </div>
@@ -48,12 +48,12 @@ export function QuizResult({ answers, onRetry }: QuizResultProps) {
             const correct = answers[i] === q.answerIndex;
             return (
               <div key={q.id} className="flex items-center gap-3 border border-fg/10 px-3 py-2.5">
-                <span className={`shrink-0 text-xs2 ${correct ? 'text-gold' : 'text-red-400/70'}`}>
+                <span className={`shrink-0 text-2xs ${correct ? 'text-gold' : 'text-red-400/70'}`}>
                   {correct ? '✓' : '✗'}
                 </span>
                 <div className="min-w-0 flex-1">
-                  <div className="truncate text-xs2 text-fg/40">{q.question}</div>
-                  <div className="text-xs3 text-fg/80">{q.choices[q.answerIndex]}</div>
+                  <div className="truncate text-2xs text-fg/40">{q.question}</div>
+                  <div className="text-2xs text-fg/80">{q.choices[q.answerIndex]}</div>
                 </div>
               </div>
             );
@@ -65,13 +65,13 @@ export function QuizResult({ answers, onRetry }: QuizResultProps) {
       <div className="grid grid-cols-2 gap-1.5">
         <button
           onClick={onRetry}
-          className="cursor-pointer border border-gold bg-transparent py-3.5 text-xs3 tracking-[0.25rem] text-gold"
+          className="cursor-pointer border border-gold bg-transparent py-3.5 text-2xs tracking-[0.25rem] text-gold"
         >
           ↻ 다시하기
         </button>
         <button
           onClick={share}
-          className="cursor-pointer border-0 bg-gold py-3.5 text-xs3 font-bold tracking-[0.25rem] text-bg"
+          className="cursor-pointer border-0 bg-gold py-3.5 text-2xs font-bold tracking-[0.25rem] text-bg"
         >
           {copiedId === 'result' ? '✓ 복사됨' : '↗ 공유하기'}
         </button>
