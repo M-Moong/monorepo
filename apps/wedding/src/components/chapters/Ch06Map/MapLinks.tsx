@@ -12,7 +12,17 @@ export function MapLinks() {
         {/* T map 로고 */}
         <svg width="11" height="11" viewBox="0 0 24 24" fill="none">
           <rect width="24" height="24" rx="4" fill="#2B63C1" />
-          <text x="12" y="17" textAnchor="middle" fill="white" fontSize="13" fontWeight="700" fontFamily="sans-serif">T</text>
+          <text
+            x="12"
+            y="17"
+            textAnchor="middle"
+            fill="white"
+            fontSize="13"
+            fontWeight="700"
+            fontFamily="sans-serif"
+          >
+            T
+          </text>
         </svg>
         T MAP
       </a>

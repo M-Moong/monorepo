@@ -74,9 +74,7 @@ export function GuestbookForm({ onSubmit }: GuestbookFormProps) {
         onChange={(e) => setMsg(e.target.value)}
       />
 
-      <div className="mb-2 text-2xs tracking-[0.3rem] text-fg/55">
-        이모지를 골라주세요 (선택)
-      </div>
+      <div className="mb-2 text-2xs tracking-[0.3rem] text-fg/55">이모지를 골라주세요 (선택)</div>
       <div className="mb-3.5 flex flex-wrap gap-1.5">
         {REACTIONS.map((r) => (
           <button
@@ -92,9 +90,7 @@ export function GuestbookForm({ onSubmit }: GuestbookFormProps) {
         ))}
       </div>
 
-      <div className="mb-2 text-2xs tracking-[0.3rem] text-fg/55">
-        어느 쪽으로 오세요? (선택)
-      </div>
+      <div className="mb-2 text-2xs tracking-[0.3rem] text-fg/55">어느 쪽으로 오세요? (선택)</div>
       <div className="mb-3.5 grid grid-cols-2 gap-1">
         {SIDE_OPTIONS.map(([k, l]) => (
           <TabButton

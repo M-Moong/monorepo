@@ -1,12 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-} from '@repo/ui/components/sheet';
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@repo/ui/components/sheet';
 import type { GuestbookPage } from '@/types/guestbook';
 import { GuestbookEntry } from './GuestbookEntry';
 import { GuestbookPagination } from './GuestbookPagination';
@@ -62,7 +57,7 @@ export function GuestbookSheet({ open, total, onClose }: GuestbookSheetProps) {
         className="flex max-h-[78dvh] flex-col gap-0 rounded-none border-0 bg-bg px-0 pb-0"
       >
         <SheetHeader className="shrink-0 flex-row items-center justify-between px-5.5 pt-4 pb-3">
-          <SheetTitle className="text-2xs tracking-[0.4rem] text-gold font-normal">
+          <SheetTitle className="text-2xs font-normal tracking-[0.4rem] text-gold">
             · {total} NOTES ·
           </SheetTitle>
           <button

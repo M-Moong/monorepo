@@ -30,7 +30,7 @@ export function AccountSection({ side }: AccountSectionProps) {
   return (
     <Accordion type="single" collapsible className="mb-1.5">
       <AccordionItem value={side} className="border-0">
-        <AccordionTrigger className="flex w-full items-center justify-between border border-fg/10 bg-warm px-4 py-3.5 text-fg hover:no-underline rounded-none [&[data-state=open]>svg]:hidden">
+        <AccordionTrigger className="flex w-full items-center justify-between rounded-none border border-fg/10 bg-warm px-4 py-3.5 text-fg hover:no-underline [&[data-state=open]>svg]:hidden">
           <span className="text-xs tracking-[0.15rem]">{label}</span>
           <span className="text-base text-gold transition-transform duration-300 data-[state=open]:rotate-45">
             +

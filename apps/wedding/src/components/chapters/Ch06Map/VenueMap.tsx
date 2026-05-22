@@ -48,7 +48,12 @@ function SVGFallback() {
         fill="none"
         strokeLinecap="round"
       />
-      <path d="M72 0 L 68 200" stroke="var(--color-svg-road, #d8d0c4)" strokeWidth="16" fill="none" />
+      <path
+        d="M72 0 L 68 200"
+        stroke="var(--color-svg-road, #d8d0c4)"
+        strokeWidth="16"
+        fill="none"
+      />
       <path
         d="M72 0 L 68 200"
         stroke="var(--color-svg-road-center, #e8e2d8)"
@@ -56,7 +61,12 @@ function SVGFallback() {
         fill="none"
         strokeDasharray="3 10"
       />
-      <path d="M0 108 L 255 104" stroke="var(--color-svg-road, #d8d0c4)" strokeWidth="10" fill="none" />
+      <path
+        d="M0 108 L 255 104"
+        stroke="var(--color-svg-road, #d8d0c4)"
+        strokeWidth="10"
+        fill="none"
+      />
       <path
         d="M0 108 L 255 104"
         stroke="var(--color-svg-road-center, #e8e2d8)"
@@ -64,13 +74,32 @@ function SVGFallback() {
         fill="none"
         strokeDasharray="3 8"
       />
-      <path d="M0 58 L 255 55" stroke="var(--color-svg-road, #d8d0c4)" strokeWidth="6" fill="none" />
+      <path
+        d="M0 58 L 255 55"
+        stroke="var(--color-svg-road, #d8d0c4)"
+        strokeWidth="6"
+        fill="none"
+      />
       <rect x="44" y="70" width="48" height="24" rx="2" fill="var(--color-svg-block, #e2dbd0)" />
-      <text x="68" y="86" fill="var(--color-svg-label, #8a7f72)" fontSize="6.5" textAnchor="middle" letterSpacing="0.5">
+      <text
+        x="68"
+        y="86"
+        fill="var(--color-svg-label, #8a7f72)"
+        fontSize="6.5"
+        textAnchor="middle"
+        letterSpacing="0.5"
+      >
         야탑역
       </text>
       <rect x="44" y="116" width="52" height="20" rx="2" fill="var(--color-svg-block, #e2dbd0)" />
-      <text x="70" y="130" fill="var(--color-svg-label, #8a7f72)" fontSize="6" textAnchor="middle" letterSpacing="0.5">
+      <text
+        x="70"
+        y="130"
+        fill="var(--color-svg-label, #8a7f72)"
+        fontSize="6"
+        textAnchor="middle"
+        letterSpacing="0.5"
+      >
         성남터미널
       </text>
       <circle cx="158" cy="104" r="20" fill="var(--color-svg-pin-glow, rgba(232,200,124,0.2))">
@@ -80,16 +109,45 @@ function SVGFallback() {
       <circle cx="158" cy="104" r="9" fill="var(--color-gold, #e8c87c)" />
       <circle cx="158" cy="104" r="4" fill="white" opacity="0.8" />
       <rect x="108" y="74" width="100" height="18" rx="3" fill="var(--color-gold, #e8c87c)" />
-      <text x="158" y="86.5" fill="#1a1408" fontSize="8" fontWeight="700" textAnchor="middle" letterSpacing="1.5">
+      <text
+        x="158"
+        y="86.5"
+        fill="#1a1408"
+        fontSize="8"
+        fontWeight="700"
+        textAnchor="middle"
+        letterSpacing="1.5"
+      >
         THE BASILEUM
       </text>
-      <text x="30" y="51" fill="var(--color-svg-label, #8a7f72)" fontSize="6" letterSpacing="0.5" textAnchor="middle">
+      <text
+        x="30"
+        y="51"
+        fill="var(--color-svg-label, #8a7f72)"
+        fontSize="6"
+        letterSpacing="0.5"
+        textAnchor="middle"
+      >
         성남대로
       </text>
-      <text x="195" y="99" fill="var(--color-svg-label, #8a7f72)" fontSize="6" letterSpacing="0.5" textAnchor="middle">
+      <text
+        x="195"
+        y="99"
+        fill="var(--color-svg-label, #8a7f72)"
+        fontSize="6"
+        letterSpacing="0.5"
+        textAnchor="middle"
+      >
         양현로
       </text>
-      <text x="272" y="28" fill="var(--color-svg-label, #8a7f72)" fontSize="6" letterSpacing="0.5" textAnchor="middle">
+      <text
+        x="272"
+        y="28"
+        fill="var(--color-svg-label, #8a7f72)"
+        fontSize="6"
+        letterSpacing="0.5"
+        textAnchor="middle"
+      >
         탄천
       </text>
     </svg>
@@ -116,7 +174,8 @@ export function VenueMap() {
         const map = new window.naver.maps.Map(naverRef.current!, { center: position, zoom: 17 });
         const marker = new window.naver.maps.Marker({ position, map });
         const infoWindow = new window.naver.maps.InfoWindow({
-          content: '<div style="padding:5px 10px;font-size:12px;font-weight:700;white-space:nowrap;">더 바실리움</div>',
+          content:
+            '<div style="padding:5px 10px;font-size:12px;font-weight:700;white-space:nowrap;">더 바실리움</div>',
         });
         infoWindow.open(map, marker);
       });

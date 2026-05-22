@@ -62,9 +62,7 @@ export function Lightbox({ index, total, tones, photos, onClose, onPrev, onNext 
         </button>
       </div>
 
-      <div className="mt-3.5 text-2xs tracking-[0.3rem] text-fg/40">
-        TAP ANYWHERE TO CLOSE
-      </div>
+      <div className="mt-3.5 text-2xs tracking-[0.3rem] text-fg/40">TAP ANYWHERE TO CLOSE</div>
     </div>,
     document.body
   );
