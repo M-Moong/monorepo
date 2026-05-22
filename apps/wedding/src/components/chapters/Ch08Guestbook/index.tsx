@@ -40,7 +40,9 @@ export function Ch08Guestbook() {
     }
     try {
       setData(await fetchPage(1));
-    } catch {}
+    } catch {
+      /* 방명록 목록 갱신 실패 시 무시 */
+    }
   };
 
   return (

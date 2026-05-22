@@ -1,6 +1,12 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+} from '@repo/ui/components/sheet';
 import type { GuestbookPage } from '@/types/guestbook';
 import { GuestbookEntry } from './GuestbookEntry';
 import { GuestbookPagination } from './GuestbookPagination';
@@ -38,6 +44,7 @@ export function GuestbookSheet({ open, total, onClose }: GuestbookSheetProps) {
       setData(await fetchPage(page));
       scrollRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
     } catch {
+      /* 페이지 로드 실패 시 기존 데이터 유지 */
     } finally {
       setPageLoading(false);
     }
@@ -47,25 +54,24 @@ export function GuestbookSheet({ open, total, onClose }: GuestbookSheetProps) {
   const page = data?.page ?? 1;
   const totalPages = data?.totalPages ?? 1;
 
-  if (!open) return null;
-
   return (
-    <div className="fixed inset-0 z-70 flex flex-col justify-end">
-      {/* 딤 */}
-      <div className="absolute inset-0 bg-black/60" onClick={onClose} />
-
-      {/* 시트 */}
-      <div className="relative flex max-h-[78dvh] w-full flex-col bg-bg">
-        {/* 핸들 + 헤더 */}
-        <div className="flex shrink-0 items-center justify-between px-5.5 pt-4 pb-3">
-          <div className="text-[0.5625rem] tracking-[0.4rem] text-gold">· {total} NOTES ·</div>
+    <Sheet open={open} onOpenChange={(o) => !o && onClose()}>
+      <SheetContent
+        side="bottom"
+        showCloseButton={false}
+        className="flex max-h-[78dvh] flex-col gap-0 rounded-none border-0 bg-bg px-0 pb-0"
+      >
+        <SheetHeader className="shrink-0 flex-row items-center justify-between px-5.5 pt-4 pb-3">
+          <SheetTitle className="text-[0.5625rem] tracking-[0.4rem] text-gold font-normal">
+            · {total} NOTES ·
+          </SheetTitle>
           <button
             onClick={onClose}
             className="cursor-pointer border-0 bg-transparent p-1 text-[0.5625rem] tracking-[0.2rem] text-fg/40"
           >
             닫기 ✕
           </button>
-        </div>
+        </SheetHeader>
 
         <div className="mx-5.5 mb-3 h-px bg-fg/8" />
 
@@ -99,7 +105,7 @@ export function GuestbookSheet({ open, total, onClose }: GuestbookSheetProps) {
             loading={pageLoading}
           />
         </div>
-      </div>
-    </div>
+      </SheetContent>
+    </Sheet>
   );
 }
