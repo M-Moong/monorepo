@@ -46,38 +46,36 @@ export function Ch08Guestbook() {
   };
 
   return (
-    <>
-      <ChapterSection chIndex={7} scrollable>
-        <ChHeader
-          num={8}
-          label="GUESTBOOK"
-          title={
-            <>
-              Leave
-              <br />a note.
-            </>
-          }
-        />
+    <ChapterSection chIndex={7} scrollable>
+      <ChHeader
+        num={8}
+        label="GUESTBOOK"
+        title={
+          <>
+            Leave
+            <br />a note.
+          </>
+        }
+      />
 
-        <p className="mb-3 text-xs leading-[1.65] text-fg/70">
-          식 당일 스크린에 띄워질 따뜻한 한마디.
-          <br />
-          <span className="text-gold">참석 여부는 천천히 알려주셔도 괜찮아요.</span>
-        </p>
+      <p className="mb-3 text-xs leading-[1.65] text-fg/70">
+        <span>식 당일 스크린에 띄워질 따뜻한 한마디.</span>
+        <br />
+        <span className="text-gold">참석 여부는 천천히 알려주셔도 괜찮아요.</span>
+      </p>
 
-        <GuestbookStats total={total} groomCount={groomCount} brideCount={brideCount} />
+      <GuestbookStats total={total} groomCount={groomCount} brideCount={brideCount} />
 
-        <GuestbookForm onSubmit={handleSubmit} />
+      <GuestbookForm onSubmit={handleSubmit} />
 
-        <button
-          onClick={() => setSheetOpen(true)}
-          className="w-full cursor-pointer border border-fg/15 bg-transparent py-3 text-3xs tracking-[0.3rem] text-fg/50 transition-colors hover:border-gold/40 hover:text-gold"
-        >
-          방명록 전체 보기 ({total})
-        </button>
-      </ChapterSection>
+      <button
+        onClick={() => setSheetOpen(true)}
+        className="flex w-full cursor-pointer items-center justify-center border border-fg/15 bg-transparent py-3 text-3xs tracking-[0.3rem] text-fg/50 transition-colors hover:border-gold/40 hover:text-gold"
+      >
+        <span>· 방명록 목록 ({total}) ·</span>
+      </button>
 
       <GuestbookSheet open={sheetOpen} total={total} onClose={() => setSheetOpen(false)} />
-    </>
+    </ChapterSection>
   );
 }

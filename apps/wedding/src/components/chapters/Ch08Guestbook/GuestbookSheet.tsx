@@ -62,9 +62,9 @@ export function GuestbookSheet({ open, total, onClose }: GuestbookSheetProps) {
           </SheetTitle>
           <button
             onClick={onClose}
-            className="cursor-pointer border-0 bg-transparent p-1 text-3xs tracking-[0.2rem] text-fg/40"
+            className="flex cursor-pointer items-center border-0 bg-transparent p-1 text-3xs tracking-[0.2rem] text-fg/40"
           >
-            닫기 ✕
+            <span>닫기 ✕</span>
           </button>
         </SheetHeader>
 
@@ -73,12 +73,12 @@ export function GuestbookSheet({ open, total, onClose }: GuestbookSheetProps) {
         {/* 리스트 */}
         <div ref={scrollRef} className="flex-1 overflow-y-auto px-5.5">
           {loading ? (
-            <div className="py-12 text-center text-2xs tracking-[0.2rem] text-fg/40">
-              불러오는 중…
+            <div className="flex items-center justify-center py-12 text-2xs tracking-[0.2rem] text-fg/40">
+              <span>불러오는 중…</span>
             </div>
           ) : entries.length === 0 ? (
-            <div className="py-12 text-center text-2xs tracking-[0.2rem] text-fg/40">
-              아직 남겨진 메시지가 없어요.
+            <div className="flex items-center justify-center py-12 text-2xs tracking-[0.2rem] text-fg/40">
+              <span>아직 남겨진 메시지가 없어요.</span>
             </div>
           ) : (
             <div

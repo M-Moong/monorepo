@@ -60,12 +60,12 @@ export function ShareButtons() {
           <button
             key={s.key}
             onClick={s.onClick}
-            className={`cursor-pointer border border-fg/20 bg-transparent py-3.5 text-center transition-all duration-200 ${
+            className={`flex cursor-pointer flex-col items-center border border-fg/20 bg-transparent py-3.5 transition-all duration-200 ${
               s.key === 'link' && linkCopied ? 'border-gold' : ''
             }`}
           >
-            <div className="text-2xs tracking-[0.25rem] text-gold">{s.label}</div>
-            <div className="mt-1 text-2xs text-fg/50">{s.sub}</div>
+            <span className="text-2xs tracking-[0.25rem] text-gold">{s.label}</span>
+            <span className="mt-1 text-2xs text-fg/50">{s.sub}</span>
           </button>
         ))}
       </div>

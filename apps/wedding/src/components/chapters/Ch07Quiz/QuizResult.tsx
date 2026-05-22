@@ -27,18 +27,16 @@ export function QuizResult({ answers, onRetry }: QuizResultProps) {
     <div className="flex flex-1 flex-col gap-4">
       {/* 점수 */}
       <div className="flex flex-col items-center gap-2.5 py-2">
-        <div className="font-serif text-[2.5rem] leading-none tracking-[0.15rem] text-gold">
+        <span className="font-serif text-4xl leading-none tracking-[0.15rem] text-gold">
           {tier.label}
+        </span>
+        <div className="flex flex-col items-center text-center">
+          <span className="mb-1 font-serif text-xl font-light text-fg italic">{tier.title}</span>
+          <span className="text-xs leading-[1.6] text-fg/60">{tier.desc}</span>
         </div>
-        <div className="text-center">
-          <div className="mb-1 font-serif text-[1.25rem] font-light text-fg italic">
-            {tier.title}
-          </div>
-          <div className="text-[0.75rem] leading-[1.6] text-fg/60">{tier.desc}</div>
-        </div>
-        <div className="text-3xs tracking-[0.3rem] text-fg/40">
+        <span className="text-3xs tracking-[0.3rem] text-fg/40">
           {score} / {QUIZ.length} 정답
-        </div>
+        </span>
       </div>
 
       {/* 문제별 결과 — flex-1로 남은 공간 채우고 내부 스크롤 */}
@@ -51,9 +49,9 @@ export function QuizResult({ answers, onRetry }: QuizResultProps) {
                 <span className={`shrink-0 text-2xs ${correct ? 'text-gold' : 'text-red-400/70'}`}>
                   {correct ? '✓' : '✗'}
                 </span>
-                <div className="min-w-0 flex-1">
-                  <div className="truncate text-2xs text-fg/40">{q.question}</div>
-                  <div className="text-2xs text-fg/80">{q.choices[q.answerIndex]}</div>
+                <div className="flex min-w-0 flex-1 flex-col">
+                  <span className="truncate text-2xs text-fg/40">{q.question}</span>
+                  <span className="text-2xs text-fg/80">{q.choices[q.answerIndex]}</span>
                 </div>
               </div>
             );
@@ -65,15 +63,15 @@ export function QuizResult({ answers, onRetry }: QuizResultProps) {
       <div className="grid grid-cols-2 gap-1.5">
         <button
           onClick={onRetry}
-          className="cursor-pointer border border-gold bg-transparent py-3.5 text-2xs tracking-[0.25rem] text-gold"
+          className="flex cursor-pointer items-center justify-center border border-gold bg-transparent py-3.5 text-2xs tracking-[0.25rem] text-gold"
         >
-          ↻ 다시하기
+          <span>↻ 다시하기</span>
         </button>
         <button
           onClick={share}
-          className="cursor-pointer border-0 bg-gold py-3.5 text-2xs font-bold tracking-[0.25rem] text-bg"
+          className="flex cursor-pointer items-center justify-center border-0 bg-gold py-3.5 text-2xs font-bold tracking-[0.25rem] text-bg"
         >
-          {copiedId === 'result' ? '✓ 복사됨' : '↗ 공유하기'}
+          <span>{copiedId === 'result' ? '✓ 복사됨' : '↗ 공유하기'}</span>
         </button>
       </div>
     </div>

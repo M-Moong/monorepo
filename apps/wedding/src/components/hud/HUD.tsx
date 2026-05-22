@@ -73,9 +73,9 @@ export function HUD({
         style={{ background: 'var(--color-hud-gradient)' }}
       >
         {/* 챕터 번호 */}
-        <div className="text-3xs tracking-[0.3rem] text-gold">
+        <span className="text-3xs tracking-[0.3rem] text-gold">
           CH. {String(chapter + 1).padStart(2, '0')} / {String(totalChapters).padStart(2, '0')}
-        </div>
+        </span>
 
         {/* 도트 바 */}
         <div className="relative flex items-center gap-1" id="hud-dot-bar">
@@ -101,7 +101,14 @@ export function HUD({
                 key={chapter}
                 className="pointer-events-none absolute top-full mt-2 -translate-x-1/2 rounded-full border border-gold/30 bg-bg px-2.5 py-px"
                 style={{ left: dotCenterX }}
-                initial={{ opacity: 0, y: -10, scaleX: 0.4, scaleY: 0.3, originX: '50%', originY: 0 }}
+                initial={{
+                  opacity: 0,
+                  y: -10,
+                  scaleX: 0.4,
+                  scaleY: 0.3,
+                  originX: '50%',
+                  originY: 0,
+                }}
                 animate={{ opacity: 1, y: 0, scaleX: 1, scaleY: 1 }}
                 exit={{ opacity: 0, y: 4, transition: { duration: 0.25, ease: 'easeIn' } }}
                 transition={{ duration: 0.3, ease: [0.34, 1.56, 0.64, 1] }}
@@ -110,7 +117,7 @@ export function HUD({
                   className="absolute bottom-full left-1/2 -translate-x-1/2 border-x-[3px] border-b-[4px] border-x-transparent"
                   style={{ borderBottomColor: 'rgba(232,200,124,0.3)' }}
                 />
-                <span className="whitespace-nowrap text-[7px] tracking-[0.15rem] text-gold/80">
+                <span className="text-[7px] tracking-[0.15rem] whitespace-nowrap text-gold/80">
                   {chapterName}
                 </span>
               </motion.div>
@@ -127,7 +134,7 @@ export function HUD({
               : 'border border-fg/30 bg-transparent text-fg'
           }`}
         >
-          {sound ? '♪ ON' : '♪ OFF'}
+          <span>{sound ? '♪ ON' : '♪ OFF'}</span>
         </button>
       </div>
 

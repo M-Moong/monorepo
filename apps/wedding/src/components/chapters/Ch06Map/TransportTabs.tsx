@@ -16,9 +16,14 @@ export function TransportTabs() {
         {TRANSPORT_KEYS.map((key) => {
           const t = WEDDING.venue.transport[key];
           return (
-            <TabButton key={key} active={tab === key} onClick={() => setTab(key)} className="px-1">
-              <div className="mb-0.5 text-base">{t.icon}</div>
-              {t.title}
+            <TabButton
+              key={key}
+              active={tab === key}
+              onClick={() => setTab(key)}
+              className="flex flex-col items-center px-1 py-1.5"
+            >
+              <span className="mb-0.5 text-base">{t.icon}</span>
+              <span>{t.title}</span>
             </TabButton>
           );
         })}

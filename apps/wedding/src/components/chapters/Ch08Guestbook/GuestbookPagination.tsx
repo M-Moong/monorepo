@@ -23,13 +23,13 @@ export function GuestbookPagination({
         disabled={page <= 1 || loading}
         className={btnClass}
       >
-        ← 이전
+        <span>← 이전</span>
       </button>
 
-      <span className="font-serif text-[0.875rem] text-gold italic tabular-nums">
-        {page}
+      <span className="flex items-center font-serif text-sm text-gold italic tabular-nums">
+        <span>{page}</span>
         <span className="mx-1.5 font-sans text-3xs text-fg/30 not-italic">/</span>
-        {totalPages}
+        <span>{totalPages}</span>
       </span>
 
       <button
@@ -37,7 +37,7 @@ export function GuestbookPagination({
         disabled={page >= totalPages || loading}
         className={btnClass}
       >
-        다음 →
+        <span>다음 →</span>
       </button>
     </div>
   );

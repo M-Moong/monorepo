@@ -29,7 +29,7 @@ export function GuestbookEntry({ entry: g }: GuestbookEntryProps) {
           {formatRelativeTime(g.createdAt)}
         </div>
       </div>
-      <div className="text-2sm leading-[1.6] text-fg/88">{g.message}</div>
+      <p className="text-2sm leading-[1.6] text-fg/88">{g.message}</p>
     </div>
   );
 }

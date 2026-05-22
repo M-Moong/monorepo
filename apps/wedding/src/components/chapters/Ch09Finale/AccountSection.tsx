@@ -43,20 +43,20 @@ export function AccountSection({ side }: AccountSectionProps) {
                 key={a.number}
                 className="flex items-center justify-between gap-2.5 border-b border-l border-gold border-b-fg/5 bg-warm/60 px-3.5 py-3"
               >
-                <div className="min-w-0 flex-1">
-                  <div className="text-3xs tracking-[0.2rem] text-gold">{a.who}</div>
-                  <div className="mt-0.5 text-2sm text-fg">{a.name}</div>
-                  <div className="mt-0.5 font-mono text-2xs text-fg/60">
+                <div className="flex min-w-0 flex-1 flex-col">
+                  <span className="text-3xs tracking-[0.2rem] text-gold">{a.who}</span>
+                  <span className="mt-0.5 text-2sm text-fg">{a.name}</span>
+                  <span className="mt-0.5 font-mono text-2xs text-fg/60">
                     {a.bank} · {a.number}
-                  </div>
+                  </span>
                 </div>
                 <button
                   onClick={() => copy(a.number, `${a.bank} ${a.number} ${a.name}`)}
-                  className={`shrink-0 cursor-pointer border border-gold px-2.5 py-1.5 text-3xs tracking-[0.2rem] transition-all duration-200 ${
+                  className={`flex shrink-0 cursor-pointer items-center border border-gold px-2.5 py-1.5 text-3xs tracking-[0.2rem] transition-all duration-200 ${
                     copiedId === a.number ? 'bg-gold text-bg' : 'bg-transparent text-gold'
                   }`}
                 >
-                  {copiedId === a.number ? '✓ 복사됨' : 'COPY'}
+                  <span>{copiedId === a.number ? '✓ 복사됨' : 'COPY'}</span>
                 </button>
               </div>
             ))}

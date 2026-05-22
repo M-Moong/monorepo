@@ -24,7 +24,7 @@ export function MapLinks() {
             T
           </text>
         </svg>
-        T MAP
+        <span>T MAP</span>
       </a>
     </div>
   );

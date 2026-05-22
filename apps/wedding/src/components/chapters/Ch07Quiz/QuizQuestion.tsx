@@ -44,13 +44,13 @@ export function QuizQuestion({ question: q, index, total, onNext }: QuizQuestion
       </div>
 
       {/* 질문 */}
-      <div>
-        <div className="mb-1.5 text-3xs tracking-[0.3rem] text-gold">
+      <div className="flex flex-col">
+        <span className="mb-1.5 text-3xs tracking-[0.3rem] text-gold">
           Q{index + 1} / {total}
-        </div>
-        <div className="font-serif text-[1.25rem] leading-[1.4] font-light text-fg italic">
+        </span>
+        <span className="font-serif text-xl leading-[1.4] font-light text-fg italic">
           {q.question}
-        </div>
+        </span>
       </div>
 
       {/* 선택지 2×2 */}
@@ -70,12 +70,12 @@ export function QuizQuestion({ question: q, index, total, onNext }: QuizQuestion
             <button
               key={i}
               onClick={() => choose(i)}
-              className={`cursor-pointer px-3 py-3.5 text-left text-[0.75rem] leading-[1.4] tracking-[-0.01rem] transition-all duration-300 ${cls}`}
+              className={`flex cursor-pointer items-start gap-1.5 px-3 py-3.5 text-left text-xs leading-[1.4] transition-all duration-300 ${cls}`}
             >
-              <span className="mr-1.5 font-serif text-3xs tracking-[0.15rem] opacity-60">
+              <span className="shrink-0 font-serif text-3xs tracking-[0.15rem] opacity-60">
                 {String.fromCharCode(65 + i)}
               </span>
-              {c}
+              <span>{c}</span>
             </button>
           );
         })}
@@ -96,10 +96,10 @@ export function QuizQuestion({ question: q, index, total, onNext }: QuizQuestion
       {/* 다음 버튼 — mt-auto로 하단 고정 */}
       <button
         onClick={() => selected !== null && onNext(selected)}
-        className={`mt-auto w-full cursor-pointer border-0 py-4 text-2xs font-bold tracking-[0.3rem] transition-all duration-500 ${phase === 'reveal' ? 'bg-gold text-bg' : 'bg-fg/10 text-fg/30'}`}
+        className={`mt-auto flex w-full cursor-pointer items-center justify-center border-0 py-4 text-2xs font-bold tracking-[0.3rem] transition-all duration-500 ${phase === 'reveal' ? 'bg-gold text-bg' : 'bg-fg/10 text-fg/30'}`}
         disabled={phase !== 'reveal'}
       >
-        {index < total - 1 ? '다음 문제 →' : '결과 보기 →'}
+        <span>{index < total - 1 ? '다음 문제 →' : '결과 보기 →'}</span>
       </button>
     </div>
   );

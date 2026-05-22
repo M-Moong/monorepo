@@ -97,7 +97,7 @@ export function GuestbookForm({ onSubmit }: GuestbookFormProps) {
             key={k}
             active={side === k}
             onClick={() => setSide(side === k ? null : k)}
-            className="text-2xs tracking-[0.05rem]"
+            className="py-2.5 text-2xs tracking-[0.05rem]"
           >
             {l}
           </TabButton>
@@ -109,11 +109,11 @@ export function GuestbookForm({ onSubmit }: GuestbookFormProps) {
       <button
         onClick={handleSubmit}
         disabled={!canSubmit}
-        className={`w-full border-0 py-3.5 text-2xs font-bold tracking-[0.25rem] transition-all duration-150 ${
+        className={`flex w-full items-center justify-center border-0 py-3.5 text-2xs font-bold tracking-[0.25rem] transition-all duration-150 ${
           canSubmit ? 'cursor-pointer bg-gold text-bg' : 'cursor-not-allowed bg-gold/20 text-fg/40'
         }`}
       >
-        {submitting ? '저장 중…' : '방명록에 남기기 →'}
+        <span>{submitting ? '저장 중…' : '방명록에 남기기 →'}</span>
       </button>
     </div>
   );
