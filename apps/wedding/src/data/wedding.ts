@@ -1,69 +1,27 @@
-function formatKoreanDateTime(date: Date): string {
-  const weekdays = ['일', '월', '화', '수', '목', '금', '토'];
-  const kst = new Date(date.toLocaleString('en-US', { timeZone: 'Asia/Seoul' }));
-  const year = kst.getFullYear();
-  const month = kst.getMonth() + 1;
-  const day = kst.getDate();
-  const weekday = weekdays[kst.getDay()];
-  const hour = kst.getHours();
-  const ampm = hour < 12 ? '오전' : '오후';
-  const h = hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
-  return `${year}년 ${month}월 ${day}일 ${weekday}요일 ${ampm} ${h}시`;
-}
+import dayjs from 'dayjs';
+import 'dayjs/locale/ko';
+import timezone from 'dayjs/plugin/timezone';
+import utc from 'dayjs/plugin/utc';
 
-function formatDateDotSep(date: Date): string {
-  const kst = new Date(date.toLocaleString('en-US', { timeZone: 'Asia/Seoul' }));
-  const day = String(kst.getDate()).padStart(2, '0');
-  const month = String(kst.getMonth() + 1).padStart(2, '0');
-  const year = kst.getFullYear();
-  return `${year} · ${month} · ${day}`;
-}
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.locale('ko');
 
-function formatDateDot(date: Date): string {
-  const kst = new Date(date.toLocaleString('en-US', { timeZone: 'Asia/Seoul' }));
-  const day = String(kst.getDate()).padStart(2, '0');
-  const month = String(kst.getMonth() + 1).padStart(2, '0');
-  const year = kst.getFullYear();
-  return `${year}.${month}.${day}`;
-}
+const KST = 'Asia/Seoul';
 
-function toUtcCompact(date: Date): string {
-  return date.toISOString().replace(/[-:]/g, '').slice(0, 15) + 'Z';
-}
-
-function toKstIso(date: Date): string {
-  const kst = new Date(date.toLocaleString('en-US', { timeZone: 'Asia/Seoul' }));
-  const pad = (n: number) => String(n).padStart(2, '0');
-  return (
-    `${kst.getFullYear()}-${pad(kst.getMonth() + 1)}-${pad(kst.getDate())}` +
-    `T${pad(kst.getHours())}:${pad(kst.getMinutes())}:00+09:00`
-  );
-}
-
-function formatTimeText(date: Date): string {
-  const weekdays = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
-  const kst = new Date(date.toLocaleString('en-US', { timeZone: 'Asia/Seoul' }));
-  const weekday = weekdays[kst.getDay()];
-  const hour = kst.getHours();
-  const minute = kst.getMinutes();
-  const h = String(hour).padStart(2, '0');
-  const m = String(minute).padStart(2, '0');
-  return `${weekday} ${h}:${m}`;
-}
-
-const weddingDate = new Date('2026-10-24T17:20:00+09:00');
-const weddingEndDate = new Date(weddingDate.getTime() + 3 * 60 * 60 * 1000);
+const d = dayjs.tz('2026-10-24T17:20:00', KST);
+const dEnd = d.add(3, 'hour');
 
 export const WEDDING = {
-  date: weddingDate,
-  dateText: formatKoreanDateTime(weddingDate),
-  dateShort: formatDateDotSep(weddingDate),
-  dateDot: formatDateDot(weddingDate),
-  timeText: formatTimeText(weddingDate),
-  isoStart: toKstIso(weddingDate),
-  isoEnd: toKstIso(weddingEndDate),
-  utcStart: toUtcCompact(weddingDate),
-  utcEnd: toUtcCompact(weddingEndDate),
+  date: d.toDate(),
+  dateText: d.format('YYYY년 M월 D일 dddd A h시'),
+  dateShort: d.format('YYYY · MM · DD'),
+  dateDot: d.format('YYYY.MM.DD'),
+  timeText: d.format('ddd HH:mm').toUpperCase(),
+  isoStart: d.format('YYYY-MM-DDTHH:mm:00+09:00'),
+  isoEnd: dEnd.format('YYYY-MM-DDTHH:mm:00+09:00'),
+  utcStart: d.utc().format('YYYYMMDDTHHmmss') + 'Z',
+  utcEnd: dEnd.utc().format('YYYYMMDDTHHmmss') + 'Z',
 
   groom: {
     name: '신승민',
