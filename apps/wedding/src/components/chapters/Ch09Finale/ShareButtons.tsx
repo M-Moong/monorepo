@@ -1,5 +1,7 @@
 'use client';
 
+import Image from 'next/image';
+import { Link, Check } from 'lucide-react';
 import { WEDDING } from '@/data/wedding';
 import { useCopy } from '@/hooks/useCopy';
 
@@ -41,16 +43,18 @@ export function ShareButtons() {
     });
   };
 
+  const LinkIcon = linkCopied ? Check : Link;
+
   const SHARE_ACTIONS = [
     { key: 'kakao', label: 'KAKAO', sub: '카카오톡', onClick: shareKakao },
     {
       key: 'link',
-      label: linkCopied ? '✓ COPIED' : 'LINK',
+      label: 'LINK',
       sub: linkCopied ? '복사됨' : '링크 복사',
       onClick: shareLink,
     },
     { key: 'sms', label: 'SMS', sub: '문자', onClick: shareSms },
-  ] as const;
+  ];
 
   return (
     <div className="mt-7">
@@ -64,6 +68,12 @@ export function ShareButtons() {
               s.key === 'link' && linkCopied ? 'border-gold' : ''
             }`}
           >
+            <span className="mb-1 flex h-4 items-center justify-center">
+              {s.key === 'kakao' && (
+                <Image src="/logo/kakaotalk.svg" alt="kakao" width={16} height={16} />
+              )}
+              {s.key === 'link' && <LinkIcon size={13} className="text-gold" />}
+            </span>
             <span className="text-2xs tracking-[0.25rem] text-gold">{s.label}</span>
             <span className="mt-1 text-2xs text-fg/50">{s.sub}</span>
           </button>

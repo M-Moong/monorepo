@@ -14,11 +14,10 @@ async function fetchPage(page: number): Promise<GuestbookPage> {
 
 interface GuestbookSheetProps {
   open: boolean;
-  total: number;
   onClose: () => void;
 }
 
-export function GuestbookSheet({ open, total, onClose }: GuestbookSheetProps) {
+export function GuestbookSheet({ open, onClose }: GuestbookSheetProps) {
   const [data, setData] = useState<GuestbookPage | null>(null);
   const [loading, setLoading] = useState(false);
   const [pageLoading, setPageLoading] = useState(false);
@@ -48,6 +47,7 @@ export function GuestbookSheet({ open, total, onClose }: GuestbookSheetProps) {
   const entries = data?.entries ?? [];
   const page = data?.page ?? 1;
   const totalPages = data?.totalPages ?? 1;
+  const total = data?.total ?? 0;
 
   return (
     <Sheet open={open} onOpenChange={(o) => !o && onClose()}>

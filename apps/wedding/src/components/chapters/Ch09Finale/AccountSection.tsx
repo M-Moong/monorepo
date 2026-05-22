@@ -1,5 +1,6 @@
 'use client';
 
+import { Copy, Check } from 'lucide-react';
 import { WEDDING } from '@/data/wedding';
 import { useCopy } from '@/hooks/useCopy';
 import {
@@ -52,11 +53,12 @@ export function AccountSection({ side }: AccountSectionProps) {
                 </div>
                 <button
                   onClick={() => copy(a.number, `${a.bank} ${a.number} ${a.name}`)}
-                  className={`flex shrink-0 cursor-pointer items-center border border-gold px-2.5 py-1.5 text-3xs tracking-[0.2rem] transition-all duration-200 ${
+                  className={`flex shrink-0 cursor-pointer items-center gap-1 border border-gold px-2.5 py-1.5 text-3xs tracking-[0.2rem] transition-all duration-200 ${
                     copiedId === a.number ? 'bg-gold text-bg' : 'bg-transparent text-gold'
                   }`}
                 >
-                  <span>{copiedId === a.number ? '✓ 복사됨' : 'COPY'}</span>
+                  {copiedId === a.number ? <Check size={10} /> : <Copy size={10} />}
+                  <span>{copiedId === a.number ? '복사됨' : 'COPY'}</span>
                 </button>
               </div>
             ))}

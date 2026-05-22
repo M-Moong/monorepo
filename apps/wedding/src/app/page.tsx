@@ -11,6 +11,7 @@ import { Ch05Calendar } from '@/components/chapters/Ch05Calendar';
 import { Ch06Map } from '@/components/chapters/Ch06Map';
 import { Ch07Quiz } from '@/components/chapters/Ch07Quiz';
 import { Ch08Guestbook } from '@/components/chapters/Ch08Guestbook';
+import { GuestbookSheet } from '@/components/chapters/Ch08Guestbook/GuestbookSheet';
 import { Ch09Finale } from '@/components/chapters/Ch09Finale';
 import { useBGM } from '@/hooks/useBGM';
 import { Splash } from '@/components/ui/Splash';
@@ -23,6 +24,7 @@ export default function InvitationPage() {
   const [splashDone, setSplashDone] = useState(false);
   const [chapter, setChapter] = useState(0);
   const [progressPct, setProgressPct] = useState(0);
+  const [guestbookSheetOpen, setGuestbookSheetOpen] = useState(false);
   useBGM(sound);
 
   const { scrollY, scrollYProgress } = useScroll({ container: containerRef });
@@ -84,7 +86,7 @@ export default function InvitationPage() {
 
           <Ch07Quiz />
 
-          <Ch08Guestbook />
+          <Ch08Guestbook onOpenSheet={() => setGuestbookSheetOpen(true)} />
 
           <Ch09Finale />
         </div>
@@ -98,6 +100,11 @@ export default function InvitationPage() {
           </button>
         )}
       </div>
+
+      <GuestbookSheet
+        open={guestbookSheetOpen}
+        onClose={() => setGuestbookSheetOpen(false)}
+      />
     </div>
   );
 }
