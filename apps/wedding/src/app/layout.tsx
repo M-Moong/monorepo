@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Cormorant_Garamond, Space_Grotesk } from 'next/font/google';
 import Script from 'next/script';
+import { Toaster } from '@repo/ui/components/sonner';
 import './globals.css';
 import { ACTIVE_THEME } from '@/config/theme.config';
 import { WEDDING } from '@/data/wedding';
@@ -521,6 +522,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className={`${cormorant.variable} ${spaceGrotesk.variable}`}>
         {children}
+        <Toaster position="bottom-center" />
 
         {/*
          * Kakao JavaScript SDK
