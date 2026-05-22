@@ -89,9 +89,7 @@ export function QuizQuestion({ question: q, index, total, onNext }: QuizQuestion
           <div className="mb-0.5 text-2xs tracking-[0.25rem] text-gold">
             {isCorrect ? '✓ 정답' : '✗ 오답'}
           </div>
-          <div className="line-clamp-2 text-xs3 leading-[1.5] text-fg/70">
-            {q.reveal.caption}
-          </div>
+          <div className="line-clamp-2 text-xs3 leading-[1.5] text-fg/70">{q.reveal.caption}</div>
         </div>
       </div>
 

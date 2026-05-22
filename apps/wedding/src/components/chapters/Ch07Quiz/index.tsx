@@ -10,7 +10,7 @@ import { QUIZ } from '@/data/quiz';
 
 type Step = 'intro' | 'playing' | 'result';
 
-export function Ch10Quiz() {
+export function Ch07Quiz() {
   const [step, setStep] = useState<Step>('intro');
   const [currentQ, setCurrentQ] = useState(0);
   const [answers, setAnswers] = useState<number[]>([]);
@@ -36,9 +36,9 @@ export function Ch10Quiz() {
   };
 
   return (
-    <ChapterSection chIndex={9}>
+    <ChapterSection chIndex={6}>
       <ChHeader
-        num={10}
+        num={7}
         label="KNOW US?"
         title={
           <>

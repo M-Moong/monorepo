@@ -9,14 +9,13 @@ import { Ch03Couple } from '@/components/chapters/Ch03Couple';
 import { Ch04Gallery } from '@/components/chapters/Ch04Gallery';
 import { Ch05Calendar } from '@/components/chapters/Ch05Calendar';
 import { Ch06Map } from '@/components/chapters/Ch06Map';
-import { Ch07Fortune } from '@/components/chapters/Ch07Fortune';
+import { Ch07Quiz } from '@/components/chapters/Ch07Quiz';
 import { Ch08Guestbook } from '@/components/chapters/Ch08Guestbook';
 import { Ch09Finale } from '@/components/chapters/Ch09Finale';
-import { Ch10Quiz } from '@/components/chapters/Ch10Quiz';
 import { useBGM } from '@/hooks/useBGM';
 import { Splash } from '@/components/ui/Splash';
 
-const TOTAL_CHAPTERS = 10;
+const TOTAL_CHAPTERS = 9;
 
 export default function InvitationPage() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -71,20 +70,23 @@ export default function InvitationPage() {
           className="relative h-dvh snap-y snap-mandatory overflow-y-scroll bg-bg text-fg"
           style={{ fontFamily: 'var(--font-sans)' }}
         >
-          {/* scroll 챕터: 1, 2, 3 */}
           <Ch01Cover />
+
           <Ch02Invite />
+
           <Ch03Couple />
 
           <Ch04Gallery />
+
           <Ch05Calendar />
+
           <Ch06Map />
 
-          {/* scroll 챕터: 7, 8, 9 */}
-          <Ch07Fortune />
+          <Ch07Quiz />
+
           <Ch08Guestbook />
+
           <Ch09Finale />
-          <Ch10Quiz />
         </div>
 
         {chapter !== 7 && (

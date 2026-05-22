@@ -31,7 +31,7 @@ export function QuizResult({ answers, onRetry }: QuizResultProps) {
           {tier.label}
         </div>
         <div className="text-center">
-          <div className="mb-1 font-serif text-[1.25rem] font-light italic text-fg">
+          <div className="mb-1 font-serif text-[1.25rem] font-light text-fg italic">
             {tier.title}
           </div>
           <div className="text-[0.75rem] leading-[1.6] text-fg/60">{tier.desc}</div>

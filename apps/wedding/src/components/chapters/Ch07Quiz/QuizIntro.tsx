@@ -9,7 +9,7 @@ export function QuizIntro({ onStart }: QuizIntroProps) {
     <div className="flex flex-col items-center gap-8 pt-6">
       <div className="font-serif text-[6rem] leading-none text-gold/20">?</div>
       <div className="text-center">
-        <div className="mb-2 font-serif text-[1.125rem] font-light italic text-fg">
+        <div className="mb-2 font-serif text-[1.125rem] font-light text-fg italic">
           총 {QUIZ.length}문제
         </div>
         <p className="text-[0.75rem] leading-[1.8] text-fg/50">
