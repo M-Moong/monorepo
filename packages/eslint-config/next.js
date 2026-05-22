@@ -6,6 +6,7 @@ import pluginReactHooks from "eslint-plugin-react-hooks";
 import pluginReact from "eslint-plugin-react";
 import globals from "globals";
 import pluginNext from "@next/eslint-plugin-next";
+import pluginTailwind from "eslint-plugin-tailwindcss";
 import { config as baseConfig } from "./base.js";
 import { nodeScriptConfig } from "./node-script.js";
 
@@ -58,5 +59,15 @@ export const nextJsConfig = [
   {
     files: ["scripts/**/*.mjs"],
     ...nodeScriptConfig[0],
+  },
+  {
+    plugins: { tailwindcss: pluginTailwind },
+    settings: {
+      tailwindcss: { config: {} },
+    },
+    rules: {
+      "tailwindcss/enforces-shorthand": "warn",
+      "tailwindcss/no-contradicting-classname": "error",
+    },
   },
 ];

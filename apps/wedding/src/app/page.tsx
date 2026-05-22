@@ -7,16 +7,16 @@ import { Ch02Invite } from '@/components/chapters/Ch02Invite';
 import { Ch03Couple } from '@/components/chapters/Ch03Couple';
 import { Ch04Gallery } from '@/components/chapters/Ch04Gallery';
 import { Ch05Calendar } from '@/components/chapters/Ch05Calendar';
-import { Ch06Venue } from '@/components/chapters/Ch06Venue';
+import { Ch06Map } from '@/components/chapters/Ch06Map';
 import { Ch07Fortune } from '@/components/chapters/Ch07Fortune';
 import { Ch08Guestbook } from '@/components/chapters/Ch08Guestbook';
 import { Ch09Finale } from '@/components/chapters/Ch09Finale';
-import { SlideGroup } from '@/components/ui/SlideGroup';
+import { Ch10Quiz } from '@/components/chapters/Ch10Quiz';
 import { useScroll } from '@/hooks/useScroll';
 import { useBGM } from '@/hooks/useBGM';
 import { Splash } from '@/components/ui/Splash';
 
-const TOTAL_CHAPTERS = 9;
+const TOTAL_CHAPTERS = 10;
 
 export default function InvitationPage() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -60,23 +60,21 @@ export default function InvitationPage() {
           <Ch02Invite />
           <Ch03Couple />
 
-          {/* slide 챕터: 4, 5, 6 — 세로 스크롤이 가로 전환으로 변환됨 */}
-          <SlideGroup count={3}>
-            <Ch04Gallery inSlideGroup />
-            <Ch05Calendar inSlideGroup />
-            <Ch06Venue inSlideGroup />
-          </SlideGroup>
+          <Ch04Gallery />
+          <Ch05Calendar />
+          <Ch06Map />
 
           {/* scroll 챕터: 7, 8, 9 */}
           <Ch07Fortune />
           <Ch08Guestbook />
           <Ch09Finale />
+          <Ch10Quiz />
         </div>
 
         {chapter !== 7 && (
           <button
             onClick={jumpToGuestbook}
-            className="absolute right-5 bottom-5 z-60 animate-pulse-btn cursor-pointer border-0 bg-gold px-4 py-3 text-[0.625rem] font-bold tracking-[0.25rem] text-bg"
+            className="absolute right-5 bottom-5 z-60 animate-pulse-btn cursor-pointer border-0 bg-gold px-4 py-3 text-xs2 font-bold tracking-[0.25rem] text-bg"
           >
             방명록 →
           </button>

@@ -106,7 +106,7 @@ export function Splash({ onDone }: Props) {
             {WEDDING.groom.initial}
           </div>
           <div
-            className="mt-3 text-right text-[0.625rem] tracking-[0.4rem]"
+            className="mt-3 text-right text-xs2 tracking-[0.4rem]"
             style={{
               color: 'color-mix(in srgb, var(--color-fg) 55%, transparent)',
             }}
@@ -114,7 +114,7 @@ export function Splash({ onDone }: Props) {
             {WEDDING.groom.name}
           </div>
           <div
-            className="mt-1 text-right text-[0.5rem] tracking-[0.25rem]"
+            className="mt-1 text-right text-3xs tracking-[0.25rem]"
             style={{
               color: 'color-mix(in srgb, var(--color-gold) 50%, transparent)',
             }}
@@ -169,7 +169,7 @@ export function Splash({ onDone }: Props) {
             {WEDDING.bride.initial}
           </div>
           <div
-            className="mt-3 text-[0.625rem] tracking-[0.4rem]"
+            className="mt-3 text-xs2 tracking-[0.4rem]"
             style={{
               color: 'color-mix(in srgb, var(--color-fg) 55%, transparent)',
             }}
@@ -177,7 +177,7 @@ export function Splash({ onDone }: Props) {
             {WEDDING.bride.name}
           </div>
           <div
-            className="mt-1 text-[0.5rem] tracking-[0.25rem]"
+            className="mt-1 text-3xs tracking-[0.25rem]"
             style={{
               color: 'color-mix(in srgb, var(--color-gold) 50%, transparent)',
             }}
@@ -225,9 +225,9 @@ export function Splash({ onDone }: Props) {
           transition: isOpening ? 'opacity 250ms ease' : 'opacity 700ms ease 500ms',
         }}
       >
-        <div className="text-[0.5rem] tracking-[0.6rem]">· {WEDDING.dateShort} ·</div>
-        <div className="text-[0.5625rem] tracking-[0.35rem]">{WEDDING.venue.short}</div>
-        <div className="mt-1 text-[0.4375rem] tracking-[0.5rem]">{WEDDING.timeText}</div>
+        <div className="text-3xs tracking-[0.6rem]">· {WEDDING.dateShort} ·</div>
+        <div className="text-2xs tracking-[0.35rem]">{WEDDING.venue.short}</div>
+        <div className="mt-1 text-4xs tracking-[0.5rem]">{WEDDING.timeText}</div>
       </div> */}
     </div>
   );

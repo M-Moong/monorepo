@@ -54,7 +54,7 @@ export function ShareButtons() {
 
   return (
     <div className="mt-7">
-      <div className="mb-3 text-[0.5625rem] tracking-[0.4rem] text-gold">· SHARE ·</div>
+      <div className="mb-3 text-2xs tracking-[0.4rem] text-gold">· SHARE ·</div>
       <div className="grid grid-cols-3 gap-1.5">
         {SHARE_ACTIONS.map((s) => (
           <button
@@ -64,8 +64,8 @@ export function ShareButtons() {
               s.key === 'link' && linkCopied ? 'border-gold' : ''
             }`}
           >
-            <div className="text-[0.625rem] tracking-[0.25rem] text-gold">{s.label}</div>
-            <div className="mt-1 text-[0.625rem] text-fg/50">{s.sub}</div>
+            <div className="text-xs2 tracking-[0.25rem] text-gold">{s.label}</div>
+            <div className="mt-1 text-xs2 text-fg/50">{s.sub}</div>
           </button>
         ))}
       </div>

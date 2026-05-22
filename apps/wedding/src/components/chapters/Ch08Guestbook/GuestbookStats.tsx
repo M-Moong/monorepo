@@ -18,7 +18,7 @@ export function GuestbookStats({ total, groomCount, brideCount }: GuestbookStats
           <div className="font-serif text-[1.625rem] leading-none text-gold italic tabular-nums">
             {count}
           </div>
-          <div className="mt-1 text-[0.5625rem] tracking-[0.25rem] text-fg/55">{label}</div>
+          <div className="mt-1 text-2xs tracking-[0.25rem] text-fg/55">{label}</div>
         </div>
       ))}
     </div>

@@ -13,7 +13,7 @@ declare global {
         Map: new (el: HTMLElement, opts: object) => object;
         LatLng: new (lat: number, lng: number) => object;
         Marker: new (opts: object) => object;
-        MapTypeId: { NORMAL: string };
+        InfoWindow: new (opts: object) => { open: (map: object, anchor: object) => void };
         Service: {
           geocode: (
             opts: { query: string },
@@ -29,14 +29,10 @@ declare global {
   }
 }
 
-// 더 바실리움 주변 실제 도로 구조 (야탑역, 성남대로, 탄천, 양현로 기반)
 function SVGFallback() {
   return (
     <svg width="100%" height="100%" viewBox="0 0 300 200" className="block">
-      {/* 배경 */}
       <rect width="300" height="200" fill="var(--color-warm, #f9f6f1)" />
-
-      {/* 탄천 (오른쪽) */}
       <path
         d="M255 0 Q 260 50, 252 100 Q 248 150, 258 200"
         stroke="var(--color-svg-river, #b8d4e8)"
@@ -51,14 +47,7 @@ function SVGFallback() {
         fill="none"
         strokeLinecap="round"
       />
-
-      {/* 성남대로 (세로 대로) */}
-      <path
-        d="M72 0 L 68 200"
-        stroke="var(--color-svg-road, #d8d0c4)"
-        strokeWidth="16"
-        fill="none"
-      />
+      <path d="M72 0 L 68 200" stroke="var(--color-svg-road, #d8d0c4)" strokeWidth="16" fill="none" />
       <path
         d="M72 0 L 68 200"
         stroke="var(--color-svg-road-center, #e8e2d8)"
@@ -66,14 +55,7 @@ function SVGFallback() {
         fill="none"
         strokeDasharray="3 10"
       />
-
-      {/* 양현로 (가로 — 더 바실리움 접근로) */}
-      <path
-        d="M0 108 L 255 104"
-        stroke="var(--color-svg-road, #d8d0c4)"
-        strokeWidth="10"
-        fill="none"
-      />
+      <path d="M0 108 L 255 104" stroke="var(--color-svg-road, #d8d0c4)" strokeWidth="10" fill="none" />
       <path
         d="M0 108 L 255 104"
         stroke="var(--color-svg-road-center, #e8e2d8)"
@@ -81,94 +63,32 @@ function SVGFallback() {
         fill="none"
         strokeDasharray="3 8"
       />
-
-      {/* 보조도로 (가로 위) */}
-      <path
-        d="M0 58 L 255 55"
-        stroke="var(--color-svg-road, #d8d0c4)"
-        strokeWidth="6"
-        fill="none"
-      />
-
-      {/* 야탑역 블록 */}
+      <path d="M0 58 L 255 55" stroke="var(--color-svg-road, #d8d0c4)" strokeWidth="6" fill="none" />
       <rect x="44" y="70" width="48" height="24" rx="2" fill="var(--color-svg-block, #e2dbd0)" />
-      <text
-        x="68"
-        y="86"
-        fill="var(--color-svg-label, #8a7f72)"
-        fontSize="6.5"
-        textAnchor="middle"
-        letterSpacing="0.5"
-      >
+      <text x="68" y="86" fill="var(--color-svg-label, #8a7f72)" fontSize="6.5" textAnchor="middle" letterSpacing="0.5">
         야탑역
       </text>
-
-      {/* 성남터미널 블록 */}
       <rect x="44" y="116" width="52" height="20" rx="2" fill="var(--color-svg-block, #e2dbd0)" />
-      <text
-        x="70"
-        y="130"
-        fill="var(--color-svg-label, #8a7f72)"
-        fontSize="6"
-        textAnchor="middle"
-        letterSpacing="0.5"
-      >
+      <text x="70" y="130" fill="var(--color-svg-label, #8a7f72)" fontSize="6" textAnchor="middle" letterSpacing="0.5">
         성남터미널
       </text>
-
-      {/* 핀 glow 애니메이션 */}
       <circle cx="158" cy="104" r="20" fill="var(--color-svg-pin-glow, rgba(232,200,124,0.2))">
         <animate attributeName="r" values="18;26;18" dur="2.5s" repeatCount="indefinite" />
         <animate attributeName="opacity" values="0.5;0.1;0.5" dur="2.5s" repeatCount="indefinite" />
       </circle>
-
-      {/* 핀 */}
       <circle cx="158" cy="104" r="9" fill="var(--color-gold, #e8c87c)" />
       <circle cx="158" cy="104" r="4" fill="white" opacity="0.8" />
-
-      {/* 장소 라벨 */}
       <rect x="108" y="74" width="100" height="18" rx="3" fill="var(--color-gold, #e8c87c)" />
-      <text
-        x="158"
-        y="86.5"
-        fill="#1a1408"
-        fontSize="8"
-        fontWeight="700"
-        textAnchor="middle"
-        letterSpacing="1.5"
-      >
+      <text x="158" y="86.5" fill="#1a1408" fontSize="8" fontWeight="700" textAnchor="middle" letterSpacing="1.5">
         THE BASILEUM
       </text>
-
-      {/* 도로/지형 라벨 */}
-      <text
-        x="30"
-        y="51"
-        fill="var(--color-svg-label, #8a7f72)"
-        fontSize="6"
-        letterSpacing="0.5"
-        textAnchor="middle"
-      >
+      <text x="30" y="51" fill="var(--color-svg-label, #8a7f72)" fontSize="6" letterSpacing="0.5" textAnchor="middle">
         성남대로
       </text>
-      <text
-        x="195"
-        y="99"
-        fill="var(--color-svg-label, #8a7f72)"
-        fontSize="6"
-        letterSpacing="0.5"
-        textAnchor="middle"
-      >
+      <text x="195" y="99" fill="var(--color-svg-label, #8a7f72)" fontSize="6" letterSpacing="0.5" textAnchor="middle">
         양현로
       </text>
-      <text
-        x="272"
-        y="28"
-        fill="var(--color-svg-label, #8a7f72)"
-        fontSize="6"
-        letterSpacing="0.5"
-        textAnchor="middle"
-      >
+      <text x="272" y="28" fill="var(--color-svg-label, #8a7f72)" fontSize="6" letterSpacing="0.5" textAnchor="middle">
         탄천
       </text>
     </svg>
@@ -185,15 +105,19 @@ export function VenueMap() {
     const renderMap = () => {
       if (!naverRef.current || doneRef.current) return;
       doneRef.current = true;
+
       window.naver.maps.Service.geocode({ query: WEDDING.venue.address }, (status, response) => {
-        if (status !== window.naver.maps.Service.Status.OK || !response.v2.addresses.length)
-          return;
+        if (status !== window.naver.maps.Service.Status.OK || !response.v2.addresses.length) return;
         const addr = response.v2.addresses[0];
         if (!addr) return;
-        const { x, y } = addr;
-        const position = new window.naver.maps.LatLng(parseFloat(y), parseFloat(x));
+
+        const position = new window.naver.maps.LatLng(parseFloat(addr.y), parseFloat(addr.x));
         const map = new window.naver.maps.Map(naverRef.current!, { center: position, zoom: 17 });
-        new window.naver.maps.Marker({ position, map });
+        const marker = new window.naver.maps.Marker({ position, map });
+        const infoWindow = new window.naver.maps.InfoWindow({
+          content: '<div style="padding:5px 10px;font-size:12px;font-weight:700;white-space:nowrap;">더 바실리움</div>',
+        });
+        infoWindow.open(map, marker);
       });
     };
 
@@ -201,10 +125,19 @@ export function VenueMap() {
 
     if (window.naver?.maps?.Service) {
       init();
+    } else if (window.naver?.maps) {
+      // maps는 로드됐지만 Service 서브모듈 초기화 대기
+      window.naver.maps.onJSContentLoaded = init;
     } else {
       const script = document.createElement('script');
       script.src = `https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=${NAVER_KEY}&submodules=geocoder`;
-      script.onload = init;
+      script.onload = () => {
+        if (window.naver?.maps?.Service) {
+          init();
+        } else {
+          window.naver.maps.onJSContentLoaded = init;
+        }
+      };
       document.head.appendChild(script);
     }
   }, []);
@@ -226,7 +159,7 @@ export function VenueMap() {
           href={WEDDING.venue.mapUrls.naver}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center justify-center gap-1.5 border border-fg/15 bg-transparent py-2.5 text-[0.625rem] tracking-[0.15rem] text-fg/70 transition-opacity duration-150 active:opacity-60"
+          className="flex items-center justify-center gap-1.5 border border-fg/15 bg-transparent py-2.5 text-xs2 tracking-[0.15rem] text-fg/70 transition-opacity duration-150 active:opacity-60"
         >
           <Image src="/logo/navermap.webp" alt="네이버지도" width={14} height={14} />
           네이버지도
@@ -235,7 +168,7 @@ export function VenueMap() {
           href={WEDDING.venue.mapUrls.kakao}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center justify-center gap-1.5 border border-fg/15 bg-transparent py-2.5 text-[0.625rem] tracking-[0.15rem] text-fg/70 transition-opacity duration-150 active:opacity-60"
+          className="flex items-center justify-center gap-1.5 border border-fg/15 bg-transparent py-2.5 text-xs2 tracking-[0.15rem] text-fg/70 transition-opacity duration-150 active:opacity-60"
         >
           <Image src="/logo/kakaomap.webp" alt="카카오맵" width={14} height={14} />
           카카오맵

@@ -33,10 +33,10 @@ export function FortuneCard({
       />
 
       <div className="absolute top-4 right-4 left-4 flex items-center justify-between">
-        <div className="rounded-full bg-white/50 px-2.5 py-1 text-[0.6875rem] font-bold tracking-[-0.01rem] text-black/70 backdrop-blur-[6px]">
+        <div className="rounded-full bg-white/50 px-2.5 py-1 text-xs3 font-bold tracking-[-0.01rem] text-black/70 backdrop-blur-[6px]">
           {v.tag}
         </div>
-        <div className="text-[0.5625rem] tracking-[0.25rem] text-black/55">
+        <div className="text-2xs tracking-[0.25rem] text-black/55">
           #{String(idx + 1).padStart(2, '0')} / {total}
         </div>
       </div>
@@ -46,10 +46,10 @@ export function FortuneCard({
         <div className="font-serif text-[1.625rem] leading-[1.45] font-medium tracking-[-0.01rem] whitespace-pre-line text-[#1a1a1a]">
           {v.q}
         </div>
-        <div className="mt-4.5 text-[0.6875rem] tracking-[0.2rem] text-black/55">{v.a}</div>
+        <div className="mt-4.5 text-xs3 tracking-[0.2rem] text-black/55">{v.a}</div>
       </div>
 
-      <div className="absolute right-4 bottom-3.5 left-4 flex items-center justify-between text-[0.5625rem] tracking-[0.2rem] text-black/45">
+      <div className="absolute right-4 bottom-3.5 left-4 flex items-center justify-between text-2xs tracking-[0.2rem] text-black/45">
         <span>
           {WEDDING.groom.initial} &amp; {WEDDING.bride.initial} × DAILY
         </span>

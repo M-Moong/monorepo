@@ -71,7 +71,7 @@ export function Ch08Guestbook() {
 
         <button
           onClick={() => setSheetOpen(true)}
-          className="mt-auto w-full cursor-pointer border border-fg/15 bg-transparent py-3 text-[0.5625rem] tracking-[0.3rem] text-fg/50 transition-colors hover:border-gold/40 hover:text-gold"
+          className="mt-auto w-full cursor-pointer border border-fg/15 bg-transparent py-3 text-2xs tracking-[0.3rem] text-fg/50 transition-colors hover:border-gold/40 hover:text-gold"
         >
           방명록 전체 보기 ({total})
         </button>

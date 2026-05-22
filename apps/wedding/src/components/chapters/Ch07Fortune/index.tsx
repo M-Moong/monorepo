@@ -72,13 +72,13 @@ export function Ch07Fortune() {
       <div className="mt-4 grid grid-cols-2 gap-1.5">
         <button
           onClick={next}
-          className="cursor-pointer border border-gold bg-transparent py-3.5 text-[0.6875rem] tracking-[0.25rem] text-gold"
+          className="cursor-pointer border border-gold bg-transparent py-3.5 text-xs3 tracking-[0.25rem] text-gold"
         >
           ↻ 다른 카드
         </button>
         <button
           onClick={share}
-          className="cursor-pointer border-0 bg-gold py-3.5 text-[0.6875rem] font-bold tracking-[0.25rem] text-bg"
+          className="cursor-pointer border-0 bg-gold py-3.5 text-xs3 font-bold tracking-[0.25rem] text-bg"
         >
           {copied ? '✓ 복사됨' : '↗ 공유하기'}
         </button>

@@ -35,7 +35,7 @@ export function HUD({
         style={{ background: 'var(--color-hud-gradient)' }}
       >
         {/* 챕터 번호 */}
-        <div className="text-[0.5625rem] tracking-[0.3rem] text-gold">
+        <div className="text-2xs tracking-[0.3rem] text-gold">
           CH. {String(chapter + 1).padStart(2, '0')} / {String(totalChapters).padStart(2, '0')}
         </div>
 
@@ -60,7 +60,7 @@ export function HUD({
         {/* BGM 토글 */}
         <button
           onClick={onToggleSound}
-          className={`cursor-pointer px-2.25 py-1 text-[0.5625rem] tracking-[0.2rem] transition-all duration-200 ${
+          className={`cursor-pointer px-2.25 py-1 text-2xs tracking-[0.2rem] transition-all duration-200 ${
             sound
               ? 'border border-gold bg-gold text-bg'
               : 'border border-fg/30 bg-transparent text-fg'

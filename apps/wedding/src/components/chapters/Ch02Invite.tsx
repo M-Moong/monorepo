@@ -28,10 +28,10 @@ export function Ch02Invite() {
         ))}
       </p>
 
-      <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-3.5 border-t border-b border-fg/20 py-4.5">
+      <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-3.5 border-y border-fg/20 py-4.5">
         {/* 신랑측 */}
         <div className="text-right">
-          <div className="mb-1 text-[0.5625rem] tracking-[0.3rem] text-gold">
+          <div className="mb-1 text-2xs tracking-[0.3rem] text-gold">
             GROOM&apos;S PARENTS
           </div>
           <div className="text-xs text-fg/70">
@@ -47,7 +47,7 @@ export function Ch02Invite() {
 
         {/* 신부측 */}
         <div className="text-left">
-          <div className="mb-1 text-[0.5625rem] tracking-[0.3rem] text-gold">
+          <div className="mb-1 text-2xs tracking-[0.3rem] text-gold">
             BRIDE&apos;S PARENTS
           </div>
           <div className="text-xs text-fg/70">
@@ -59,10 +59,10 @@ export function Ch02Invite() {
         </div>
       </div>
 
-      <div className="mt-5.5 text-center text-[0.625rem] tracking-[0.25rem] text-fg/50">
+      <div className="mt-5.5 text-center text-xs2 tracking-[0.25rem] text-fg/50">
         {WEDDING.dateText}
       </div>
-      <div className="mt-1 text-center text-[0.625rem] tracking-[0.2rem] text-fg/40">
+      <div className="mt-1 text-center text-xs2 tracking-[0.2rem] text-fg/40">
         {WEDDING.venue.short}
       </div>
     </ChapterSection>

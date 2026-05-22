@@ -53,7 +53,7 @@ export function Ch03Couple() {
         ))}
       </div>
 
-      <div className="mt-3.5 text-center text-[0.625rem] tracking-[0.2rem] text-fg/40">
+      <div className="mt-3.5 text-center text-xs2 tracking-[0.2rem] text-fg/40">
         TAP TO READ MORE
       </div>
     </ChapterSection>
