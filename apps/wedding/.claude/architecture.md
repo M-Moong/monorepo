@@ -25,7 +25,6 @@ apps/wedding/
 │   ├── config/                      # theme.config.ts
 │   └── data/                        # wedding.ts, fortune.ts
 ├── public/
-├── scripts/                         # generate-placeholder-photos.mjs
 └── drizzle.config.ts
 ```
 
