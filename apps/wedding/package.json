@@ -3,10 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "generate-photos": "node scripts/generate-placeholder-photos.mjs",
-    "predev": "node scripts/generate-placeholder-photos.mjs",
     "dev": "next dev -p 3000",
-    "prebuild": "node scripts/generate-placeholder-photos.mjs",
     "build": "next build",
     "start": "next start -p 3000",
     "lint": "eslint",
@@ -19,6 +16,7 @@
   "dependencies": {
     "@paralleldrive/cuid2": "^3.3.0",
     "@repo/ui": "workspace:*",
+    "dayjs": "^1.11.20",
     "framer-motion": "^12.39.0",
     "lucide-react": "^1.14.0",
     "next": "16.1.6",

@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Cormorant_Garamond, Space_Grotesk } from 'next/font/google';
 import Script from 'next/script';
+import { Toaster } from '@repo/ui/components/sonner';
 import './globals.css';
 import { ACTIVE_THEME } from '@/config/theme.config';
 import { WEDDING } from '@/data/wedding';
@@ -35,7 +36,7 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://example.com';
 // 브랜드 컬러 — 아이콘/타일 배경색 등에 사용 (wedding.ts 테마와 맞춰 수정)
 const BRAND_COLOR = '#c9a96e';
 
-const OG_TITLE = `${WEDDING.groom.name} ♥ ${WEDDING.bride.name} · 결혼합니다`;
+const OG_TITLE = `${WEDDING.groom.name} ♥ ${WEDDING.bride.name}`;
 
 // SNS 공유 시 노출되는 설명 (최대 200자 권장)
 const OG_DESCRIPTION =
@@ -521,6 +522,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className={`${cormorant.variable} ${spaceGrotesk.variable}`}>
         {children}
+        <Toaster position="bottom-center" />
 
         {/*
          * Kakao JavaScript SDK

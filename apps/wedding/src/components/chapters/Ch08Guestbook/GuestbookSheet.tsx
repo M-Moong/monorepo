@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@repo/ui/components/sheet';
 import type { GuestbookPage } from '@/types/guestbook';
 import { GuestbookEntry } from './GuestbookEntry';
 import { GuestbookPagination } from './GuestbookPagination';
@@ -13,11 +14,10 @@ async function fetchPage(page: number): Promise<GuestbookPage> {
 
 interface GuestbookSheetProps {
   open: boolean;
-  total: number;
   onClose: () => void;
 }
 
-export function GuestbookSheet({ open, total, onClose }: GuestbookSheetProps) {
+export function GuestbookSheet({ open, onClose }: GuestbookSheetProps) {
   const [data, setData] = useState<GuestbookPage | null>(null);
   const [loading, setLoading] = useState(false);
   const [pageLoading, setPageLoading] = useState(false);
@@ -38,6 +38,7 @@ export function GuestbookSheet({ open, total, onClose }: GuestbookSheetProps) {
       setData(await fetchPage(page));
       scrollRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
     } catch {
+      /* 페이지 로드 실패 시 기존 데이터 유지 */
     } finally {
       setPageLoading(false);
     }
@@ -46,38 +47,38 @@ export function GuestbookSheet({ open, total, onClose }: GuestbookSheetProps) {
   const entries = data?.entries ?? [];
   const page = data?.page ?? 1;
   const totalPages = data?.totalPages ?? 1;
-
-  if (!open) return null;
+  const total = data?.total ?? 0;
 
   return (
-    <div className="fixed inset-0 z-70 flex flex-col justify-end">
-      {/* 딤 */}
-      <div className="absolute inset-0 bg-black/60" onClick={onClose} />
-
-      {/* 시트 */}
-      <div className="relative flex max-h-[78dvh] w-full flex-col bg-bg">
-        {/* 핸들 + 헤더 */}
-        <div className="flex shrink-0 items-center justify-between px-5.5 pt-4 pb-3">
-          <div className="text-[0.5625rem] tracking-[0.4rem] text-gold">· {total} NOTES ·</div>
+    <Sheet open={open} onOpenChange={(o) => !o && onClose()}>
+      <SheetContent
+        side="bottom"
+        showCloseButton={false}
+        className="flex max-h-[78dvh] flex-col gap-0 rounded-none border-0 bg-bg px-0 pb-0"
+      >
+        <SheetHeader className="shrink-0 flex-row items-center justify-between px-5.5 pt-4 pb-3">
+          <SheetTitle className="text-3xs font-normal tracking-[0.4rem] text-gold">
+            · {total} NOTES ·
+          </SheetTitle>
           <button
             onClick={onClose}
-            className="cursor-pointer border-0 bg-transparent p-1 text-[0.5625rem] tracking-[0.2rem] text-fg/40"
+            className="flex cursor-pointer items-center border-0 bg-transparent p-1 text-3xs tracking-[0.2rem] text-fg/40"
           >
-            닫기 ✕
+            <span>닫기 ✕</span>
           </button>
-        </div>
+        </SheetHeader>
 
         <div className="mx-5.5 mb-3 h-px bg-fg/8" />
 
         {/* 리스트 */}
         <div ref={scrollRef} className="flex-1 overflow-y-auto px-5.5">
           {loading ? (
-            <div className="py-12 text-center text-[0.6875rem] tracking-[0.2rem] text-fg/40">
-              불러오는 중…
+            <div className="flex items-center justify-center py-12 text-2xs tracking-[0.2rem] text-fg/40">
+              <span>불러오는 중…</span>
             </div>
           ) : entries.length === 0 ? (
-            <div className="py-12 text-center text-[0.6875rem] tracking-[0.2rem] text-fg/40">
-              아직 남겨진 메시지가 없어요.
+            <div className="flex items-center justify-center py-12 text-2xs tracking-[0.2rem] text-fg/40">
+              <span>아직 남겨진 메시지가 없어요.</span>
             </div>
           ) : (
             <div
@@ -99,7 +100,7 @@ export function GuestbookSheet({ open, total, onClose }: GuestbookSheetProps) {
             loading={pageLoading}
           />
         </div>
-      </div>
-    </div>
+      </SheetContent>
+    </Sheet>
   );
 }

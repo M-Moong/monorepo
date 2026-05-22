@@ -12,13 +12,16 @@ export function GuestbookStats({ total, groomCount, brideCount }: GuestbookStats
   ];
 
   return (
-    <div className="mb-5.5 grid grid-cols-3 border border-fg/8 bg-warm">
+    <div className="mb-3 grid grid-cols-3 border border-fg/8 bg-warm">
       {stats.map(([label, count]) => (
-        <div key={label} className="border-r border-fg/6 px-1 py-3.5 text-center last:border-r-0">
-          <div className="font-serif text-[1.625rem] leading-none text-gold italic tabular-nums">
+        <div
+          key={label}
+          className="flex flex-col items-center border-r border-fg/6 px-1 py-3 last:border-r-0"
+        >
+          <span className="font-serif text-[1.625rem] leading-none text-gold italic tabular-nums">
             {count}
-          </div>
-          <div className="mt-1 text-[0.5625rem] tracking-[0.25rem] text-fg/55">{label}</div>
+          </span>
+          <span className="mt-1 text-3xs tracking-[0.25rem] text-fg/55">{label}</span>
         </div>
       ))}
     </div>

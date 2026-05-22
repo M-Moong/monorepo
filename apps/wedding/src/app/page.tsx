@@ -1,18 +1,18 @@
 'use client';
 
 import { useRef, useState } from 'react';
+import { useScroll, useMotionValueEvent } from 'framer-motion';
 import { HUD } from '@/components/hud/HUD';
 import { Ch01Cover } from '@/components/chapters/Ch01Cover';
 import { Ch02Invite } from '@/components/chapters/Ch02Invite';
 import { Ch03Couple } from '@/components/chapters/Ch03Couple';
 import { Ch04Gallery } from '@/components/chapters/Ch04Gallery';
 import { Ch05Calendar } from '@/components/chapters/Ch05Calendar';
-import { Ch06Venue } from '@/components/chapters/Ch06Venue';
-import { Ch07Fortune } from '@/components/chapters/Ch07Fortune';
+import { Ch06Map } from '@/components/chapters/Ch06Map';
+import { Ch07Quiz } from '@/components/chapters/Ch07Quiz';
 import { Ch08Guestbook } from '@/components/chapters/Ch08Guestbook';
+import { GuestbookSheet } from '@/components/chapters/Ch08Guestbook/GuestbookSheet';
 import { Ch09Finale } from '@/components/chapters/Ch09Finale';
-import { SlideGroup } from '@/components/ui/SlideGroup';
-import { useScroll } from '@/hooks/useScroll';
 import { useBGM } from '@/hooks/useBGM';
 import { Splash } from '@/components/ui/Splash';
 
@@ -22,8 +22,25 @@ export default function InvitationPage() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [sound, setSound] = useState(false);
   const [splashDone, setSplashDone] = useState(false);
-  const { chapter, progressPct } = useScroll(containerRef);
+  const [chapter, setChapter] = useState(0);
+  const [progressPct, setProgressPct] = useState(0);
+  const [guestbookSheetOpen, setGuestbookSheetOpen] = useState(false);
   useBGM(sound);
+
+  const { scrollY, scrollYProgress } = useScroll({ container: containerRef });
+
+  useMotionValueEvent(scrollYProgress, 'change', (v) => setProgressPct(v));
+
+  useMotionValueEvent(scrollY, 'change', (scrollTop) => {
+    const el = containerRef.current;
+    if (!el) return;
+    const vh = el.clientHeight;
+    let current = 0;
+    el.querySelectorAll<HTMLElement>('[data-ch]').forEach((s) => {
+      if (s.offsetTop <= scrollTop + vh / 2) current = Number(s.dataset.ch);
+    });
+    setChapter(current);
+  });
 
   const jumpToGuestbook = () => {
     const el = containerRef.current?.querySelector<HTMLElement>('[data-ch="7"]');
@@ -55,33 +72,39 @@ export default function InvitationPage() {
           className="relative h-dvh snap-y snap-mandatory overflow-y-scroll bg-bg text-fg"
           style={{ fontFamily: 'var(--font-sans)' }}
         >
-          {/* scroll 챕터: 1, 2, 3 */}
           <Ch01Cover />
+
           <Ch02Invite />
+
           <Ch03Couple />
 
-          {/* slide 챕터: 4, 5, 6 — 세로 스크롤이 가로 전환으로 변환됨 */}
-          <SlideGroup count={3}>
-            <Ch04Gallery inSlideGroup />
-            <Ch05Calendar inSlideGroup />
-            <Ch06Venue inSlideGroup />
-          </SlideGroup>
+          <Ch04Gallery />
 
-          {/* scroll 챕터: 7, 8, 9 */}
-          <Ch07Fortune />
-          <Ch08Guestbook />
+          <Ch05Calendar />
+
+          <Ch06Map />
+
+          <Ch07Quiz />
+
+          <Ch08Guestbook onOpenSheet={() => setGuestbookSheetOpen(true)} />
+
           <Ch09Finale />
         </div>
 
         {chapter !== 7 && (
           <button
             onClick={jumpToGuestbook}
-            className="absolute right-5 bottom-5 z-60 animate-pulse-btn cursor-pointer border-0 bg-gold px-4 py-3 text-[0.625rem] font-bold tracking-[0.25rem] text-bg"
+            className="absolute right-5 bottom-5 z-60 animate-pulse-btn cursor-pointer border-0 bg-gold px-4 py-3 text-2xs font-bold tracking-[0.25rem] text-bg"
           >
             방명록 →
           </button>
         )}
       </div>
+
+      <GuestbookSheet
+        open={guestbookSheetOpen}
+        onClose={() => setGuestbookSheetOpen(false)}
+      />
     </div>
   );
 }

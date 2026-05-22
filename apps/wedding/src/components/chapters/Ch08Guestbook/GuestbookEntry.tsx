@@ -23,13 +23,13 @@ export function GuestbookEntry({ entry: g }: GuestbookEntryProps) {
       <div className="mb-1.5 flex items-baseline justify-between">
         <div className="flex items-center gap-2">
           <span className="text-lg">{g.reaction}</span>
-          <span className="text-[0.8125rem] tracking-[0.05rem] text-gold">{g.name}</span>
+          <span className="text-2sm tracking-[0.05rem] text-gold">{g.name}</span>
         </div>
-        <div className="text-[0.5625rem] tracking-[0.15rem] text-fg/40">
+        <div className="text-3xs tracking-[0.15rem] text-fg/40">
           {formatRelativeTime(g.createdAt)}
         </div>
       </div>
-      <div className="text-[0.8125rem] leading-[1.6] text-fg/88">{g.message}</div>
+      <p className="text-2sm leading-[1.6] text-fg/88">{g.message}</p>
     </div>
   );
 }

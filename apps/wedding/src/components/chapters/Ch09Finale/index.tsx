@@ -19,18 +19,20 @@ export function Ch09Finale() {
         }
       />
 
-      <div className="mb-6 border-t border-b border-fg/20 py-5 text-center">
-        <div className="font-serif text-[2rem] font-light text-fg italic tabular-nums">
+      <div className="mb-6 flex flex-col items-center border-y border-fg/20 py-5 text-center">
+        <span className="font-serif text-[2rem] font-light text-fg italic tabular-nums">
           {WEDDING.dateShort}
-        </div>
-        <div className="mt-1.5 text-xs tracking-[0.15rem] text-fg/70">
+        </span>
+        <span className="mt-1.5 text-xs tracking-[0.15rem] text-fg/70">
           {WEDDING.timeText} · {WEDDING.venue.short}
-        </div>
+        </span>
       </div>
 
-      <div className="mb-2 text-[0.5625rem] tracking-[0.4rem] text-gold">· 마음 전하실 곳 ·</div>
-      <p className="mb-3.5 text-[0.6875rem] leading-[1.55] text-fg/55">
-        직접 축하 못 오시는 분들을 위해 계좌번호를 안내드립니다.
+      <div className="mb-2 flex items-center text-3xs tracking-[0.4rem] text-gold">
+        <span>· 마음 전하실 곳 ·</span>
+      </div>
+      <p className="mb-3.5 text-2xs leading-[1.55] text-fg/55">
+        <span>직접 축하 못 오시는 분들을 위해 계좌번호를 안내드립니다.</span>
       </p>
 
       <AccountSection side="groom" />
@@ -38,12 +40,14 @@ export function Ch09Finale() {
 
       <ShareButtons />
 
-      <div className="mt-12 text-center text-[0.5625rem] tracking-[0.5rem] text-fg/40">· FIN ·</div>
-      <div className="mt-3.5 text-center font-serif text-[1.375rem] text-gold italic">
-        {WEDDING.groom.initial} &amp; {WEDDING.bride.initial}
-      </div>
-      <div className="mt-1.5 pb-10 text-center text-[0.5625rem] tracking-[0.3rem] text-fg/40">
-        WITH LOVE · {WEDDING.dateShort}
+      <div className="mt-12 flex flex-col items-center gap-1.5 text-center">
+        <span className="text-3xs tracking-[0.5rem] text-fg/40">· FIN ·</span>
+        <span className="mt-2 font-serif text-[1.375rem] text-gold italic">
+          {WEDDING.groom.initial} &amp; {WEDDING.bride.initial}
+        </span>
+        <span className="pb-10 text-3xs tracking-[0.3rem] text-fg/40">
+          WITH LOVE · {WEDDING.dateShort}
+        </span>
       </div>
     </ChapterSection>
   );

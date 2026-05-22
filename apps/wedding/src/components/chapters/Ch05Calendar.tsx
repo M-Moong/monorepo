@@ -70,11 +70,7 @@ function downloadIcsFile() {
 
 // ── 컴포넌트 ───────────────────────────────────────────────────────────────────
 
-interface Props {
-  inSlideGroup?: boolean;
-}
-
-export function Ch05Calendar({ inSlideGroup }: Props) {
+export function Ch05Calendar() {
   const cd = useCountdown(WEDDING.date);
   const [showPicker, setShowPicker] = useState(false);
 
@@ -104,7 +100,7 @@ export function Ch05Calendar({ inSlideGroup }: Props) {
   };
 
   return (
-    <ChapterSection chIndex={4} inSlideGroup={inSlideGroup}>
+    <ChapterSection chIndex={4}>
       <ChHeader
         num={5}
         label="WHEN"
@@ -119,20 +115,20 @@ export function Ch05Calendar({ inSlideGroup }: Props) {
 
       {/* 달력 */}
       <div className="mb-5.5 bg-warm p-4.5">
-        <div className="mb-3.5 flex justify-between">
-          <div className="font-serif text-[1.375rem] text-fg italic">{CAL_MONTH_LABEL}</div>
-          <div className="text-[0.625rem] tracking-[0.2rem] text-gold">{WEDDING.timeText}</div>
+        <div className="mb-3.5 flex items-center justify-between">
+          <span className="font-serif text-[1.375rem] text-fg italic">{CAL_MONTH_LABEL}</span>
+          <span className="text-2xs tracking-[0.2rem] text-gold">{WEDDING.timeText}</span>
         </div>
 
-        <div className="grid grid-cols-7 gap-1 text-[0.5625rem] tracking-[0.1rem]">
+        <div className="grid grid-cols-7 gap-1 text-3xs tracking-[0.1rem]">
           {DAYS_HEADER.map((d, i) => (
             <div
               key={i}
-              className={`py-1 text-center ${
+              className={`flex items-center justify-center py-1 ${
                 i === 0 ? 'text-[#d97777]' : i === 6 ? 'text-gold' : 'text-fg/50'
               }`}
             >
-              {d}
+              <span>{d}</span>
             </div>
           ))}
           {calendarCells.map((d, i) => {
@@ -141,7 +137,7 @@ export function Ch05Calendar({ inSlideGroup }: Props) {
             return (
               <div
                 key={i}
-                className={`py-2 text-center text-[0.8125rem] ${
+                className={`flex items-center justify-center py-2 text-2sm ${
                   !d
                     ? 'text-transparent'
                     : isWedding
@@ -153,7 +149,7 @@ export function Ch05Calendar({ inSlideGroup }: Props) {
                           : 'text-fg'
                 }`}
               >
-                {d ?? '·'}
+                <span>{d ?? '·'}</span>
               </div>
             );
           })}
@@ -170,20 +166,23 @@ export function Ch05Calendar({ inSlideGroup }: Props) {
             ['SEC', cd.s],
           ] as [string, number][]
         ).map(([label, val]) => (
-          <div key={label} className="border border-fg/8 bg-warm px-1.5 py-3.5 text-center">
-            <div className="font-serif text-[1.75rem] leading-none text-gold italic tabular-nums">
+          <div
+            key={label}
+            className="flex flex-col items-center border border-fg/8 bg-warm px-1.5 py-3.5"
+          >
+            <span className="font-serif text-[1.75rem] leading-none text-gold italic tabular-nums">
               {String(val).padStart(2, '0')}
-            </div>
-            <div className="mt-1.5 text-[0.5625rem] tracking-[0.25rem] text-fg/50">{label}</div>
+            </span>
+            <span className="mt-1.5 text-3xs tracking-[0.25rem] text-fg/50">{label}</span>
           </div>
         ))}
       </div>
 
       <button
         onClick={addToCalendar}
-        className="mt-4.5 w-full cursor-pointer border border-gold bg-transparent py-3.5 text-[0.6875rem] tracking-[0.25rem] text-gold transition-opacity duration-150 active:opacity-70"
+        className="mt-4.5 flex w-full cursor-pointer items-center justify-center border border-gold bg-transparent py-3.5 text-2xs tracking-[0.25rem] text-gold transition-opacity duration-150 active:opacity-70"
       >
-        + ADD TO CALENDAR
+        <span>+ ADD TO CALENDAR</span>
       </button>
 
       {/* 캘린더 앱 선택 피커 (Web Share 미지원 환경 폴백) */}
@@ -196,8 +195,8 @@ export function Ch05Calendar({ inSlideGroup }: Props) {
             className="mb-6 w-full max-w-[390px] border border-fg/15 bg-bg"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="px-4 py-3 text-center text-[0.5625rem] tracking-[0.35rem] text-fg/40">
-              · 캘린더 앱 선택 ·
+            <div className="flex items-center justify-center px-4 py-3 text-3xs tracking-[0.35rem] text-fg/40">
+              <span>· 캘린더 앱 선택 ·</span>
             </div>
 
             <a
@@ -205,10 +204,10 @@ export function Ch05Calendar({ inSlideGroup }: Props) {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setShowPicker(false)}
-              className="flex w-full cursor-pointer items-center justify-between border-t border-fg/8 px-5 py-4.5 text-[0.8125rem] text-fg"
+              className="flex w-full cursor-pointer items-center justify-between border-t border-fg/8 px-5 py-4.5 text-2sm text-fg"
             >
               <span>구글 캘린더</span>
-              <span className="text-[0.625rem] tracking-[0.2rem] text-gold">→</span>
+              <span className="text-2xs tracking-[0.2rem] text-gold">→</span>
             </a>
 
             <button
@@ -216,17 +215,17 @@ export function Ch05Calendar({ inSlideGroup }: Props) {
                 downloadIcsFile();
                 setShowPicker(false);
               }}
-              className="flex w-full cursor-pointer items-center justify-between border-t border-fg/8 bg-transparent px-5 py-4.5 text-[0.8125rem] text-fg"
+              className="flex w-full cursor-pointer items-center justify-between border-t border-fg/8 bg-transparent px-5 py-4.5 text-2sm text-fg"
             >
               <span>애플 캘린더 · 기타 (.ics)</span>
-              <span className="text-[0.625rem] tracking-[0.2rem] text-gold">↓</span>
+              <span className="text-2xs tracking-[0.2rem] text-gold">↓</span>
             </button>
 
             <button
               onClick={() => setShowPicker(false)}
-              className="w-full cursor-pointer border-t border-fg/8 bg-transparent py-4 text-[0.6875rem] tracking-[0.2rem] text-fg/40"
+              className="flex w-full cursor-pointer items-center justify-center border-t border-fg/8 bg-transparent py-4 text-2xs tracking-[0.2rem] text-fg/40"
             >
-              닫기
+              <span>닫기</span>
             </button>
           </div>
         </div>

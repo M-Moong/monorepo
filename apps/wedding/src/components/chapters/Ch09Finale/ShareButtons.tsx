@@ -1,5 +1,7 @@
 'use client';
 
+import Image from 'next/image';
+import { Link, Check } from 'lucide-react';
 import { WEDDING } from '@/data/wedding';
 import { useCopy } from '@/hooks/useCopy';
 
@@ -41,31 +43,39 @@ export function ShareButtons() {
     });
   };
 
+  const LinkIcon = linkCopied ? Check : Link;
+
   const SHARE_ACTIONS = [
     { key: 'kakao', label: 'KAKAO', sub: '카카오톡', onClick: shareKakao },
     {
       key: 'link',
-      label: linkCopied ? '✓ COPIED' : 'LINK',
+      label: 'LINK',
       sub: linkCopied ? '복사됨' : '링크 복사',
       onClick: shareLink,
     },
     { key: 'sms', label: 'SMS', sub: '문자', onClick: shareSms },
-  ] as const;
+  ];
 
   return (
     <div className="mt-7">
-      <div className="mb-3 text-[0.5625rem] tracking-[0.4rem] text-gold">· SHARE ·</div>
+      <div className="mb-3 text-3xs tracking-[0.4rem] text-gold">· SHARE ·</div>
       <div className="grid grid-cols-3 gap-1.5">
         {SHARE_ACTIONS.map((s) => (
           <button
             key={s.key}
             onClick={s.onClick}
-            className={`cursor-pointer border border-fg/20 bg-transparent py-3.5 text-center transition-all duration-200 ${
+            className={`flex cursor-pointer flex-col items-center border border-fg/20 bg-transparent py-3.5 transition-all duration-200 ${
               s.key === 'link' && linkCopied ? 'border-gold' : ''
             }`}
           >
-            <div className="text-[0.625rem] tracking-[0.25rem] text-gold">{s.label}</div>
-            <div className="mt-1 text-[0.625rem] text-fg/50">{s.sub}</div>
+            <span className="mb-1 flex h-4 items-center justify-center">
+              {s.key === 'kakao' && (
+                <Image src="/logo/kakaotalk.svg" alt="kakao" width={16} height={16} />
+              )}
+              {s.key === 'link' && <LinkIcon size={13} className="text-gold" />}
+            </span>
+            <span className="text-2xs tracking-[0.25rem] text-gold">{s.label}</span>
+            <span className="mt-1 text-2xs text-fg/50">{s.sub}</span>
           </button>
         ))}
       </div>

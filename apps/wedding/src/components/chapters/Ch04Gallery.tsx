@@ -11,11 +11,7 @@ type Tone = 'warm' | 'cool' | 'sage' | 'paper' | 'mono' | 'blush' | 'sepia' | 'i
 
 const TONES: Tone[] = ['mono', 'sepia', 'warm', 'paper', 'sage', 'blush', 'cool', 'mono', 'sepia'];
 
-interface Props {
-  inSlideGroup?: boolean;
-}
-
-export function Ch04Gallery({ inSlideGroup }: Props) {
+export function Ch04Gallery() {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const total = TONES.length;
 
@@ -27,7 +23,7 @@ export function Ch04Gallery({ inSlideGroup }: Props) {
   };
 
   return (
-    <ChapterSection chIndex={3} inSlideGroup={inSlideGroup}>
+    <ChapterSection chIndex={3}>
       <ChHeader
         num={4}
         label="GALLERY"
@@ -53,7 +49,7 @@ export function Ch04Gallery({ inSlideGroup }: Props) {
           ))}
         </div>
 
-        <div className="mt-3.5 text-center text-[0.625rem] tracking-[0.2rem] text-fg/40">
+        <div className="mt-3.5 text-center text-2xs tracking-[0.2rem] text-fg/40">
           TAP ANY FRAME TO ENLARGE · {total} PHOTOS
         </div>
       </div>

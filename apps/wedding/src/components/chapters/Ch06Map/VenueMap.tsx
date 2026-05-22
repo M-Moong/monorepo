@@ -1,41 +1,39 @@
 'use client';
 
+import Image from 'next/image';
 import { useEffect, useRef } from 'react';
+import { WEDDING } from '@/data/wedding';
 
-const LAT = 37.3995;
-const LNG = 127.1272;
 const NAVER_KEY = process.env.NEXT_PUBLIC_NAVER_MAP_KEY;
-const KAKAO_KEY = process.env.NEXT_PUBLIC_KAKAO_MAP_KEY;
 
 declare global {
   interface Window {
     naver: {
       maps: {
+        onJSContentLoaded: (() => void) | undefined;
         Map: new (el: HTMLElement, opts: object) => object;
         LatLng: new (lat: number, lng: number) => object;
         Marker: new (opts: object) => object;
-        MapTypeId: { NORMAL: string };
-      };
-    };
-    kakao: {
-      maps: {
-        load: (cb: () => void) => void;
-        Map: new (el: HTMLElement, opts: object) => object;
-        LatLng: new (lat: number, lng: number) => object;
-        CustomOverlay: new (opts: object) => { setMap: (m: object) => void };
+        InfoWindow: new (opts: object) => { open: (map: object, anchor: object) => void };
+        Service: {
+          geocode: (
+            opts: { query: string },
+            cb: (
+              status: string,
+              response: { v2: { addresses: { x: string; y: string }[] } }
+            ) => void
+          ) => void;
+          Status: { OK: string };
+        };
       };
     };
   }
 }
 
-// 더 바실리움 주변 실제 도로 구조 (야탑역, 성남대로, 탄천, 양현로 기반)
 function SVGFallback() {
   return (
     <svg width="100%" height="100%" viewBox="0 0 300 200" className="block">
-      {/* 배경 */}
       <rect width="300" height="200" fill="var(--color-warm, #f9f6f1)" />
-
-      {/* 탄천 (오른쪽) */}
       <path
         d="M255 0 Q 260 50, 252 100 Q 248 150, 258 200"
         stroke="var(--color-svg-river, #b8d4e8)"
@@ -50,8 +48,6 @@ function SVGFallback() {
         fill="none"
         strokeLinecap="round"
       />
-
-      {/* 성남대로 (세로 대로) */}
       <path
         d="M72 0 L 68 200"
         stroke="var(--color-svg-road, #d8d0c4)"
@@ -65,8 +61,6 @@ function SVGFallback() {
         fill="none"
         strokeDasharray="3 10"
       />
-
-      {/* 양현로 (가로 — 더 바실리움 접근로) */}
       <path
         d="M0 108 L 255 104"
         stroke="var(--color-svg-road, #d8d0c4)"
@@ -80,16 +74,12 @@ function SVGFallback() {
         fill="none"
         strokeDasharray="3 8"
       />
-
-      {/* 보조도로 (가로 위) */}
       <path
         d="M0 58 L 255 55"
         stroke="var(--color-svg-road, #d8d0c4)"
         strokeWidth="6"
         fill="none"
       />
-
-      {/* 야탑역 블록 */}
       <rect x="44" y="70" width="48" height="24" rx="2" fill="var(--color-svg-block, #e2dbd0)" />
       <text
         x="68"
@@ -101,8 +91,6 @@ function SVGFallback() {
       >
         야탑역
       </text>
-
-      {/* 성남터미널 블록 */}
       <rect x="44" y="116" width="52" height="20" rx="2" fill="var(--color-svg-block, #e2dbd0)" />
       <text
         x="70"
@@ -114,18 +102,12 @@ function SVGFallback() {
       >
         성남터미널
       </text>
-
-      {/* 핀 glow 애니메이션 */}
       <circle cx="158" cy="104" r="20" fill="var(--color-svg-pin-glow, rgba(232,200,124,0.2))">
         <animate attributeName="r" values="18;26;18" dur="2.5s" repeatCount="indefinite" />
         <animate attributeName="opacity" values="0.5;0.1;0.5" dur="2.5s" repeatCount="indefinite" />
       </circle>
-
-      {/* 핀 */}
       <circle cx="158" cy="104" r="9" fill="var(--color-gold, #e8c87c)" />
       <circle cx="158" cy="104" r="4" fill="white" opacity="0.8" />
-
-      {/* 장소 라벨 */}
       <rect x="108" y="74" width="100" height="18" rx="3" fill="var(--color-gold, #e8c87c)" />
       <text
         x="158"
@@ -138,8 +120,6 @@ function SVGFallback() {
       >
         THE BASILEUM
       </text>
-
-      {/* 도로/지형 라벨 */}
       <text
         x="30"
         y="51"
@@ -174,83 +154,86 @@ function SVGFallback() {
   );
 }
 
-function NaverMap({ container }: { container: React.RefObject<HTMLDivElement | null> }) {
-  useEffect(() => {
-    const initMap = () => {
-      if (!container.current) return;
-      const center = new window.naver.maps.LatLng(LAT, LNG);
-      new window.naver.maps.Map(container.current, {
-        center,
-        zoom: 16,
-        mapTypeId: window.naver.maps.MapTypeId.NORMAL,
-      });
-      new window.naver.maps.Marker({ position: center, map: container.current });
-    };
-
-    if (window.naver?.maps) {
-      initMap();
-    } else {
-      const script = document.createElement('script');
-      script.src = `https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${NAVER_KEY}`;
-      script.onload = initMap;
-      document.head.appendChild(script);
-    }
-  }, [container]);
-
-  return <div ref={container} className="h-full w-full" />;
-}
-
-function KakaoMap({ container }: { container: React.RefObject<HTMLDivElement | null> }) {
-  useEffect(() => {
-    const initMap = () => {
-      if (!container.current) return;
-      window.kakao.maps.load(() => {
-        const center = new window.kakao.maps.LatLng(LAT, LNG);
-        const map = new window.kakao.maps.Map(container.current!, { center, level: 3 });
-        const content = `
-          <div style="position:relative;display:flex;flex-direction:column;align-items:center;transform:translateY(-100%);">
-            <div style="background:#e8c87c;color:#0a0a0a;font-size:10px;font-weight:700;letter-spacing:.1em;padding:4px 8px;white-space:nowrap;">THE BASILEUM</div>
-            <div style="width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:6px solid #e8c87c;"></div>
-          </div>`;
-        new window.kakao.maps.CustomOverlay({ position: center, content, yAnchor: 0 }).setMap(map);
-      });
-    };
-
-    if (window.kakao?.maps) {
-      initMap();
-    } else {
-      const script = document.createElement('script');
-      script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAO_KEY}&autoload=false`;
-      script.onload = initMap;
-      document.head.appendChild(script);
-    }
-  }, [container]);
-
-  return <div ref={container} className="h-full w-full" />;
-}
-
 export function VenueMap() {
-  const mapRef = useRef<HTMLDivElement>(null);
+  const naverRef = useRef<HTMLDivElement>(null);
+  const doneRef = useRef(false);
 
-  if (NAVER_KEY) {
-    return (
-      <div className="relative mb-3.5 h-36 overflow-hidden border border-fg/10">
-        <NaverMap container={mapRef} />
-      </div>
-    );
-  }
+  useEffect(() => {
+    if (!NAVER_KEY) return;
 
-  if (KAKAO_KEY) {
-    return (
-      <div className="relative mb-3.5 h-36 overflow-hidden border border-fg/10">
-        <KakaoMap container={mapRef} />
-      </div>
-    );
-  }
+    const renderMap = () => {
+      if (!naverRef.current || doneRef.current) return;
+      doneRef.current = true;
+
+      window.naver.maps.Service.geocode({ query: WEDDING.venue.address }, (status, response) => {
+        if (status !== window.naver.maps.Service.Status.OK || !response.v2.addresses.length) return;
+        const addr = response.v2.addresses[0];
+        if (!addr) return;
+
+        const position = new window.naver.maps.LatLng(parseFloat(addr.y), parseFloat(addr.x));
+        const map = new window.naver.maps.Map(naverRef.current!, { center: position, zoom: 17 });
+        const marker = new window.naver.maps.Marker({ position, map });
+        const infoWindow = new window.naver.maps.InfoWindow({
+          content:
+            '<div style="padding:5px 10px;font-size:12px;font-weight:700;white-space:nowrap;">더 바실리움</div>',
+        });
+        infoWindow.open(map, marker);
+      });
+    };
+
+    const init = () => requestAnimationFrame(() => requestAnimationFrame(renderMap));
+
+    if (window.naver?.maps?.Service) {
+      init();
+    } else if (window.naver?.maps) {
+      // maps는 로드됐지만 Service 서브모듈 초기화 대기
+      window.naver.maps.onJSContentLoaded = init;
+    } else {
+      const script = document.createElement('script');
+      script.src = `https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=${NAVER_KEY}&submodules=geocoder`;
+      script.onload = () => {
+        if (window.naver?.maps?.Service) {
+          init();
+        } else {
+          window.naver.maps.onJSContentLoaded = init;
+        }
+      };
+      document.head.appendChild(script);
+    }
+  }, []);
 
   return (
-    <div className="relative mb-3.5 h-36 overflow-hidden border border-fg/10 bg-warm">
-      <SVGFallback />
+    <div className="mb-3.5">
+      <div className="relative h-48 overflow-hidden border border-fg/10">
+        {NAVER_KEY ? (
+          <div ref={naverRef} className="h-full w-full" />
+        ) : (
+          <div className="absolute inset-0 bg-warm">
+            <SVGFallback />
+          </div>
+        )}
+      </div>
+
+      <div className="mt-1 grid grid-cols-2 gap-1">
+        <a
+          href={WEDDING.venue.mapUrls.naver}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-center gap-1.5 border border-fg/15 bg-transparent py-2.5 text-2xs tracking-[0.15rem] text-fg/70 transition-opacity duration-150 active:opacity-60"
+        >
+          <Image src="/logo/navermap.webp" alt="네이버지도" width={14} height={14} />
+          <span>네이버지도</span>
+        </a>
+        <a
+          href={WEDDING.venue.mapUrls.kakao}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-center gap-1.5 border border-fg/15 bg-transparent py-2.5 text-2xs tracking-[0.15rem] text-fg/70 transition-opacity duration-150 active:opacity-60"
+        >
+          <Image src="/logo/kakaomap.webp" alt="카카오맵" width={14} height={14} />
+          <span>카카오맵</span>
+        </a>
+      </div>
     </div>
   );
 }
