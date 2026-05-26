@@ -42,10 +42,11 @@ export default function InvitationPage() {
     setChapter(current);
   });
 
-  const jumpToGuestbook = () => {
-    const el = containerRef.current?.querySelector<HTMLElement>('[data-ch="7"]');
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-  };
+  // 방명록 바로 이동하기
+  // const jumpToGuestbook = () => {
+  //   const el = containerRef.current?.querySelector<HTMLElement>('[data-ch="7"]');
+  //   if (el) el.scrollIntoView({ behavior: 'smooth' });
+  // };
 
   return (
     <div className="flex min-h-dvh items-start justify-center bg-bg">
