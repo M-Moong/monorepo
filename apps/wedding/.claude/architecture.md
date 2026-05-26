@@ -52,10 +52,6 @@ src/app/api/guestbook/route.ts
 
 ## 디자인 시스템
 
-### 아이콘
-
-**lucide-react** 사용. 다른 아이콘 라이브러리 추가 금지.
-
 ### 색상 토큰 (`globals.css` `@theme` 블록)
 
 | 클래스                      | 값                      | 용도               |
