@@ -26,7 +26,7 @@ const CARDS: CoupleCardData[] = [
 ];
 
 export function Ch03Couple() {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [openSet, setOpenSet] = useState<Set<number>>(new Set());
 
   return (
     <ChapterSection chIndex={2}>
@@ -47,8 +47,14 @@ export function Ch03Couple() {
           <CoupleCard
             key={card.who}
             card={card}
-            isOpen={openIndex === i}
-            onToggle={() => setOpenIndex(openIndex === i ? null : i)}
+            isOpen={openSet.has(i)}
+            onToggle={() =>
+              setOpenSet((prev) => {
+                const next = new Set(prev);
+                next.has(i) ? next.delete(i) : next.add(i);
+                return next;
+              })
+            }
           />
         ))}
       </div>
