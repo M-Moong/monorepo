@@ -25,7 +25,7 @@ export function Ch01Cover() {
 
       {/* D-Day */}
       <div className="text-md mt-2 tracking-[0.3rem] text-fg/50">{WEDDING.dateShort}</div>
-      <div className="mt-7 flex flex-col items-center tabular-nums">
+      <div className="mt-7 flex flex-col items-center text-xl tabular-nums">
         <div className="text-lg tracking-[0.5rem] text-gold">D-{cd.d}</div>
         <div className="mt-1 flex gap-2 text-2xs tracking-[0.3rem] text-fg/60">
           <span>{cd.h}h</span>

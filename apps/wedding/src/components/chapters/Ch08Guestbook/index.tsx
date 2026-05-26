@@ -83,12 +83,6 @@ export function Ch08Guestbook({ onOpenSheet }: Ch08GuestbookProps) {
         }
       />
 
-      <p className="mb-2.5 text-xs leading-[1.65] text-fg/70">
-        <span>식 당일 스크린에 띄워질 따뜻한 한마디.</span>
-        <br />
-        <span className="text-gold">참석 여부는 천천히 알려주셔도 괜찮아요.</span>
-      </p>
-
       <GuestbookStats total={total} groomCount={groomCount} brideCount={brideCount} />
 
       <GuestbookForm
@@ -97,22 +91,24 @@ export function Ch08Guestbook({ onOpenSheet }: Ch08GuestbookProps) {
 
       <div className="grid grid-cols-2 gap-2">
         <button
-          onClick={handleSubmit}
-          disabled={!canSubmit}
-          className={`flex items-center justify-center gap-2 border-0 py-3 text-2xs font-bold tracking-[0.25rem] transition-all duration-150 ${
-            canSubmit ? 'cursor-pointer bg-gold text-bg' : 'cursor-not-allowed bg-gold/20 text-fg/40'
-          }`}
+          onClick={onOpenSheet}
+          className="flex cursor-pointer items-center justify-center gap-2 border border-fg/40 bg-transparent py-3 text-xs tracking-[0.2rem] text-fg/80 transition-colors hover:border-gold/60 hover:text-gold"
         >
-          {!submitting && <PenLine size={13} />}
-          <span>{submitting ? '저장 중…' : '방명록 작성'}</span>
+          <BookOpen size={14} />
+          <span>방명록 목록 ({total})</span>
         </button>
 
         <button
-          onClick={onOpenSheet}
-          className="flex cursor-pointer items-center justify-center gap-2 border border-fg/15 bg-transparent py-3 text-2xs tracking-[0.25rem] text-fg/50 transition-colors hover:border-gold/40 hover:text-gold"
+          onClick={handleSubmit}
+          disabled={!canSubmit}
+          className={`flex items-center justify-center gap-2 border-0 py-3 text-xs font-bold tracking-[0.2rem] transition-all duration-150 ${
+            canSubmit
+              ? 'cursor-pointer bg-gold text-bg'
+              : 'cursor-not-allowed bg-gold/30 text-fg/50'
+          }`}
         >
-          <BookOpen size={13} />
-          <span>방명록 목록 ({total})</span>
+          {!submitting && <PenLine size={14} />}
+          <span>{submitting ? '저장 중…' : '방명록 작성'}</span>
         </button>
       </div>
     </ChapterSection>

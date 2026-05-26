@@ -10,11 +10,7 @@ const DAYS_HEADER = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 
 const calYear = WEDDING.date.getFullYear();
 const calMonth = WEDDING.date.getMonth();
-const CAL_MONTH_LABEL = WEDDING.date.toLocaleString('en-US', {
-  month: 'long',
-  year: 'numeric',
-  timeZone: 'Asia/Seoul',
-});
+const CAL_MONTH_LABEL = `${calYear}.${String(calMonth + 1).padStart(2, '0')}`;
 const MONTH_START_DOW = new Date(calYear, calMonth, 1).getDay();
 const MONTH_DAYS = new Date(calYear, calMonth + 1, 0).getDate();
 const calendarCells = Array.from({ length: 35 }, (_, i) => {
@@ -116,7 +112,7 @@ export function Ch05Calendar() {
       {/* 달력 */}
       <div className="mb-5.5 bg-warm p-4.5">
         <div className="mb-3.5 flex items-center justify-between">
-          <span className="font-serif text-[1.375rem] text-fg italic">{CAL_MONTH_LABEL}</span>
+          <span className="font-serif text-3xl text-fg italic">{CAL_MONTH_LABEL}</span>
           <span className="text-2xs tracking-[0.2rem] text-gold">{WEDDING.timeText}</span>
         </div>
 

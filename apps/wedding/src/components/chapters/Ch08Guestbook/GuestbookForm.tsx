@@ -29,11 +29,11 @@ interface GuestbookFormProps {
   state: GuestbookFormState;
 }
 
-const REACTIONS = ['🥹', '🥂', '✨', '🫶', '📷', '🎉', '💍', '🌷'];
+const REACTIONS = ['🥹', '🥂', '✨', '🫶', '📷', '🎉', '💍', '🌷', '🕊️'];
 
 const SIDE_OPTIONS: [NonNullable<Side>, string][] = [
-  ['groom', '신랑측'],
-  ['bride', '신부측'],
+  ['groom', '🤵 신랑측'],
+  ['bride', '👰 신부측'],
 ];
 
 const inputClass =
@@ -78,13 +78,13 @@ export function GuestbookForm({ state }: GuestbookFormProps) {
       </div>
 
       <div className="mb-1.5 text-3xs tracking-[0.3rem] text-fg/55">어느 쪽으로 오세요? (선택)</div>
-      <div className="grid grid-cols-2 gap-1">
+      <div className="grid grid-cols-2 gap-2">
         {SIDE_OPTIONS.map(([k, l]) => (
           <TabButton
             key={k}
             active={side === k}
             onClick={() => setSide(side === k ? null : k)}
-            className="py-2 text-2xs tracking-[0.05rem]"
+            className="rounded-md py-2 text-xs tracking-[0.05rem]"
           >
             {l}
           </TabButton>

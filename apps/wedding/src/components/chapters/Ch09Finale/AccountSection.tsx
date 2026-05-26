@@ -1,14 +1,10 @@
 'use client';
 
+import { useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { Copy, Check } from 'lucide-react';
 import { WEDDING } from '@/data/wedding';
 import { useCopy } from '@/hooks/useCopy';
-import {
-  Accordion,
-  AccordionItem,
-  AccordionTrigger,
-  AccordionContent,
-} from '@repo/ui/components/accordion';
 
 type AccountSide = 'groom' | 'bride';
 
@@ -17,6 +13,7 @@ interface AccountSectionProps {
 }
 
 export function AccountSection({ side }: AccountSectionProps) {
+  const [isOpen, setIsOpen] = useState(false);
   const { copiedId, copy } = useCopy();
 
   const label = side === 'groom' ? '신랑측 계좌' : '신부측 계좌';
@@ -29,16 +26,29 @@ export function AccountSection({ side }: AccountSectionProps) {
   ];
 
   return (
-    <Accordion type="single" collapsible className="mb-1.5">
-      <AccordionItem value={side} className="border-0">
-        <AccordionTrigger className="flex w-full items-center justify-between rounded-none border border-fg/10 bg-warm px-4 py-3.5 text-fg hover:no-underline [&[data-state=open]>svg]:hidden">
-          <span className="text-xs tracking-[0.15rem]">{label}</span>
-          <span className="text-base text-gold transition-transform duration-300 data-[state=open]:rotate-45">
-            +
-          </span>
-        </AccordionTrigger>
-        <AccordionContent className="pb-0">
-          <div>
+    <div className="mb-3">
+      <button
+        onClick={() => setIsOpen((v) => !v)}
+        className="flex w-full cursor-pointer items-center justify-between border border-fg/10 bg-warm px-4 py-3.5 text-fg"
+      >
+        <span className="text-xs tracking-[0.15rem]">{label}</span>
+        <span
+          className="text-2xl leading-none text-gold transition-transform duration-300"
+          style={{ transform: isOpen ? 'rotate(45deg)' : 'rotate(0deg)' }}
+        >
+          +
+        </span>
+      </button>
+
+      <AnimatePresence initial={false}>
+        {isOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
+            className="overflow-hidden"
+          >
             {accounts.map((a) => (
               <div
                 key={a.number}
@@ -53,18 +63,15 @@ export function AccountSection({ side }: AccountSectionProps) {
                 </div>
                 <button
                   onClick={() => copy(a.number, `${a.bank} ${a.number} ${a.name}`)}
-                  className={`flex shrink-0 cursor-pointer items-center gap-1 border border-gold px-2.5 py-1.5 text-3xs tracking-[0.2rem] transition-all duration-200 ${
-                    copiedId === a.number ? 'bg-gold text-bg' : 'bg-transparent text-gold'
-                  }`}
+                  className="flex shrink-0 cursor-pointer items-center justify-center rounded-md border border-gold/30 p-1.5 text-gold transition-opacity duration-200 active:opacity-50"
                 >
-                  {copiedId === a.number ? <Check size={10} /> : <Copy size={10} />}
-                  <span>{copiedId === a.number ? '복사됨' : 'COPY'}</span>
+                  {copiedId === a.number ? <Check size={15} /> : <Copy size={15} />}
                 </button>
               </div>
             ))}
-          </div>
-        </AccordionContent>
-      </AccordionItem>
-    </Accordion>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   );
 }

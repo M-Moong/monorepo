@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { WEDDING } from '@/data/wedding';
 
 const NAVER_KEY = process.env.NEXT_PUBLIC_NAVER_MAP_KEY;
@@ -11,10 +11,17 @@ declare global {
     naver: {
       maps: {
         onJSContentLoaded: (() => void) | undefined;
-        Map: new (el: HTMLElement, opts: object) => object;
+        Map: new (
+          el: HTMLElement,
+          opts: object
+        ) => {
+          getBounds: () => { hasLatLng: (pos: object) => boolean };
+          setCenter: (pos: object) => void;
+          addListener: (event: string, cb: () => void) => void;
+        };
         LatLng: new (lat: number, lng: number) => object;
         Marker: new (opts: object) => object;
-        InfoWindow: new (opts: object) => { open: (map: object, anchor: object) => void };
+        Point: new (x: number, y: number) => object;
         Service: {
           geocode: (
             opts: { query: string },
@@ -157,6 +164,13 @@ function SVGFallback() {
 export function VenueMap() {
   const naverRef = useRef<HTMLDivElement>(null);
   const doneRef = useRef(false);
+  const mapRef = useRef<{
+    getBounds: () => { hasLatLng: (pos: object) => boolean };
+    setCenter: (pos: object) => void;
+    addListener: (event: string, cb: () => void) => void;
+  } | null>(null);
+  const positionRef = useRef<object | null>(null);
+  const [outOfView, setOutOfView] = useState(false);
 
   useEffect(() => {
     if (!NAVER_KEY) return;
@@ -171,13 +185,37 @@ export function VenueMap() {
         if (!addr) return;
 
         const position = new window.naver.maps.LatLng(parseFloat(addr.y), parseFloat(addr.x));
-        const map = new window.naver.maps.Map(naverRef.current!, { center: position, zoom: 17 });
-        const marker = new window.naver.maps.Marker({ position, map });
-        const infoWindow = new window.naver.maps.InfoWindow({
-          content:
-            '<div style="padding:5px 10px;font-size:12px;font-weight:700;white-space:nowrap;">더 바실리움</div>',
+        const map = new window.naver.maps.Map(naverRef.current!, {
+          center: position,
+          zoom: 17,
+        }) as {
+          getBounds: () => { hasLatLng: (pos: object) => boolean };
+          setCenter: (pos: object) => void;
+          addListener: (event: string, cb: () => void) => void;
+        };
+
+        positionRef.current = position;
+        mapRef.current = map;
+
+        new window.naver.maps.Marker({
+          position,
+          map,
+          icon: {
+            content: [
+              '<div style="display:flex;flex-direction:column;align-items:center;gap:0;">',
+              '  <div style="background:#e8c87c;color:#0a0a0a;font-size:13px;font-weight:700;letter-spacing:0.08em;padding:6px 12px;border-radius:3px;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,0.4);">더 바실리움 ❤️</div>',
+              '  <div style="width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-top:9px solid #e8c87c;"></div>',
+              '  <div style="width:10px;height:10px;background:#e8c87c;border-radius:50%;box-shadow:0 0 0 3px rgba(232,200,124,0.3);margin-top:-2px;"></div>',
+              '</div>',
+            ].join(''),
+            anchor: new window.naver.maps.Point(54, 50),
+          },
         });
-        infoWindow.open(map, marker);
+
+        map.addListener('bounds_changed', () => {
+          if (!positionRef.current) return;
+          setOutOfView(!map.getBounds().hasLatLng(positionRef.current));
+        });
       });
     };
 
@@ -186,7 +224,6 @@ export function VenueMap() {
     if (window.naver?.maps?.Service) {
       init();
     } else if (window.naver?.maps) {
-      // maps는 로드됐지만 Service 서브모듈 초기화 대기
       window.naver.maps.onJSContentLoaded = init;
     } else {
       const script = document.createElement('script');
@@ -202,11 +239,27 @@ export function VenueMap() {
     }
   }, []);
 
+  const handleGoToVenue = () => {
+    if (!mapRef.current || !positionRef.current) return;
+    mapRef.current.setCenter(positionRef.current);
+    setOutOfView(false);
+  };
+
   return (
     <div className="mb-3.5">
-      <div className="relative h-48 overflow-hidden border border-fg/10">
+      <div className="relative h-64 overflow-hidden border border-fg/10">
         {NAVER_KEY ? (
-          <div ref={naverRef} className="h-full w-full" />
+          <>
+            <div ref={naverRef} className="h-full w-full" />
+            {outOfView && (
+              <button
+                onClick={handleGoToVenue}
+                className="absolute bottom-4 left-1/2 -translate-x-1/2 cursor-pointer rounded-full bg-gold px-5 py-2 text-sm font-medium tracking-normal text-bg shadow-[0_4px_20px_rgba(232,200,124,0.35)] transition-opacity duration-200 active:opacity-70"
+              >
+                💒 식장으로 →
+              </button>
+            )}
+          </>
         ) : (
           <div className="absolute inset-0 bg-warm">
             <SVGFallback />
@@ -219,7 +272,7 @@ export function VenueMap() {
           href={WEDDING.venue.mapUrls.naver}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center justify-center gap-1.5 border border-fg/15 bg-transparent py-2.5 text-2xs tracking-[0.15rem] text-fg/70 transition-opacity duration-150 active:opacity-60"
+          className="flex items-center justify-center gap-1.5 border border-fg/15 bg-transparent py-3 text-xs tracking-[0.15rem] text-fg transition-opacity duration-150 active:opacity-60"
         >
           <Image src="/logo/navermap.webp" alt="네이버지도" width={14} height={14} />
           <span>네이버지도</span>
@@ -228,7 +281,7 @@ export function VenueMap() {
           href={WEDDING.venue.mapUrls.kakao}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center justify-center gap-1.5 border border-fg/15 bg-transparent py-2.5 text-2xs tracking-[0.15rem] text-fg/70 transition-opacity duration-150 active:opacity-60"
+          className="flex items-center justify-center gap-1.5 border border-fg/15 bg-transparent py-3 text-xs tracking-[0.15rem] text-fg transition-opacity duration-150 active:opacity-60"
         >
           <Image src="/logo/kakaomap.webp" alt="카카오맵" width={14} height={14} />
           <span>카카오맵</span>

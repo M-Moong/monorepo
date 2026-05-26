@@ -91,20 +91,17 @@ export default function InvitationPage() {
           <Ch09Finale />
         </div>
 
-        {chapter !== 7 && (
+        {/* {chapter !== 7 && (
           <button
             onClick={jumpToGuestbook}
             className="absolute right-5 bottom-5 z-60 animate-pulse-btn cursor-pointer border-0 bg-gold px-4 py-3 text-2xs font-bold tracking-[0.25rem] text-bg"
           >
             방명록 →
           </button>
-        )}
+        )} */}
       </div>
 
-      <GuestbookSheet
-        open={guestbookSheetOpen}
-        onClose={() => setGuestbookSheetOpen(false)}
-      />
+      <GuestbookSheet open={guestbookSheetOpen} onClose={() => setGuestbookSheetOpen(false)} />
     </div>
   );
 }
