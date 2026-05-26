@@ -97,7 +97,7 @@ export function Lightbox({ index, total, tones, photos, onClose, onJump }: Light
       </div>
 
       {/* 메인 이미지 + 이전/다음 버튼 */}
-      <div className="relative flex flex-1 items-center justify-center overflow-hidden px-5">
+      <div className="flex flex-1 flex-col items-center justify-center gap-3 overflow-hidden px-5">
         <AnimatePresence mode="wait">
           <motion.div
             key={displayIndex}
@@ -106,7 +106,7 @@ export function Lightbox({ index, total, tones, photos, onClose, onJump }: Light
             animate="center"
             exit="exit"
             transition={{ duration: 0.28, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="aspect-[3/4] max-h-[78%] max-w-[85%] overflow-hidden rounded-md"
+            className="aspect-[3/4] max-h-[72%] w-full max-w-[85%] overflow-hidden rounded-md"
             drag="x"
             dragConstraints={{ left: 0, right: 0 }}
             dragElastic={0.12}
@@ -137,27 +137,27 @@ export function Lightbox({ index, total, tones, photos, onClose, onJump }: Light
           </motion.div>
         </AnimatePresence>
 
-        {/* 이전 버튼 */}
-        <motion.button
-          onClick={() => goTo(index - 1)}
-          whileHover={{ scale: 1.1, x: -2 }}
-          whileTap={{ scale: 0.88 }}
-          transition={{ type: 'spring', stiffness: 400, damping: 20 }}
-          className="absolute left-2 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-fg/15 bg-bg/60 text-fg/70 backdrop-blur-sm transition-colors hover:border-fg/40 hover:text-fg"
-        >
-          <ChevronLeft size={18} strokeWidth={1.5} />
-        </motion.button>
-
-        {/* 다음 버튼 */}
-        <motion.button
-          onClick={() => goTo(index + 1)}
-          whileHover={{ scale: 1.1, x: 2 }}
-          whileTap={{ scale: 0.88 }}
-          transition={{ type: 'spring', stiffness: 400, damping: 20 }}
-          className="absolute right-2 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-fg/15 bg-bg/60 text-fg/70 backdrop-blur-sm transition-colors hover:border-fg/40 hover:text-fg"
-        >
-          <ChevronRight size={18} strokeWidth={1.5} />
-        </motion.button>
+        {/* 이전/다음 버튼 — 이미지 바로 아래 */}
+        <div className="flex w-full max-w-[85%] justify-between">
+          <motion.button
+            onClick={() => goTo(index - 1)}
+            whileHover={{ scale: 1.1, x: -2 }}
+            whileTap={{ scale: 0.88 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+            className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-fg/15 bg-bg/70 text-fg/80 backdrop-blur-sm transition-colors hover:border-fg/40 hover:text-fg"
+          >
+            <ChevronLeft size={22} strokeWidth={1.5} />
+          </motion.button>
+          <motion.button
+            onClick={() => goTo(index + 1)}
+            whileHover={{ scale: 1.1, x: 2 }}
+            whileTap={{ scale: 0.88 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+            className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-fg/15 bg-bg/70 text-fg/80 backdrop-blur-sm transition-colors hover:border-fg/40 hover:text-fg"
+          >
+            <ChevronRight size={22} strokeWidth={1.5} />
+          </motion.button>
+        </div>
       </div>
 
       {/* 카운터 */}
