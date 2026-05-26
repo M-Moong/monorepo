@@ -52,8 +52,34 @@ packages/
   typescript-config/
 ```
 
+## shadcn/ui
+
+컴포넌트는 `packages/ui`에서 관리하고, 각 앱에서 import해 사용합니다.
+
+**새 컴포넌트 추가** — shadcn CLI는 반드시 `packages/ui` 기준으로 실행:
+
+```bash
+pnpm dlx shadcn@latest add button --cwd packages/ui
+```
+
+**import 경로:**
+
+```tsx
+import { Button } from '@repo/ui/components/button';
+import { cn } from '@repo/ui/lib/utils';
+```
+
+**의존성 추가:**
+
+```bash
+pnpm add --filter @repo/ui @radix-ui/react-dialog
+```
+
+**주의사항:**
+- `packages/ui/src/components/` 내부에서 utils import 시 상대 경로 사용: `import { cn } from '../lib/utils'`
+- shadcn CSS 변수 기반 클래스(`bg-background`, `text-primary` 등)는 shadcn 컴포넌트 전용 — 앱 고유 토큰과 혼용 금지
+
 ## 상세 가이드
 
-@.claude/shadcn.md
 @apps/wedding/.claude/architecture.md
 @apps/wedding/.claude/WORK_GUIDE.md
