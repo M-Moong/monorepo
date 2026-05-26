@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X } from 'lucide-react';
+import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { PhotoFrame } from '@/components/ui/PhotoFrame';
 
 type Tone = 'warm' | 'cool' | 'sage' | 'paper' | 'mono' | 'blush' | 'sepia' | 'ink';
@@ -21,15 +21,18 @@ const THUMB_SIZE = 64;
 const THUMB_GAP = 8;
 const THUMB_UNIT = THUMB_SIZE + THUMB_GAP;
 
+const variants = {
+  enter: { scale: 1.05, opacity: 0 },
+  center: { scale: 1, opacity: 1 },
+  exit: { scale: 0.95, opacity: 0 },
+};
+
 export function Lightbox({ index, total, tones, photos, onClose, onJump }: LightboxProps) {
-  const [direction, setDirection] = useState(0);
   const [displayIndex, setDisplayIndex] = useState(index);
-  // 양 끝 썸네일도 중앙에 올 수 있도록 스트립 너비 기반 패딩
   const [sidePad, setSidePad] = useState(120);
   const stripRef = useRef<HTMLDivElement>(null);
   const isDragging = useRef(false);
 
-  // 라이트박스 열려있는 동안 뒤 배경 스크롤 방지
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     return () => {
@@ -37,23 +40,20 @@ export function Lightbox({ index, total, tones, photos, onClose, onJump }: Light
     };
   }, []);
 
-  // 마운트 시 스트립 너비 측정 → sidePad 설정
   useEffect(() => {
     const strip = stripRef.current;
     if (!strip) return;
     setSidePad(strip.clientWidth / 2 - THUMB_SIZE / 2);
   }, []);
 
-  // 활성 썸네일이 항상 스트립 중앙에 오도록 스크롤
   useEffect(() => {
     const strip = stripRef.current;
     if (!strip) return;
     strip.scrollTo({ left: index * THUMB_UNIT, behavior: 'smooth' });
   }, [index]);
 
-  function goTo(nextIndex: number, dir: number) {
+  function goTo(nextIndex: number) {
     const wrapped = ((nextIndex % total) + total) % total;
-    setDirection(dir);
     setDisplayIndex(wrapped);
     onJump(wrapped);
   }
@@ -61,8 +61,8 @@ export function Lightbox({ index, total, tones, photos, onClose, onJump }: Light
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
-      if (e.key === 'ArrowLeft') goTo(index - 1, -1);
-      if (e.key === 'ArrowRight') goTo(index + 1, 1);
+      if (e.key === 'ArrowLeft') goTo(index - 1);
+      if (e.key === 'ArrowRight') goTo(index + 1);
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
@@ -74,14 +74,14 @@ export function Lightbox({ index, total, tones, photos, onClose, onJump }: Light
     return src && !src.includes('placeholder');
   };
 
-  const variants = {
-    enter: (dir: number) => ({ scale: dir !== 0 ? 0.85 : 1, opacity: 0 }),
-    center: { scale: 1, opacity: 1 },
-    exit: { scale: 0.85, opacity: 0 },
-  };
-
   return createPortal(
-    <div className="fixed inset-0 z-[100] flex flex-col bg-bg/97">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3 }}
+      className="fixed inset-0 z-[100] flex flex-col bg-bg/[0.98]"
+    >
       {/* 상단 닫기 */}
       <div className="flex shrink-0 items-center justify-end px-5 pt-5">
         <motion.button
@@ -96,29 +96,28 @@ export function Lightbox({ index, total, tones, photos, onClose, onJump }: Light
         </motion.button>
       </div>
 
-      {/* 메인 이미지 */}
+      {/* 메인 이미지 + 이전/다음 버튼 */}
       <div className="relative flex flex-1 items-center justify-center overflow-hidden px-5">
-        <AnimatePresence mode="wait" custom={direction}>
+        <AnimatePresence mode="wait">
           <motion.div
             key={displayIndex}
-            custom={direction}
             variants={variants}
             initial="enter"
             animate="center"
             exit="exit"
-            transition={{ duration: 0.32, ease: [0.32, 0, 0.67, 0] }}
-            className="aspect-[3/4] max-h-[78%] max-w-[85%]"
+            transition={{ duration: 0.28, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="aspect-[3/4] max-h-[78%] max-w-[85%] overflow-hidden rounded-md"
             drag="x"
             dragConstraints={{ left: 0, right: 0 }}
-            dragElastic={0.15}
+            dragElastic={0.12}
             onDragStart={() => {
               isDragging.current = true;
             }}
             onDragEnd={(_, info) => {
               if (!isDragging.current) return;
               isDragging.current = false;
-              if (info.offset.x < -50) goTo(index + 1, 1);
-              else if (info.offset.x > 50) goTo(index - 1, -1);
+              if (info.offset.x < -50) goTo(index + 1);
+              else if (info.offset.x > 50) goTo(index - 1);
             }}
           >
             {hasRealPhoto(displayIndex) ? (
@@ -137,9 +136,31 @@ export function Lightbox({ index, total, tones, photos, onClose, onJump }: Light
             )}
           </motion.div>
         </AnimatePresence>
+
+        {/* 이전 버튼 */}
+        <motion.button
+          onClick={() => goTo(index - 1)}
+          whileHover={{ scale: 1.1, x: -2 }}
+          whileTap={{ scale: 0.88 }}
+          transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+          className="absolute left-2 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-fg/15 bg-bg/60 text-fg/70 backdrop-blur-sm transition-colors hover:border-fg/40 hover:text-fg"
+        >
+          <ChevronLeft size={18} strokeWidth={1.5} />
+        </motion.button>
+
+        {/* 다음 버튼 */}
+        <motion.button
+          onClick={() => goTo(index + 1)}
+          whileHover={{ scale: 1.1, x: 2 }}
+          whileTap={{ scale: 0.88 }}
+          transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+          className="absolute right-2 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-fg/15 bg-bg/60 text-fg/70 backdrop-blur-sm transition-colors hover:border-fg/40 hover:text-fg"
+        >
+          <ChevronRight size={18} strokeWidth={1.5} />
+        </motion.button>
       </div>
 
-      {/* 카운터 — 이미지 애니메이션과 분리하여 항상 고정 위치 */}
+      {/* 카운터 */}
       <div className="shrink-0 pb-2 text-center font-mono text-xs tracking-[0.2rem] text-fg/60">
         {String(index + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
       </div>
@@ -154,7 +175,7 @@ export function Lightbox({ index, total, tones, photos, onClose, onJump }: Light
           {tones.map((tone, i) => (
             <button
               key={i}
-              onClick={() => goTo(i, i > index ? 1 : -1)}
+              onClick={() => goTo(i)}
               className="relative shrink-0 cursor-pointer overflow-hidden transition-all duration-200"
               style={{
                 width: THUMB_SIZE,
@@ -179,7 +200,7 @@ export function Lightbox({ index, total, tones, photos, onClose, onJump }: Light
           ))}
         </div>
       </div>
-    </div>,
+    </motion.div>,
     document.body
   );
 }
