@@ -7,7 +7,7 @@ interface QuizIntroProps {
 export function QuizIntro({ onStart }: QuizIntroProps) {
   return (
     <div className="flex flex-col items-center gap-14 pt-10">
-      <span className="font-serif text-9xl leading-none text-gold/20">?</span>
+      <span className="font-serif text-9xl leading-none text-gold">?</span>
       <div className="flex flex-col items-center gap-4 text-center">
         <span className="font-serif text-2xl font-light text-fg italic">총 {QUIZ.length}문제</span>
         <p className="text-sm leading-relaxed text-fg/50">

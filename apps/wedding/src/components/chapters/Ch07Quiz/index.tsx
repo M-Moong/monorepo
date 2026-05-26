@@ -36,15 +36,15 @@ export function Ch07Quiz() {
   };
 
   return (
-    <ChapterSection chIndex={6}>
+    <ChapterSection chIndex={6} className={step === 'result' ? 'justify-start' : ''}>
       <ChHeader
         num={7}
-        label="KNOW US?"
+        label="QUIZ"
         title={
           <>
-            우리를
+            How well do
             <br />
-            얼마나 아세요?
+            you know us?
           </>
         }
       />
@@ -53,6 +53,7 @@ export function Ch07Quiz() {
 
       {step === 'playing' && QUIZ[currentQ] && (
         <QuizQuestion
+          key={currentQ}
           question={QUIZ[currentQ]!}
           index={currentQ}
           total={QUIZ.length}

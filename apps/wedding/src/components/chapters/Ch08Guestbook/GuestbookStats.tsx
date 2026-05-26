@@ -18,7 +18,7 @@ export function GuestbookStats({ total, groomCount, brideCount }: GuestbookStats
           key={label}
           className="flex flex-col items-center border-r border-fg/6 px-1 py-3 last:border-r-0"
         >
-          <span className="font-serif text-[1.625rem] leading-none text-gold italic tabular-nums">
+          <span className="font-serif text-4xl leading-none font-medium text-gold tabular-nums">
             {count}
           </span>
           <span className="mt-1 text-3xs tracking-[0.25rem] text-fg/55">{label}</span>
