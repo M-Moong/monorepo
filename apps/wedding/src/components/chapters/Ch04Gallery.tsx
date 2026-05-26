@@ -66,7 +66,7 @@ export function Ch04Gallery() {
         }
       />
 
-      <div className="relative">
+      <div className="relative overflow-hidden rounded-lg">
         <div
           ref={gridRef}
           onWheel={handleWheel}
