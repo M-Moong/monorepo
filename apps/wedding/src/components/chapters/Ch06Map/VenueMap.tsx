@@ -204,7 +204,7 @@ export function VenueMap() {
 
   return (
     <div className="mb-3.5">
-      <div className="relative h-48 overflow-hidden border border-fg/10">
+      <div className="relative h-64 overflow-hidden border border-fg/10">
         {NAVER_KEY ? (
           <div ref={naverRef} className="h-full w-full" />
         ) : (
@@ -219,7 +219,7 @@ export function VenueMap() {
           href={WEDDING.venue.mapUrls.naver}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center justify-center gap-1.5 border border-fg/15 bg-transparent py-2.5 text-2xs tracking-[0.15rem] text-fg/70 transition-opacity duration-150 active:opacity-60"
+          className="flex items-center justify-center gap-1.5 border border-fg/15 bg-transparent py-1.5 text-2xs tracking-[0.15rem] text-fg/70 transition-opacity duration-150 active:opacity-60"
         >
           <Image src="/logo/navermap.webp" alt="네이버지도" width={14} height={14} />
           <span>네이버지도</span>
@@ -228,7 +228,7 @@ export function VenueMap() {
           href={WEDDING.venue.mapUrls.kakao}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center justify-center gap-1.5 border border-fg/15 bg-transparent py-2.5 text-2xs tracking-[0.15rem] text-fg/70 transition-opacity duration-150 active:opacity-60"
+          className="flex items-center justify-center gap-1.5 border border-fg/15 bg-transparent py-1.5 text-2xs tracking-[0.15rem] text-fg/70 transition-opacity duration-150 active:opacity-60"
         >
           <Image src="/logo/kakaomap.webp" alt="카카오맵" width={14} height={14} />
           <span>카카오맵</span>

@@ -29,9 +29,11 @@ export function TransportTabs() {
         })}
       </div>
 
-      <div className="border-l-2 border-gold bg-warm p-3.5 text-xs leading-[1.7] whitespace-pre-line text-fg/85">
-        {dir.body}
-      </div>
+      <ul className="list-inside list-disc border-l-2 border-gold bg-warm p-3.5 text-xs leading-[1.7] text-fg/85">
+        {dir.body.split('\n').map((line, i) => (
+          <li key={i}>{line}</li>
+        ))}
+      </ul>
     </>
   );
 }
