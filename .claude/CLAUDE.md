@@ -55,3 +55,5 @@ packages/
 ## 상세 가이드
 
 @.claude/shadcn.md
+@apps/wedding/.claude/architecture.md
+@apps/wedding/.claude/WORK_GUIDE.md

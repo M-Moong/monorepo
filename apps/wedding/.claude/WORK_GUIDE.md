@@ -100,68 +100,7 @@ export function useBGM(enabled: boolean): void {
 
 ---
 
-## 5. 환경변수 설정
-
-파일: `apps/wedding/.env.local`
-
-```env
-# Supabase Transaction pooler (포트 6543) — Vercel 서버리스용
-WEDDING_DATABASE_URL="postgresql://postgres.[ref]:[pw]@aws-0-[region].pooler.supabase.com:6543/postgres?pgbouncer=true"
-
-# 배포 도메인
-NEXT_PUBLIC_SITE_URL="https://your-domain.vercel.app"
-
-# 카카오 JavaScript 앱키 (지도 + 카카오톡 공유)
-NEXT_PUBLIC_KAKAO_APP_KEY="your_kakao_javascript_key"
-```
-
----
-
-## 6. 카카오 앱 설정
-
-1. https://developers.kakao.com → **내 애플리케이션 → 앱 추가**
-2. **플랫폼 → Web → 사이트 도메인 추가:** `http://localhost:3000`, 배포 도메인
-3. **앱 키 → JavaScript 키** 복사 → `.env.local`의 `NEXT_PUBLIC_KAKAO_APP_KEY`에 입력
-4. **카카오 로그인 → 활성화 OFF**
-
-하나의 키로 **지도 미리보기 + 카카오톡 공유** 모두 활성화됩니다.
-
----
-
-## 7. Vercel 배포
-
-#### 1단계: Supabase DB 생성
-
-1. https://supabase.com → New Project
-2. **Settings → Database → Connection string** 에서 URL 복사
-
-#### 2단계: DB 마이그레이션 (최초 1회)
-
-```bash
-pnpm --filter wedding db:push
-```
-
-#### 3단계: Vercel 배포
-
-- **Root Directory:** `apps/wedding`
-- 환경변수:
-  - `WEDDING_DATABASE_URL`
-  - `NEXT_PUBLIC_SITE_URL`
-  - `NEXT_PUBLIC_KAKAO_APP_KEY`
-
----
-
-## 8. Daily Vibe 문구 교체
-
-파일: `apps/wedding/src/data/fortune.ts`
-
-```ts
-{ tag: '#해시태그', q: '카드에 표시될\n문구', a: '— 출처 또는 서브텍스트' }
-```
-
----
-
-## 9. 테마 변경
+## 5. 테마 변경
 
 파일: `apps/wedding/src/config/theme.config.ts`
 
@@ -170,17 +109,3 @@ export const ACTIVE_THEME = 'dark-gold'; // 'ivory-rose' | 'sage-linen'
 ```
 
 색상 정의: `apps/wedding/src/app/globals.css`의 `[data-theme='...']` 블록에서 수정.
-
----
-
-## 10. 체크리스트 (배포 전 최종 확인)
-
-- [ ] `wedding.ts` 이름/날짜/장소/계좌 실제 정보로 교체
-- [ ] `public/photos/01~09.png` 실제 사진으로 교체
-- [ ] `public/bgm.mp3` 음악 파일 추가 + `useBGM.ts` 코드 교체
-- [ ] `public/og-image.jpg`, `og-image-square.jpg` 제작 후 추가
-- [ ] 카카오 앱키 발급 + 도메인 등록
-- [ ] Supabase DB 생성 + `pnpm --filter wedding db:push` 실행
-- [ ] Vercel 환경변수 설정 후 배포
-- [ ] 배포 후 카카오톡 공유 테스트
-- [ ] 배포 후 방명록 작성 테스트
