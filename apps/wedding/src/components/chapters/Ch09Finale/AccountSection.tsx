@@ -63,7 +63,7 @@ export function AccountSection({ side }: AccountSectionProps) {
                 </div>
                 <button
                   onClick={() => copy(a.number, `${a.bank} ${a.number} ${a.name}`)}
-                  className="flex shrink-0 cursor-pointer items-center justify-center rounded-md border border-gold/30 p-1.5 text-gold transition-opacity duration-200 active:opacity-50"
+                  className="flex shrink-0 cursor-pointer items-center justify-center rounded-md border border-gold/10 p-1.5 text-gold transition-opacity duration-200 active:opacity-50"
                 >
                   {copiedId === a.number ? <Check size={15} /> : <Copy size={15} />}
                 </button>
