@@ -177,6 +177,7 @@ export function VenueMap() {
 
     const renderMap = () => {
       if (!naverRef.current || doneRef.current) return;
+      if (naverRef.current.offsetWidth === 0 || naverRef.current.offsetHeight === 0) return;
       doneRef.current = true;
 
       window.naver.maps.Service.geocode({ query: WEDDING.venue.address }, (status, response) => {
@@ -219,24 +220,39 @@ export function VenueMap() {
       });
     };
 
-    const init = () => requestAnimationFrame(() => requestAnimationFrame(renderMap));
+    const initWhenReady = () => {
+      if (window.naver?.maps?.Service) {
+        requestAnimationFrame(() => requestAnimationFrame(renderMap));
+      } else if (window.naver?.maps) {
+        window.naver.maps.onJSContentLoaded = () =>
+          requestAnimationFrame(() => requestAnimationFrame(renderMap));
+      } else {
+        const script = document.createElement('script');
+        script.src = `https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=${NAVER_KEY}&submodules=geocoder`;
+        script.onload = () => {
+          if (window.naver?.maps?.Service) {
+            requestAnimationFrame(() => requestAnimationFrame(renderMap));
+          } else {
+            window.naver.maps.onJSContentLoaded = () =>
+              requestAnimationFrame(() => requestAnimationFrame(renderMap));
+          }
+        };
+        document.head.appendChild(script);
+      }
+    };
 
-    if (window.naver?.maps?.Service) {
-      init();
-    } else if (window.naver?.maps) {
-      window.naver.maps.onJSContentLoaded = init;
-    } else {
-      const script = document.createElement('script');
-      script.src = `https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=${NAVER_KEY}&submodules=geocoder`;
-      script.onload = () => {
-        if (window.naver?.maps?.Service) {
-          init();
-        } else {
-          window.naver.maps.onJSContentLoaded = init;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
+          observer.disconnect();
+          initWhenReady();
         }
-      };
-      document.head.appendChild(script);
-    }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (naverRef.current) observer.observe(naverRef.current);
+    return () => observer.disconnect();
   }, []);
 
   const handleGoToVenue = () => {
