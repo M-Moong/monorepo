@@ -1,6 +1,8 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { toast } from 'sonner';
 import { BookOpen, PenLine } from 'lucide-react';
 import type { GuestbookPage } from '@/types/guestbook';
 import { ChapterSection } from '@/components/ui/ChapterSection';
@@ -19,7 +21,11 @@ interface Ch08GuestbookProps {
 }
 
 export function Ch08Guestbook({ onOpenSheet }: Ch08GuestbookProps) {
-  const [data, setData] = useState<GuestbookPage | null>(null);
+  const queryClient = useQueryClient();
+  const { data, isLoading } = useQuery({
+    queryKey: ['guestbook', 1],
+    queryFn: () => fetchPage(1),
+  });
 
   const [name, setName] = useState('');
   const [msg, setMsg] = useState('');
@@ -29,12 +35,6 @@ export function Ch08Guestbook({ onOpenSheet }: Ch08GuestbookProps) {
   const [error, setError] = useState<string | null>(null);
 
   const canSubmit = name.trim().length > 0 && msg.trim().length > 0 && !submitting;
-
-  useEffect(() => {
-    fetchPage(1)
-      .then(setData)
-      .catch(() => {});
-  }, []);
 
   const total = data?.total ?? 0;
   const groomCount = data?.groomCount ?? 0;
@@ -58,11 +58,8 @@ export function Ch08Guestbook({ onOpenSheet }: Ch08GuestbookProps) {
       setMsg('');
       setReaction(null);
       setSide(null);
-      try {
-        setData(await fetchPage(1));
-      } catch {
-        /* 목록 갱신 실패 시 무시 */
-      }
+      queryClient.invalidateQueries({ queryKey: ['guestbook'] });
+      toast('소중한 마음 감사해요 🤍');
     } catch (err) {
       setError(err instanceof Error ? err.message : '저장에 실패했어요.');
     } finally {
@@ -83,7 +80,12 @@ export function Ch08Guestbook({ onOpenSheet }: Ch08GuestbookProps) {
         }
       />
 
-      <GuestbookStats total={total} groomCount={groomCount} brideCount={brideCount} />
+      <GuestbookStats
+        total={total}
+        groomCount={groomCount}
+        brideCount={brideCount}
+        loading={isLoading}
+      />
 
       <GuestbookForm
         state={{ name, msg, reaction, side, setName, setMsg, setReaction, setSide, error }}
@@ -95,7 +97,7 @@ export function Ch08Guestbook({ onOpenSheet }: Ch08GuestbookProps) {
           className="flex cursor-pointer items-center justify-center gap-2 border border-fg/40 bg-transparent py-3 text-xs tracking-[0.2rem] text-fg/80 transition-colors hover:border-gold/60 hover:text-gold"
         >
           <BookOpen size={14} />
-          <span>방명록 목록 ({total})</span>
+          <span>방명록 목록</span>
         </button>
 
         <button

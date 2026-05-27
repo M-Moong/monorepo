@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import { Cormorant_Garamond, Space_Grotesk } from 'next/font/google';
 import Script from 'next/script';
 import { Toaster } from '@repo/ui/components/sonner';
+import { Providers } from './providers';
 import './globals.css';
 import { ACTIVE_THEME } from '@/config/theme.config';
 import { WEDDING } from '@/data/wedding';
@@ -521,9 +522,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className={`${cormorant.variable} ${spaceGrotesk.variable}`}>
-        {children}
+        <Providers>{children}</Providers>
         <Toaster position="bottom-center" />
-
         {/*
          * Kakao JavaScript SDK
          * CH09 공유 버튼에서 카카오톡 공유 기능에 사용

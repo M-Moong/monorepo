@@ -37,7 +37,14 @@ export function Ch09Finale() {
 
       <ShareButtons />
 
-      <div className="pb-10" />
+      <div className="mt-12 flex flex-col items-center gap-1.5 text-center">
+        <span className="mt-2 font-serif text-[1.375rem] text-gold italic">
+          {WEDDING.groom.initial} &amp; {WEDDING.bride.initial}
+        </span>
+        <span className="pb-10 text-3xs tracking-[0.3rem] text-fg/40">
+          WITH LOVE · {WEDDING.dateShort}
+        </span>
+      </div>
     </ChapterSection>
   );
 }

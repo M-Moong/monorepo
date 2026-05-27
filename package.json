@@ -21,6 +21,7 @@
     "node": ">=18"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.100.14",
     "drizzle-orm": "^0.45.2"
   }
 }

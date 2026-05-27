@@ -1,6 +1,8 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { Loader2 } from 'lucide-react';
 import { Drawer } from 'vaul';
 import type { GuestbookPage } from '@/types/guestbook';
 import { GuestbookEntry } from './GuestbookEntry';
@@ -18,35 +20,32 @@ interface GuestbookSheetProps {
 }
 
 export function GuestbookSheet({ open, onClose }: GuestbookSheetProps) {
-  const [data, setData] = useState<GuestbookPage | null>(null);
-  const [loading, setLoading] = useState(false);
+  const queryClient = useQueryClient();
+  const [currentPage, setCurrentPage] = useState(1);
   const [visible, setVisible] = useState(true);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (!open) return;
-    setLoading(true);
-    fetchPage(1)
-      .then(setData)
-      .catch(() => {})
-      .finally(() => setLoading(false));
-  }, [open]);
+  const prevOpen = useRef(false);
+  if (open && !prevOpen.current) {
+    setCurrentPage(1);
+  }
+  prevOpen.current = open;
+
+  const { data, isLoading } = useQuery({
+    queryKey: ['guestbook', currentPage],
+    queryFn: () => fetchPage(currentPage),
+    enabled: open,
+  });
 
   const goToPage = async (page: number) => {
-    // 1. fade-out
     setVisible(false);
     await new Promise((r) => setTimeout(r, 200));
-
-    // 2. 데이터 교체
-    try {
-      const next = await fetchPage(page);
-      setData(next);
-      scrollRef.current?.scrollTo({ top: 0 });
-    } catch {
-      /* 실패 시 기존 데이터 유지 */
-    }
-
-    // 3. fade-in
+    await queryClient.prefetchQuery({
+      queryKey: ['guestbook', page],
+      queryFn: () => fetchPage(page),
+    });
+    setCurrentPage(page);
+    scrollRef.current?.scrollTo({ top: 0 });
     setVisible(true);
   };
 
@@ -74,9 +73,9 @@ export function GuestbookSheet({ open, onClose }: GuestbookSheetProps) {
 
           {/* 리스트 */}
           <div ref={scrollRef} className="flex-1 overflow-y-auto px-5.5">
-            {loading ? (
-              <div className="flex items-center justify-center py-12 text-2xs tracking-[0.2rem] text-fg/40">
-                <span>불러오는 중…</span>
+            {isLoading ? (
+              <div className="flex items-center justify-center py-12">
+                <Loader2 size={20} className="animate-spin text-fg/30" />
               </div>
             ) : entries.length === 0 ? (
               <div className="flex items-center justify-center py-12 text-2xs tracking-[0.2rem] text-fg/40">

@@ -29,7 +29,7 @@ interface GuestbookFormProps {
   state: GuestbookFormState;
 }
 
-const REACTIONS = ['🥹', '🥂', '✨', '🫶', '📷', '🎉', '💍', '🌷', '🕊️'];
+const REACTIONS = ['🥹', '🥂', '✨', '🫶', '📷', '🎉', '💍', '🌷'];
 
 const SIDE_OPTIONS: [NonNullable<Side>, string][] = [
   ['groom', '🤵 신랑측'],
@@ -62,7 +62,7 @@ export function GuestbookForm({ state }: GuestbookFormProps) {
       />
 
       <div className="mb-1.5 text-3xs tracking-[0.3rem] text-fg/55">이모지 (선택)</div>
-      <div className="mb-3 flex flex-wrap gap-1.5">
+      <div className="mb-3 flex flex-wrap justify-around gap-1.5">
         {REACTIONS.map((r) => (
           <button
             key={r}
