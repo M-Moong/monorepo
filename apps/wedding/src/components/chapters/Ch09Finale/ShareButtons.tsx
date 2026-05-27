@@ -57,7 +57,7 @@ export function ShareButtons() {
   ];
 
   return (
-    <div className="mt-7">
+    <div className="mt-3">
       <div className="mb-3 text-3xs tracking-[0.4rem] text-gold">· SHARE ·</div>
       <div className="grid grid-cols-3 gap-1.5">
         {SHARE_ACTIONS.map((s) => (

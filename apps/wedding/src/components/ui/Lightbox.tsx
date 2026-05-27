@@ -80,7 +80,7 @@ export function Lightbox({ index, total, tones, photos, onClose, onJump }: Light
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.3 }}
-      className="fixed inset-0 z-[100] flex flex-col bg-bg/[0.98]"
+      className="fixed inset-0 z-100 flex flex-col bg-bg/98"
     >
       {/* 상단 닫기 */}
       <div className="flex shrink-0 items-center justify-end px-5 pt-5">
@@ -106,7 +106,7 @@ export function Lightbox({ index, total, tones, photos, onClose, onJump }: Light
             animate="center"
             exit="exit"
             transition={{ duration: 0.28, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="aspect-[3/4] max-h-[72%] w-full max-w-[85%] overflow-hidden rounded-md"
+            className="aspect-3/4 max-h-[72%] w-full max-w-[85%] overflow-hidden rounded-md"
             drag="x"
             dragConstraints={{ left: 0, right: 0 }}
             dragElastic={0.12}
