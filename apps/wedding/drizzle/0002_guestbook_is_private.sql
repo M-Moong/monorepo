@@ -1,0 +1,1 @@
+ALTER TABLE "guestbook" ADD COLUMN "isPrivate" boolean NOT NULL DEFAULT false;

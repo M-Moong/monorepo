@@ -11,6 +11,7 @@ export interface GuestbookFormData {
   message: string;
   reaction: string | null;
   side: Side;
+  isPrivate: boolean;
 }
 
 export interface GuestbookFormState {
@@ -18,10 +19,12 @@ export interface GuestbookFormState {
   msg: string;
   reaction: string | null;
   side: Side;
+  isPrivate: boolean;
   setName: (v: string) => void;
   setMsg: (v: string) => void;
   setReaction: (v: string | null) => void;
   setSide: (v: Side) => void;
+  setIsPrivate: (v: boolean) => void;
   error: string | null;
 }
 
@@ -40,7 +43,19 @@ const inputClass =
   'w-full rounded-md border-0 bg-fg/5 px-3 py-3 text-2sm text-fg shadow-none outline-none ring-0 placeholder:text-fg/30 focus-visible:ring-0';
 
 export function GuestbookForm({ state }: GuestbookFormProps) {
-  const { name, msg, reaction, side, setName, setMsg, setReaction, setSide, error } = state;
+  const {
+    name,
+    msg,
+    reaction,
+    side,
+    isPrivate,
+    setName,
+    setMsg,
+    setReaction,
+    setSide,
+    setIsPrivate,
+    error,
+  } = state;
 
   return (
     <div className="mb-3 border border-fg/10 bg-warm p-3.5">
@@ -90,6 +105,18 @@ export function GuestbookForm({ state }: GuestbookFormProps) {
           </TabButton>
         ))}
       </div>
+
+      <button
+        onClick={() => setIsPrivate(!isPrivate)}
+        className={`mt-2 flex w-full cursor-pointer items-center justify-center gap-1.5 rounded-md border py-2 text-2xs tracking-[0.1rem] transition-all duration-150 ${
+          isPrivate
+            ? 'border-gold/60 bg-gold/10 text-gold'
+            : 'border-fg/10 bg-transparent text-fg/40'
+        }`}
+      >
+        <span>{isPrivate ? '🔒' : '🔓'}</span>
+        <span>{isPrivate ? '비밀글로 남기기' : '모두에게 공개'}</span>
+      </button>
 
       {error && <p className="mt-2 text-2xs text-red-400">{error}</p>}
     </div>

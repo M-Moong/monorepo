@@ -4,7 +4,7 @@ export interface GuestEntry {
   message: string;
   reaction: string;
   side: string; // "groom" | "bride" | "guest"
-  attend: string | null; // "yes" | "maybe" | "no" | null
+  isPrivate: boolean;
   createdAt: string; // ISO 8601
 }
 
