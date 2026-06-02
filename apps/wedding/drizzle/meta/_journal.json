@@ -22,6 +22,13 @@
       "when": 1748822400000,
       "tag": "0002_guestbook_is_private",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1748822401000,
+      "tag": "0003_guestbook_likes",
+      "breakpoints": true
     }
   ]
 }

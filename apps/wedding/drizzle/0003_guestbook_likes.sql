@@ -1,0 +1,1 @@
+ALTER TABLE "guestbook" ADD COLUMN "likes" integer NOT NULL DEFAULT 0;
