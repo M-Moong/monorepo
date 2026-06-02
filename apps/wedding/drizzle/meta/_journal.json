@@ -15,6 +15,13 @@
       "when": 1779321981724,
       "tag": "0001_yielding_master_chief",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1748822400000,
+      "tag": "0002_guestbook_is_private",
+      "breakpoints": true
     }
   ]
 }

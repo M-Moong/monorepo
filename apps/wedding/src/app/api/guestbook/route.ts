@@ -24,12 +24,23 @@ export async function GET(req: Request) {
       db.select({ value: count() }).from(guestEntries).where(eq(guestEntries.side, 'bride')),
     ]);
 
+    const maskedEntries = entries.map((e) =>
+      e.isPrivate ? { ...e, message: '🔒 비밀글입니다.' } : e
+    );
+
     const total = totalRows[0]?.value ?? 0;
     const groomCount = groomRows[0]?.value ?? 0;
     const brideCount = brideRows[0]?.value ?? 0;
     const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
 
-    return NextResponse.json({ entries, total, groomCount, brideCount, totalPages, page });
+    return NextResponse.json({
+      entries: maskedEntries,
+      total,
+      groomCount,
+      brideCount,
+      totalPages,
+      page,
+    });
   } catch {
     return NextResponse.json({ error: 'DB 조회 실패' }, { status: 500 });
   }
@@ -38,7 +49,7 @@ export async function GET(req: Request) {
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { name, message, reaction, side } = body;
+    const { name, message, reaction, side, isPrivate } = body;
 
     if (!name?.trim() || !message?.trim()) {
       return NextResponse.json({ error: '이름과 메시지는 필수입니다.' }, { status: 400 });
@@ -53,6 +64,7 @@ export async function POST(req: Request) {
         message: message.trim().slice(0, 300),
         reaction: reaction ?? '🫶',
         side: validSides.includes(side) ? side : 'guest',
+        isPrivate: isPrivate === true,
       })
       .returning();
 

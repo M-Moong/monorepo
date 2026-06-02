@@ -31,6 +31,7 @@ export function Ch08Guestbook({ onOpenSheet }: Ch08GuestbookProps) {
   const [msg, setMsg] = useState('');
   const [reaction, setReaction] = useState<string | null>(null);
   const [side, setSide] = useState<Side>(null);
+  const [isPrivate, setIsPrivate] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -48,7 +49,7 @@ export function Ch08Guestbook({ onOpenSheet }: Ch08GuestbookProps) {
       const res = await fetch('/api/guestbook', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, message: msg, reaction, side }),
+        body: JSON.stringify({ name, message: msg, reaction, side, isPrivate }),
       });
       if (!res.ok) {
         const d = await res.json();
@@ -58,6 +59,7 @@ export function Ch08Guestbook({ onOpenSheet }: Ch08GuestbookProps) {
       setMsg('');
       setReaction(null);
       setSide(null);
+      setIsPrivate(false);
       queryClient.invalidateQueries({ queryKey: ['guestbook'] });
       toast('소중한 마음 감사해요 🤍');
     } catch (err) {
@@ -88,7 +90,19 @@ export function Ch08Guestbook({ onOpenSheet }: Ch08GuestbookProps) {
       />
 
       <GuestbookForm
-        state={{ name, msg, reaction, side, setName, setMsg, setReaction, setSide, error }}
+        state={{
+          name,
+          msg,
+          reaction,
+          side,
+          isPrivate,
+          setName,
+          setMsg,
+          setReaction,
+          setSide,
+          setIsPrivate,
+          error,
+        }}
       />
 
       <div className="grid grid-cols-2 gap-2">
