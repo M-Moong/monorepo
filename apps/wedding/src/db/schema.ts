@@ -1,4 +1,4 @@
-import { pgTable, text, timestamp, boolean } from 'drizzle-orm/pg-core';
+import { pgTable, text, timestamp, boolean, integer } from 'drizzle-orm/pg-core';
 
 export const guestEntries = pgTable('guestbook', {
   id: text('id').primaryKey(),
@@ -7,6 +7,7 @@ export const guestEntries = pgTable('guestbook', {
   reaction: text('reaction').notNull().default('🫶'),
   side: text('side').notNull().default('guest'),
   isPrivate: boolean('isPrivate').notNull().default(false),
+  likes: integer('likes').notNull().default(0),
   createdAt: timestamp('createdAt', { mode: 'date' }).notNull().defaultNow(),
 });
 

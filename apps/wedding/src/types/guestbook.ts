@@ -5,6 +5,7 @@ export interface GuestEntry {
   reaction: string;
   side: string; // "groom" | "bride" | "guest"
   isPrivate: boolean;
+  likes: number;
   createdAt: string; // ISO 8601
 }
 

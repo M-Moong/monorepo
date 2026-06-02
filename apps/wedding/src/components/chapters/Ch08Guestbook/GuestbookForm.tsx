@@ -61,20 +61,36 @@ export function GuestbookForm({ state }: GuestbookFormProps) {
     <div className="mb-3 border border-fg/10 bg-warm p-3.5">
       <div className="mb-2.5 text-3xs tracking-[0.3rem] text-gold">· LEAVE A NOTE ·</div>
 
-      <Input
-        className={inputClass}
-        placeholder="이름 또는 닉네임"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
+      <div className="relative">
+        <Input
+          className={inputClass}
+          placeholder="이름 또는 닉네임"
+          value={name}
+          maxLength={20}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <span
+          className={`absolute right-2 bottom-2 text-3xs tabular-nums ${name.length >= 20 ? 'text-red-400' : 'text-fg/30'}`}
+        >
+          {name.length} / 20
+        </span>
+      </div>
 
-      <Textarea
-        className={`${inputClass} mt-1.5 mb-3 resize-none pt-3`}
-        placeholder="짧고 따뜻한 한마디를 남겨주세요"
-        value={msg}
-        rows={2}
-        onChange={(e) => setMsg(e.target.value)}
-      />
+      <div className="relative mt-1.5 mb-3">
+        <Textarea
+          className={`${inputClass} resize-none pt-3 pb-5`}
+          placeholder="짧고 따뜻한 한마디를 남겨주세요"
+          value={msg}
+          rows={2}
+          maxLength={300}
+          onChange={(e) => setMsg(e.target.value)}
+        />
+        <span
+          className={`absolute right-2 bottom-2 text-3xs tabular-nums ${msg.length >= 300 ? 'text-red-400' : 'text-fg/30'}`}
+        >
+          {msg.length} / 300
+        </span>
+      </div>
 
       <div className="mb-1.5 text-3xs tracking-[0.3rem] text-fg/55">이모지 (선택)</div>
       <div className="mb-3 flex flex-wrap justify-around gap-1.5">
