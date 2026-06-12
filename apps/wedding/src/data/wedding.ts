@@ -104,15 +104,18 @@ export const WEDDING = {
   },
 
   photos: [
-    '/photos/01.png',
-    '/photos/02.png',
-    '/photos/03.png',
-    '/photos/04.png',
-    '/photos/05.png',
-    '/photos/06.png',
-    '/photos/07.png',
-    '/photos/08.png',
-    '/photos/09.png',
+    '/photos/01.webp',
+    '/photos/02.webp',
+    '/photos/03.webp',
+    '/photos/04.webp',
+    '/photos/05.webp',
+    '/photos/06.webp',
+    '/photos/07.webp',
+    '/photos/08.webp',
+    '/photos/09.webp',
+    '/photos/10.webp',
+    '/photos/11.webp',
+    '/photos/12.webp',
   ],
 } as const;
 

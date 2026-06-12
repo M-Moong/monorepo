@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { PhotoFrame } from '@/components/ui/PhotoFrame';
@@ -73,6 +74,7 @@ export function Lightbox({ index, total, tones, photos, onClose, onJump }: Light
     const src = photos[gridIndex(i)];
     return src && !src.includes('placeholder');
   };
+  const displaySrc = photos[gridIndex(displayIndex)];
 
   return createPortal(
     <motion.div
@@ -97,48 +99,52 @@ export function Lightbox({ index, total, tones, photos, onClose, onJump }: Light
       </div>
 
       {/* 메인 이미지 + 이전/다음 버튼 */}
-      <div className="flex flex-1 flex-col items-center justify-center gap-3 overflow-hidden px-5">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={displayIndex}
-            variants={variants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={{ duration: 0.28, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="aspect-3/4 max-h-[72%] w-full max-w-[85%] overflow-hidden rounded-md"
-            drag="x"
-            dragConstraints={{ left: 0, right: 0 }}
-            dragElastic={0.12}
-            onDragStart={() => {
-              isDragging.current = true;
-            }}
-            onDragEnd={(_, info) => {
-              if (!isDragging.current) return;
-              isDragging.current = false;
-              if (info.offset.x < -50) goTo(index + 1);
-              else if (info.offset.x > 50) goTo(index - 1);
-            }}
-          >
-            {hasRealPhoto(displayIndex) ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={photos[gridIndex(displayIndex)]}
-                alt={`photo ${displayIndex + 1}`}
-                className="h-full w-full object-cover"
-                draggable={false}
-              />
-            ) : (
-              <PhotoFrame
-                label={String(displayIndex + 1).padStart(2, '0')}
-                tone={tones[displayIndex]}
-              />
-            )}
-          </motion.div>
-        </AnimatePresence>
+      <div className="flex min-h-0 flex-1 flex-col items-center gap-3 overflow-hidden px-5">
+        <div className="relative min-h-0 w-full max-w-[85%] flex-1">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={displayIndex}
+              variants={variants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ duration: 0.28, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="absolute inset-0 overflow-hidden rounded-md"
+              drag="x"
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0.12}
+              onDragStart={() => {
+                isDragging.current = true;
+              }}
+              onDragEnd={(_, info) => {
+                if (!isDragging.current) return;
+                isDragging.current = false;
+                if (info.offset.x < -50) goTo(index + 1);
+                else if (info.offset.x > 50) goTo(index - 1);
+              }}
+            >
+              {hasRealPhoto(displayIndex) && displaySrc ? (
+                <Image
+                  src={displaySrc}
+                  alt={`photo ${displayIndex + 1}`}
+                  fill
+                  sizes="85vw"
+                  className="object-contain"
+                  draggable={false}
+                  unoptimized
+                />
+              ) : (
+                <PhotoFrame
+                  label={String(displayIndex + 1).padStart(2, '0')}
+                  tone={tones[displayIndex]}
+                />
+              )}
+            </motion.div>
+          </AnimatePresence>
+        </div>
 
-        {/* 이전/다음 버튼 — 이미지 바로 아래 */}
-        <div className="flex w-full max-w-[85%] justify-between">
+        {/* 이전/다음 버튼 */}
+        <div className="flex w-full max-w-[85%] shrink-0 justify-between">
           <motion.button
             onClick={() => goTo(index - 1)}
             whileHover={{ scale: 1.1, x: -2 }}
@@ -186,12 +192,14 @@ export function Lightbox({ index, total, tones, photos, onClose, onJump }: Light
               }}
             >
               {hasRealPhoto(i) ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={photos[gridIndex(i)]}
+                <Image
+                  src={photos[gridIndex(i)]!}
                   alt={`thumb ${i + 1}`}
-                  className="h-full w-full object-cover"
+                  fill
+                  sizes={`${THUMB_SIZE}px`}
+                  className="object-cover"
                   draggable={false}
+                  unoptimized
                 />
               ) : (
                 <PhotoFrame tone={tone} />
