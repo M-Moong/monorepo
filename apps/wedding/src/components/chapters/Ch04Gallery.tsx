@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { ChapterSection } from '@/components/ui/ChapterSection';
-import { ChHeader } from '@/components/ui/ChHeader';
 import { Lightbox } from '@/components/ui/Lightbox';
 import { WEDDING } from '@/data/wedding';
 
@@ -27,9 +26,7 @@ export function Ch04Gallery() {
   const total = WEDDING.photos.length;
 
   return (
-    <ChapterSection chIndex={3} autoHeight>
-      <ChHeader num={4} label="GALLERY" title="Frames of us." />
-
+    <ChapterSection chIndex={3} label="GALLERY" title="Scenes of us.">
       <div className="grid grid-cols-3 gap-1 overflow-hidden rounded-lg">
         {WEDDING.photos.map((photo, i) => (
           <button

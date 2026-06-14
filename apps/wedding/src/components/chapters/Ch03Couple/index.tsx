@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { ChapterSection } from '@/components/ui/ChapterSection';
-import { ChHeader } from '@/components/ui/ChHeader';
 import { CoupleCard, CoupleCardData } from './CoupleCard';
 import { WEDDING } from '@/data/wedding';
 
@@ -29,19 +28,17 @@ export function Ch03Couple() {
   const [openSet, setOpenSet] = useState<Set<number>>(new Set());
 
   return (
-    <ChapterSection chIndex={2}>
-      <ChHeader
-        num={3}
-        label="THE COUPLE"
-        title={
-          <>
-            Two
-            <br />
-            people.
-          </>
-        }
-      />
-
+    <ChapterSection
+      chIndex={2}
+      label="THE COUPLE"
+      title={
+        <>
+          Two
+          <br />
+          people.
+        </>
+      }
+    >
       <div className="flex flex-col gap-3.5">
         {CARDS.map((card, i) => (
           <CoupleCard

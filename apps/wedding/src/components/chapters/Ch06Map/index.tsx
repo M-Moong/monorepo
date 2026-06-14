@@ -2,7 +2,6 @@
 
 import { Copy, Check } from 'lucide-react';
 import { ChapterSection } from '@/components/ui/ChapterSection';
-import { ChHeader } from '@/components/ui/ChHeader';
 import { VenueMap } from './VenueMap';
 import { TransportTabs } from './TransportTabs';
 import { WEDDING } from '@/data/wedding';
@@ -25,19 +24,17 @@ function CopyAddressButton() {
 
 export function Ch06Map() {
   return (
-    <ChapterSection chIndex={5} scrollable>
-      <ChHeader
-        num={6}
-        label="WHERE"
-        title={
-          <>
-            Find
-            <br />
-            the place.
-          </>
-        }
-      />
-
+    <ChapterSection
+      chIndex={5}
+      label="WHERE"
+      title={
+        <>
+          Find
+          <br />
+          the place.
+        </>
+      }
+    >
       <VenueMap />
 
       <div className="mb-2 flex items-center justify-between border-b border-fg/15 py-1">

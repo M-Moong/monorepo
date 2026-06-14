@@ -1,9 +1,8 @@
 'use client';
 
-import { useState } from 'react';
 import { ChapterSection } from '@/components/ui/ChapterSection';
-import { ChHeader } from '@/components/ui/ChHeader';
 import { useCountdown } from '@/hooks/useCountdown';
+import { useCopy } from '@/hooks/useCopy';
 import { WEDDING } from '@/data/wedding';
 
 const DAYS_HEADER = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
@@ -18,97 +17,37 @@ const calendarCells = Array.from({ length: 35 }, (_, i) => {
   return d >= 1 && d <= MONTH_DAYS ? d : null;
 });
 
-// ── 캘린더 유틸 ────────────────────────────────────────────────────────────────
-
-function buildIcs(): string {
-  const loc = `${WEDDING.venue.name}\\, ${WEDDING.venue.address}`;
-  return [
-    'BEGIN:VCALENDAR',
-    'VERSION:2.0',
-    'PRODID:-//MnS Wedding//KO',
-    'CALSCALE:GREGORIAN',
-    'METHOD:PUBLISH',
-    'BEGIN:VEVENT',
-    `DTSTART:${WEDDING.utcStart}`,
-    `DTEND:${WEDDING.utcEnd}`,
-    `SUMMARY:${WEDDING.groom.name} & ${WEDDING.bride.name} 결혼식`,
-    `DESCRIPTION:${WEDDING.groom.name} & ${WEDDING.bride.name}의 결혼을 축하해 주세요.`,
-    `LOCATION:${loc}`,
-    `UID:mns-${WEDDING.utcStart.slice(0, 8)}@wedding`,
-    'STATUS:CONFIRMED',
-    'END:VEVENT',
-    'END:VCALENDAR',
-  ].join('\r\n');
-}
-
-const GOOGLE_CALENDAR_URL = (() => {
-  const p = new URLSearchParams({
-    action: 'TEMPLATE',
-    text: `${WEDDING.groom.name} & ${WEDDING.bride.name} 결혼식`,
-    dates: `${WEDDING.utcStart}/${WEDDING.utcEnd}`,
-    details: `${WEDDING.groom.name} & ${WEDDING.bride.name}의 결혼을 축하해 주세요.\n\n${WEDDING.venue.name}\n${WEDDING.venue.address}`,
-    location: `${WEDDING.venue.name}, ${WEDDING.venue.address}`,
-  });
-  return `https://calendar.google.com/calendar/r/eventedit?${p}`;
-})();
-
-function downloadIcsFile() {
-  const blob = new Blob([buildIcs()], { type: 'text/calendar;charset=utf-8' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'mns-wedding-2026.ics';
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-}
+const weddingTimeParts = new Intl.DateTimeFormat('ko-KR', {
+  timeZone: 'Asia/Seoul',
+  hour: 'numeric',
+  minute: 'numeric',
+  hour12: true,
+}).formatToParts(WEDDING.date);
+const period = weddingTimeParts.find(({ type }) => type === 'dayPeriod')?.value;
+const hour = weddingTimeParts.find(({ type }) => type === 'hour')?.value;
+const minute = weddingTimeParts.find(({ type }) => type === 'minute')?.value;
+const COPY_TEXT = `${WEDDING.groom.name} · ${WEDDING.bride.name} 결혼식
+${period} ${hour}시 ${minute}분
+${WEDDING.venue.name}`;
 
 // ── 컴포넌트 ───────────────────────────────────────────────────────────────────
 
 export function Ch05Calendar() {
   const cd = useCountdown(WEDDING.date);
-  const [showPicker, setShowPicker] = useState(false);
-
-  const addToCalendar = async () => {
-    const file = new File([buildIcs()], 'mns-wedding-2026.ics', {
-      type: 'text/calendar',
-    });
-
-    // Web Share API — iOS 15+ / Android Chrome 86+ 에서 네이티브 공유 시트 표시
-    // 사용자가 "캘린더에 추가"를 선택하면 OS가 직접 처리
-    if (
-      typeof navigator.share === 'function' &&
-      typeof navigator.canShare === 'function' &&
-      navigator.canShare({ files: [file] })
-    ) {
-      try {
-        await navigator.share({ files: [file] });
-        return;
-      } catch (err) {
-        // AbortError = 사용자가 직접 닫음 → 피커 불필요
-        if (err instanceof Error && err.name === 'AbortError') return;
-      }
-    }
-
-    // 폴백: 앱 선택 피커
-    setShowPicker(true);
-  };
+  const { copiedId, copy } = useCopy();
 
   return (
-    <ChapterSection chIndex={4}>
-      <ChHeader
-        num={5}
-        label="WHEN"
-        title={
-          <>
-            The
-            <br />
-            day.
-          </>
-        }
-      />
-
+    <ChapterSection
+      chIndex={4}
+      label="WHEN"
+      title={
+        <>
+          The
+          <br />
+          day.
+        </>
+      }
+    >
       {/* 달력 */}
       <div className="mb-5.5 bg-warm p-4.5">
         <div className="mb-3.5 flex items-center justify-between">
@@ -175,57 +114,11 @@ export function Ch05Calendar() {
       </div>
 
       <button
-        onClick={addToCalendar}
+        onClick={() => copy('wedding-info', COPY_TEXT)}
         className="mt-4.5 flex w-full cursor-pointer items-center justify-center border border-gold bg-transparent py-3.5 text-2xs tracking-[0.25rem] text-gold transition-opacity duration-150 active:opacity-70"
       >
-        <span>+ ADD TO CALENDAR</span>
+        <span>{copiedId === 'wedding-info' ? '복사됨' : '시간 · 장소 복사'}</span>
       </button>
-
-      {/* 캘린더 앱 선택 피커 (Web Share 미지원 환경 폴백) */}
-      {showPicker && (
-        <div
-          className="fixed inset-0 z-50 flex items-end justify-center bg-black/70 backdrop-blur-sm"
-          onClick={() => setShowPicker(false)}
-        >
-          <div
-            className="mb-6 w-full max-w-[390px] border border-fg/15 bg-bg"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex items-center justify-center px-4 py-3 text-3xs tracking-[0.35rem] text-fg/40">
-              <span>· 캘린더 앱 선택 ·</span>
-            </div>
-
-            <a
-              href={GOOGLE_CALENDAR_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => setShowPicker(false)}
-              className="flex w-full cursor-pointer items-center justify-between border-t border-fg/8 px-5 py-4.5 text-2sm text-fg"
-            >
-              <span>구글 캘린더</span>
-              <span className="text-2xs tracking-[0.2rem] text-gold">→</span>
-            </a>
-
-            <button
-              onClick={() => {
-                downloadIcsFile();
-                setShowPicker(false);
-              }}
-              className="flex w-full cursor-pointer items-center justify-between border-t border-fg/8 bg-transparent px-5 py-4.5 text-2sm text-fg"
-            >
-              <span>애플 캘린더 · 기타 (.ics)</span>
-              <span className="text-2xs tracking-[0.2rem] text-gold">↓</span>
-            </button>
-
-            <button
-              onClick={() => setShowPicker(false)}
-              className="flex w-full cursor-pointer items-center justify-center border-t border-fg/8 bg-transparent py-4 text-2xs tracking-[0.2rem] text-fg/40"
-            >
-              <span>닫기</span>
-            </button>
-          </div>
-        </div>
-      )}
     </ChapterSection>
   );
 }

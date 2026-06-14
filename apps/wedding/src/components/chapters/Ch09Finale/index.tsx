@@ -1,24 +1,21 @@
 import { ChapterSection } from '@/components/ui/ChapterSection';
-import { ChHeader } from '@/components/ui/ChHeader';
 import { AccountSection } from './AccountSection';
 import { ShareButtons } from './ShareButtons';
 import { WEDDING } from '@/data/wedding';
 
 export function Ch09Finale() {
   return (
-    <ChapterSection chIndex={8} scrollable className="pt-16 pb-6">
-      <ChHeader
-        num={9}
-        label="END SCENE"
-        title={
-          <>
-            See you
-            <br />
-            there.
-          </>
-        }
-      />
-
+    <ChapterSection
+      chIndex={8}
+      label="END SCENE"
+      title={
+        <>
+          See you
+          <br />
+          there.
+        </>
+      }
+    >
       <div className="mb-6 flex flex-col items-center border-y border-fg/20 py-5 text-center">
         <span className="font-serif text-[2rem] font-light text-fg italic tabular-nums">
           {WEDDING.dateShort}
@@ -37,7 +34,7 @@ export function Ch09Finale() {
 
       <ShareButtons />
 
-      <div className="mt-auto flex flex-col items-center gap-1.5 text-center">
+      <div className="flex flex-col items-center gap-1.5 text-center">
         <span className="mt-2 font-serif text-[1.375rem] text-gold italic">
           {WEDDING.groom.initial} &amp; {WEDDING.bride.initial}
         </span>

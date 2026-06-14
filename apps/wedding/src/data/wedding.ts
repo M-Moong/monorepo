@@ -14,7 +14,7 @@ const dEnd = d.add(3, 'hour');
 
 export const WEDDING = {
   date: d.toDate(),
-  dateText: d.format('YYYY년 M월 D일 dddd A h시'),
+  dateText: d.format('YYYY년 M월 D일\ndddd A h시'),
   dateShort: d.format('YYYY · MM · DD'),
   dateDot: d.format('YYYY.MM.DD'),
   timeText: d.format('ddd HH:mm').toUpperCase(),
@@ -27,8 +27,8 @@ export const WEDDING = {
     name: '신승민',
     en: 'Seung min',
     initial: 'SM',
-    tagline: '느린 걸음, 깊은 마음',
-    facts: ['개발자 · 1995', '커피 두 잔이 일상', '서연의 첫 청자, 마지막 청자'],
+    tagline: '나는 말로안해.',
+    facts: ['개발자 · 1995', 'ENTP', '하루에 커피 꼭 2잔 먹음'],
     account: { bank: '신한', number: '110-123-456789' },
     father: {
       name: '신우근',

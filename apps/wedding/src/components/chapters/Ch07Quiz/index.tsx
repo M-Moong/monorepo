@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { ChapterSection } from '@/components/ui/ChapterSection';
-import { ChHeader } from '@/components/ui/ChHeader';
 import { QuizIntro } from './QuizIntro';
 import { QuizQuestion } from './QuizQuestion';
 import { QuizResult } from './QuizResult';
@@ -36,19 +35,17 @@ export function Ch07Quiz() {
   };
 
   return (
-    <ChapterSection chIndex={6} className={step === 'result' ? 'justify-start' : ''}>
-      <ChHeader
-        num={7}
-        label="QUIZ"
-        title={
-          <>
-            How well do
-            <br />
-            you know us?
-          </>
-        }
-      />
-
+    <ChapterSection
+      chIndex={6}
+      label="QUIZ"
+      title={
+        <>
+          How well do
+          <br />
+          you know us?
+        </>
+      }
+    >
       {step === 'intro' && <QuizIntro onStart={handleStart} />}
 
       {step === 'playing' && QUIZ[currentQ] && (

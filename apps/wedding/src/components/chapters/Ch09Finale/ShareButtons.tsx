@@ -50,7 +50,7 @@ export function ShareButtons() {
     {
       key: 'link',
       label: 'LINK',
-      sub: linkCopied ? '복사됨' : '링크 복사',
+      sub: linkCopied ? '복사됨' : '주소 복사',
       onClick: shareLink,
     },
     { key: 'sms', label: 'SMS', sub: '문자', onClick: shareSms },

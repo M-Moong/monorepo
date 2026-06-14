@@ -1,25 +1,22 @@
 import { ChapterSection } from '@/components/ui/ChapterSection';
-import { ChHeader } from '@/components/ui/ChHeader';
 import { WEDDING } from '@/data/wedding';
 
 export function Ch02Invite() {
   return (
-    <ChapterSection chIndex={1}>
-      <ChHeader
-        num={2}
-        label="INVITATION"
-        title={
-          <>
-            Will you
-            <br />
-            join us?
-          </>
-        }
-      />
-
+    <ChapterSection
+      chIndex={1}
+      label="INVITATION"
+      title={
+        <>
+          Will you
+          <br />
+          join us?
+        </>
+      }
+    >
       <div className="my-3.5 border-t border-fg/20" />
 
-      <p className="mb-6.5 font-serif text-[1.0625rem] leading-[1.85] whitespace-pre-line text-fg italic">
+      <p className="mb-6.5 text-center font-serif text-[1.0625rem] leading-7 whitespace-pre-line text-fg italic">
         {WEDDING.inviteLines.map((line, i, arr) => (
           <span key={i}>
             {'highlight' in line ? <span className="text-gold">{line.text}</span> : line.text}
@@ -36,7 +33,7 @@ export function Ch02Invite() {
             {WEDDING.groom.father.name} · {WEDDING.groom.mother.name}
           </span>
           <span className="mt-1 font-serif text-lg text-fg italic">
-            의 아들 <span className="text-gold">{WEDDING.groom.name.slice(1)}</span>
+            아들 <span className="text-gold">{WEDDING.groom.name.slice(1)}</span>
           </span>
         </div>
 
@@ -50,7 +47,7 @@ export function Ch02Invite() {
             {WEDDING.bride.father.name} · {WEDDING.bride.mother.name}
           </span>
           <span className="mt-1 font-serif text-lg text-fg italic">
-            의 딸 <span className="text-gold">{WEDDING.bride.name.slice(1)}</span>
+            딸 <span className="text-gold">{WEDDING.bride.name.slice(1)}</span>
           </span>
         </div>
       </div>

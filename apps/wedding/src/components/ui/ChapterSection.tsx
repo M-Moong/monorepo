@@ -3,27 +3,31 @@ import { ReactNode } from 'react';
 interface ChapterSectionProps {
   chIndex: number;
   children: ReactNode;
+  label?: string;
+  title?: ReactNode;
   className?: string;
-  /** 콘텐츠가 뷰포트보다 길어질 수 있는 챕터 — min-h-dvh로 늘어남 */
-  autoHeight?: boolean;
-  /** 콘텐츠가 화면을 넘을 수 있는 챕터 — autoHeight와 동일하게 min-h-dvh로 처리 */
-  scrollable?: boolean;
 }
 
 export function ChapterSection({
   chIndex,
   children,
+  label,
+  title,
   className = '',
-  autoHeight = false,
-  scrollable = false,
 }: ChapterSectionProps) {
-  const sizeClass = autoHeight || scrollable ? 'min-h-dvh w-full' : 'h-dvh w-full';
-
   return (
     <section
       data-ch={chIndex}
-      className={`relative box-border flex snap-start flex-col justify-center px-5 py-16 ${sizeClass} ${className}`}
+      className={`relative box-border flex min-h-dvh w-full snap-start flex-col justify-center px-5 py-16 ${className}`}
     >
+      {label && title && (
+        <header>
+          <div className="mb-3.5 text-3xs tracking-[0.4rem] text-gold">{label}</div>
+          <div className="mb-5.5 font-serif text-[2.75rem] leading-[0.98] font-light text-fg italic">
+            {title}
+          </div>
+        </header>
+      )}
       {children}
     </section>
   );

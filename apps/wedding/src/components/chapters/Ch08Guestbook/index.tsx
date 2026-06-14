@@ -6,7 +6,6 @@ import { toast } from 'sonner';
 import { BookOpen, PenLine } from 'lucide-react';
 import type { GuestbookPage } from '@/types/guestbook';
 import { ChapterSection } from '@/components/ui/ChapterSection';
-import { ChHeader } from '@/components/ui/ChHeader';
 import { GuestbookStats } from './GuestbookStats';
 import { GuestbookForm, Side } from './GuestbookForm';
 
@@ -70,18 +69,16 @@ export function Ch08Guestbook({ onOpenSheet }: Ch08GuestbookProps) {
   };
 
   return (
-    <ChapterSection chIndex={7} scrollable className="py-10">
-      <ChHeader
-        num={8}
-        label="GUESTBOOK"
-        title={
-          <>
-            Leave
-            <br />a note.
-          </>
-        }
-      />
-
+    <ChapterSection
+      chIndex={7}
+      label="GUESTBOOK"
+      title={
+        <>
+          Leave
+          <br />a note.
+        </>
+      }
+    >
       <GuestbookStats
         total={total}
         groomCount={groomCount}
