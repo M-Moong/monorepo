@@ -1,5 +1,6 @@
 'use client';
 
+import { Counter } from '@repo/ui/reactbits/counter';
 import { ChapterSection } from '@/components/ui/ChapterSection';
 import { useCountdown } from '@/hooks/useCountdown';
 import { useCopy } from '@/hooks/useCopy';
@@ -105,9 +106,11 @@ export function Ch05Calendar() {
             key={label}
             className="flex flex-col items-center border border-fg/8 bg-warm px-1.5 py-3.5"
           >
-            <span className="font-serif text-[1.75rem] leading-none text-gold italic tabular-nums">
-              {String(val).padStart(2, '0')}
-            </span>
+            <Counter
+              value={val}
+              places={[10, 1]}
+              className="font-serif text-3xl text-gold italic"
+            />
             <span className="mt-1.5 text-3xs tracking-[0.25rem] text-fg/50">{label}</span>
           </div>
         ))}

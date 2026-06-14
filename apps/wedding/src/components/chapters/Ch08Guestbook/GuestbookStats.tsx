@@ -1,3 +1,5 @@
+import { Counter } from '@repo/ui/reactbits/counter';
+
 interface GuestbookStatsProps {
   total: number;
   groomCount: number;
@@ -22,9 +24,7 @@ export function GuestbookStats({ total, groomCount, brideCount, loading }: Guest
           {loading ? (
             <div className="h-9 w-8 animate-pulse rounded bg-fg/10" />
           ) : (
-            <span className="font-serif text-4xl leading-none font-medium text-gold tabular-nums">
-              {count}
-            </span>
+            <Counter value={count} className="font-serif text-4xl font-medium text-gold" />
           )}
           <span className="mt-1 text-3xs tracking-[0.25rem] text-fg/55">{label}</span>
         </div>

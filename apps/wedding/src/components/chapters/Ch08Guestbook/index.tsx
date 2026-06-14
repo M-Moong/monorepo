@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import { BookOpen, PenLine } from 'lucide-react';
@@ -29,16 +29,34 @@ export function Ch08Guestbook({ onOpenSheet }: Ch08GuestbookProps) {
   const [name, setName] = useState('');
   const [msg, setMsg] = useState('');
   const [reaction, setReaction] = useState<string | null>(null);
-  const [side, setSide] = useState<Side>(null);
+  const [side, setSide] = useState<Side>('guest');
   const [isPrivate, setIsPrivate] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showRequiredHint, setShowRequiredHint] = useState(false);
+  const requiredHintTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const canSubmit = name.trim().length > 0 && msg.trim().length > 0 && !submitting;
+  const hasRequiredFields = name.trim().length > 0 && msg.trim().length > 0;
+  const canSubmit = hasRequiredFields && !submitting;
 
   const total = data?.total ?? 0;
   const groomCount = data?.groomCount ?? 0;
   const brideCount = data?.brideCount ?? 0;
+
+  useEffect(() => {
+    setShowRequiredHint(false);
+    if (requiredHintTimer.current) {
+      clearTimeout(requiredHintTimer.current);
+      requiredHintTimer.current = null;
+    }
+  }, [name, msg]);
+
+  useEffect(
+    () => () => {
+      if (requiredHintTimer.current) clearTimeout(requiredHintTimer.current);
+    },
+    []
+  );
 
   const handleSubmit = async () => {
     if (!canSubmit) return;
@@ -57,7 +75,7 @@ export function Ch08Guestbook({ onOpenSheet }: Ch08GuestbookProps) {
       setName('');
       setMsg('');
       setReaction(null);
-      setSide(null);
+      setSide('guest');
       setIsPrivate(false);
       queryClient.invalidateQueries({ queryKey: ['guestbook'] });
       toast('소중한 마음 감사해요 🤍');
@@ -66,6 +84,20 @@ export function Ch08Guestbook({ onOpenSheet }: Ch08GuestbookProps) {
     } finally {
       setSubmitting(false);
     }
+  };
+
+  const handleSubmitClick = () => {
+    if (submitting) return;
+    if (!hasRequiredFields) {
+      setShowRequiredHint(true);
+      if (requiredHintTimer.current) clearTimeout(requiredHintTimer.current);
+      requiredHintTimer.current = setTimeout(() => {
+        setShowRequiredHint(false);
+        requiredHintTimer.current = null;
+      }, 2000);
+      return;
+    }
+    handleSubmit();
   };
 
   return (
@@ -111,18 +143,28 @@ export function Ch08Guestbook({ onOpenSheet }: Ch08GuestbookProps) {
           <span>방명록 목록</span>
         </button>
 
-        <button
-          onClick={handleSubmit}
-          disabled={!canSubmit}
-          className={`flex items-center justify-center gap-2 border-0 py-3 text-xs font-bold tracking-[0.2rem] transition-all duration-150 ${
-            canSubmit
-              ? 'cursor-pointer bg-gold text-bg'
-              : 'cursor-not-allowed bg-gold/30 text-fg/50'
-          }`}
-        >
-          {!submitting && <PenLine size={14} />}
-          <span>{submitting ? '저장 중…' : '방명록 작성'}</span>
-        </button>
+        <div className="relative">
+          {showRequiredHint && (
+            <div
+              role="status"
+              className="absolute right-0 bottom-full mb-2 rounded-md bg-fg px-3 py-2 text-2xs tracking-normal whitespace-nowrap text-bg shadow-md"
+            >
+              내용을 입력해주세요.
+            </div>
+          )}
+          <button
+            onClick={handleSubmitClick}
+            aria-disabled={!canSubmit}
+            className={`flex h-full w-full items-center justify-center gap-2 border-0 py-3 text-xs font-bold tracking-[0.2rem] transition-all duration-150 ${
+              canSubmit
+                ? 'cursor-pointer bg-gold text-bg'
+                : 'cursor-not-allowed bg-gold/30 text-fg/50'
+            }`}
+          >
+            {!submitting && <PenLine size={14} />}
+            <span>{submitting ? '저장 중…' : '방명록 작성'}</span>
+          </button>
+        </div>
       </div>
     </ChapterSection>
   );

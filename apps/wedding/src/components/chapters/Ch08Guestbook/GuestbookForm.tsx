@@ -4,7 +4,7 @@ import { Input } from '@repo/ui/components/input';
 import { Textarea } from '@repo/ui/components/textarea';
 import { TabButton } from '@/components/ui/TabButton';
 
-export type Side = 'groom' | 'bride' | null;
+export type Side = 'guest' | 'groom' | 'bride';
 
 export interface GuestbookFormData {
   name: string;
@@ -34,9 +34,10 @@ interface GuestbookFormProps {
 
 const REACTIONS = ['🥹', '🥂', '✨', '🫶', '📷', '🎉', '💍', '🌷'];
 
-const SIDE_OPTIONS: [NonNullable<Side>, string][] = [
-  ['groom', '🤵 신랑측'],
-  ['bride', '👰 신부측'],
+const SIDE_OPTIONS: [Side, string][] = [
+  ['guest', '💑 함께'],
+  ['groom', '🤵 신랑'],
+  ['bride', '👰 신부'],
 ];
 
 const inputClass =
@@ -64,7 +65,7 @@ export function GuestbookForm({ state }: GuestbookFormProps) {
       <div className="relative">
         <Input
           className={inputClass}
-          placeholder="이름 또는 닉네임"
+          placeholder="이름 or 닉네임"
           value={name}
           maxLength={20}
           onChange={(e) => setName(e.target.value)}
@@ -81,7 +82,7 @@ export function GuestbookForm({ state }: GuestbookFormProps) {
           className={`${inputClass} resize-none pt-3 pb-5`}
           placeholder="짧고 따뜻한 한마디를 남겨주세요"
           value={msg}
-          rows={2}
+          rows={3}
           maxLength={300}
           onChange={(e) => setMsg(e.target.value)}
         />
@@ -92,47 +93,63 @@ export function GuestbookForm({ state }: GuestbookFormProps) {
         </span>
       </div>
 
-      <div className="mb-1.5 text-3xs tracking-[0.3rem] text-fg/55">이모지 (선택)</div>
-      <div className="mb-3 flex flex-wrap justify-around gap-1.5">
-        {REACTIONS.map((r) => (
-          <button
-            key={r}
-            onClick={() => setReaction(reaction === r ? null : r)}
-            aria-label={`이모지 ${r} 선택`}
-            className={`h-9 w-9 cursor-pointer rounded-lg border p-0 text-lg transition-all duration-150 ${
-              reaction === r ? 'border-gold bg-gold/18' : 'border-transparent bg-fg/5'
-            }`}
-          >
-            {r}
-          </button>
-        ))}
-      </div>
-
-      <div className="mb-1.5 text-3xs tracking-[0.3rem] text-fg/55">어느 쪽으로 오세요? (선택)</div>
-      <div className="grid grid-cols-2 gap-2">
+      <div className="mb-1.5 text-3xs tracking-[0.3rem] text-fg/55">누구에게 쓸까요?</div>
+      <div className="grid grid-cols-3 gap-1.5">
         {SIDE_OPTIONS.map(([k, l]) => (
           <TabButton
             key={k}
             active={side === k}
-            onClick={() => setSide(side === k ? null : k)}
-            className="rounded-md py-2 text-xs tracking-[0.05rem]"
+            onClick={() => setSide(k)}
+            className="rounded-md py-3 text-sm tracking-normal"
+            variant="outline"
           >
             {l}
           </TabButton>
         ))}
       </div>
 
-      <button
-        onClick={() => setIsPrivate(!isPrivate)}
-        className={`mt-2 flex w-full cursor-pointer items-center justify-center gap-1.5 rounded-md border py-2 text-2xs tracking-[0.1rem] transition-all duration-150 ${
-          isPrivate
-            ? 'border-gold/60 bg-gold/10 text-gold'
-            : 'border-fg/10 bg-transparent text-fg/40'
-        }`}
-      >
-        <span>{isPrivate ? '🔒' : '🔓'}</span>
-        <span>{isPrivate ? '비밀글로 남기기' : '모두에게 공개'}</span>
-      </button>
+      <div className="mt-3 flex items-center gap-1.5">
+        <span className="shrink-0 text-3xs tracking-[0.2rem] text-fg/55">이모지</span>
+        <div className="flex flex-1 items-center justify-between">
+          {REACTIONS.map((r) => (
+            <button
+              key={r}
+              onClick={() => setReaction(reaction === r ? null : r)}
+              aria-label={`이모지 ${r} 선택`}
+              className={`flex cursor-pointer items-center justify-center rounded-md border p-2 text-base leading-none transition-all duration-150 ${
+                reaction === r ? 'border-gold bg-gold/10' : 'border-fg/15 bg-transparent opacity-60'
+              }`}
+            >
+              {r}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="mt-3">
+        <div className="flex items-center gap-1.5">
+          <span className="mr-auto shrink-0 text-3xs tracking-[0.2rem] text-fg/55">공개 범위</span>
+          <TabButton
+            active={!isPrivate}
+            onClick={() => setIsPrivate(false)}
+            className="rounded-md px-2.5 py-1.5 tracking-normal"
+            variant="outline"
+          >
+            🌐 모두 공개
+          </TabButton>
+          <TabButton
+            active={isPrivate}
+            onClick={() => setIsPrivate(true)}
+            className="rounded-md px-2.5 py-1.5 tracking-normal"
+            variant="outline"
+          >
+            💌 비밀 공개
+          </TabButton>
+        </div>
+        <p className="mt-1.5 text-right text-3xs text-fg/35">
+          비밀 공개 글은 신랑·신부만 확인할 수 있어요.
+        </p>
+      </div>
 
       {error && <p className="mt-2 text-2xs text-red-400">{error}</p>}
     </div>

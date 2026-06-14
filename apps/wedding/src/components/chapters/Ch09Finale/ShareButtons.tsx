@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { Link, Check } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { WEDDING } from '@/data/wedding';
 import { useCopy } from '@/hooks/useCopy';
 
@@ -61,25 +62,42 @@ export function ShareButtons() {
       <div className="mb-3 text-3xs tracking-[0.4rem] text-gold">· SHARE ·</div>
       <div className="grid grid-cols-3 gap-1.5">
         {SHARE_ACTIONS.map((s) => (
-          <button
+          <motion.button
             key={s.key}
+            type="button"
             onClick={s.onClick}
-            className={`flex cursor-pointer flex-col items-center rounded-md border bg-transparent py-3.5 transition-all duration-200 ${
-              s.key === 'link' && linkCopied ? 'border-gold' : 'border-fg/10'
+            whileTap={{ scale: 0.97 }}
+            className={`flex cursor-pointer flex-col items-center rounded-md border py-3.5 transition-colors duration-200 ${
+              s.key === 'link' && linkCopied
+                ? 'border-gold bg-gold/5'
+                : 'border-fg/10 bg-transparent'
             }`}
           >
             <span className="mb-1 flex h-4 items-center justify-center">
               {s.key === 'kakao' && (
                 <Image src="/logo/kakaotalk.svg" alt="kakao" width={16} height={16} />
               )}
-              {s.key === 'link' && <LinkIcon size={13} className="text-gold" />}
+              {s.key === 'link' && (
+                <AnimatePresence mode="wait" initial={false}>
+                  <motion.span
+                    key={linkCopied ? 'check' : 'link'}
+                    initial={{ scale: 0.85, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    exit={{ scale: 0.85, opacity: 0 }}
+                    transition={{ duration: 0.18 }}
+                    className="inline-flex"
+                  >
+                    <LinkIcon size={13} className="text-gold" />
+                  </motion.span>
+                </AnimatePresence>
+              )}
               {s.key === 'sms' && (
                 <Image src="/logo/imessage.webp" alt="sms" width={16} height={16} />
               )}
             </span>
             <span className="text-xs tracking-[0.25rem] text-gold">{s.label}</span>
             <span className="mt-1 text-2xs text-fg/50">{s.sub}</span>
-          </button>
+          </motion.button>
         ))}
       </div>
     </div>

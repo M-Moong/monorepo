@@ -25,7 +25,7 @@ export function QuizResult({ answers, onRetry }: QuizResultProps) {
   };
 
   return (
-    <div className="flex flex-1 flex-col gap-4 overflow-hidden">
+    <div className="flex flex-1 flex-col gap-4">
       {/* 점수 */}
       <div className="flex flex-col items-center gap-2.5 py-2">
         <span className="font-serif text-4xl leading-none tracking-[0.15rem] text-gold">
@@ -35,13 +35,10 @@ export function QuizResult({ answers, onRetry }: QuizResultProps) {
           <span className="mb-1 font-serif text-xl font-light text-fg italic">{tier.title}</span>
           <span className="text-xs leading-[1.6] text-fg/60">{tier.desc}</span>
         </div>
-        <span className="text-3xs tracking-[0.3rem] text-fg/40">
-          {score} / {QUIZ.length} 정답
-        </span>
       </div>
 
-      {/* 문제별 결과 — flex-1로 남은 공간 채우고 내부 스크롤 */}
-      <div className="flex-1 overflow-y-auto overscroll-contain">
+      {/* 문제별 결과 */}
+      <div className="flex-1">
         <div className="space-y-1.5">
           {QUIZ.map((q, i) => {
             const correct = answers[i] === q.answerIndex;

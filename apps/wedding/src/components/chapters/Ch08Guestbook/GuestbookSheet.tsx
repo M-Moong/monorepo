@@ -72,7 +72,7 @@ export function GuestbookSheet({ open, onClose }: GuestbookSheetProps) {
           </div>
 
           {/* 리스트 */}
-          <div ref={scrollRef} className="flex-1 overflow-y-auto px-5.5">
+          <div ref={scrollRef} className="relative flex-1 overflow-y-auto px-5.5">
             {isLoading ? (
               <div className="flex items-center justify-center py-12">
                 <Loader2 size={20} className="animate-spin text-fg/30" />
@@ -89,6 +89,11 @@ export function GuestbookSheet({ open, onClose }: GuestbookSheetProps) {
                 {entries.map((entry) => (
                   <GuestbookEntry key={entry.id} entry={entry} />
                 ))}
+              </div>
+            )}
+            {!visible && (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <Loader2 className="size-5 animate-spin text-fg/30" />
               </div>
             )}
           </div>

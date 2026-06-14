@@ -1,9 +1,14 @@
+'use client';
+
+import { useState } from 'react';
 import { ChapterSection } from '@/components/ui/ChapterSection';
 import { AccountSection } from './AccountSection';
 import { ShareButtons } from './ShareButtons';
 import { WEDDING } from '@/data/wedding';
 
 export function Ch09Finale() {
+  const [openAccount, setOpenAccount] = useState<'groom' | 'bride'>('groom');
+
   return (
     <ChapterSection
       chIndex={8}
@@ -29,8 +34,16 @@ export function Ch09Finale() {
         <span>· ACCOUNTS ·</span>
       </div>
 
-      <AccountSection side="groom" />
-      <AccountSection side="bride" />
+      <AccountSection
+        side="groom"
+        isOpen={openAccount === 'groom'}
+        onToggle={() => setOpenAccount('groom')}
+      />
+      <AccountSection
+        side="bride"
+        isOpen={openAccount === 'bride'}
+        onToggle={() => setOpenAccount('bride')}
+      />
 
       <ShareButtons />
 

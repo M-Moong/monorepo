@@ -16,7 +16,7 @@ export function Ch02Invite() {
     >
       <div className="my-3.5 border-t border-fg/20" />
 
-      <p className="mb-6.5 text-center font-serif text-[1.0625rem] leading-7 whitespace-pre-line text-fg italic">
+      <p className="mb-6.5 text-center font-serif text-lg leading-7 whitespace-pre-line text-fg italic">
         {WEDDING.inviteLines.map((line, i, arr) => (
           <span key={i}>
             {'highlight' in line ? <span className="text-gold">{line.text}</span> : line.text}
@@ -38,7 +38,7 @@ export function Ch02Invite() {
         </div>
 
         {/* & */}
-        <span className="font-serif text-[1.75rem] text-gold italic">&amp;</span>
+        <span className="font-serif text-3xl text-gold italic">&amp;</span>
 
         {/* 신부측 */}
         <div className="flex flex-col items-start text-left">
