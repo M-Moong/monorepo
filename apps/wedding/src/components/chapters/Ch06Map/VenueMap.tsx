@@ -167,6 +167,7 @@ export function VenueMap() {
   const mapRef = useRef<{
     getBounds: () => { hasLatLng: (pos: object) => boolean };
     setCenter: (pos: object) => void;
+    setZoom: (zoom: number) => void;
     addListener: (event: string, cb: () => void) => void;
   } | null>(null);
   const positionRef = useRef<object | null>(null);
@@ -188,10 +189,11 @@ export function VenueMap() {
         const position = new window.naver.maps.LatLng(parseFloat(addr.y), parseFloat(addr.x));
         const map = new window.naver.maps.Map(naverRef.current!, {
           center: position,
-          zoom: 17,
+          zoom: 15,
         }) as {
           getBounds: () => { hasLatLng: (pos: object) => boolean };
           setCenter: (pos: object) => void;
+          setZoom: (zoom: number) => void;
           addListener: (event: string, cb: () => void) => void;
         };
 
@@ -258,6 +260,7 @@ export function VenueMap() {
   const handleGoToVenue = () => {
     if (!mapRef.current || !positionRef.current) return;
     mapRef.current.setCenter(positionRef.current);
+    mapRef.current.setZoom(15);
     setOutOfView(false);
   };
 
