@@ -7,7 +7,7 @@ import { ShareButtons } from './ShareButtons';
 import { WEDDING } from '@/data/wedding';
 
 export function Ch09Finale() {
-  const [openAccount, setOpenAccount] = useState<'groom' | 'bride'>('groom');
+  const [openAccount, setOpenAccount] = useState<'groom' | 'bride' | null>(null);
 
   return (
     <ChapterSection
@@ -37,12 +37,12 @@ export function Ch09Finale() {
       <AccountSection
         side="groom"
         isOpen={openAccount === 'groom'}
-        onToggle={() => setOpenAccount('groom')}
+        onToggle={() => setOpenAccount((current) => (current === 'groom' ? null : 'groom'))}
       />
       <AccountSection
         side="bride"
         isOpen={openAccount === 'bride'}
-        onToggle={() => setOpenAccount('bride')}
+        onToggle={() => setOpenAccount((current) => (current === 'bride' ? null : 'bride'))}
       />
 
       <ShareButtons />

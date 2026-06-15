@@ -70,7 +70,7 @@ export default function InvitationPage() {
         <div
           ref={containerRef}
           data-scroll-container
-          className="relative h-dvh snap-y snap-proximity overflow-y-scroll bg-bg text-fg"
+          className="relative h-dvh snap-y snap-mandatory overflow-y-scroll bg-bg text-fg"
           style={{ fontFamily: 'var(--font-sans)' }}
         >
           <Ch01Cover />
