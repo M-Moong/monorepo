@@ -8,6 +8,7 @@ import { WEDDING } from '@/data/wedding';
 
 type Tone = 'warm' | 'cool' | 'sage' | 'paper' | 'mono' | 'blush' | 'sepia' | 'ink';
 
+// 갤러리 톤 순서
 const BASE_TONES: Tone[] = [
   'mono',
   'sepia',
@@ -27,6 +28,7 @@ export function Ch04Gallery() {
 
   return (
     <ChapterSection chIndex={3} label="GALLERY" title="Scenes of us.">
+      {/* 갤러리 썸네일 */}
       <div className="grid grid-cols-3 gap-1 overflow-hidden rounded-lg">
         {WEDDING.photos.map((photo, i) => (
           <button
@@ -48,6 +50,7 @@ export function Ch04Gallery() {
         ))}
       </div>
 
+      {/* 라이트박스 */}
       {lightboxIndex !== null && (
         <Lightbox
           index={lightboxIndex}

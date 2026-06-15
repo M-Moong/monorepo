@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -26,14 +26,27 @@ const variants = {
   enter: { scale: 1.05, opacity: 0 },
   center: { scale: 1, opacity: 1 },
   exit: { scale: 0.95, opacity: 0 },
-};
+} as const;
 
 export function Lightbox({ index, total, tones, photos, onClose, onJump }: LightboxProps) {
+  // 상태
   const [displayIndex, setDisplayIndex] = useState(index);
   const [sidePad, setSidePad] = useState(120);
   const stripRef = useRef<HTMLDivElement>(null);
   const isDragging = useRef(false);
+  const isInitialMount = useRef(true);
 
+  // 이동 처리
+  const goTo = useCallback(
+    (nextIndex: number) => {
+      const wrapped = ((nextIndex % total) + total) % total;
+      setDisplayIndex(wrapped);
+      onJump(wrapped);
+    },
+    [onJump, total]
+  );
+
+  // 바디 스크롤 잠금
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     return () => {
@@ -41,25 +54,27 @@ export function Lightbox({ index, total, tones, photos, onClose, onJump }: Light
     };
   }, []);
 
+  // 썸네일 좌우 패딩 계산
   useEffect(() => {
     const strip = stripRef.current;
     if (!strip) return;
     setSidePad(strip.clientWidth / 2 - THUMB_SIZE / 2);
   }, []);
 
+  // 현재 인덱스 썸네일 자동 스크롤
   useEffect(() => {
     const strip = stripRef.current;
     if (!strip) return;
     strip.scrollTo({ left: index * THUMB_UNIT, behavior: 'smooth' });
   }, [index]);
 
-  function goTo(nextIndex: number) {
-    const wrapped = ((nextIndex % total) + total) % total;
-    setDisplayIndex(wrapped);
-    onJump(wrapped);
-  }
-
+  // 키보드 이동(초기 마운트 시 과도한 리스너 등록 방지)
   useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
+    }
+
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
       if (e.key === 'ArrowLeft') goTo(index - 1);
@@ -67,9 +82,11 @@ export function Lightbox({ index, total, tones, photos, onClose, onJump }: Light
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [index, onClose]);
+  }, [goTo, index, onClose]);
 
+  // 그리드 인덱스 보정
   const gridIndex = (i: number) => i % photos.length || 0;
+  // 플레이스홀더 여부 확인
   const hasRealPhoto = (i: number) => {
     const src = photos[gridIndex(i)];
     return src && !src.includes('placeholder');
