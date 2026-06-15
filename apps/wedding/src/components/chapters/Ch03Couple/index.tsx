@@ -2,10 +2,11 @@
 
 import { useState } from 'react';
 import { ChapterSection } from '@/components/ui/ChapterSection';
-import { CoupleCard, CoupleCardData } from './CoupleCard';
 import { WEDDING } from '@/data/wedding';
+import { CoupleCard } from './CoupleCard';
+import type { CoupleCardData } from './CoupleCard';
 
-const CARDS: CoupleCardData[] = [
+const CARDS = [
   {
     who: 'GROOM',
     name: WEDDING.groom.en,
@@ -22,10 +23,21 @@ const CARDS: CoupleCardData[] = [
     facts: WEDDING.bride.facts,
     tone: 'sepia',
   },
-];
+] satisfies readonly CoupleCardData[];
 
 export function Ch03Couple() {
-  const [openSet, setOpenSet] = useState<Set<number>>(new Set());
+  const [openCards, setOpenCards] = useState<Set<CoupleCardData['who']>>(new Set());
+
+  const toggleCard = (who: CoupleCardData['who']) => {
+    setOpenCards((currentOpenCards) => {
+      const nextOpenCards = new Set(currentOpenCards);
+
+      if (nextOpenCards.has(who)) nextOpenCards.delete(who);
+      else nextOpenCards.add(who);
+
+      return nextOpenCards;
+    });
+  };
 
   return (
     <ChapterSection
@@ -39,24 +51,19 @@ export function Ch03Couple() {
         </>
       }
     >
+      {/* 신랑·신부 카드 */}
       <div className="flex flex-col gap-3.5">
-        {CARDS.map((card, i) => (
+        {CARDS.map((card) => (
           <CoupleCard
             key={card.who}
             card={card}
-            isOpen={openSet.has(i)}
-            onToggle={() =>
-              setOpenSet((prev) => {
-                const next = new Set(prev);
-                if (next.has(i)) next.delete(i);
-                else next.add(i);
-                return next;
-              })
-            }
+            isOpen={openCards.has(card.who)}
+            onToggle={() => toggleCard(card.who)}
           />
         ))}
       </div>
 
+      {/* 카드 펼침 안내 */}
       <div className="mt-3.5 text-center text-2xs tracking-[0.2rem] text-fg/40">
         TAP TO READ MORE
       </div>

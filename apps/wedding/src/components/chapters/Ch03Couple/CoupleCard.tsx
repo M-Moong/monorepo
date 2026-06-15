@@ -21,26 +21,27 @@ interface CoupleCardProps {
   onToggle: () => void;
 }
 
-export function CoupleCard({ card: c, isOpen, onToggle }: CoupleCardProps) {
+export function CoupleCard({ card, isOpen, onToggle }: CoupleCardProps) {
   return (
     <div
       onClick={onToggle}
-      className={`relative cursor-pointer overflow-hidden border bg-warm transition-[border-color] duration-[350ms] ${
+      className={`relative cursor-pointer overflow-hidden border bg-warm transition-[border-color] duration-350 ${
         isOpen ? 'border-gold' : 'border-fg/12'
       }`}
     >
+      {/* 인물 요약 */}
       <div className="flex items-stretch">
-        <div className="aspect-[3/4] w-27.5 shrink-0">
-          <PhotoFrame label={c.who} tone={c.tone} />
+        <div className="aspect-3/4 w-27.5 shrink-0">
+          <PhotoFrame label={card.who} tone={card.tone} />
         </div>
         <div className="flex flex-1 flex-col px-4 py-3.5">
-          <span className="mb-1.5 text-3xs tracking-[0.3rem] text-gold">{c.who}</span>
+          <span className="mb-1.5 text-3xs tracking-[0.3rem] text-gold">{card.who}</span>
           <span className="font-serif text-[1.75rem] leading-none font-light text-fg italic">
-            {c.name}
+            {card.name}
           </span>
-          <span className="mt-1 text-xs text-fg/60">{c.kor}</span>
+          <span className="mt-1 text-xs text-fg/60">{card.kor}</span>
           <span className="mt-3 font-serif text-sm text-gold italic">
-            &ldquo;{c.tagline}&rdquo;
+            &ldquo;{card.tagline}&rdquo;
           </span>
           <div className="mt-3.5 flex justify-end text-fg/40">
             <AnimatePresence mode="wait" initial={false}>
@@ -58,6 +59,7 @@ export function CoupleCard({ card: c, isOpen, onToggle }: CoupleCardProps) {
         </div>
       </div>
 
+      {/* 인물 상세 정보 */}
       <AnimatePresence initial={false}>
         {isOpen && (
           <motion.div
@@ -68,13 +70,13 @@ export function CoupleCard({ card: c, isOpen, onToggle }: CoupleCardProps) {
             className="overflow-hidden"
           >
             <div className="border-t border-fg/10 px-4 pb-4.5">
-              {c.facts.map((f) => (
+              {card.facts.map((fact) => (
                 <div
-                  key={f}
+                  key={fact}
                   className="flex items-center gap-2.5 border-b border-fg/5 py-2 text-xs text-fg/75"
                 >
                   <span className="text-gold">—</span>
-                  <span>{f}</span>
+                  <span>{fact}</span>
                 </div>
               ))}
             </div>
