@@ -64,9 +64,7 @@ export function Ch03Couple() {
       </div>
 
       {/* 카드 펼침 안내 */}
-      <div className="mt-3.5 text-center text-2xs tracking-[0.2rem] text-fg/40">
-        TAP TO READ MORE
-      </div>
+      <div className="mt-3 text-center text-2xs tracking-[0.2rem] text-fg/40">TAP TO READ MORE</div>
     </ChapterSection>
   );
 }
