@@ -32,17 +32,18 @@ const spaceGrotesk = Space_Grotesk({
 // ex) https://minjun-seoyeon.vercel.app
 // ─────────────────────────────────────────────────────────────────────────────
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://example.com';
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://sm-se.com';
 
 // 브랜드 컬러 — 아이콘/타일 배경색 등에 사용 (wedding.ts 테마와 맞춰 수정)
 const BRAND_COLOR = '#c9a96e';
 
 const OG_TITLE = `${WEDDING.groom.name} ♥ ${WEDDING.bride.name}`;
 
-// SNS 공유 시 노출되는 설명 (최대 200자 권장)
-const OG_DESCRIPTION =
-  `${WEDDING.dateText} · ${WEDDING.venue.name}. ` +
-  `${WEDDING.groom.name}과 ${WEDDING.bride.name}의 결혼식에 소중한 분들을 초대합니다.`;
+const OG_IMAGE_PATH = '/opengraph-image';
+
+const OG_DESCRIPTION = ['2026년 10월 24일 토요일 오후 5시', OG_TITLE, WEDDING.venue.name].join(
+  '\n'
+);
 
 // ─────────────────────────────────────────────────────────────────────────────
 // JSON-LD 구조화 데이터
@@ -78,7 +79,7 @@ const jsonLdEvent = {
     },
   },
   description: OG_DESCRIPTION,
-  image: [`${SITE_URL}/og-image.jpg`, `${SITE_URL}/og-image-square.jpg`],
+  image: [`${SITE_URL}${OG_IMAGE_PATH}`],
   organizer: [
     { '@type': 'Person', name: WEDDING.groom.name, url: SITE_URL },
     { '@type': 'Person', name: WEDDING.bride.name, url: SITE_URL },
@@ -236,48 +237,14 @@ export const metadata: Metadata = {
 
     images: [
       {
-        // 가로형 대표 이미지 (1200×630) — 카카오톡·페이스북·트위터 공통
-        // ⚠️ public/og-image.jpg 파일을 실제로 준비해야 프리뷰가 보임
-        url: '/og-image.jpg',
+        // 현재 보유 중인 대표 사진 사용
+        url: `${SITE_URL}${OG_IMAGE_PATH}`,
         // HTTPS URL을 명시적으로 지정 (일부 구버전 파서가 secureUrl 우선 사용)
-        secureUrl: `${SITE_URL}/og-image.jpg`,
+        secureUrl: `${SITE_URL}${OG_IMAGE_PATH}`,
         width: 1200,
         height: 630,
         alt: `${WEDDING.groom.name} & ${WEDDING.bride.name} 결혼식 청첩장`,
-        type: 'image/jpeg',
-      },
-      {
-        // 정사각형 이미지 (1200×1200) — LINE·인스타그램 공유 시 유리
-        // ⚠️ public/og-image-square.jpg 파일 준비 필요
-        url: '/og-image-square.jpg',
-        secureUrl: `${SITE_URL}/og-image-square.jpg`,
-        width: 1200,
-        height: 1200,
-        alt: `${WEDDING.groom.name} & ${WEDDING.bride.name} 결혼식 청첩장`,
-        type: 'image/jpeg',
-      },
-    ],
-  },
-
-  // ── Twitter / X Card ──────────────────────────────────────────────────────
-  // https://developer.twitter.com/en/docs/twitter-for-websites/cards/overview/abouts-cards
-
-  twitter: {
-    // summary: 작은 썸네일 / summary_large_image: 큰 이미지 카드
-    card: 'summary_large_image',
-
-    // 트위터(X) 계정이 있으면 @handle 형태로 입력
-    // site: '@yourhandle',
-    // creator: '@yourhandle',
-
-    title: OG_TITLE,
-    description: OG_DESCRIPTION,
-    images: [
-      {
-        url: '/og-image.jpg',
-        alt: `${WEDDING.groom.name} & ${WEDDING.bride.name} 결혼식 청첩장`,
-        width: 1200,
-        height: 630,
+        type: 'image/png',
       },
     ],
   },
