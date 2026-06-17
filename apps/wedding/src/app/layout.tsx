@@ -41,9 +41,7 @@ const OG_TITLE = `${WEDDING.groom.name} ♥ ${WEDDING.bride.name}`;
 
 const OG_IMAGE_PATH = '/opengraph-image';
 
-const OG_DESCRIPTION = ['2026년 10월 24일 토요일 오후 5시', OG_TITLE, WEDDING.venue.name].join(
-  '\n'
-);
+const OG_DESCRIPTION = '축하해 주러 오시면,\n저희는 오래오래 행복해할 예정입니다.';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // JSON-LD 구조화 데이터

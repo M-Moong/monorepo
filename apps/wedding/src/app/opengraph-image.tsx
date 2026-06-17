@@ -51,13 +51,14 @@ export default async function OpengraphImage() {
       <div
         style={{
           position: 'absolute',
-          left: 72,
           right: 72,
           bottom: 60,
           display: 'flex',
           flexDirection: 'column',
+          alignItems: 'flex-end',
           gap: 12,
           color: '#ffffff',
+          textAlign: 'right',
         }}
       >
         <div
@@ -69,7 +70,7 @@ export default async function OpengraphImage() {
             color: 'rgba(255,255,255,0.82)',
           }}
         >
-          2026년 10월 24일 토요일 오후 5시
+          2026년 10월 24일 토요일 오후 5시 20분
         </div>
         <div
           style={{
@@ -80,17 +81,6 @@ export default async function OpengraphImage() {
           }}
         >
           {WEDDING.groom.name} ♥ {WEDDING.bride.name}
-        </div>
-        <div
-          style={{
-            display: 'flex',
-            fontSize: 34,
-            fontWeight: 500,
-            letterSpacing: '-0.02em',
-            color: 'rgba(255,255,255,0.82)',
-          }}
-        >
-          {WEDDING.venue.name}
         </div>
       </div>
     </div>,
