@@ -70,7 +70,18 @@ export default async function OpengraphImage() {
             color: 'rgba(255,255,255,0.82)',
           }}
         >
-          2026년 10월 24일 토요일 오후 5시 20분
+          2026년 10월 24일
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            fontSize: 34,
+            fontWeight: 500,
+            letterSpacing: '-0.02em',
+            color: 'rgba(255,255,255,0.82)',
+          }}
+        >
+          오후 5시 20분
         </div>
         <div
           style={{

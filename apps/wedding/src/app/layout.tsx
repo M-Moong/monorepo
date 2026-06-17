@@ -41,7 +41,9 @@ const OG_TITLE = `${WEDDING.groom.name} ♥ ${WEDDING.bride.name}`;
 
 const OG_IMAGE_PATH = '/opengraph-image';
 
-const OG_DESCRIPTION = '축하해 주러 오시면,\n저희는 오래오래 행복해할 예정입니다.';
+const OG_DESCRIPTION = '축하해 주러 오시면 정말 큰 기쁨일 거예요. 오래도록 행복하게 잘 살겠습니다.';
+// const OG_DESCRIPTION = '오셔서 축하해 주시면 더없이 기쁠 거예요. 오래도록 사이좋게 잘 살겠습니다.';
+// const OG_DESCRIPTION = '함께 축하해 주시면 정말 기쁠 거예요. 오래도록 웃으며 잘 살겠습니다.';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // JSON-LD 구조화 데이터
