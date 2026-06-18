@@ -31,7 +31,7 @@ export function Ch06Map() {
         <>
           Find
           <br />
-          the place.
+          the place
         </>
       }
     >

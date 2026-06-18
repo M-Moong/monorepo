@@ -4,6 +4,7 @@ import { Counter } from '@repo/ui/reactbits/counter';
 import { ChapterSection } from '@/components/ui/ChapterSection';
 import { useCountdown } from '@/hooks/useCountdown';
 import { WEDDING } from '@/data/wedding';
+import { cn } from '@repo/ui/lib/utils';
 
 export function Ch01Cover() {
   const cd = useCountdown(WEDDING.date);
@@ -34,17 +35,51 @@ export function Ch01Cover() {
       <div className="mt-2 text-base tracking-[0.3rem] text-fg/50">{WEDDING.dateShort}</div>
       <div className="mt-7 flex flex-col items-center text-xl tabular-nums">
         <div className="text-lg tracking-[0.5rem] text-gold">{dDayLabel}</div>
-        <div className="mt-1 flex gap-2 text-2xs tracking-[0.3rem] text-fg/60">
-          <span className="flex items-center">
-            <Counter value={cd.h} places={[10, 1]} />
+        <div
+          className={cn(
+            'mt-2 flex gap-4 text-xs tracking-[0.3rem] text-fg/60',
+            '*:flex *:items-center *:tracking-[0.1rem]'
+          )}
+        >
+          <span>
+            <Counter
+              value={cd.h}
+              places={[10, 1]}
+              fontSize={14}
+              padding={10}
+              gap={1}
+              horizontalPadding={1}
+              gradientHeight={0}
+              digitStyle={{ width: '1.15ch' }}
+            />
             <span>h</span>
           </span>
-          <span className="flex items-center">
-            <Counter value={cd.m} places={[10, 1]} />
+
+          <span>
+            <Counter
+              value={cd.m}
+              places={[10, 1]}
+              fontSize={14}
+              padding={10}
+              gap={1}
+              horizontalPadding={1}
+              gradientHeight={0}
+              digitStyle={{ width: '1.15ch' }}
+            />
             <span>m</span>
           </span>
-          <span className="flex items-center">
-            <Counter value={cd.s} places={[10, 1]} />
+
+          <span>
+            <Counter
+              value={cd.s}
+              places={[10, 1]}
+              fontSize={14}
+              padding={10}
+              gap={1}
+              horizontalPadding={1}
+              gradientHeight={0}
+              digitStyle={{ width: '1.15ch' }}
+            />
             <span>s</span>
           </span>
         </div>
@@ -53,7 +88,7 @@ export function Ch01Cover() {
       {/* 이름 */}
       <div className="mt-7 flex flex-col items-center font-serif text-2xl text-fg italic">
         <span>{WEDDING.groom.en}</span>
-        <span className="my-1">♥</span>
+        <span className="mt-1">♥</span>
         <span>{WEDDING.bride.en}</span>
       </div>
 

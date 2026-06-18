@@ -107,7 +107,7 @@ export function Ch08Guestbook({ onOpenSheet }: Ch08GuestbookProps) {
       title={
         <>
           Leave
-          <br />a note.
+          <br />a note
         </>
       }
     >
