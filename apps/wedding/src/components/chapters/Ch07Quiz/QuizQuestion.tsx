@@ -43,9 +43,7 @@ export function QuizQuestion({ question: q, index, total, onNext }: QuizQuestion
           Q.{'  '}
           {index + 1} / {total}
         </span>
-        <span className="font-serif text-xl leading-[1.4] font-light text-fg italic">
-          {q.question}
-        </span>
+        <span className="font-serif text-xl leading-[1.4] font-light text-fg">{q.question}</span>
       </div>
 
       {/* 선택지 2×2 */}

@@ -57,7 +57,7 @@ export function GuestbookEntry({ entry: g }: GuestbookEntryProps) {
         </div>
       </div>
 
-      <p className={`text-2sm leading-[1.6] ${g.isPrivate ? 'text-fg/35 italic' : 'text-fg/88'}`}>
+      <p className={`text-2sm leading-[1.6] ${g.isPrivate ? 'text-fg/35' : 'text-fg/88'}`}>
         {g.message}
       </p>
 

@@ -26,9 +26,9 @@ export function GuestbookPagination({
         <span>← 이전</span>
       </button>
 
-      <span className="flex items-center font-serif text-sm text-gold italic tabular-nums">
+      <span className="flex items-center font-serif text-sm text-gold tabular-nums">
         <span>{page}</span>
-        <span className="mx-1.5 font-sans text-3xs text-fg/30 not-italic">/</span>
+        <span className="mx-1.5 font-sans text-3xs text-fg/30">/</span>
         <span>{totalPages}</span>
       </span>
 

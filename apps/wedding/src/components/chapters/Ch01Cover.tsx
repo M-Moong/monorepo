@@ -86,7 +86,7 @@ export function Ch01Cover() {
       </div>
 
       {/* 이름 */}
-      <div className="mt-7 flex flex-col items-center font-serif text-2xl text-fg italic">
+      <div className="mt-7 flex flex-col items-center font-serif text-2xl text-fg">
         <span>{WEDDING.groom.en}</span>
         <span className="mt-1">♥</span>
         <span>{WEDDING.bride.en}</span>

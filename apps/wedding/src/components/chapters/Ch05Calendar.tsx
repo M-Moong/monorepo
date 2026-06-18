@@ -52,7 +52,7 @@ export function Ch05Calendar() {
       {/* 달력 */}
       <div className="mb-5.5 bg-warm p-4.5">
         <div className="mb-3.5 flex items-center justify-between">
-          <span className="font-serif text-3xl text-fg italic">{CAL_MONTH_LABEL}</span>
+          <span className="font-serif text-3xl text-fg">{CAL_MONTH_LABEL}</span>
           <span className="text-2xs tracking-[0.2rem] text-gold">{WEDDING.timeText}</span>
         </div>
 

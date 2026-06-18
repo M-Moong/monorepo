@@ -36,13 +36,11 @@ export function CoupleCard({ card, isOpen, onToggle }: CoupleCardProps) {
         </div>
         <div className="flex flex-1 flex-col px-4 py-3.5">
           <span className="mb-1.5 text-3xs tracking-[0.3rem] text-gold">{card.who}</span>
-          <span className="font-serif text-[1.75rem] leading-none font-light text-fg italic">
+          <span className="font-serif text-[1.75rem] leading-none font-light text-fg">
             {card.name}
           </span>
           <span className="mt-1 text-xs text-fg/60">{card.kor}</span>
-          <span className="mt-3 font-serif text-sm text-gold italic">
-            &ldquo;{card.tagline}&rdquo;
-          </span>
+          <span className="mt-3 font-serif text-sm text-gold">&ldquo;{card.tagline}&rdquo;</span>
           <div className="mt-3.5 flex justify-end text-fg/40">
             <AnimatePresence mode="wait" initial={false}>
               <motion.span

@@ -26,7 +26,7 @@ export function QuizIntro({ onStart }: QuizIntroProps) {
 
         <span className="relative z-10 -mx-3 font-serif text-9xl leading-none text-gold">?</span>
 
-        <div className="relative aspect-[3/4] w-28 origin-bottom rotate-6 overflow-hidden rounded-t-full border border-gold/40 bg-warm p-1">
+        <div className="relative aspect-3/4 w-28 origin-bottom rotate-6 overflow-hidden rounded-t-full border border-gold/40 bg-warm p-1">
           <div className="relative size-full overflow-hidden rounded-t-full">
             <Image
               src={GROOM_QUIZ_PHOTO}
@@ -40,7 +40,7 @@ export function QuizIntro({ onStart }: QuizIntroProps) {
       </div>
 
       <div className="flex flex-col items-center gap-4 text-center">
-        <span className="font-serif text-2xl font-light text-fg italic">총 {QUIZ.length}문제</span>
+        <span className="font-serif text-2xl font-light text-fg">총 {QUIZ.length}문제</span>
         <p className="text-sm leading-relaxed text-fg/50">
           신랑신부를 얼마나 알고 있는지
           <br />

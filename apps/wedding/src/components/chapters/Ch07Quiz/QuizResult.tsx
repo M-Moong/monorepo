@@ -32,7 +32,7 @@ export function QuizResult({ answers, onRetry }: QuizResultProps) {
           {tier.label}
         </span>
         <div className="flex flex-col items-center text-center">
-          <span className="mb-1 font-serif text-xl font-light text-fg italic">{tier.title}</span>
+          <span className="mb-1 font-serif text-xl font-light text-fg">{tier.title}</span>
           <span className="text-xs leading-[1.6] text-fg/60">{tier.desc}</span>
         </div>
       </div>

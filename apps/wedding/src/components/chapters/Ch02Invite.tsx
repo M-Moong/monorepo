@@ -16,7 +16,7 @@ export function Ch02Invite() {
     >
       <div className="my-3.5 border-t border-fg/20" />
 
-      <p className="mb-6.5 text-center font-serif text-lg leading-7 whitespace-pre-line text-fg italic">
+      <p className="mb-6.5 text-center font-serif text-lg leading-7 whitespace-pre-line text-fg">
         {WEDDING.inviteLines.map((line, i, arr) => (
           <span key={i}>
             {'highlight' in line ? <span className="text-gold">{line.text}</span> : line.text}
@@ -32,13 +32,13 @@ export function Ch02Invite() {
           <span className="text-xs text-fg/70">
             {WEDDING.groom.father.name} · {WEDDING.groom.mother.name}
           </span>
-          <span className="mt-1 font-serif text-lg text-fg italic">
+          <span className="mt-1 font-serif text-lg text-fg">
             아들 <span className="text-gold">{WEDDING.groom.name.slice(1)}</span>
           </span>
         </div>
 
         {/* & */}
-        <span className="font-serif text-3xl text-gold italic">&amp;</span>
+        <span className="font-serif text-3xl text-gold">&amp;</span>
 
         {/* 신부측 */}
         <div className="flex flex-col items-start text-left">
@@ -46,7 +46,7 @@ export function Ch02Invite() {
           <span className="text-xs text-fg/70">
             {WEDDING.bride.father.name} · {WEDDING.bride.mother.name}
           </span>
-          <span className="mt-1 font-serif text-lg text-fg italic">
+          <span className="mt-1 font-serif text-lg text-fg">
             딸 <span className="text-gold">{WEDDING.bride.name.slice(1)}</span>
           </span>
         </div>
