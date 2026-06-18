@@ -24,9 +24,19 @@ export function GuestbookStats({ total, groomCount, brideCount, loading }: Guest
           {loading ? (
             <div className="h-9 w-8 animate-pulse rounded bg-fg/10" />
           ) : (
-            <Counter value={count} className="font-serif text-4xl font-medium text-gold" />
+            <span className="text-gold">
+              <Counter
+                value={count}
+                fontSize={30}
+                padding={10}
+                gap={1}
+                horizontalPadding={1}
+                gradientHeight={0}
+                digitStyle={{ width: '1.15ch' }}
+              />
+            </span>
           )}
-          <span className="mt-1 text-3xs tracking-[0.25rem] text-fg/55">{label}</span>
+          <span className="text-2xs tracking-[0.25rem] text-fg/55">{label}</span>
         </div>
       ))}
     </div>

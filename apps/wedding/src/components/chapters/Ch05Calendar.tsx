@@ -96,22 +96,42 @@ export function Ch05Calendar() {
       <div className="grid grid-cols-4 gap-1.5">
         {(
           [
-            ['DAYS', cd.d],
-            ['HRS', cd.h],
-            ['MIN', cd.m],
-            ['SEC', cd.s],
+            ['일', cd.d],
+            ['시간', cd.h],
+            ['분', cd.m],
+            ['초', cd.s],
           ] as [string, number][]
         ).map(([label, val]) => (
           <div
             key={label}
             className="flex flex-col items-center border border-fg/8 bg-warm px-1.5 py-3.5"
           >
-            <Counter
-              value={val}
-              places={[10, 1]}
-              className="font-serif text-3xl text-gold italic"
-            />
-            <span className="mt-1.5 text-3xs tracking-[0.25rem] text-fg/50">{label}</span>
+            <span className="text-gold">
+              {label === '일' ? (
+                <Counter
+                  value={val}
+                  places={[100, 10, 1]}
+                  fontSize={16}
+                  padding={10}
+                  gap={1}
+                  horizontalPadding={1}
+                  gradientHeight={0}
+                  digitStyle={{ width: '1.15ch' }}
+                />
+              ) : (
+                <Counter
+                  value={val}
+                  places={[10, 1]}
+                  fontSize={16}
+                  padding={10}
+                  gap={1}
+                  horizontalPadding={1}
+                  gradientHeight={0}
+                  digitStyle={{ width: '1.15ch' }}
+                />
+              )}
+            </span>
+            <span className="mt-0 text-3xs tracking-[0.25rem] text-fg/50">{label}</span>
           </div>
         ))}
       </div>
