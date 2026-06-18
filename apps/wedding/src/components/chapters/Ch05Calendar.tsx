@@ -43,9 +43,9 @@ export function Ch05Calendar() {
       label="WHEN"
       title={
         <>
-          The
-          <br />
-          day.
+          The day
+          {/* <br />
+          day. */}
         </>
       }
     >

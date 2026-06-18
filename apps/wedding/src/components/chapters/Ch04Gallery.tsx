@@ -27,7 +27,7 @@ export function Ch04Gallery() {
   const total = WEDDING.photos.length;
 
   return (
-    <ChapterSection chIndex={3} label="GALLERY" title="Scenes of us.">
+    <ChapterSection chIndex={3} label="GALLERY" title="Scenes of us">
       {/* 갤러리 썸네일 */}
       <div className="grid grid-cols-3 gap-1 overflow-hidden rounded-lg">
         {WEDDING.photos.map((photo, i) => (

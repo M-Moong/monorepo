@@ -47,7 +47,7 @@ export function Ch03Couple() {
         <>
           Two
           <br />
-          people.
+          people
         </>
       }
     >

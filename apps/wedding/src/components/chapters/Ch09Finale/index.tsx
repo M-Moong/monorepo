@@ -17,7 +17,7 @@ export function Ch09Finale() {
         <>
           See you
           <br />
-          there.
+          there
         </>
       }
     >
