@@ -22,8 +22,8 @@ export function ChapterSection({
     >
       {label && title && (
         <header>
-          <div className="mb-3 text-3xs tracking-[0.3rem] text-gold">{label}</div>
-          <div className="mb-5 font-serif text-[2.75rem] leading-[0.98] font-light text-fg">
+          <div className="mb-3 font-sans-en text-3xs tracking-[0.3rem] text-gold">{label}</div>
+          <div className="mb-5 font-serif-en text-[2.75rem] leading-[0.98] font-light text-fg">
             {title}
           </div>
         </header>

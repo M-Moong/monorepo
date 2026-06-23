@@ -20,12 +20,12 @@ export function Ch01Cover() {
       {/* gold glow 배경 */}
       <div className="cover-glow pointer-events-none absolute inset-0" />
 
-      <div className="mb-7 animate-shimmer text-3xs tracking-[0.5rem] text-gold motion-reduce:animate-none">
+      <div className="mb-7 animate-shimmer font-sans-en text-3xs tracking-[0.5rem] text-gold motion-reduce:animate-none">
         ★ A LOVE STORY ★
       </div>
 
       {/* 대형 display */}
-      <h1 className="flex flex-col items-center font-serif text-8xl leading-[0.85] font-light text-fg italic">
+      <h1 className="flex flex-col items-center font-serif-en text-8xl leading-[0.85] font-light text-fg italic">
         <span>until</span>
         <span className="text-gold">we</span>
         <span>meet</span>
@@ -86,7 +86,7 @@ export function Ch01Cover() {
       </div>
 
       {/* 이름 */}
-      <div className="mt-7 flex flex-col items-center font-serif text-2xl text-fg">
+      <div className="mt-7 flex flex-col items-center font-serif-en text-2xl text-fg">
         <span>{WEDDING.groom.en}</span>
         <span className="mt-1">♥</span>
         <span>{WEDDING.bride.en}</span>
@@ -94,7 +94,7 @@ export function Ch01Cover() {
 
       {/* 스크롤 유도 화살표 */}
       <div className="absolute bottom-8 left-1/2 flex -translate-x-1/2 animate-bounce flex-col items-center text-fg/40 motion-reduce:animate-none">
-        <div className="text-2xs tracking-[0.3rem]">SCROLL</div>
+        <div className="font-sans-en text-2xs tracking-[0.3rem]">SCROLL</div>
         <div className="mt-1">↓</div>
       </div>
     </ChapterSection>

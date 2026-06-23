@@ -30,7 +30,7 @@ export function Ch09Finale() {
         </span>
       </div>
 
-      <div className="mb-2 flex items-center text-3xs tracking-[0.4rem] text-gold">
+      <div className="mb-2 flex items-center font-sans-en text-3xs tracking-[0.4rem] text-gold">
         <span>· ACCOUNTS ·</span>
       </div>
 
@@ -48,10 +48,10 @@ export function Ch09Finale() {
       <ShareButtons />
 
       <div className="flex flex-col items-center gap-1.5 text-center">
-        <span className="mt-2 font-serif text-[1.375rem] text-gold italic">
+        <span className="mt-2 font-serif-en text-[1.375rem] text-gold italic">
           {WEDDING.groom.initial} &amp; {WEDDING.bride.initial}
         </span>
-        <span className="pb-10 text-3xs tracking-[0.3rem] text-fg/40">
+        <span className="pb-10 font-sans-en text-3xs tracking-[0.3rem] text-fg/40">
           WITH LOVE · {WEDDING.dateShort}
         </span>
       </div>

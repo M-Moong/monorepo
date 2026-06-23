@@ -96,7 +96,7 @@ export function Splash({ onDone }: Props) {
 
         <div className="flex flex-col items-end pr-4">
           <div
-            className="font-serif text-[5.5rem] leading-none italic"
+            className="font-serif-en text-[5.5rem] leading-none italic"
             style={{
               color: 'var(--color-gold)',
               textShadow: '0 0 40px color-mix(in srgb, var(--color-gold) 50%, transparent)',
@@ -114,7 +114,7 @@ export function Splash({ onDone }: Props) {
             {WEDDING.groom.name}
           </div>
           <div
-            className="mt-1 text-right text-4xs tracking-[0.25rem]"
+            className="mt-1 text-right font-sans-en text-4xs tracking-[0.25rem]"
             style={{
               color: 'color-mix(in srgb, var(--color-gold) 50%, transparent)',
             }}
@@ -159,7 +159,7 @@ export function Splash({ onDone }: Props) {
 
         <div className="flex flex-col items-start pl-4">
           <div
-            className="font-serif text-[5.5rem] leading-none italic"
+            className="font-serif-en text-[5.5rem] leading-none italic"
             style={{
               color: 'var(--color-gold)',
               textShadow: '0 0 40px color-mix(in srgb, var(--color-gold) 50%, transparent)',
@@ -177,7 +177,7 @@ export function Splash({ onDone }: Props) {
             {WEDDING.bride.name}
           </div>
           <div
-            className="mt-1 text-4xs tracking-[0.25rem]"
+            className="mt-1 font-sans-en text-4xs tracking-[0.25rem]"
             style={{
               color: 'color-mix(in srgb, var(--color-gold) 50%, transparent)',
             }}

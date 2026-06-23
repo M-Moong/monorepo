@@ -1,5 +1,10 @@
 import type { Metadata, Viewport } from 'next';
-import { Cormorant_Garamond, Space_Grotesk } from 'next/font/google';
+import {
+  Cormorant_Garamond,
+  Noto_Sans_KR,
+  Playfair_Display,
+  Space_Grotesk,
+} from 'next/font/google';
 import Script from 'next/script';
 import { Toaster } from '@repo/ui/components/sonner';
 import { Providers } from './providers';
@@ -12,17 +17,28 @@ import { WEDDING } from '@/data/wedding';
 // ─────────────────────────────────────────────────────────────────────────────
 
 const cormorant = Cormorant_Garamond({
-  variable: '--font-serif',
+  variable: '--font-cormorant',
   subsets: ['latin'],
-  weight: ['300', '500'],
   style: ['normal', 'italic'],
   display: 'swap',
 });
 
 const spaceGrotesk = Space_Grotesk({
-  variable: '--font-sans',
+  variable: '--font-space-grotesk',
   subsets: ['latin'],
-  weight: ['300', '400', '500', '700'],
+  display: 'swap',
+});
+
+const playfair = Playfair_Display({
+  variable: '--font-playfair',
+  subsets: ['latin'],
+  style: ['normal', 'italic'],
+  display: 'swap',
+});
+
+const notoSans = Noto_Sans_KR({
+  variable: '--font-noto-sans-kr',
+  subsets: ['latin'],
   display: 'swap',
 });
 
@@ -474,7 +490,11 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ko" data-theme={ACTIVE_THEME}>
+    <html
+      lang="ko"
+      data-theme={ACTIVE_THEME}
+      className={`${playfair.variable} ${spaceGrotesk.variable} ${notoSans.variable} ${cormorant.variable}`}
+    >
       <head>
         {/*
          * JSON-LD 구조화 데이터
@@ -483,13 +503,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
          */}
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify([jsonLdEvent, jsonLdWebsite]),
-          }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify([jsonLdEvent, jsonLdWebsite]) }}
         />
       </head>
-      <body className={`${cormorant.variable} ${spaceGrotesk.variable}`}>
+
+      <body>
         <Providers>{children}</Providers>
+
         <Toaster position="bottom-center" />
         {/*
          * Kakao JavaScript SDK

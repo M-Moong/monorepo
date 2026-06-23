@@ -121,8 +121,10 @@
   --color-dim: var(--color-dim);
   --color-overlay: var(--color-overlay);
 
-  --font-serif: 'Cormorant Garamond', Georgia, serif;
-  --font-sans: 'Space Grotesk', system-ui, sans-serif;
+  --font-sans: var(--font-noto-sans-kr), system-ui, sans-serif;
+  --font-sans-en: var(--font-space-grotesk), var(--font-noto-sans-kr), system-ui, sans-serif;
+  --font-serif: var(--font-cormorant), var(--font-noto-sans-kr), Georgia, serif;
+  --font-serif-en: var(--font-playfair), var(--font-noto-sans-kr), Georgia, serif;
 
   --animate-shimmer: shimmer 3s infinite;
   --animate-drift: drift 2s ease-in-out infinite;
@@ -145,7 +147,7 @@ body {
   padding: 0;
   background: var(--color-bg);
   color: var(--color-fg);
-  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
 }
 
