@@ -55,7 +55,7 @@ const BRAND_COLOR = '#c9a96e';
 
 const OG_TITLE = `${WEDDING.groom.name} ♥ ${WEDDING.bride.name}`;
 
-const OG_IMAGE_PATH = '/opengraph-image';
+const OG_IMAGE_PATH = '/photos/02-og-source.png';
 
 const OG_DESCRIPTION = '축하해 주러 오시면 정말 큰 기쁨일 거예요. 오래도록 행복하게 잘 살겠습니다.';
 // const OG_DESCRIPTION = '오셔서 축하해 주시면 더없이 기쁠 거예요. 오래도록 사이좋게 잘 살겠습니다.';
