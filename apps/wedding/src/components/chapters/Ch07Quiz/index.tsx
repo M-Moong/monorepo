@@ -35,7 +35,17 @@ export function Ch07Quiz() {
   };
 
   return (
-    <ChapterSection chIndex={6} label="QUIZ" title="두 사람 퀴즈">
+    <ChapterSection
+      chIndex={6}
+      label="QUIZ"
+      title={
+        <>
+          How well do
+          <br />
+          you know us?
+        </>
+      }
+    >
       {step === 'intro' && <QuizIntro onStart={handleStart} />}
 
       {step === 'playing' && QUIZ[currentQ] && (

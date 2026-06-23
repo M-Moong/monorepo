@@ -10,7 +10,17 @@ export function Ch09Finale() {
   const [openAccount, setOpenAccount] = useState<'groom' | 'bride' | null>(null);
 
   return (
-    <ChapterSection chIndex={8} label="FINALE" title="마지막 인사">
+    <ChapterSection
+      chIndex={8}
+      label="END SCENE"
+      title={
+        <>
+          See you
+          <br />
+          there
+        </>
+      }
+    >
       <div className="mb-6 flex flex-col items-center border-y border-fg/20 py-5 text-center">
         <span className="font-serif text-[2rem] font-light text-fg italic tabular-nums">
           {WEDDING.dateShort}
