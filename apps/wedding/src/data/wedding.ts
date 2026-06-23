@@ -27,7 +27,7 @@ export const WEDDING = {
     name: '신승민',
     en: 'Seung min',
     initial: 'SM',
-    tagline: '나는 말로안해.',
+    tagline: '말보다 행동으로 진심을 전하는 사람, 신랑 신승민',
     facts: ['개발자 · 1995', 'ENTP', '하루에 커피 꼭 2잔 먹음'],
     account: { bank: '신한', number: '110-123-456789' },
     father: {
@@ -44,7 +44,7 @@ export const WEDDING = {
     name: '김시은',
     en: 'Si eun',
     initial: 'SE',
-    tagline: '문장이 되는 사람',
+    tagline: '사소한 순간도 특별한 추억으로 만드는 사람, 신부 김시은',
     facts: ['어린이집 교사 · 1998', '책과 산책을 모음', '민준의 가장 솔직한 독자'],
     account: { bank: '국민', number: '123-45-6789-012' },
     father: {
@@ -77,7 +77,7 @@ export const WEDDING = {
     // { text: '소중한 분들을 모시고 새로운 시작의 첫걸음을 내딛고자 하오니' },
     // { text: '함께하시어 따뜻한 축복과 격려를 보내주시면 감사하겠습니다' },
     // ======================================
-    { text: '서로 다른 계절을 품은 두 사람은', highlight: true },
+    { text: '서로 다른 계절을 품은 두 사람이', highlight: true },
     { text: '서로를 이해하고 다름을 존중하며' },
     { text: '사랑을 키워왔습니다.' },
     { text: '' },

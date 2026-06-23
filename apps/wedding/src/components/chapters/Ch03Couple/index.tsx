@@ -40,17 +40,7 @@ export function Ch03Couple() {
   };
 
   return (
-    <ChapterSection
-      chIndex={2}
-      label="THE COUPLE"
-      title={
-        <>
-          Two
-          <br />
-          people
-        </>
-      }
-    >
+    <ChapterSection chIndex={2} label="BRIDE & GROOM" title="두 사람">
       {/* 신랑·신부 카드 */}
       <div className="flex flex-col gap-3.5">
         {CARDS.map((card) => (

@@ -38,17 +38,7 @@ export function Ch05Calendar() {
   const { copiedId, copy } = useCopy();
 
   return (
-    <ChapterSection
-      chIndex={4}
-      label="WHEN"
-      title={
-        <>
-          The day
-          {/* <br />
-          day. */}
-        </>
-      }
-    >
+    <ChapterSection chIndex={4} label="WEDDING DAY" title="예식 날짜">
       {/* 달력 */}
       <div className="mb-5.5 bg-warm p-4.5">
         <div className="mb-3.5 flex items-center justify-between">

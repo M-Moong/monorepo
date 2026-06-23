@@ -3,17 +3,7 @@ import { WEDDING } from '@/data/wedding';
 
 export function Ch02Invite() {
   return (
-    <ChapterSection
-      chIndex={1}
-      label="INVITATION"
-      title={
-        <>
-          Will you
-          <br />
-          join us?
-        </>
-      }
-    >
+    <ChapterSection chIndex={1} label="INVITATION" title="초대">
       <div className="my-3.5 border-t border-fg/20" />
 
       <p className="mb-6.5 text-center font-serif text-lg leading-7 whitespace-pre-line text-fg">
@@ -33,7 +23,7 @@ export function Ch02Invite() {
             {WEDDING.groom.father.name} · {WEDDING.groom.mother.name}
           </span>
           <span className="mt-1 font-serif text-lg text-fg">
-            아들 <span className="text-gold">{WEDDING.groom.name.slice(1)}</span>
+            아들 <span className="text-gold">{WEDDING.groom.name}</span>
           </span>
         </div>
 
@@ -47,7 +37,7 @@ export function Ch02Invite() {
             {WEDDING.bride.father.name} · {WEDDING.bride.mother.name}
           </span>
           <span className="mt-1 font-serif text-lg text-fg">
-            딸 <span className="text-gold">{WEDDING.bride.name.slice(1)}</span>
+            딸 <span className="text-gold">{WEDDING.bride.name}</span>
           </span>
         </div>
       </div>
