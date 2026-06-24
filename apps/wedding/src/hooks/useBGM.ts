@@ -1,44 +1,35 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
+
+const BGM_SRC = '/audio/bgm_1.mp3';
+const BGM_VOLUME = 0.15;
 
 export function useBGM(enabled: boolean): void {
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
   useEffect(() => {
-    if (!enabled) return;
-
-    const AudioCtx =
-      window.AudioContext ??
-      (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
-    if (!AudioCtx) return;
-
-    const ctx = new AudioCtx();
-    const gain = ctx.createGain();
-    gain.gain.value = 0;
-    gain.connect(ctx.destination);
-
-    const freqs: [number, OscillatorType][] = [
-      [110, 'sine'],
-      [165, 'sine'],
-      [220, 'triangle'],
-    ];
-
-    const oscs = freqs.map(([freq, type]) => {
-      const osc = ctx.createOscillator();
-      osc.frequency.value = freq;
-      osc.type = type;
-      osc.connect(gain);
-      osc.start();
-      return osc;
-    });
-
-    gain.gain.linearRampToValueAtTime(0.04, ctx.currentTime + 1);
+    const audio = new Audio(BGM_SRC);
+    audio.loop = true;
+    audio.preload = 'auto';
+    audio.volume = BGM_VOLUME;
+    audioRef.current = audio;
 
     return () => {
-      gain.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.4);
-      setTimeout(() => {
-        oscs.forEach((o) => o.stop());
-        ctx.close();
-      }, 500);
+      audio.pause();
+      audioRef.current = null;
     };
+  }, []);
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    if (!enabled) {
+      audio.pause();
+      return;
+    }
+
+    void audio.play().catch(() => {});
   }, [enabled]);
 }
