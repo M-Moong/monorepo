@@ -48,7 +48,7 @@ export const WEDDING = {
     facts: ['어린이집 교사 · 1998 · ENFJ', '여행 중독 말기'],
     account: { bank: '우리', number: '1002-156-204982' },
     father: {
-      name: '김성준',
+      name: '🎗️ 김성준',
       account: { bank: '국민', number: '987-65-4321-098' },
     },
     mother: {

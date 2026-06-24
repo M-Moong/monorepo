@@ -21,7 +21,9 @@ export function AccountSection({ side, isOpen, onToggle }: AccountSectionProps) 
   const prefix = side === 'groom' ? '신랑' : '신부';
   const accounts = [
     { who: prefix, name: p.name, ...p.account },
-    { who: `${prefix} 아버지`, name: p.father.name, ...p.father.account },
+    ...(side === 'groom'
+      ? [{ who: `${prefix} 아버지`, name: p.father.name, ...p.father.account }]
+      : []),
     { who: `${prefix} 어머니`, name: p.mother.name, ...p.mother.account },
   ];
 

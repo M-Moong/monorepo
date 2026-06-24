@@ -28,8 +28,8 @@ export function Ch02Invite() {
       <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-3.5 border-y border-fg/20 py-4.5">
         {/* 신랑측 */}
         <div className="flex flex-col items-end text-right">
-          <span className="mb-1 text-3xs tracking-[0.3rem] text-gold">GROOM&apos;S PARENTS</span>
-          <span className="text-xs text-fg/70">
+          <span className="mb-1 text-3xs tracking-[0.2rem] text-gold">GROOM&apos;S PARENTS</span>
+          <span className="text-xs">
             {WEDDING.groom.father.name} · {WEDDING.groom.mother.name}
           </span>
           <span className="mt-2 font-serif">
@@ -43,8 +43,8 @@ export function Ch02Invite() {
 
         {/* 신부측 */}
         <div className="flex flex-col items-start text-left">
-          <span className="mb-1 text-3xs tracking-[0.3rem] text-gold">BRIDE&apos;S PARENTS</span>
-          <span className="text-xs text-fg/70">
+          <span className="mb-1 text-3xs tracking-[0.2rem] text-gold">BRIDE&apos;S PARENTS</span>
+          <span className="text-xs">
             {WEDDING.bride.father.name} · {WEDDING.bride.mother.name}
           </span>
           <span className="mt-2 font-serif">
@@ -52,11 +52,6 @@ export function Ch02Invite() {
             <span className="text-xl text-gold">{WEDDING.bride.name}</span>
           </span>
         </div>
-      </div>
-
-      <div className="mt-5.5 flex flex-col items-center gap-1 text-center">
-        <span className="text-2xs tracking-[0.2rem] text-fg/50">{WEDDING.dateText}</span>
-        <span className="text-2xs tracking-[0.2rem] text-fg/40">{WEDDING.venue.short}</span>
       </div>
     </ChapterSection>
   );
