@@ -44,7 +44,7 @@ export function Ch06Map() {
             <span className="text-2xs text-fg/65">({WEDDING.venue.detail})</span>
           </div>
 
-          <div className="mt-1">
+          <div className="my-1">
             <span className="font-mono text-sm text-fg/50">{WEDDING.venue.address}</span>
           </div>
         </div>
