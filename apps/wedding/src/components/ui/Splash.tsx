@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { WEDDING } from '@/data/wedding';
 
-type Phase = 'enter' | 'hold' | 'opening' | 'done';
+type Phase = 'hold' | 'opening' | 'done';
 
 interface Props {
   onDone: () => void;
@@ -20,15 +20,14 @@ const PARTICLES = [
 ];
 
 export function Splash({ onDone }: Props) {
-  const [phase, setPhase] = useState<Phase>('enter');
+  const [phase, setPhase] = useState<Phase>('hold');
   const doneRef = useRef(false);
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
 
-    const t1 = setTimeout(() => setPhase('hold'), 200);
-    const t2 = setTimeout(() => setPhase('opening'), 2200);
-    const t3 = setTimeout(() => {
+    const t1 = setTimeout(() => setPhase('opening'), 2200);
+    const t2 = setTimeout(() => {
       if (!doneRef.current) {
         doneRef.current = true;
         setPhase('done');
@@ -40,7 +39,6 @@ export function Splash({ onDone }: Props) {
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
-      clearTimeout(t3);
       document.body.style.overflow = '';
     };
   }, [onDone]);
@@ -48,16 +46,13 @@ export function Splash({ onDone }: Props) {
   if (phase === 'done') return null;
 
   const isOpening = phase === 'opening';
-  const isVisible = phase !== 'enter';
-
   const panelTransition = isOpening ? 'transform 1200ms cubic-bezier(0.76, 0, 0.24, 1)' : 'none';
 
   return (
     <div
       className="fixed inset-0 z-[100] overflow-hidden"
       style={{
-        opacity: isVisible ? 1 : 0,
-        transition: 'opacity 250ms ease',
+        opacity: 1,
       }}
     >
       {/* 뒤에서 퍼지는 골드 bloom (문 열릴 때) */}
@@ -100,7 +95,7 @@ export function Splash({ onDone }: Props) {
             style={{
               color: 'var(--color-gold)',
               textShadow: '0 0 40px color-mix(in srgb, var(--color-gold) 50%, transparent)',
-              animation: isVisible && !isOpening ? 'glow 2.5s ease-in-out infinite' : 'none',
+              animation: !isOpening ? 'glow 2.5s ease-in-out infinite' : 'none',
             }}
           >
             {WEDDING.groom.initial}
@@ -128,8 +123,7 @@ export function Splash({ onDone }: Props) {
           className="absolute top-0 right-0 h-full w-px"
           style={{
             background: 'var(--color-gold)',
-            animation:
-              isVisible && !isOpening ? 'splash-seam-glow 2s ease-in-out infinite' : 'none',
+            animation: !isOpening ? 'splash-seam-glow 2s ease-in-out infinite' : 'none',
           }}
         />
       </div>
@@ -163,7 +157,7 @@ export function Splash({ onDone }: Props) {
             style={{
               color: 'var(--color-gold)',
               textShadow: '0 0 40px color-mix(in srgb, var(--color-gold) 50%, transparent)',
-              animation: isVisible && !isOpening ? 'glow 2.5s ease-in-out infinite 0.4s' : 'none',
+              animation: !isOpening ? 'glow 2.5s ease-in-out infinite 0.4s' : 'none',
             }}
           >
             {WEDDING.bride.initial}
@@ -191,8 +185,7 @@ export function Splash({ onDone }: Props) {
           className="absolute top-0 left-0 h-full w-px"
           style={{
             background: 'var(--color-gold)',
-            animation:
-              isVisible && !isOpening ? 'splash-seam-glow 2s ease-in-out infinite 0.2s' : 'none',
+            animation: !isOpening ? 'splash-seam-glow 2s ease-in-out infinite 0.2s' : 'none',
           }}
         />
       </div>
@@ -201,8 +194,7 @@ export function Splash({ onDone }: Props) {
       {/* <div ... /> */}
 
       {/* 파티클 (seam 근처) */}
-      {isVisible &&
-        !isOpening &&
+      {!isOpening &&
         PARTICLES.map((p, i) => (
           <div
             key={i}
