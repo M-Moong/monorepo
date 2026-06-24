@@ -39,7 +39,7 @@ export function QuizQuestion({ question: q, index, total, onNext }: QuizQuestion
 
       {/* 질문 */}
       <div className="flex flex-col">
-        <span className="mb-1.5 text-3xs tracking-[0.3rem] text-gold">
+        <span className="mb-1.5 text-xs tracking-[0.2rem] text-gold">
           Q.{'  '}
           {index + 1} / {total}
         </span>
@@ -77,14 +77,14 @@ export function QuizQuestion({ question: q, index, total, onNext }: QuizQuestion
       {/* reveal 카드 */}
       <div className="h-20 overflow-hidden">
         <div
-          className={`h-full border border-fg/10 bg-fg/[0.03] px-4 py-3 ${phase === 'reveal' ? 'opacity-100 transition-opacity duration-500' : 'opacity-0'}`}
+          className={`h-full border border-fg/10 bg-fg/3 px-4 py-3 ${phase === 'reveal' ? 'opacity-100 transition-opacity duration-500' : 'opacity-0'}`}
         >
           <div
             className={`mb-2 text-sm font-bold tracking-[0.2rem] ${isCorrect ? 'text-gold' : 'text-red-400'}`}
           >
             {isCorrect ? 'O' : 'X'}
           </div>
-          <div className="line-clamp-2 text-xs leading-[1.5] text-fg">{q.reveal.caption}</div>
+          <div className="line-clamp-2 text-xs text-fg">{q.reveal.caption}</div>
         </div>
       </div>
 

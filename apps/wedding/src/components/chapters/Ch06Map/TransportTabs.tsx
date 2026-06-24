@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { WEDDING, TransportKey } from '@/data/wedding';
 import { TabButton } from '@/components/ui/TabButton';
+import { cn } from '@repo/ui/lib/utils';
 
 const TRANSPORT_KEYS: TransportKey[] = ['subway', 'bus', 'car', 'taxi'];
 
@@ -15,15 +16,16 @@ export function TransportTabs() {
       <div className="mb-3 grid grid-cols-4 gap-1">
         {TRANSPORT_KEYS.map((key) => {
           const t = WEDDING.venue.transport[key];
+          const active = tab === key;
           return (
             <TabButton
               key={key}
-              active={tab === key}
+              active={active}
               onClick={() => setTab(key)}
-              className="flex flex-col items-center px-1 py-1.5"
+              className={cn('flex flex-col items-center px-1 py-1.5', active && 'ring-2 ring-fg')}
             >
               <span className="mb-0.5 text-base">{t.icon}</span>
-              <span>{t.title}</span>
+              <span className={cn('font-bold', active && 'text-black')}>{t.title}</span>
             </TabButton>
           );
         })}

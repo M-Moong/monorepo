@@ -40,11 +40,12 @@ export function Ch06Map() {
       <div className="mb-2 flex items-center justify-between border-b border-fg/15 py-1">
         <div>
           <div className="flex items-baseline gap-2">
-            <span className="font-serif text-xl text-fg">{WEDDING.venue.short}</span>
+            <span className="font-serif text-lg text-fg">{WEDDING.venue.short}</span>
             <span className="text-2xs text-fg/65">({WEDDING.venue.detail})</span>
           </div>
+
           <div className="mt-1">
-            <span className="font-mono text-xs text-fg/50">{WEDDING.venue.address}</span>
+            <span className="font-mono text-sm text-fg/50">{WEDDING.venue.address}</span>
           </div>
         </div>
         <CopyAddressButton />

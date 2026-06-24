@@ -14,6 +14,7 @@ const CARDS = [
     tagline: WEDDING.groom.tagline,
     facts: WEDDING.groom.facts,
     tone: 'mono',
+    photoSrc: '/photos/groom_baby.webp',
   },
   {
     who: 'BRIDE',
@@ -22,32 +23,26 @@ const CARDS = [
     tagline: WEDDING.bride.tagline,
     facts: WEDDING.bride.facts,
     tone: 'sepia',
+    photoSrc: '/photos/bridge_baby.webp',
   },
 ] satisfies readonly CoupleCardData[];
 
 export function Ch03Couple() {
-  const [openCards, setOpenCards] = useState<Set<CoupleCardData['who']>>(new Set());
+  const [openCard, setOpenCard] = useState<CoupleCardData['who'] | null>(null);
 
   const toggleCard = (who: CoupleCardData['who']) => {
-    setOpenCards((currentOpenCards) => {
-      const nextOpenCards = new Set(currentOpenCards);
-
-      if (nextOpenCards.has(who)) nextOpenCards.delete(who);
-      else nextOpenCards.add(who);
-
-      return nextOpenCards;
-    });
+    setOpenCard((currentOpenCard) => (currentOpenCard === who ? null : who));
   };
 
   return (
     <ChapterSection
       chIndex={2}
-      label="THE COUPLE"
+      label="WITH LOVE"
       title={
         <>
-          Two
+          The
           <br />
-          people
+          Couple
         </>
       }
     >
@@ -57,7 +52,7 @@ export function Ch03Couple() {
           <CoupleCard
             key={card.who}
             card={card}
-            isOpen={openCards.has(card.who)}
+            isOpen={openCard === card.who}
             onToggle={() => toggleCard(card.who)}
           />
         ))}

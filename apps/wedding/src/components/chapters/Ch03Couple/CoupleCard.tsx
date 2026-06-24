@@ -13,6 +13,7 @@ export interface CoupleCardData {
   tagline: string;
   facts: readonly string[];
   tone: Tone;
+  photoSrc: string;
 }
 
 interface CoupleCardProps {
@@ -32,15 +33,17 @@ export function CoupleCard({ card, isOpen, onToggle }: CoupleCardProps) {
       {/* 인물 요약 */}
       <div className="flex items-stretch">
         <div className="aspect-3/4 w-27.5 shrink-0">
-          <PhotoFrame label={card.who} tone={card.tone} />
+          <PhotoFrame label={card.who} tone={card.tone} src={card.photoSrc} />
         </div>
         <div className="flex flex-1 flex-col px-4 py-3.5">
-          <span className="mb-1.5 text-3xs tracking-[0.3rem] text-gold">{card.who}</span>
-          <span className="font-serif text-[1.75rem] leading-none font-light text-fg">
-            {card.name}
-          </span>
-          <span className="mt-1 text-xs text-fg/60">{card.kor}</span>
-          <span className="mt-3 font-serif text-sm text-gold">&ldquo;{card.tagline}&rdquo;</span>
+          <div className="flex flex-1 flex-col justify-center">
+            <span className="mb-1.5 text-3xs tracking-[0.3rem] text-gold">{card.who}</span>
+            <span className="font-serif text-[1.75rem] leading-none font-light text-fg">
+              {card.name}
+            </span>
+            <span className="mt-1 text-xs text-fg/60">{card.kor}</span>
+            <span className="mt-3 font-serif text-sm text-gold">&ldquo;{card.tagline}&rdquo;</span>
+          </div>
           <div className="mt-3.5 flex justify-end text-fg/40">
             <AnimatePresence mode="wait" initial={false}>
               <motion.span

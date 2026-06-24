@@ -21,7 +21,7 @@ export function Ch01Cover() {
       <div className="cover-glow pointer-events-none absolute inset-0" />
 
       <div className="mb-7 animate-shimmer font-sans-en text-3xs tracking-[0.5rem] text-gold motion-reduce:animate-none">
-        ★ A LOVE STORY ★
+        ★ LOVE STORY ★
       </div>
 
       {/* 대형 display */}

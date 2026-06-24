@@ -14,42 +14,47 @@ export interface QuizQuestion {
 export const QUIZ: QuizQuestion[] = [
   {
     id: 'favorite-date',
-    question: '두 사람이 가장 자주 하는 데이트는?',
-    choices: ['맛집 찾아가기', '카페 투어', '집에서 OTT 보기', '무계획 드라이브'],
-    answerIndex: 0,
+    question: '두 사람의 카톡 대화에서 가장 많이 등장하는 말은?',
+    choices: ['오늘 뭐 먹지?', '어디야?', '하이', 'ㅋㅋㅋㅋㅋㅋㅋ'],
+    answerIndex: 2,
     reveal: {
       photo: WEDDING.photos[0],
-      caption: '데이트의 시작은 늘 같습니다. 그래서 오늘 뭐 먹지?',
+      caption: "'하이'가 이렇게 결혼식까지 이어질 줄은 몰랐습니다.",
     },
   },
   {
     id: 'wedding-planning-phrase',
-    question: '결혼 준비 중 두 사람이 가장 많이 한 말은?',
-    choices: ['이게 왜 이렇게 비싸?', '결혼 빡세다.', '그냥 네가 골라', '일단 밥부터 먹자'],
+    question: '데이트 메뉴를 정할 때 두 사람의 모습은?',
+    choices: ['바로 결정한다', '서로 아무거나라고 한다', '그냥 네가 골라', '맛집 검색만 30분'],
     answerIndex: 1,
     reveal: {
       photo: WEDDING.photos[1],
-      caption: '결혼은 행복하지만, 결혼 준비는 빡셌습니다.',
+      caption: "'아무거나'라는 가장 어려운 선택지를 매번 해결해 왔습니다.",
     },
   },
   {
     id: 'travel-style',
-    question: '두 사람의 여행 스타일은?',
-    choices: ['분 단위 계획형', '맛집만 예약형', '숙소에서 힐링형', '일단 레스고'],
+    question: '두 사람의 주말을 한 줄로 표현하면?',
+    choices: ['계획대로 완벽', '눈 뜨니 저녁', '먹다가 끝남', '계획은 있었음'],
     answerIndex: 3,
     reveal: {
       photo: WEDDING.photos[2],
-      caption: '계획은 미래의 우리가 세우겠죠. 일단 레스고!',
+      caption: '계획은 늘 있었고, 실행은 미래의 우리에게 맡겼습니다.',
     },
   },
   {
-    id: 'disappears-fastest',
-    question: '둘이 함께 있을 때 가장 빨리 사라지는 것은?',
-    choices: ['시간', '간식', '휴대폰 배터리', '수건'],
-    answerIndex: 3,
+    id: 'netflix-mode',
+    question: '두 사람이 넷플릭스를 켜면?',
+    choices: [
+      '보다가 딴짓한다',
+      '딱 한 편만 본다',
+      '다음 화 자동재생의 노예가 된다',
+      '중간에 잠든다',
+    ],
+    answerIndex: 2,
     reveal: {
       photo: WEDDING.photos[3],
-      caption: '분명 많이 샀는데 이상하게 늘 부족한 수건.',
+      caption: '다음 화 보기 버튼은 누른 적 없는데, 이상하게 끝까지 보게 됩니다.',
     },
   },
   {
@@ -59,7 +64,7 @@ export const QUIZ: QuizQuestion[] = [
     answerIndex: 0,
     reveal: {
       photo: WEDDING.photos[4],
-      caption: '로맨스는 확실하고, 코미디는 매일 갱신 중입니다.',
+      caption: '진지하게 만나기 시작했는데 계속 웃기기만 했습니다.',
     },
   },
 ];
@@ -110,7 +115,7 @@ export const RESULT_TIERS: ResultTier[] = [
     score: 0,
     label: '☆☆☆☆☆',
     title: '당신은 누구시죠...?',
-    desc: '일단 청첩장부터 다시 읽고 오시는 걸로 해요.',
+    desc: '혹시 잘못된 링크로 들어오신 건 아니죠?',
   },
   {
     score: 1,
@@ -128,19 +133,19 @@ export const RESULT_TIERS: ResultTier[] = [
     score: 3,
     label: '★★★☆☆',
     title: '제법 가까운 사이군요',
-    desc: '이 정도면 식장에서 아는 척하셔도 됩니다.',
+    desc: '이 정도면 식장에서 아는 척 가능합니다.',
   },
   {
     score: 4,
     label: '★★★★☆',
     title: '한 문제는 봐드릴게요',
-    desc: '실수였다는 거 알아요. 저희가 너그럽게 넘어갈게요.',
+    desc: '긴장만 안 했어도 만점이었을 텐데요.',
   },
   {
     score: 5,
     label: '★★★★★',
     title: '저희를 스토킹하셨나요...?',
-    desc: '이 정도면 저희보다 저희를 더 잘 아시는데요.',
+    desc: '다음 명절에 오셔도 어색하지 않을 것 같아요.',
   },
 ];
 

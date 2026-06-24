@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { CSSProperties } from 'react';
 
 type Tone = 'warm' | 'cool' | 'sage' | 'paper' | 'mono' | 'blush' | 'sepia' | 'ink';
@@ -5,6 +6,7 @@ type Tone = 'warm' | 'cool' | 'sage' | 'paper' | 'mono' | 'blush' | 'sepia' | 'i
 interface PhotoFrameProps {
   label?: string;
   tone?: Tone;
+  src?: string;
   style?: CSSProperties;
 }
 
@@ -19,19 +21,19 @@ const TONES: Record<Tone, [string, string]> = {
   ink: ['#2a2620', '#1a1612'],
 };
 
-export function PhotoFrame({ label = 'photo', tone = 'warm', style }: PhotoFrameProps) {
+export function PhotoFrame({ label = 'photo', tone = 'warm', src, style }: PhotoFrameProps) {
   const [a, b] = TONES[tone];
   const isInk = tone === 'ink';
 
   return (
     <div
-      className={`flex h-full w-full items-center justify-center font-mono text-[10px] tracking-[0.5px] uppercase ${isInk ? 'text-white/45' : 'text-black/40'}`}
+      className={`relative flex h-full w-full items-center justify-center overflow-hidden font-mono text-[10px] tracking-[0.5px] uppercase ${isInk ? 'text-white/45' : 'text-black/40'}`}
       style={{
         background: `repeating-linear-gradient(135deg, ${a} 0 12px, ${b} 12px 24px)`,
         ...style,
       }}
     >
-      {label}
+      {src ? <Image src={src} alt={label} fill className="object-cover" sizes="110px" /> : label}
     </div>
   );
 }

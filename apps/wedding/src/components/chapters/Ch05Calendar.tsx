@@ -6,7 +6,7 @@ import { useCountdown } from '@/hooks/useCountdown';
 import { useCopy } from '@/hooks/useCopy';
 import { WEDDING } from '@/data/wedding';
 
-const DAYS_HEADER = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+const DAYS_HEADER = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 const calYear = WEDDING.date.getFullYear();
 const calMonth = WEDDING.date.getMonth();
@@ -38,17 +38,7 @@ export function Ch05Calendar() {
   const { copiedId, copy } = useCopy();
 
   return (
-    <ChapterSection
-      chIndex={4}
-      label="WHEN"
-      title={
-        <>
-          The day
-          {/* <br />
-          day. */}
-        </>
-      }
-    >
+    <ChapterSection chIndex={4} label="WHEN" title={<>The day</>}>
       {/* 달력 */}
       <div className="mb-5.5 bg-warm p-4.5">
         <div className="mb-3.5 flex items-center justify-between">
