@@ -32,8 +32,9 @@ export function Ch02Invite() {
           <span className="text-xs text-fg/70">
             {WEDDING.groom.father.name} · {WEDDING.groom.mother.name}
           </span>
-          <span className="mt-1 font-serif text-lg text-fg">
-            아들 <span className="text-gold">{WEDDING.groom.name.slice(1)}</span>
+          <span className="mt-2 font-serif">
+            <span className="text-sm">아들 </span>
+            <span className="text-xl text-gold">{WEDDING.groom.name}</span>
           </span>
         </div>
 
@@ -46,14 +47,15 @@ export function Ch02Invite() {
           <span className="text-xs text-fg/70">
             {WEDDING.bride.father.name} · {WEDDING.bride.mother.name}
           </span>
-          <span className="mt-1 font-serif text-lg text-fg">
-            딸 <span className="text-gold">{WEDDING.bride.name.slice(1)}</span>
+          <span className="mt-2 font-serif">
+            <span className="text-sm">딸 </span>
+            <span className="text-xl text-gold">{WEDDING.bride.name}</span>
           </span>
         </div>
       </div>
 
       <div className="mt-5.5 flex flex-col items-center gap-1 text-center">
-        <span className="text-2xs tracking-[0.25rem] text-fg/50">{WEDDING.dateText}</span>
+        <span className="text-2xs tracking-[0.2rem] text-fg/50">{WEDDING.dateText}</span>
         <span className="text-2xs tracking-[0.2rem] text-fg/40">{WEDDING.venue.short}</span>
       </div>
     </ChapterSection>
