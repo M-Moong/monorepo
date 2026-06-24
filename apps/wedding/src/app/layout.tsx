@@ -57,7 +57,10 @@ const OG_TITLE = `${WEDDING.groom.name} ♥ ${WEDDING.bride.name}`;
 
 const OG_IMAGE_PATH = '/photos/02-og-source.png';
 
-const OG_DESCRIPTION = '🌸 소중한 마음으로 축복해 주시면 감사하겠습니다. 🌸';
+// const OG_DESCRIPTION = '🌸 소중한 마음으로 축복해 주시면 감사하겠습니다. 🌸';
+// const OG_DESCRIPTION = '🌸 소중한 걸음으로 함께해 주세요. 🌸';
+// const OG_DESCRIPTION = '🌸 오셔서 축복해 주시면 감사하겠습니다 🌸';
+const OG_DESCRIPTION = '🌸 함께 축복해 주시면 감사하겠습니다 🌸';
 // const OG_DESCRIPTION = '오셔서 축하해 주시면 더없이 기쁠 거예요. 오래도록 사이좋게 잘 살겠습니다.';
 // const OG_DESCRIPTION = '함께 축하해 주시면 정말 기쁠 거예요. 오래도록 웃으며 잘 살겠습니다.';
 
