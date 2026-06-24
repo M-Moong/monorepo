@@ -99,7 +99,7 @@ export function HUD({
             {visible && (
               <motion.div
                 key={chapter}
-                className="pointer-events-none absolute top-full mt-2 -translate-x-1/2 rounded-full border border-gold/30 bg-bg px-2.5 py-px"
+                className="pointer-events-none absolute top-full mt-2 inline-flex -translate-x-1/2 items-center rounded-full border border-gold/50 bg-bg px-3 py-2"
                 style={{ left: dotCenterX }}
                 initial={{
                   opacity: 0,
@@ -114,10 +114,10 @@ export function HUD({
                 transition={{ duration: 0.3, ease: [0.34, 1.56, 0.64, 1] }}
               >
                 <span
-                  className="absolute bottom-full left-1/2 -translate-x-1/2 border-x-[3px] border-b-[4px] border-x-transparent"
+                  className="absolute bottom-full left-1/2 -translate-x-1/2 border-x-3 border-b-4 border-x-transparent"
                   style={{ borderBottomColor: 'rgba(232,200,124,0.3)' }}
                 />
-                <span className="text-[7px] tracking-[0.15rem] whitespace-nowrap text-gold/80">
+                <span className="block font-sans-en text-3xs leading-none tracking-[0.2rem] whitespace-nowrap text-gold/85">
                   {chapterName}
                 </span>
               </motion.div>
