@@ -20,12 +20,12 @@ const TOTAL_CHAPTERS = 9;
 
 export default function InvitationPage() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [sound, setSound] = useState(false);
+  const [sound, setSound] = useState(true);
   const [splashDone, setSplashDone] = useState(false);
   const [chapter, setChapter] = useState(0);
   const [progressPct, setProgressPct] = useState(0);
   const [guestbookSheetOpen, setGuestbookSheetOpen] = useState(false);
-  useBGM(sound);
+  const retryBGM = useBGM(sound);
 
   const { scrollY, scrollYProgress } = useScroll({ container: containerRef });
 
@@ -50,7 +50,7 @@ export default function InvitationPage() {
 
   return (
     <div className="flex min-h-dvh items-start justify-center bg-bg">
-      {!splashDone && <Splash onDone={() => setSplashDone(true)} />}
+      {!splashDone && <Splash onDone={() => setSplashDone(true)} onEnter={retryBGM} />}
       <div className="relative w-full max-w-[450px]">
         {/* HUD: normal flow 밖에 두어 스크롤 컨테이너 레이아웃에 영향 없도록 */}
         <div className="pointer-events-none absolute top-0 right-0 left-0 z-50">

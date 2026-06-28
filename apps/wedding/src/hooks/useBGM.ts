@@ -2,11 +2,17 @@
 
 import { useEffect, useRef } from 'react';
 
-const BGM_SRC = '/audio/bgm_1.mp3';
-const BGM_VOLUME = 0.15;
+const BGM_SRC = '/audio/bgm_3.mp3';
+const BGM_VOLUME = 0.1;
 
-export function useBGM(enabled: boolean): void {
+export function useBGM(enabled: boolean): () => void {
   const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  const retryPlay = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    void audio.play().catch(() => {});
+  };
 
   useEffect(() => {
     const audio = new Audio(BGM_SRC);
@@ -30,6 +36,15 @@ export function useBGM(enabled: boolean): void {
       return;
     }
 
-    void audio.play().catch(() => {});
+    retryPlay();
   }, [enabled]);
+
+  useEffect(() => {
+    if (!enabled) return;
+
+    window.addEventListener('pointerdown', retryPlay, { once: true });
+    return () => window.removeEventListener('pointerdown', retryPlay);
+  }, [enabled]);
+
+  return retryPlay;
 }

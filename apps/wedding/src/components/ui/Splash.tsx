@@ -1,12 +1,13 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { WEDDING } from '@/data/wedding';
 
 type Phase = 'hold' | 'opening' | 'done';
 
 interface Props {
   onDone: () => void;
+  onEnter?: () => void;
 }
 
 // 파티클 위치는 고정 (SSR 안전)
@@ -19,29 +20,41 @@ const PARTICLES = [
   { left: '53%', top: '38%', delay: '0.6s', dur: '2.3s' },
 ];
 
-export function Splash({ onDone }: Props) {
+export function Splash({ onDone, onEnter }: Props) {
   const [phase, setPhase] = useState<Phase>('hold');
   const doneRef = useRef(false);
+  const openingTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const doneTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const finish = useCallback(() => {
+    if (doneRef.current) return;
+    doneRef.current = true;
+    setPhase('done');
+    document.body.style.overflow = '';
+    onDone();
+  }, [onDone]);
+
+  const openNow = () => {
+    if (phase !== 'hold') return;
+    if (openingTimerRef.current) clearTimeout(openingTimerRef.current);
+    if (doneTimerRef.current) clearTimeout(doneTimerRef.current);
+    onEnter?.();
+    setPhase('opening');
+    doneTimerRef.current = setTimeout(finish, 1200);
+  };
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
 
-    const t1 = setTimeout(() => setPhase('opening'), 2200);
-    const t2 = setTimeout(() => {
-      if (!doneRef.current) {
-        doneRef.current = true;
-        setPhase('done');
-        document.body.style.overflow = '';
-        onDone();
-      }
-    }, 3600);
+    openingTimerRef.current = setTimeout(() => setPhase('opening'), 2200);
+    doneTimerRef.current = setTimeout(finish, 3600);
 
     return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
+      if (openingTimerRef.current) clearTimeout(openingTimerRef.current);
+      if (doneTimerRef.current) clearTimeout(doneTimerRef.current);
       document.body.style.overflow = '';
     };
-  }, [onDone]);
+  }, [finish]);
 
   if (phase === 'done') return null;
 
@@ -50,6 +63,7 @@ export function Splash({ onDone }: Props) {
 
   return (
     <div
+      onClick={openNow}
       className="fixed inset-0 z-[100] overflow-hidden"
       style={{
         opacity: 1,
