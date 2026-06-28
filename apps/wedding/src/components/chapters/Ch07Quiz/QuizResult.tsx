@@ -1,5 +1,6 @@
 'use client';
 
+import TextType from '@repo/ui/reactbits/textType';
 import { QUIZ, tierFor } from '@/data/quiz';
 import { useCopy } from '@/hooks/useCopy';
 import { WEDDING } from '@/data/wedding';
@@ -32,8 +33,29 @@ export function QuizResult({ answers, onRetry }: QuizResultProps) {
           {tier.label}
         </span>
         <div className="flex flex-col items-center text-center">
-          <span className="mb-1 font-serif text-xl font-light text-fg">{tier.title}</span>
-          <span className="text-xs leading-[1.6] text-fg/60">{tier.desc}</span>
+          <TextType
+            key={`title-${tier.title}`}
+            as="span"
+            text={tier.title}
+            loop={false}
+            typingSpeed={80}
+            deletingSpeed={0}
+            pauseDuration={0}
+            showCursor={false}
+            className="mb-1 font-serif text-xl font-light text-fg"
+          />
+          <TextType
+            key={`desc-${tier.desc}`}
+            as="span"
+            text={tier.desc}
+            loop={false}
+            typingSpeed={80}
+            deletingSpeed={0}
+            pauseDuration={0}
+            initialDelay={tier.title.length * 80}
+            showCursor={false}
+            className="text-xs leading-[1.6] text-fg/60"
+          />
         </div>
       </div>
 
