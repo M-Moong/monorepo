@@ -20,7 +20,7 @@ export function Ch01Cover() {
       {/* gold glow 배경 */}
       <div className="cover-glow pointer-events-none absolute inset-0" />
 
-      <div className="mb-7 animate-shimmer font-sans-en text-3xs tracking-[0.5rem] text-gold motion-reduce:animate-none">
+      <div className="mb-3 animate-shimmer font-sans-en text-3xs tracking-[0.5rem] text-gold motion-reduce:animate-none">
         ★ LOVE STORY ★
       </div>
 
@@ -33,11 +33,11 @@ export function Ch01Cover() {
 
       {/* D-Day */}
       <div className="mt-2 text-base tracking-[0.3rem] text-fg/50">{WEDDING.dateShort}</div>
-      <div className="mt-7 flex flex-col items-center text-xl tabular-nums">
+      <div className="mt-2 flex flex-col items-center text-xl tabular-nums">
         <div className="text-lg tracking-[0.5rem] text-gold">{dDayLabel}</div>
         <div
           className={cn(
-            'mt-2 flex gap-4 text-xs tracking-[0.3rem] text-fg/60',
+            'mt-1 flex gap-4 text-xs tracking-[0.3rem] text-fg/60',
             '*:flex *:items-center *:tracking-[0.1rem]'
           )}
         >
@@ -86,15 +86,14 @@ export function Ch01Cover() {
       </div>
 
       {/* 이름 */}
-      <div className="mt-7 flex flex-col items-center font-serif-en text-2xl text-fg">
+      <div className="mt-3 flex flex-col items-center font-serif-en text-2xl text-fg">
         <span>{WEDDING.groom.en}</span>
-        <span className="mt-1">♥</span>
+        <span className="mt-1 text-gold">♥</span>
         <span>{WEDDING.bride.en}</span>
       </div>
 
       {/* 스크롤 유도 화살표 */}
       <div className="absolute bottom-8 left-1/2 flex -translate-x-1/2 animate-bounce flex-col items-center text-fg/40 motion-reduce:animate-none">
-        <div className="font-sans-en text-2xs tracking-[0.3rem]">SCROLL</div>
         <div className="mt-1">↓</div>
       </div>
     </ChapterSection>

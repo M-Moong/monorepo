@@ -15,7 +15,7 @@ const dEnd = d.add(3, 'hour');
 export const WEDDING = {
   date: d.toDate(),
   dateText: d.format('YYYY년 M월 D일\ndddd A h시 mm분'),
-  dateShort: d.format('YYYY · MM · DD'),
+  dateShort: d.format('YYYY . MM · DD'),
   dateDot: d.format('YYYY.MM.DD'),
   timeText: d.format('ddd HH:mm').toUpperCase(),
   isoStart: d.format('YYYY-MM-DDTHH:mm:00+09:00'),
@@ -64,7 +64,7 @@ export const WEDDING = {
     { text: '' },
     { text: '기쁠 때는 웃음을 나누고' },
     { text: '어려울 때는 서로의 온기가 되어' },
-    { text: '이제 평생을 함께할 소중한 인연이 되었습니다.', highlight: true },
+    { text: '평생을 함께할 소중한 인연이 되었습니다.', highlight: true },
     { text: '' },
     { text: '새로운 시작의 자리에 함께하시어' },
     { text: '따뜻한 축복 보내주시면 감사하겠습니다.' },
@@ -74,7 +74,7 @@ export const WEDDING = {
     name: '더 바실리움',
     short: '더 바실리움',
     address: '경기 성남시 분당구 야탑동 344-1',
-    detail: '8층 단독홀',
+    detail: '8층',
     mapUrls: {
       // kakao: 'https://map.kakao.com/link/map/그랜드하얏트서울,37.539565,126.992161',
       kakao: 'https://kko.to/HjMuUBXPae',

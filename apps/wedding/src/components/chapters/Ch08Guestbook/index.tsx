@@ -101,16 +101,7 @@ export function Ch08Guestbook({ onOpenSheet }: Ch08GuestbookProps) {
   };
 
   return (
-    <ChapterSection
-      chIndex={7}
-      label="GUESTBOOK"
-      title={
-        <>
-          Leave
-          <br />a note
-        </>
-      }
-    >
+    <ChapterSection chIndex={7} label="GUESTBOOK" title={<>Leave a note</>}>
       <GuestbookStats
         total={total}
         groomCount={groomCount}

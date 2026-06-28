@@ -10,27 +10,18 @@ export function Ch09Finale() {
   const [openAccount, setOpenAccount] = useState<'groom' | 'bride' | null>(null);
 
   return (
-    <ChapterSection
-      chIndex={8}
-      label="END SCENE"
-      title={
-        <>
-          See you
-          <br />
-          there
-        </>
-      }
-    >
-      <div className="mb-6 flex flex-col items-center border-y border-fg/20 py-5 text-center">
-        <span className="font-serif text-[2rem] font-light text-fg italic tabular-nums">
+    <ChapterSection chIndex={8} label="END SCENE" title={<>See you there</>}>
+      <div className="my-4 flex flex-col items-center border-y border-fg/20 py-5 text-center">
+        <span className="font-serif-en text-4xl font-light text-fg italic tabular-nums">
           {WEDDING.dateShort}
         </span>
+
         <span className="mt-1.5 text-base tracking-[0.15rem] text-fg/70">
           {WEDDING.timeText} · {WEDDING.venue.short}
         </span>
       </div>
 
-      <div className="mb-2 flex items-center font-sans-en text-3xs tracking-[0.4rem] text-gold">
+      <div className="my-2 flex items-center font-sans-en text-3xs tracking-[0.4rem] text-gold">
         <span>· ACCOUNTS ·</span>
       </div>
 

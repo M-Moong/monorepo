@@ -19,7 +19,7 @@ export function GuestbookStats({ total, groomCount, brideCount, loading }: Guest
       {stats.map(([label, count]) => (
         <div
           key={label}
-          className="flex flex-col items-center border-r border-fg/6 px-1 py-3 last:border-r-0"
+          className="flex flex-col items-center border-r border-fg/6 px-1 py-2 last:border-r-0"
         >
           {loading ? (
             <div className="h-9 w-8 animate-pulse rounded bg-fg/10" />
@@ -27,7 +27,7 @@ export function GuestbookStats({ total, groomCount, brideCount, loading }: Guest
             <span className="text-gold">
               <Counter
                 value={count}
-                fontSize={30}
+                fontSize={24}
                 padding={10}
                 gap={1}
                 horizontalPadding={1}

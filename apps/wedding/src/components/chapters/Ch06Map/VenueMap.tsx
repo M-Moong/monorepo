@@ -266,7 +266,7 @@ export function VenueMap() {
 
   return (
     <div className="mb-3.5">
-      <div className="relative h-64 overflow-hidden border border-fg/10">
+      <div className="relative h-40 overflow-hidden border border-fg/10">
         {NAVER_KEY ? (
           <>
             <div ref={naverRef} className="h-full w-full" />

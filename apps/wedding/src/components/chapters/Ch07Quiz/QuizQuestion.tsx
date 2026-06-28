@@ -26,7 +26,7 @@ export function QuizQuestion({ question: q, index, total, onNext }: QuizQuestion
   const isCorrect = selected === q.answerIndex;
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="mt-4 flex flex-col gap-4">
       {/* 진행 바 */}
       <div className="flex items-center gap-1">
         {Array.from({ length: total }).map((_, i) => (
@@ -77,14 +77,14 @@ export function QuizQuestion({ question: q, index, total, onNext }: QuizQuestion
       {/* reveal 카드 */}
       <div className="h-20 overflow-hidden">
         <div
-          className={`h-full border border-fg/10 bg-fg/3 px-4 py-3 ${phase === 'reveal' ? 'opacity-100 transition-opacity duration-500' : 'opacity-0'}`}
+          className={`h-full rounded-md border border-fg/10 bg-fg/3 px-3 py-2 ${phase === 'reveal' ? 'opacity-100 transition-opacity duration-500' : 'opacity-0'}`}
         >
           <div
             className={`mb-2 text-sm font-bold tracking-[0.2rem] ${isCorrect ? 'text-gold' : 'text-red-400'}`}
           >
-            {isCorrect ? 'O' : 'X'}
+            {isCorrect ? '정답 O' : '오답 X'}
           </div>
-          <div className="line-clamp-2 text-xs text-fg">{q.reveal.caption}</div>
+          <div className="line-clamp-2 pl-1 text-xs text-fg">{q.reveal.caption}</div>
         </div>
       </div>
 

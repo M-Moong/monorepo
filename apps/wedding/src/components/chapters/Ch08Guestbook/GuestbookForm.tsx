@@ -32,7 +32,7 @@ interface GuestbookFormProps {
   state: GuestbookFormState;
 }
 
-const REACTIONS = ['🥹', '🥂', '✨', '🫶', '📷', '🎉', '💍', '🌷'];
+const REACTIONS = ['🥹', '🌷', '✨', '🫶', '📷', '🎉', '💍'];
 
 const SIDE_OPTIONS: [Side, string][] = [
   ['guest', '💑 함께'],

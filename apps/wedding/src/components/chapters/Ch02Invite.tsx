@@ -16,7 +16,7 @@ export function Ch02Invite() {
     >
       <div className="my-3.5 border-t border-fg/20" />
 
-      <p className="mb-6.5 text-center font-serif text-lg leading-7 whitespace-pre-line text-fg">
+      <p className="mb-3 text-center font-serif text-lg leading-7 whitespace-pre-line text-fg">
         {WEDDING.inviteLines.map((line, i, arr) => (
           <span key={i}>
             {'highlight' in line ? <span className="text-gold">{line.text}</span> : line.text}

@@ -24,17 +24,7 @@ function CopyAddressButton() {
 
 export function Ch06Map() {
   return (
-    <ChapterSection
-      chIndex={5}
-      label="WHERE"
-      title={
-        <>
-          Find
-          <br />
-          the place
-        </>
-      }
-    >
+    <ChapterSection chIndex={5} label="WHERE" title={<>Wedding place</>}>
       <VenueMap />
 
       <div className="mb-2 flex items-center justify-between border-b border-fg/15 py-1">

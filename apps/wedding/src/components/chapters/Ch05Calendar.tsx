@@ -40,13 +40,13 @@ export function Ch05Calendar() {
   return (
     <ChapterSection chIndex={4} label="WHEN" title={<>The day</>}>
       {/* 달력 */}
-      <div className="mb-5.5 bg-warm p-4.5">
+      <div className="mb-4 bg-warm px-3 py-2">
         <div className="mb-3.5 flex items-center justify-between">
           <span className="font-serif text-3xl text-fg">{CAL_MONTH_LABEL}</span>
           <span className="text-2xs tracking-[0.2rem] text-gold">{WEDDING.timeText}</span>
         </div>
 
-        <div className="grid grid-cols-7 gap-1 text-3xs tracking-[0.1rem]">
+        <div className="grid grid-cols-7 gap-1 text-3xs">
           {DAYS_HEADER.map((d, i) => (
             <div
               key={i}
@@ -83,7 +83,7 @@ export function Ch05Calendar() {
       </div>
 
       {/* 카운트다운 */}
-      <div className="grid grid-cols-4 gap-1.5">
+      <div className="grid grid-cols-4 gap-2">
         {(
           [
             ['일', cd.d],

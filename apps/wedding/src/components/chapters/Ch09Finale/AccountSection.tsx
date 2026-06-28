@@ -68,7 +68,7 @@ export function AccountSection({ side, isOpen, onToggle }: AccountSectionProps) 
                   <div className="flex min-w-0 flex-1 flex-col">
                     <span className="text-3xs tracking-[0.2rem] text-gold">{a.who}</span>
                     <span className="mt-0.5 text-2sm text-fg">{a.name}</span>
-                    <span className="mt-0.5 font-mono text-2xs text-fg/60">
+                    <span className="mt-0.5 font-sans text-2xs tracking-wider text-fg/60">
                       {a.bank} · {a.number}
                     </span>
                   </div>

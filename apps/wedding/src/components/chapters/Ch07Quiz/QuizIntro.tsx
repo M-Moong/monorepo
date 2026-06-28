@@ -10,9 +10,9 @@ const BRIDE_QUIZ_PHOTO = '/photos/03.webp';
 
 export function QuizIntro({ onStart }: QuizIntroProps) {
   return (
-    <div className="flex flex-col items-center gap-14 pt-10">
+    <div className="flex flex-col items-center gap-10 pt-5">
       <div className="flex w-full items-center justify-center gap-2">
-        <div className="relative aspect-[3/4] w-28 origin-bottom -rotate-6 overflow-hidden rounded-t-full border border-gold/40 bg-warm p-1">
+        <div className="relative aspect-3/4 w-28 origin-bottom -rotate-6 overflow-hidden rounded-t-full border border-gold/40 bg-warm p-1">
           <div className="relative size-full overflow-hidden rounded-t-full">
             <Image
               src={BRIDE_QUIZ_PHOTO}
