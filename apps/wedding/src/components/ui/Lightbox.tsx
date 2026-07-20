@@ -33,7 +33,8 @@ export function Lightbox({ index, total, tones, photos, onClose, onJump }: Light
   const [displayIndex, setDisplayIndex] = useState(index);
   const [sidePad, setSidePad] = useState(120);
   const stripRef = useRef<HTMLDivElement>(null);
-  const isDragging = useRef(false);
+  const imageWrapRef = useRef<HTMLDivElement>(null);
+  const touchStartRef = useRef<{ x: number; time: number } | null>(null);
   const isInitialMount = useRef(true);
 
   // 이동 처리
@@ -46,11 +47,24 @@ export function Lightbox({ index, total, tones, photos, onClose, onJump }: Light
     [onJump, total]
   );
 
-  // 바디 스크롤 잠금
+  // 바디 스크롤 잠금 (iOS Safari는 overflow:hidden만으로 안 막혀서 position:fixed 병행)
   useEffect(() => {
-    document.body.style.overflow = 'hidden';
+    const scrollY = window.scrollY;
+    const body = document.body;
+    body.style.position = 'fixed';
+    body.style.top = `-${scrollY}px`;
+    body.style.left = '0';
+    body.style.right = '0';
+    body.style.overflow = 'hidden';
+    body.style.overscrollBehavior = 'none'; // 안드로이드 Chrome 당겨서 새로고침 방지
     return () => {
-      document.body.style.overflow = '';
+      body.style.position = '';
+      body.style.top = '';
+      body.style.left = '';
+      body.style.right = '';
+      body.style.overflow = '';
+      body.style.overscrollBehavior = '';
+      window.scrollTo(0, scrollY);
     };
   }, []);
 
@@ -93,6 +107,53 @@ export function Lightbox({ index, total, tones, photos, onClose, onJump }: Light
   };
   const displaySrc = photos[gridIndex(displayIndex)];
 
+  // 다음/이전 사진 프리로드 (스와이프 전환 시 빈 화면 방지)
+  useEffect(() => {
+    const preload = (i: number) => {
+      const src = photos[gridIndex(i)];
+      if (src && !src.includes('placeholder')) new window.Image().src = src;
+    };
+    preload(displayIndex + 1);
+    preload(displayIndex - 1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [displayIndex, photos]);
+
+  // 터치 스와이프 (framer motion drag 대신 직접 처리 — drag는 touch-action을 강제로
+  // pan-y로 덮어써서 사진 위에서 핀치줌이 막힘. 순수 터치 이벤트라 그 제약이 없음)
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (e.touches.length !== 1) {
+      touchStartRef.current = null; // 멀티터치(핀치)는 스와이프 대상 아님
+      return;
+    }
+    touchStartRef.current = { x: e.touches[0]!.clientX, time: Date.now() };
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (e.touches.length > 1) touchStartRef.current = null; // 핀치 시작되면 스와이프 취소
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    const start = touchStartRef.current;
+    touchStartRef.current = null;
+    const touch = e.changedTouches[0];
+    if (!start || !touch) return;
+
+    const deltaX = touch.clientX - start.x;
+    const deltaTime = Date.now() - start.time || 1;
+    const velocity = (deltaX / deltaTime) * 1000; // px/s
+    const width = imageWrapRef.current?.clientWidth ?? window.innerWidth;
+    const distanceThreshold = width * 0.15;
+    const velocityThreshold = 500;
+
+    if (deltaX < -distanceThreshold || velocity < -velocityThreshold) goTo(index + 1);
+    else if (deltaX > distanceThreshold || velocity > velocityThreshold) goTo(index - 1);
+  };
+
+  // 제스처 도중 취소(OS 컨트롤센터 진입 등)되면 touchend가 안 옴 — 남은 상태 정리
+  const handleTouchCancel = () => {
+    touchStartRef.current = null;
+  };
+
   return createPortal(
     <motion.div
       initial={{ opacity: 0 }}
@@ -102,13 +163,13 @@ export function Lightbox({ index, total, tones, photos, onClose, onJump }: Light
       className="fixed inset-0 z-100 flex flex-col bg-bg/98"
     >
       {/* 상단 닫기 */}
-      <div className="flex shrink-0 items-center justify-end px-5 pt-5">
+      <div className="flex shrink-0 items-center justify-end px-5 pt-[max(1.25rem,env(safe-area-inset-top))]">
         <motion.button
           onClick={onClose}
           whileHover={{ scale: 1.06 }}
           whileTap={{ scale: 0.9 }}
           transition={{ type: 'spring', stiffness: 400, damping: 20 }}
-          className="flex cursor-pointer items-center gap-1.5 rounded-full border border-fg/20 px-3 py-1.5 text-fg/90 backdrop-blur-sm transition-colors hover:border-fg/50 hover:text-fg"
+          className="flex h-11 cursor-pointer items-center gap-1.5 rounded-full border border-fg/20 px-4 text-fg/90 backdrop-blur-sm transition-colors hover:border-fg/50 hover:text-fg"
         >
           <span className="text-2xs tracking-[0.2rem]">CLOSE</span>
           <X size={14} strokeWidth={1.5} />
@@ -117,7 +178,7 @@ export function Lightbox({ index, total, tones, photos, onClose, onJump }: Light
 
       {/* 메인 이미지 + 이전/다음 버튼 */}
       <div className="flex min-h-0 flex-1 flex-col items-center gap-3 overflow-hidden px-5">
-        <div className="relative min-h-0 w-full max-w-[85%] flex-1">
+        <div ref={imageWrapRef} className="relative min-h-0 w-full max-w-[85%] flex-1">
           <AnimatePresence mode="wait">
             <motion.div
               key={displayIndex}
@@ -127,18 +188,10 @@ export function Lightbox({ index, total, tones, photos, onClose, onJump }: Light
               exit="exit"
               transition={{ duration: 0.28, ease: [0.25, 0.46, 0.45, 0.94] }}
               className="absolute inset-0 overflow-hidden rounded-md"
-              drag="x"
-              dragConstraints={{ left: 0, right: 0 }}
-              dragElastic={0.12}
-              onDragStart={() => {
-                isDragging.current = true;
-              }}
-              onDragEnd={(_, info) => {
-                if (!isDragging.current) return;
-                isDragging.current = false;
-                if (info.offset.x < -50) goTo(index + 1);
-                else if (info.offset.x > 50) goTo(index - 1);
-              }}
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+              onTouchCancel={handleTouchCancel}
             >
               {hasRealPhoto(displayIndex) && displaySrc ? (
                 <Image
@@ -189,7 +242,7 @@ export function Lightbox({ index, total, tones, photos, onClose, onJump }: Light
       </div>
 
       {/* 썸네일 스트립 */}
-      <div className="shrink-0 pt-2 pb-6">
+      <div className="shrink-0 pt-2 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
         <div
           ref={stripRef}
           className="flex gap-2 overflow-x-auto py-3"

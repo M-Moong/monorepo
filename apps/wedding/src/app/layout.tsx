@@ -468,8 +468,9 @@ export const viewport: Viewport = {
   // 모바일 뷰포트 설정
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 1, // 핀치 줌 비활성화 (청첩장 레이아웃 보호)
-  userScalable: false,
+  maximumScale: 5, // 핀치 줌 허용 (사진 확대 등 접근성/사용성)
+  userScalable: true,
+  viewportFit: 'cover', // 노치/홈 인디케이터 영역까지 safe-area로 대응
 
   // 지원하는 색상 스킴 (light | dark | only light 등)
   colorScheme: 'light dark',
