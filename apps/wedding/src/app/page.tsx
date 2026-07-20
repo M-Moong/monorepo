@@ -20,7 +20,7 @@ const TOTAL_CHAPTERS = 9;
 
 export default function InvitationPage() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [sound, setSound] = useState(true);
+  const [sound, setSound] = useState(process.env.NODE_ENV === 'production');
   const [splashDone, setSplashDone] = useState(false);
   const [chapter, setChapter] = useState(0);
   const [progressPct, setProgressPct] = useState(0);
