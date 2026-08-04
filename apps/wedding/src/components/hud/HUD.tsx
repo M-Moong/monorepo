@@ -83,6 +83,7 @@ export function HUD({
             <button
               key={i}
               onClick={() => jumpTo(i)}
+              aria-label={`${i + 1}번 챕터로 이동`}
               className="flex cursor-pointer items-center border-0 bg-transparent px-0 py-2"
             >
               <span
