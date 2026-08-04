@@ -2,8 +2,15 @@
 
 import { useCallback, useEffect, useRef } from 'react';
 
-const BGM_SRC = '/audio/bgm_3.mp3';
+const BGM_SRC_OPUS = '/audio/bgm_3.ogg';
+const BGM_SRC_MP3 = '/audio/bgm_3.mp3';
 const BGM_VOLUME = 0.1;
+
+function pickBgmSrc(): string {
+  const probe = document.createElement('audio');
+  const supportsOpus = probe.canPlayType('audio/ogg; codecs="opus"') !== '';
+  return supportsOpus ? BGM_SRC_OPUS : BGM_SRC_MP3;
+}
 
 export function useBGM(enabled: boolean): () => void {
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -15,7 +22,7 @@ export function useBGM(enabled: boolean): () => void {
   }, [enabled]);
 
   useEffect(() => {
-    const audio = new Audio(BGM_SRC);
+    const audio = new Audio(pickBgmSrc());
     audio.loop = true;
     audio.preload = 'none';
     audio.volume = BGM_VOLUME;
