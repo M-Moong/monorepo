@@ -269,7 +269,6 @@ export function Lightbox({ index, total, tones, photos, onClose, onJump }: Light
                   sizes={`${THUMB_SIZE}px`}
                   className="object-cover"
                   draggable={false}
-                  unoptimized
                 />
               ) : (
                 <PhotoFrame tone={tone} />

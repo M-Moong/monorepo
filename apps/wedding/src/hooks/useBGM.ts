@@ -17,7 +17,7 @@ export function useBGM(enabled: boolean): () => void {
   useEffect(() => {
     const audio = new Audio(BGM_SRC);
     audio.loop = true;
-    audio.preload = 'auto';
+    audio.preload = 'none';
     audio.volume = BGM_VOLUME;
     audioRef.current = audio;
 

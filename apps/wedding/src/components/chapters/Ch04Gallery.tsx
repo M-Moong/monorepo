@@ -44,7 +44,6 @@ export function Ch04Gallery() {
               fill
               sizes="(max-width: 768px) 33vw, 200px"
               className="object-cover"
-              unoptimized
             />
           </button>
         ))}
