@@ -162,119 +162,121 @@ export function Lightbox({ index, total, tones, photos, onClose, onJump }: Light
       transition={{ duration: 0.3 }}
       className="fixed inset-0 z-100 flex flex-col bg-bg/98"
     >
-      {/* 상단 닫기 */}
-      <div className="flex shrink-0 items-center justify-end px-5 pt-[max(1.25rem,env(safe-area-inset-top))]">
-        <motion.button
-          onClick={onClose}
-          whileHover={{ scale: 1.06 }}
-          whileTap={{ scale: 0.9 }}
-          transition={{ type: 'spring', stiffness: 400, damping: 20 }}
-          className="flex h-11 cursor-pointer items-center gap-1.5 rounded-full border border-fg/20 px-4 text-fg/90 backdrop-blur-sm transition-colors hover:border-fg/50 hover:text-fg"
-        >
-          <span className="text-2xs tracking-[0.2rem]">CLOSE</span>
-          <X size={14} strokeWidth={1.5} />
-        </motion.button>
-      </div>
-
-      {/* 메인 이미지 + 이전/다음 버튼 */}
-      <div className="flex min-h-0 flex-1 flex-col items-center gap-3 overflow-hidden px-5">
-        <div ref={imageWrapRef} className="relative min-h-0 w-full max-w-[85%] flex-1">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={displayIndex}
-              variants={variants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{ duration: 0.28, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="absolute inset-0 overflow-hidden rounded-md"
-              onTouchStart={handleTouchStart}
-              onTouchMove={handleTouchMove}
-              onTouchEnd={handleTouchEnd}
-              onTouchCancel={handleTouchCancel}
-            >
-              {hasRealPhoto(displayIndex) && displaySrc ? (
-                <Image
-                  src={displaySrc}
-                  alt={`photo ${displayIndex + 1}`}
-                  fill
-                  sizes="85vw"
-                  className="object-contain"
-                  draggable={false}
-                  unoptimized
-                />
-              ) : (
-                <PhotoFrame
-                  label={String(displayIndex + 1).padStart(2, '0')}
-                  tone={tones[displayIndex]}
-                />
-              )}
-            </motion.div>
-          </AnimatePresence>
-        </div>
-
-        {/* 이전/다음 버튼 */}
-        <div className="flex w-full max-w-[85%] shrink-0 justify-between">
+      <div className="mx-auto flex h-full w-full max-w-[450px] flex-col">
+        {/* 상단 닫기 */}
+        <div className="flex shrink-0 items-center justify-end px-5 pt-[max(1.25rem,env(safe-area-inset-top))]">
           <motion.button
-            onClick={() => goTo(index - 1)}
-            whileHover={{ scale: 1.1, x: -2 }}
-            whileTap={{ scale: 0.88 }}
+            onClick={onClose}
+            whileHover={{ scale: 1.06 }}
+            whileTap={{ scale: 0.9 }}
             transition={{ type: 'spring', stiffness: 400, damping: 20 }}
-            className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-fg/15 bg-bg/70 text-fg/80 backdrop-blur-sm transition-colors hover:border-fg/40 hover:text-fg"
+            className="flex h-11 cursor-pointer items-center gap-1.5 rounded-full border border-fg/20 px-4 text-fg/90 backdrop-blur-sm transition-colors hover:border-fg/50 hover:text-fg"
           >
-            <ChevronLeft size={22} strokeWidth={1.5} />
-          </motion.button>
-          <motion.button
-            onClick={() => goTo(index + 1)}
-            whileHover={{ scale: 1.1, x: 2 }}
-            whileTap={{ scale: 0.88 }}
-            transition={{ type: 'spring', stiffness: 400, damping: 20 }}
-            className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-fg/15 bg-bg/70 text-fg/80 backdrop-blur-sm transition-colors hover:border-fg/40 hover:text-fg"
-          >
-            <ChevronRight size={22} strokeWidth={1.5} />
+            <span className="text-2xs tracking-[0.2rem]">CLOSE</span>
+            <X size={14} strokeWidth={1.5} />
           </motion.button>
         </div>
-      </div>
 
-      {/* 카운터 */}
-      <div className="shrink-0 pb-2 text-center font-mono text-xs tracking-[0.2rem] text-fg/60">
-        {String(index + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
-      </div>
+        {/* 메인 이미지 + 이전/다음 버튼 */}
+        <div className="flex min-h-0 flex-1 flex-col items-center gap-3 overflow-hidden px-5">
+          <div ref={imageWrapRef} className="relative min-h-0 w-full max-w-[85%] flex-1">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={displayIndex}
+                variants={variants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{ duration: 0.28, ease: [0.25, 0.46, 0.45, 0.94] }}
+                className="absolute inset-0 overflow-hidden rounded-md"
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}
+                onTouchCancel={handleTouchCancel}
+              >
+                {hasRealPhoto(displayIndex) && displaySrc ? (
+                  <Image
+                    src={displaySrc}
+                    alt={`photo ${displayIndex + 1}`}
+                    fill
+                    className="object-contain"
+                    draggable={false}
+                    unoptimized
+                  />
+                ) : (
+                  <PhotoFrame
+                    label={String(displayIndex + 1).padStart(2, '0')}
+                    tone={tones[displayIndex]}
+                  />
+                )}
+              </motion.div>
+            </AnimatePresence>
+          </div>
 
-      {/* 썸네일 스트립 */}
-      <div className="shrink-0 pt-2 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
-        <div
-          ref={stripRef}
-          className="flex gap-2 overflow-x-auto py-3"
-          style={{ scrollbarWidth: 'none', paddingLeft: sidePad, paddingRight: sidePad }}
-        >
-          {tones.map((tone, i) => (
-            <button
-              key={i}
-              onClick={() => goTo(i)}
-              className="relative shrink-0 cursor-pointer overflow-hidden transition-all duration-200"
-              style={{
-                width: THUMB_SIZE,
-                height: THUMB_SIZE,
-                opacity: i === index ? 1 : 0.4,
-                outline: i === index ? '2.5px solid rgba(212,175,55,1)' : '2.5px solid transparent',
-                outlineOffset: '3px',
-              }}
+          {/* 이전/다음 버튼 */}
+          <div className="flex w-full max-w-[85%] shrink-0 justify-between">
+            <motion.button
+              onClick={() => goTo(index - 1)}
+              whileHover={{ scale: 1.1, x: -2 }}
+              whileTap={{ scale: 0.88 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+              className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-fg/15 bg-bg/70 text-fg/80 backdrop-blur-sm transition-colors hover:border-fg/40 hover:text-fg"
             >
-              {hasRealPhoto(i) ? (
-                <Image
-                  src={photos[gridIndex(i)]!}
-                  alt={`thumb ${i + 1}`}
-                  fill
-                  sizes={`${THUMB_SIZE}px`}
-                  className="object-cover"
-                  draggable={false}
-                />
-              ) : (
-                <PhotoFrame tone={tone} />
-              )}
-            </button>
-          ))}
+              <ChevronLeft size={22} strokeWidth={1.5} />
+            </motion.button>
+            <motion.button
+              onClick={() => goTo(index + 1)}
+              whileHover={{ scale: 1.1, x: 2 }}
+              whileTap={{ scale: 0.88 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+              className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-fg/15 bg-bg/70 text-fg/80 backdrop-blur-sm transition-colors hover:border-fg/40 hover:text-fg"
+            >
+              <ChevronRight size={22} strokeWidth={1.5} />
+            </motion.button>
+          </div>
+        </div>
+
+        {/* 카운터 */}
+        <div className="shrink-0 pb-2 text-center font-mono text-xs tracking-[0.2rem] text-fg/60">
+          {String(index + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
+        </div>
+
+        {/* 썸네일 스트립 */}
+        <div className="shrink-0 pt-2 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
+          <div
+            ref={stripRef}
+            className="flex gap-2 overflow-x-auto py-3"
+            style={{ scrollbarWidth: 'none', paddingLeft: sidePad, paddingRight: sidePad }}
+          >
+            {tones.map((tone, i) => (
+              <button
+                key={i}
+                onClick={() => goTo(i)}
+                className="relative shrink-0 cursor-pointer overflow-hidden transition-all duration-200"
+                style={{
+                  width: THUMB_SIZE,
+                  height: THUMB_SIZE,
+                  opacity: i === index ? 1 : 0.4,
+                  outline:
+                    i === index ? '2.5px solid rgba(212,175,55,1)' : '2.5px solid transparent',
+                  outlineOffset: '3px',
+                }}
+              >
+                {hasRealPhoto(i) ? (
+                  <Image
+                    src={photos[gridIndex(i)]!}
+                    alt={`thumb ${i + 1}`}
+                    fill
+                    sizes={`${THUMB_SIZE}px`}
+                    className="object-cover"
+                    draggable={false}
+                  />
+                ) : (
+                  <PhotoFrame tone={tone} />
+                )}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     </motion.div>,
