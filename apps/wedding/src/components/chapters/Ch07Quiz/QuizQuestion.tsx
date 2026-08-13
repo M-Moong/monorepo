@@ -88,11 +88,14 @@ export function QuizQuestion({ question: q, index, total, onNext }: QuizQuestion
         <div className="grid grid-cols-2 gap-1.5">
           {q.choices.map((c, i) => {
             let cls = 'border border-fg/20 bg-transparent text-fg/80';
+            let mark = '';
             if (phase === 'feedback' || phase === 'reveal') {
               if (i === q.answerIndex) {
                 cls = 'border border-gold bg-gold/10 text-gold';
+                mark = '✓ ';
               } else if (i === selected) {
                 cls = 'border border-red-400/60 bg-red-400/10 text-red-400/80';
+                mark = '✗ ';
               } else {
                 cls = 'border border-fg/10 bg-transparent text-fg/30';
               }
@@ -106,7 +109,10 @@ export function QuizQuestion({ question: q, index, total, onNext }: QuizQuestion
                 <span className="shrink-0 font-serif text-3xs tracking-[0.15rem] opacity-60">
                   {String.fromCharCode(65 + i)}
                 </span>
-                <span>{c}</span>
+                <span>
+                  {mark}
+                  {c}
+                </span>
               </button>
             );
           })}

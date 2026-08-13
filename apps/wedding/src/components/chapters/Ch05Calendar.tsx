@@ -63,6 +63,9 @@ export function Ch05Calendar() {
             return (
               <div
                 key={i}
+                aria-label={
+                  d ? `${DAYS_HEADER[dow]} ${d}일${isWedding ? ', 결혼식 날' : ''}` : undefined
+                }
                 className={`flex items-center justify-center py-2 text-2sm ${
                   !d
                     ? 'text-transparent'

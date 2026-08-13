@@ -63,7 +63,11 @@ export function GuestbookForm({ state }: GuestbookFormProps) {
       <div className="mb-2.5 text-3xs tracking-[0.3rem] text-gold">· LEAVE A NOTE ·</div>
 
       <div className="relative">
+        <label htmlFor="guestbook-name" className="sr-only">
+          이름 or 닉네임
+        </label>
         <Input
+          id="guestbook-name"
           className={inputClass}
           placeholder="이름 or 닉네임"
           value={name}
@@ -78,7 +82,11 @@ export function GuestbookForm({ state }: GuestbookFormProps) {
       </div>
 
       <div className="relative mt-1.5 mb-3">
+        <label htmlFor="guestbook-message" className="sr-only">
+          방명록 메시지
+        </label>
         <Textarea
+          id="guestbook-message"
           className={`${inputClass} resize-none pt-3 pb-5`}
           placeholder="짧고 따뜻한 한마디를 남겨주세요"
           value={msg}
