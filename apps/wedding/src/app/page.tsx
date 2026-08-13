@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useScroll, useMotionValueEvent } from 'framer-motion';
 import { HUD } from '@/components/hud/HUD';
 import { Ch01Cover } from '@/components/chapters/Ch01Cover';
@@ -20,6 +20,7 @@ const TOTAL_CHAPTERS = 9;
 
 export default function InvitationPage() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const sectionsRef = useRef<HTMLElement[]>([]);
   const [sound, setSound] = useState(process.env.NODE_ENV === 'production');
   const [splashDone, setSplashDone] = useState(false);
   const [chapter, setChapter] = useState(0);
@@ -29,6 +30,12 @@ export default function InvitationPage() {
 
   const { scrollY, scrollYProgress } = useScroll({ container: containerRef });
 
+  useEffect(() => {
+    sectionsRef.current = Array.from(
+      containerRef.current?.querySelectorAll<HTMLElement>('[data-ch]') ?? []
+    );
+  }, []);
+
   useMotionValueEvent(scrollYProgress, 'change', (v) => setProgressPct(v));
 
   useMotionValueEvent(scrollY, 'change', (scrollTop) => {
@@ -36,7 +43,7 @@ export default function InvitationPage() {
     if (!el) return;
     const vh = el.clientHeight;
     let current = 0;
-    el.querySelectorAll<HTMLElement>('[data-ch]').forEach((s) => {
+    sectionsRef.current.forEach((s) => {
       if (s.offsetTop <= scrollTop + vh / 2) current = Number(s.dataset.ch);
     });
     setChapter(current);
@@ -70,8 +77,7 @@ export default function InvitationPage() {
         <div
           ref={containerRef}
           data-scroll-container
-          className="relative h-dvh snap-y snap-mandatory overflow-x-hidden overflow-y-scroll bg-bg text-fg"
-          style={{ fontFamily: 'var(--font-sans)' }}
+          className="relative h-dvh snap-y snap-mandatory overflow-x-hidden overflow-y-scroll bg-bg font-sans text-fg"
         >
           <Ch01Cover />
 
