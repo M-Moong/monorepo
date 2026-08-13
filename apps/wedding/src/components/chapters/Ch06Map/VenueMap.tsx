@@ -172,6 +172,7 @@ export function VenueMap() {
   } | null>(null);
   const positionRef = useRef<object | null>(null);
   const [outOfView, setOutOfView] = useState(false);
+  const [mapError, setMapError] = useState(false);
 
   useEffect(() => {
     if (!NAVER_KEY) return;
@@ -182,9 +183,15 @@ export function VenueMap() {
       doneRef.current = true;
 
       window.naver.maps.Service.geocode({ query: WEDDING.venue.address }, (status, response) => {
-        if (status !== window.naver.maps.Service.Status.OK || !response.v2.addresses.length) return;
+        if (status !== window.naver.maps.Service.Status.OK || !response.v2.addresses.length) {
+          setMapError(true);
+          return;
+        }
         const addr = response.v2.addresses[0];
-        if (!addr) return;
+        if (!addr) {
+          setMapError(true);
+          return;
+        }
 
         const position = new window.naver.maps.LatLng(parseFloat(addr.y), parseFloat(addr.x));
         const map = new window.naver.maps.Map(naverRef.current!, {
@@ -206,7 +213,7 @@ export function VenueMap() {
           icon: {
             content: [
               '<div style="display:flex;flex-direction:column;align-items:center;gap:0;">',
-              '  <div style="background:#e8c87c;color:#0a0a0a;font-size:13px;font-weight:700;letter-spacing:0.08em;padding:6px 12px;border-radius:3px;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,0.4);">더 바실리움 ❤️</div>',
+              `  <div style="background:#e8c87c;color:#0a0a0a;font-size:13px;font-weight:700;letter-spacing:0.08em;padding:6px 12px;border-radius:3px;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,0.4);">${WEDDING.venue.name} ❤️</div>`,
               '  <div style="width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-top:9px solid #e8c87c;"></div>',
               '  <div style="width:10px;height:10px;background:#e8c87c;border-radius:50%;box-shadow:0 0 0 3px rgba(232,200,124,0.3);margin-top:-2px;"></div>',
               '</div>',
@@ -239,6 +246,7 @@ export function VenueMap() {
               requestAnimationFrame(() => requestAnimationFrame(renderMap));
           }
         };
+        script.onerror = () => setMapError(true);
         document.head.appendChild(script);
       }
     };
@@ -267,7 +275,7 @@ export function VenueMap() {
   return (
     <div className="mb-3.5">
       <div className="relative h-40 overflow-hidden border border-fg/10">
-        {NAVER_KEY ? (
+        {NAVER_KEY && !mapError ? (
           <>
             <div ref={naverRef} className="h-full w-full" />
             {outOfView && (
