@@ -34,6 +34,9 @@ export function GuestbookEntry({ entry: g }: GuestbookEntryProps) {
       if (res.ok) {
         const data = await res.json();
         setLikes(data.likes);
+      } else {
+        setLiked(false);
+        setLikes((n) => n - 1);
       }
     } catch {
       setLiked(false);

@@ -9,7 +9,8 @@ const PAGE_SIZE = 5;
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
-    const page = Math.max(1, parseInt(searchParams.get('page') ?? '1', 10));
+    const rawPage = parseInt(searchParams.get('page') ?? '1', 10);
+    const page = Number.isNaN(rawPage) ? 1 : Math.max(1, rawPage);
     const offset = (page - 1) * PAGE_SIZE;
 
     const [entries, totalRows, groomRows, brideRows] = await Promise.all([
