@@ -260,8 +260,9 @@ export const metadata: Metadata = {
         url: `${SITE_URL}${OG_IMAGE_PATH}`,
         // HTTPS URL을 명시적으로 지정 (일부 구버전 파서가 secureUrl 우선 사용)
         secureUrl: `${SITE_URL}${OG_IMAGE_PATH}`,
-        width: 1200,
-        height: 630,
+        // 실제 파일(02-og-source.png) 크기에 맞춤 — 1200x630 landscape 아님
+        width: 804,
+        height: 900,
         alt: `${WEDDING.groom.name} & ${WEDDING.bride.name} 결혼식 청첩장`,
         type: 'image/png',
       },
