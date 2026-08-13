@@ -62,143 +62,74 @@ export function Splash({ onDone, onEnter }: Props) {
   const panelTransition = isOpening ? 'transform 1200ms cubic-bezier(0.76, 0, 0.24, 1)' : 'none';
 
   return (
-    <div
-      onClick={openNow}
-      className="fixed inset-0 z-[100] overflow-hidden"
-      style={{
-        opacity: 1,
-      }}
-    >
+    <div onClick={openNow} className="fixed inset-0 z-[100] overflow-hidden">
       {/* 뒤에서 퍼지는 골드 bloom (문 열릴 때) */}
       <div
-        className="pointer-events-none absolute inset-0 z-0"
-        style={{
-          background:
-            'radial-gradient(ellipse 60% 50% at 50% 50%, color-mix(in srgb, #e8c87c 18%, transparent) 0%, transparent 70%)',
-          opacity: isOpening ? 1 : 0,
-          transition: 'opacity 800ms ease 200ms',
-        }}
+        className="pointer-events-none absolute inset-0 z-0 [background:radial-gradient(ellipse_60%_50%_at_50%_50%,color-mix(in_srgb,#e8c87c_18%,transparent)_0%,transparent_70%)] [transition:opacity_800ms_ease_200ms]"
+        style={{ opacity: isOpening ? 1 : 0 }}
       />
 
       {/* 왼쪽 문 */}
       <div
-        className="absolute top-0 left-0 z-10 flex h-full w-1/2 flex-col items-end justify-center"
+        className="absolute top-0 left-0 z-10 flex h-full w-1/2 flex-col items-end justify-center bg-bg"
         style={{
-          background: 'var(--color-bg)',
           transform: isOpening ? 'translateX(-100%)' : 'translateX(0)',
           transition: panelTransition,
         }}
       >
         {/* 장식 수직선 */}
-        <div
-          className="absolute top-[15%] right-[28px] h-[30%] w-px"
-          style={{
-            background: 'color-mix(in srgb, var(--color-gold) 30%, transparent)',
-          }}
-        />
-        <div
-          className="absolute right-[28px] bottom-[15%] h-[30%] w-px"
-          style={{
-            background: 'color-mix(in srgb, var(--color-gold) 30%, transparent)',
-          }}
-        />
+        <div className="absolute top-[15%] right-[28px] h-[30%] w-px bg-gold/30" />
+        <div className="absolute right-[28px] bottom-[15%] h-[30%] w-px bg-gold/30" />
 
         <div className="flex flex-col items-end pr-4">
           <div
-            className="font-serif-en text-[5.5rem] leading-none italic"
-            style={{
-              color: 'var(--color-gold)',
-              textShadow: '0 0 40px color-mix(in srgb, var(--color-gold) 50%, transparent)',
-              animation: !isOpening ? 'glow 2.5s ease-in-out infinite' : 'none',
-            }}
+            className="font-serif-en text-[5.5rem] leading-none text-gold italic [text-shadow:0_0_40px_color-mix(in_srgb,var(--color-gold)_50%,transparent)]"
+            style={{ animation: !isOpening ? 'glow 2.5s ease-in-out infinite' : 'none' }}
           >
             {WEDDING.groom.initial}
           </div>
-          <div
-            className="mt-3 text-right text-2xs tracking-[0.4rem]"
-            style={{
-              color: 'color-mix(in srgb, var(--color-fg) 55%, transparent)',
-            }}
-          >
+          <div className="mt-3 text-right text-2xs tracking-[0.4rem] text-fg/55">
             {WEDDING.groom.name}
           </div>
-          <div
-            className="mt-1 text-right font-sans-en text-4xs tracking-[0.25rem]"
-            style={{
-              color: 'color-mix(in srgb, var(--color-gold) 50%, transparent)',
-            }}
-          >
+          <div className="mt-1 text-right font-sans-en text-4xs tracking-[0.25rem] text-gold/50">
             GROOM
           </div>
         </div>
 
         {/* seam — 오른쪽 edge */}
         <div
-          className="absolute top-0 right-0 h-full w-px"
-          style={{
-            background: 'var(--color-gold)',
-            animation: !isOpening ? 'splash-seam-glow 2s ease-in-out infinite' : 'none',
-          }}
+          className="absolute top-0 right-0 h-full w-px bg-gold"
+          style={{ animation: !isOpening ? 'splash-seam-glow 2s ease-in-out infinite' : 'none' }}
         />
       </div>
 
       {/* 오른쪽 문 */}
       <div
-        className="absolute top-0 right-0 z-10 flex h-full w-1/2 flex-col items-start justify-center"
+        className="absolute top-0 right-0 z-10 flex h-full w-1/2 flex-col items-start justify-center bg-bg"
         style={{
-          background: 'var(--color-bg)',
           transform: isOpening ? 'translateX(100%)' : 'translateX(0)',
           transition: panelTransition,
         }}
       >
         {/* 장식 수직선 */}
-        <div
-          className="absolute top-[15%] left-[28px] h-[30%] w-px"
-          style={{
-            background: 'color-mix(in srgb, var(--color-gold) 30%, transparent)',
-          }}
-        />
-        <div
-          className="absolute bottom-[15%] left-[28px] h-[30%] w-px"
-          style={{
-            background: 'color-mix(in srgb, var(--color-gold) 30%, transparent)',
-          }}
-        />
+        <div className="absolute top-[15%] left-[28px] h-[30%] w-px bg-gold/30" />
+        <div className="absolute bottom-[15%] left-[28px] h-[30%] w-px bg-gold/30" />
 
         <div className="flex flex-col items-start pl-4">
           <div
-            className="font-serif-en text-[5.5rem] leading-none italic"
-            style={{
-              color: 'var(--color-gold)',
-              textShadow: '0 0 40px color-mix(in srgb, var(--color-gold) 50%, transparent)',
-              animation: !isOpening ? 'glow 2.5s ease-in-out infinite 0.4s' : 'none',
-            }}
+            className="font-serif-en text-[5.5rem] leading-none text-gold italic [text-shadow:0_0_40px_color-mix(in_srgb,var(--color-gold)_50%,transparent)]"
+            style={{ animation: !isOpening ? 'glow 2.5s ease-in-out infinite 0.4s' : 'none' }}
           >
             {WEDDING.bride.initial}
           </div>
-          <div
-            className="mt-3 text-2xs tracking-[0.4rem]"
-            style={{
-              color: 'color-mix(in srgb, var(--color-fg) 55%, transparent)',
-            }}
-          >
-            {WEDDING.bride.name}
-          </div>
-          <div
-            className="mt-1 font-sans-en text-4xs tracking-[0.25rem]"
-            style={{
-              color: 'color-mix(in srgb, var(--color-gold) 50%, transparent)',
-            }}
-          >
-            BRIDE
-          </div>
+          <div className="mt-3 text-2xs tracking-[0.4rem] text-fg/55">{WEDDING.bride.name}</div>
+          <div className="mt-1 font-sans-en text-4xs tracking-[0.25rem] text-gold/50">BRIDE</div>
         </div>
 
         {/* seam — 왼쪽 edge */}
         <div
-          className="absolute top-0 left-0 h-full w-px"
+          className="absolute top-0 left-0 h-full w-px bg-gold"
           style={{
-            background: 'var(--color-gold)',
             animation: !isOpening ? 'splash-seam-glow 2s ease-in-out infinite 0.2s' : 'none',
           }}
         />
@@ -212,13 +143,11 @@ export function Splash({ onDone, onEnter }: Props) {
         PARTICLES.map((p, i) => (
           <div
             key={i}
-            className="pointer-events-none absolute z-20 h-[3px] w-[3px] rounded-full"
+            className="pointer-events-none absolute z-20 h-[3px] w-[3px] rounded-full bg-gold opacity-0"
             style={{
               left: p.left,
               top: p.top,
-              background: 'var(--color-gold)',
               animation: `splash-particle ${p.dur} ${p.delay} ease-out infinite`,
-              opacity: 0,
             }}
           />
         ))}
