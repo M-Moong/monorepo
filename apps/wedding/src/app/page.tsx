@@ -1,6 +1,7 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { Suspense, useRef, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { useScroll, useMotionValueEvent } from 'framer-motion';
 import { HUD } from '@/components/hud/HUD';
 import { Ch01Cover } from '@/components/chapters/Ch01Cover';
@@ -14,18 +15,33 @@ import { Ch08Guestbook } from '@/components/chapters/Ch08Guestbook';
 import { GuestbookSheet } from '@/components/chapters/Ch08Guestbook/GuestbookSheet';
 import { Ch09Finale } from '@/components/chapters/Ch09Finale';
 import { useBGM } from '@/hooks/useBGM';
+import { useCountdown } from '@/hooks/useCountdown';
 import { Splash } from '@/components/ui/Splash';
+import { MarriedScreen } from '@/components/ui/MarriedScreen';
+import { WEDDING } from '@/data/wedding';
 
 const TOTAL_CHAPTERS = 9;
 
-export default function InvitationPage() {
+// ponytail: 개발 중 ?preview=married 테스트용 타깃. 실제 배포 기준은 WEDDING.date 그대로.
+const DEV_PREVIEW_TARGET = new Date('2026-09-14T08:00:00+09:00');
+
+function InvitationPageContent() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [sound, setSound] = useState(process.env.NODE_ENV === 'production');
   const [splashDone, setSplashDone] = useState(false);
   const [chapter, setChapter] = useState(0);
   const [progressPct, setProgressPct] = useState(0);
   const [guestbookSheetOpen, setGuestbookSheetOpen] = useState(false);
+  const [enteredInvite, setEnteredInvite] = useState(false);
   const retryBGM = useBGM(sound);
+
+  // ponytail: 개발 중 미리보기 전용 (?preview=married). 프로덕션 빌드에서는 무시됨.
+  // useSearchParams는 렌더 시점에 바로 값을 알 수 있어 Splash가 먼저 보였다 바뀌는 깜빡임이 없음.
+  const searchParams = useSearchParams();
+  const previewMarried =
+    process.env.NODE_ENV !== 'production' && searchParams.get('preview') === 'married';
+  const marriedTarget = previewMarried ? DEV_PREVIEW_TARGET : WEDDING.date;
+  const { isPast: isMarried } = useCountdown(marriedTarget);
 
   const { scrollY, scrollYProgress } = useScroll({ container: containerRef });
 
@@ -47,6 +63,10 @@ export default function InvitationPage() {
   //   const el = containerRef.current?.querySelector<HTMLElement>('[data-ch="7"]');
   //   if (el) el.scrollIntoView({ behavior: 'smooth' });
   // };
+
+  if ((isMarried || previewMarried) && !enteredInvite) {
+    return <MarriedScreen target={marriedTarget} onEnter={() => setEnteredInvite(true)} />;
+  }
 
   return (
     <div className="flex min-h-dvh items-start justify-center bg-bg">
@@ -104,5 +124,13 @@ export default function InvitationPage() {
 
       <GuestbookSheet open={guestbookSheetOpen} onClose={() => setGuestbookSheetOpen(false)} />
     </div>
+  );
+}
+
+export default function InvitationPage() {
+  return (
+    <Suspense fallback={null}>
+      <InvitationPageContent />
+    </Suspense>
   );
 }
