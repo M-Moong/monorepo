@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 import confetti from 'canvas-confetti';
 import { Counter } from '@repo/ui/reactbits/counter';
 import { useCountdown } from '@/hooks/useCountdown';
@@ -25,6 +26,19 @@ const digitProps = {
   gradientHeight: 0,
   digitStyle: { width: '1.15ch' },
 };
+
+// memo: MarriedScreen이 카운트다운 때문에 매초 리렌더돼도 이 힌트는 영향 안 받게.
+const TapHint = memo(function TapHint() {
+  return (
+    <motion.div
+      className="relative z-10 mt-4 font-sans-en text-xs tracking-[0.3rem] text-gold/80"
+      animate={{ opacity: [0.6, 1, 0.6] }}
+      transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
+    >
+      🎉 화면을 터치하면 폭죽이 터져요 🎉
+    </motion.div>
+  );
+});
 
 export function MarriedScreen({ onEnter, target = WEDDING.date }: Props) {
   const cd = useCountdown(target);
@@ -52,8 +66,20 @@ export function MarriedScreen({ onEnter, target = WEDDING.date }: Props) {
     });
   }, [visible]);
 
+  const handleTap = (e: React.MouseEvent<HTMLDivElement>) => {
+    navigator.vibrate?.(30);
+    confetti({
+      particleCount: 60,
+      spread: 70,
+      startVelocity: 35,
+      origin: { x: e.clientX / window.innerWidth, y: e.clientY / window.innerHeight },
+      colors: ['#e8c87c', '#ffffff', '#f4e4c1'],
+    });
+  };
+
   return (
     <div
+      onClick={handleTap}
       className="fixed inset-0 z-100 flex flex-col items-center justify-center gap-2 overflow-hidden bg-bg px-6 text-center"
       style={{
         opacity: visible ? 1 : 0,
@@ -62,6 +88,15 @@ export function MarriedScreen({ onEnter, target = WEDDING.date }: Props) {
       }}
     >
       <FloatingPhotos />
+
+      {/* 중앙 텍스트 영역을 사진이 침범하지 않도록 radial gradient로 부드럽게 가려줌 */}
+      <div
+        className="pointer-events-none absolute inset-0 z-5"
+        style={{
+          background:
+            'radial-gradient(circle at 50% 46%, color-mix(in srgb, var(--color-bg) 90%, transparent) 0%, color-mix(in srgb, var(--color-bg) 55%, transparent) 42%, transparent 72%)',
+        }}
+      />
 
       <div className="relative z-10 font-serif-en text-7xl leading-none text-gold italic">
         Thank You
@@ -80,7 +115,7 @@ export function MarriedScreen({ onEnter, target = WEDDING.date }: Props) {
       <div className="relative z-10 mt-8 flex flex-col items-center text-xl tabular-nums">
         <div className="flex items-center gap-1.5 tracking-[0.4rem] text-gold">
           <span className="text-xl">결혼</span>
-          <span className="inline-flex min-w-[2.5ch] animate-glow items-center justify-center rounded-2xl px-2 py-0.5 text-5xl font-semibold tabular-nums">
+          <span className="inline-flex min-w-[2.5ch] animate-glow items-center justify-center rounded-2xl px-2 py-0.5 text-5xl font-semibold tracking-normal tabular-nums">
             {elapsedCount}
           </span>
           <span className="text-xl">{elapsedUnit}</span>
@@ -109,6 +144,8 @@ export function MarriedScreen({ onEnter, target = WEDDING.date }: Props) {
       >
         청첩장 보러가기
       </button>
+
+      <TapHint />
     </div>
   );
 }
