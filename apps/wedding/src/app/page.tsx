@@ -14,7 +14,10 @@ import { Ch08Guestbook } from '@/components/chapters/Ch08Guestbook';
 import { GuestbookSheet } from '@/components/chapters/Ch08Guestbook/GuestbookSheet';
 import { Ch09Finale } from '@/components/chapters/Ch09Finale';
 import { useBGM } from '@/hooks/useBGM';
+import { useCountdown } from '@/hooks/useCountdown';
 import { Splash } from '@/components/ui/Splash';
+import { MarriedScreen } from '@/components/ui/MarriedScreen';
+import { WEDDING } from '@/data/wedding';
 
 const TOTAL_CHAPTERS = 9;
 
@@ -25,7 +28,9 @@ export default function InvitationPage() {
   const [chapter, setChapter] = useState(0);
   const [progressPct, setProgressPct] = useState(0);
   const [guestbookSheetOpen, setGuestbookSheetOpen] = useState(false);
+  const [enteredInvite, setEnteredInvite] = useState(false);
   const retryBGM = useBGM(sound);
+  const { isPast: isMarried } = useCountdown(WEDDING.date);
 
   const { scrollY, scrollYProgress } = useScroll({ container: containerRef });
 
@@ -48,10 +53,14 @@ export default function InvitationPage() {
   //   if (el) el.scrollIntoView({ behavior: 'smooth' });
   // };
 
+  if (isMarried && !enteredInvite) {
+    return <MarriedScreen onEnter={() => setEnteredInvite(true)} />;
+  }
+
   return (
     <div className="flex min-h-dvh items-start justify-center bg-bg">
       {!splashDone && <Splash onDone={() => setSplashDone(true)} onEnter={retryBGM} />}
-      <div className="relative w-full max-w-[450px]">
+      <div className="relative w-full max-w-md">
         {/* HUD: normal flow 밖에 두어 스크롤 컨테이너 레이아웃에 영향 없도록 */}
         <div className="pointer-events-none absolute top-0 right-0 left-0 z-50">
           <div className="pointer-events-auto">
