@@ -42,6 +42,8 @@ const TapHint = memo(function TapHint() {
 
 export function MarriedScreen({ onEnter, target = WEDDING.date }: Props) {
   const cd = useCountdown(target);
+  const isFuture = !cd.isPast; // target이 아직 안 지났으면(결혼 전) D-day로 보여줌
+  const dDayLabel = cd.d === 0 ? 'D-Day' : `D-${cd.d}`;
   const elapsedMs = Math.abs(cd.total);
   const isHourly = elapsedMs < HOURLY_LIMIT_MS;
   const elapsedCount = isHourly
@@ -114,14 +116,25 @@ export function MarriedScreen({ onEnter, target = WEDDING.date }: Props) {
 
       <div className="relative z-10 mt-8 flex flex-col items-center text-xl tabular-nums">
         <div className="flex items-center gap-1.5 tracking-[0.4rem] text-gold">
-          <span className="text-xl">결혼</span>
-          <span className="inline-flex h-16 min-w-16 animate-glow items-center justify-center rounded-2xl px-3 text-5xl leading-none font-semibold tracking-normal tabular-nums">
-            {elapsedCount}
-          </span>
-          <span className="text-xl">{elapsedUnit}</span>
+          {isFuture ? (
+            <>
+              <span className="text-xl">결혼까지</span>
+              <span className="inline-flex h-16 min-w-16 animate-glow items-center justify-center rounded-2xl px-3 text-4xl leading-none font-semibold tracking-normal tabular-nums">
+                {dDayLabel}
+              </span>
+            </>
+          ) : (
+            <>
+              <span className="text-xl">결혼</span>
+              <span className="inline-flex h-16 min-w-16 animate-glow items-center justify-center rounded-2xl px-3 text-5xl leading-none font-semibold tracking-normal tabular-nums">
+                {elapsedCount}
+              </span>
+              <span className="text-xl">{elapsedUnit}</span>
+            </>
+          )}
         </div>
         <div className="mt-3 flex gap-4 text-sm tracking-[0.3rem] text-fg/60 *:flex *:items-center *:tracking-[0.1rem]">
-          {!isHourly && (
+          {(isFuture || !isHourly) && (
             <span>
               <Counter value={cd.h} {...digitProps} />
               <span>h</span>
