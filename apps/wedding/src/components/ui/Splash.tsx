@@ -1,7 +1,10 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
+import confetti from 'canvas-confetti';
 import { WEDDING } from '@/data/wedding';
+
+const CONFETTI_COLORS = ['#e8c87c', '#ffffff', '#f4e4c1'];
 
 type Phase = 'hold' | 'opening' | 'done';
 
@@ -101,8 +104,34 @@ export function Splash({ onDone, onEnter }: Props) {
     onEnter?.();
     setDragProgress(0);
     const staggerBuffer = openedVia === 'auto' ? DOOR_STAGGER_MS : 0;
-    finishTimerRef.current = setTimeout(finish, OPEN_ANIM_MS + staggerBuffer + 200);
+    const openDoneMs = OPEN_ANIM_MS + staggerBuffer;
+    // ease-out-expo 커브라 실제 트랜지션이 끝나기 전에 이미 눈으로는 다 열린 것처럼 보임 —
+    // 그 체감 타이밍에 맞춰 confetti는 조금 더 일찍 터트림 (언마운트 타이밍은 그대로 둠)
+    const confettiDelayMs = Math.max(0, openDoneMs - 350);
+
+    // 문이 다 열린 직후, 양쪽 끝에서 가운데를 향해 confetti 캐논 터짐
+    const confettiTimer = setTimeout(() => {
+      confetti({
+        particleCount: 90,
+        angle: 60,
+        spread: 55,
+        startVelocity: 55,
+        origin: { x: 0, y: 0.6 },
+        colors: CONFETTI_COLORS,
+      });
+      confetti({
+        particleCount: 90,
+        angle: 120,
+        spread: 55,
+        startVelocity: 55,
+        origin: { x: 1, y: 0.6 },
+        colors: CONFETTI_COLORS,
+      });
+    }, confettiDelayMs);
+
+    finishTimerRef.current = setTimeout(finish, openDoneMs + 200);
     return () => {
+      clearTimeout(confettiTimer);
       if (finishTimerRef.current) clearTimeout(finishTimerRef.current);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
