@@ -1,6 +1,6 @@
 'use client';
 
-import { memo, useEffect, useState } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import confetti from 'canvas-confetti';
 import { Counter } from '@repo/ui/reactbits/counter';
@@ -13,6 +13,8 @@ interface Props {
   target?: Date;
 }
 
+const SECOND_MS = 1_000;
+const MINUTE_MS = 60_000;
 const HOUR_MS = 3_600_000;
 const DAY_MS = 86_400_000;
 const HOURLY_LIMIT_MS = 72 * HOUR_MS;
@@ -45,11 +47,18 @@ export function MarriedScreen({ onEnter, target = WEDDING.date }: Props) {
   const isFuture = !cd.isPast; // target이 아직 안 지났으면(결혼 전) D-day로 보여줌
   const dDayLabel = cd.d === 0 ? 'D-Day' : `D-${cd.d}`;
   const elapsedMs = Math.abs(cd.total);
-  const isHourly = elapsedMs < HOURLY_LIMIT_MS;
-  const elapsedCount = isHourly
-    ? Math.floor(elapsedMs / HOUR_MS) + 1
-    : Math.floor(elapsedMs / DAY_MS) + 1;
-  const elapsedUnit = isHourly ? '시간차' : '일차';
+  const isSecondly = elapsedMs < MINUTE_MS;
+  const isMinutely = !isSecondly && elapsedMs < HOUR_MS;
+  const isHourly = !isSecondly && !isMinutely && elapsedMs < HOURLY_LIMIT_MS;
+  const isDaily = !isSecondly && !isMinutely && !isHourly;
+  const elapsedCount = isSecondly
+    ? Math.floor(elapsedMs / SECOND_MS) + 1
+    : isMinutely
+      ? Math.floor(elapsedMs / MINUTE_MS) + 1
+      : isHourly
+        ? Math.floor(elapsedMs / HOUR_MS) + 1
+        : Math.floor(elapsedMs / DAY_MS) + 1;
+  const elapsedUnit = isSecondly ? '초차' : isMinutely ? '분차' : isHourly ? '시간차' : '일차';
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -67,6 +76,27 @@ export function MarriedScreen({ onEnter, target = WEDDING.date }: Props) {
       colors: ['#e8c87c', '#ffffff', '#f4e4c1'],
     });
   }, [visible]);
+
+  // 화면 켜져있는 동안 D-day에서 결혼 경과로 실시간 전환되는 순간 — 화려하게 여러 번 터뜨림
+  const wasPastRef = useRef(cd.isPast);
+  useEffect(() => {
+    if (!wasPastRef.current && cd.isPast) {
+      const colors = ['#e8c87c', '#ffffff', '#f4e4c1'];
+      const burst = (originX: number) =>
+        confetti({
+          particleCount: 160,
+          spread: 100,
+          startVelocity: 60,
+          origin: { x: originX, y: 0.5 },
+          colors,
+        });
+      burst(0.5);
+      setTimeout(() => burst(0.15), 180);
+      setTimeout(() => burst(0.85), 180);
+      setTimeout(() => burst(0.5), 380);
+    }
+    wasPastRef.current = cd.isPast;
+  }, [cd.isPast]);
 
   const handleTap = (e: React.MouseEvent<HTMLDivElement>) => {
     navigator.vibrate?.(30);
@@ -134,20 +164,25 @@ export function MarriedScreen({ onEnter, target = WEDDING.date }: Props) {
           )}
         </div>
         <div className="mt-3 flex gap-4 text-sm tracking-[0.3rem] text-fg/60 *:flex *:items-center *:tracking-[0.1rem]">
-          {(isFuture || !isHourly) && (
+          {/* 라벨(N초차/N분차/N시간차/N일차)이랑 겹치는 단위는 숨김 — 그 아래 단위만 살아서 째깍거림 */}
+          {(isFuture || isDaily) && (
             <span>
               <Counter value={cd.h} {...digitProps} />
               <span>h</span>
             </span>
           )}
-          <span>
-            <Counter value={cd.m} {...digitProps} />
-            <span>m</span>
-          </span>
-          <span>
-            <Counter value={cd.s} {...digitProps} />
-            <span>s</span>
-          </span>
+          {(isFuture || isDaily || isHourly) && (
+            <span>
+              <Counter value={cd.m} {...digitProps} />
+              <span>m</span>
+            </span>
+          )}
+          {(isFuture || !isSecondly) && (
+            <span>
+              <Counter value={cd.s} {...digitProps} />
+              <span>s</span>
+            </span>
+          )}
         </div>
       </div>
 
