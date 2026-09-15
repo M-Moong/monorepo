@@ -115,7 +115,7 @@ export function MarriedScreen({ onEnter, target = WEDDING.date }: Props) {
       <div className="relative z-10 mt-8 flex flex-col items-center text-xl tabular-nums">
         <div className="flex items-center gap-1.5 tracking-[0.4rem] text-gold">
           <span className="text-xl">결혼</span>
-          <span className="inline-flex min-w-[2.5ch] animate-glow items-center justify-center rounded-2xl px-2 py-0.5 text-5xl font-semibold tracking-normal tabular-nums">
+          <span className="inline-flex h-16 min-w-16 animate-glow items-center justify-center rounded-2xl px-3 text-5xl leading-none font-semibold tracking-normal tabular-nums">
             {elapsedCount}
           </span>
           <span className="text-xl">{elapsedUnit}</span>
@@ -138,12 +138,17 @@ export function MarriedScreen({ onEnter, target = WEDDING.date }: Props) {
         </div>
       </div>
 
-      <button
-        onClick={onEnter}
-        className="relative z-10 mt-10 rounded-full border border-gold/50 px-7 py-2.5 text-sm tracking-[0.2rem] text-gold transition hover:bg-gold/10"
+      <motion.button
+        onClick={(e) => {
+          e.stopPropagation(); // 이 버튼은 confetti 안 터지게
+          onEnter();
+        }}
+        whileTap={{ scale: 0.92 }}
+        whileHover={{ scale: 1.04 }}
+        className="relative z-10 mt-10 rounded-full border border-gold/50 px-7 py-2.5 text-sm tracking-[0.2rem] text-gold transition-colors hover:bg-gold/10 active:bg-gold/20"
       >
         청첩장 보러가기
-      </button>
+      </motion.button>
 
       <TapHint />
     </div>
