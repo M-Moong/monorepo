@@ -1,6 +1,6 @@
 'use client';
 
-import { memo, useMemo } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 
@@ -74,8 +74,15 @@ function buildFloatingItems(): FloatingItem[] {
 // memo: 부모(MarriedScreen)가 카운트다운 때문에 매초 리렌더되는데, 그때마다 animate 객체가
 // 새로 생성되면 Framer Motion이 애니메이션을 재계산해 버벅임(jump)이 생김 — 재렌더 자체를 막음.
 export const FloatingPhotos = memo(function FloatingPhotos() {
-  const items = useMemo(buildFloatingItems, []);
-  const fireworks = useMemo(buildFireworkItems, []);
+  // Math.random() 기반이라 서버/클라이언트 렌더 값이 달라 하이드레이션 불일치가 났음 —
+  // 마운트 후(클라이언트에서만) 채워서 서버 렌더 HTML과 비교 대상 자체를 없앰.
+  const [items, setItems] = useState<FloatingItem[]>([]);
+  const [fireworks, setFireworks] = useState<FireworkItem[]>([]);
+
+  useEffect(() => {
+    setItems(buildFloatingItems());
+    setFireworks(buildFireworkItems());
+  }, []);
 
   return (
     <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
