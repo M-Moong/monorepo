@@ -17,7 +17,8 @@ const SECOND_MS = 1_000;
 const MINUTE_MS = 60_000;
 const HOUR_MS = 3_600_000;
 const DAY_MS = 86_400_000;
-const HOURLY_LIMIT_MS = 72 * HOUR_MS;
+const HOURLY_LIMIT_MS = 100 * HOUR_MS; // 99시간차까지 표시, 100시간부턴 절대 경과일수(일차)로 전환
+const CONFETTI_COLORS = ['#e8c87c', '#ffffff', '#f4e4c1'];
 
 const digitProps = {
   places: [10, 1] as number[],
@@ -51,13 +52,16 @@ export function MarriedScreen({ onEnter, target = WEDDING.date }: Props) {
   const isMinutely = !isSecondly && elapsedMs < HOUR_MS;
   const isHourly = !isSecondly && !isMinutely && elapsedMs < HOURLY_LIMIT_MS;
   const isDaily = !isSecondly && !isMinutely && !isHourly;
+  // 분/시간은 그 단계가 "시작되는 시점"부터 다시 1로 세어야 경계에서 숫자가 안 건너뜀
+  // (예: 그냥 elapsedMs/unit로만 계산하면 59분차 다음이 곧장 2시간차로 튀는 문제가 있었음).
+  // 일차는 반대로 절대 경과일수 — 며칠째인지를 나타내는 값이라 리셋하면 안 됨.
+  const tierStartMs = isMinutely ? MINUTE_MS : HOUR_MS;
+  const tierUnitMs = isMinutely ? MINUTE_MS : HOUR_MS;
   const elapsedCount = isSecondly
-    ? Math.floor(elapsedMs / SECOND_MS) + 1
-    : isMinutely
-      ? Math.floor(elapsedMs / MINUTE_MS) + 1
-      : isHourly
-        ? Math.floor(elapsedMs / HOUR_MS) + 1
-        : Math.floor(elapsedMs / DAY_MS) + 1;
+    ? Math.min(59, Math.floor(elapsedMs / SECOND_MS) + 1) // 59초차에서 멈췄다가 1분차로 전환
+    : isDaily
+      ? Math.floor(elapsedMs / DAY_MS) + 1
+      : Math.floor((elapsedMs - tierStartMs) / tierUnitMs) + 1;
   const elapsedUnit = isSecondly ? '초차' : isMinutely ? '분차' : isHourly ? '시간차' : '일차';
   const [visible, setVisible] = useState(false);
 
@@ -67,33 +71,34 @@ export function MarriedScreen({ onEnter, target = WEDDING.date }: Props) {
   }, []);
 
   useEffect(() => {
-    if (!visible) return;
+    if (!visible || isFuture) return; // 결혼 전(D-day)이면 마운트 시 confetti 안 터뜨림
     confetti({
       particleCount: 140,
       spread: 90,
       startVelocity: 45,
       origin: { y: 0.4 },
-      colors: ['#e8c87c', '#ffffff', '#f4e4c1'],
+      colors: CONFETTI_COLORS,
     });
-  }, [visible]);
+  }, [visible, isFuture]);
 
-  // 화면 켜져있는 동안 D-day에서 결혼 경과로 실시간 전환되는 순간 — 화려하게 여러 번 터뜨림
-  const wasPastRef = useRef(cd.isPast);
+  // 화면 켜져있는 동안 D-day에서 결혼 경과로 실시간 전환되는 순간 — 화려하게 여러 번 터뜨림.
+  // useCountdown은 SSR 불일치 방지용으로 첫 렌더에서 항상 isPast=false로 시작했다가 마운트
+  // 직후 보정되므로, cd.isPast로 초기화하면 이미 결혼식이 지난 상태로 들어와도 그 보정 순간을
+  // "방금 전환됨"으로 오인해 매번 큰 confetti가 터짐 — target 자체로 실제 초기 상태를 계산함.
+  const wasPastRef = useRef(target.getTime() < Date.now());
   useEffect(() => {
     if (!wasPastRef.current && cd.isPast) {
-      const colors = ['#e8c87c', '#ffffff', '#f4e4c1'];
       const burst = (originX: number) =>
         confetti({
           particleCount: 160,
           spread: 100,
           startVelocity: 60,
           origin: { x: originX, y: 0.5 },
-          colors,
+          colors: CONFETTI_COLORS,
         });
-      burst(0.5);
-      setTimeout(() => burst(0.15), 180);
-      setTimeout(() => burst(0.85), 180);
-      setTimeout(() => burst(0.5), 380);
+      burst(0.5); // 가운데
+      setTimeout(() => burst(0.15), 500); // 왼쪽
+      setTimeout(() => burst(0.85), 750); // 오른쪽
     }
     wasPastRef.current = cd.isPast;
   }, [cd.isPast]);
@@ -105,7 +110,7 @@ export function MarriedScreen({ onEnter, target = WEDDING.date }: Props) {
       spread: 70,
       startVelocity: 35,
       origin: { x: e.clientX / window.innerWidth, y: e.clientY / window.innerHeight },
-      colors: ['#e8c87c', '#ffffff', '#f4e4c1'],
+      colors: CONFETTI_COLORS,
     });
   };
 
@@ -122,13 +127,7 @@ export function MarriedScreen({ onEnter, target = WEDDING.date }: Props) {
       <FloatingPhotos />
 
       {/* 중앙 텍스트 영역을 사진이 침범하지 않도록 radial gradient로 부드럽게 가려줌 */}
-      <div
-        className="pointer-events-none absolute inset-0 z-5"
-        style={{
-          background:
-            'radial-gradient(circle at 50% 46%, color-mix(in srgb, var(--color-bg) 90%, transparent) 0%, color-mix(in srgb, var(--color-bg) 55%, transparent) 42%, transparent 72%)',
-        }}
-      />
+      <div className="pointer-events-none absolute inset-0 z-5 bg-[radial-gradient(circle_at_50%_46%,color-mix(in_srgb,var(--color-bg)_90%,transparent)_0%,color-mix(in_srgb,var(--color-bg)_55%,transparent)_42%,transparent_72%)]" />
 
       <div className="relative z-10 font-serif-en text-7xl leading-none text-gold italic">
         Thank You
