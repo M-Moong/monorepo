@@ -51,6 +51,7 @@ export function Splash({ onDone, onEnter }: Props) {
   const openingStartedRef = useRef(false);
   const phaseRef = useRef<Phase>('hold');
   const autoOpenTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const autoOpenAtRef = useRef<number | null>(null); // 자동열림 예정 시각(epoch ms) — 드래그 취소 시 재예약용
   const finishTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const hintTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const dragStartXRef = useRef(0);
@@ -144,7 +145,9 @@ export function Splash({ onDone, onEnter }: Props) {
       cursor = onAt + outMs + TOUCH_INTERVAL_MS;
     }
 
-    autoOpenTimerRef.current = setTimeout(beginOpening, cursor + POST_TOUCH_PAUSE_MS);
+    const autoOpenDelay = cursor + POST_TOUCH_PAUSE_MS;
+    autoOpenAtRef.current = Date.now() + autoOpenDelay;
+    autoOpenTimerRef.current = setTimeout(beginOpening, autoOpenDelay);
     timers.push(autoOpenTimerRef.current);
 
     return () => timers.forEach(clearTimeout);
@@ -207,6 +210,12 @@ export function Splash({ onDone, onEnter }: Props) {
       beginOpening();
     } else {
       setDragProgress(0); // 드래그 중이 아니게 됐으니 transition 붙어서 원위치로 스냅백
+      // 드래그를 문턱 못 넘고 취소한 경우 — handlePointerMove에서 지워버린 자동열림 안전장치를
+      // 원래 예정 시각 기준으로 재예약 (안 그러면 이후 아무 행동 안 해도 영영 안 열림)
+      if (phase === 'hold' && !autoOpenTimerRef.current && autoOpenAtRef.current !== null) {
+        const remaining = Math.max(300, autoOpenAtRef.current - Date.now());
+        autoOpenTimerRef.current = setTimeout(beginOpening, remaining);
+      }
     }
   };
 
