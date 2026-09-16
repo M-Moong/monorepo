@@ -1,14 +1,14 @@
-import js from "@eslint/js";
-import { globalIgnores } from "eslint/config";
-import eslintConfigPrettier from "eslint-config-prettier";
-import tseslint from "typescript-eslint";
-import pluginReactHooks from "eslint-plugin-react-hooks";
-import pluginReact from "eslint-plugin-react";
-import globals from "globals";
-import pluginNext from "@next/eslint-plugin-next";
-import pluginTailwind from "eslint-plugin-tailwindcss";
-import { config as baseConfig } from "./base.js";
-import { nodeScriptConfig } from "./node-script.js";
+import js from '@eslint/js';
+import { globalIgnores } from 'eslint/config';
+import eslintConfigPrettier from 'eslint-config-prettier';
+import tseslint from 'typescript-eslint';
+import pluginReactHooks from 'eslint-plugin-react-hooks';
+import pluginReact from 'eslint-plugin-react';
+import globals from 'globals';
+import pluginNext from '@next/eslint-plugin-next';
+import pluginTailwind from 'eslint-plugin-tailwindcss';
+import { config as baseConfig } from './base.js';
+import { nodeScriptConfig } from './node-script.js';
 
 /**
  * A custom ESLint configuration for libraries that use Next.js.
@@ -22,10 +22,10 @@ export const nextJsConfig = [
   ...tseslint.configs.recommended,
   globalIgnores([
     // Default ignores of eslint-config-next:
-    ".next/**",
-    "out/**",
-    "build/**",
-    "next-env.d.ts",
+    '.next/**',
+    'out/**',
+    'build/**',
+    'next-env.d.ts',
   ]),
   {
     ...pluginReact.configs.flat.recommended,
@@ -38,36 +38,38 @@ export const nextJsConfig = [
   },
   {
     plugins: {
-      "@next/next": pluginNext,
+      '@next/next': pluginNext,
     },
     rules: {
       ...pluginNext.configs.recommended.rules,
-      ...pluginNext.configs["core-web-vitals"].rules,
+      ...pluginNext.configs['core-web-vitals'].rules,
     },
   },
   {
     plugins: {
-      "react-hooks": pluginReactHooks,
+      'react-hooks': pluginReactHooks,
     },
-    settings: { react: { version: "detect" } },
+    settings: { react: { version: 'detect' } },
     rules: {
       ...pluginReactHooks.configs.recommended.rules,
       // React scope no longer necessary with new JSX transform.
-      "react/react-in-jsx-scope": "off",
+      'react/react-in-jsx-scope': 'off',
     },
   },
   {
-    files: ["scripts/**/*.mjs"],
+    files: ['scripts/**/*.mjs'],
     ...nodeScriptConfig[0],
   },
   {
-    plugins: { tailwindcss: pluginTailwind },
+    ...pluginTailwind.configs.recommended,
     settings: {
-      tailwindcss: { config: {} },
+      tailwindcss: { cssConfigPath: './src/app/globals.css' },
     },
     rules: {
-      "tailwindcss/enforces-shorthand": "warn",
-      "tailwindcss/no-contradicting-classname": "error",
+      ...pluginTailwind.configs.recommended.rules,
+      'tailwindcss/no-custom-classname': ['warn', { whitelist: ['cover-glow'] }],
+      // ponytail: line-height 소수 arbitrary값(leading-[0.85] 등)에 존재하지 않는 클래스로 잘못 fix 제안함 — 검증 후 끔
+      'tailwindcss/no-unnecessary-arbitrary-value': 'off',
     },
   },
 ];
