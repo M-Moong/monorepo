@@ -146,7 +146,7 @@ export function Ch08Guestbook({ onOpenSheet }: Ch08GuestbookProps) {
           <button
             onClick={handleSubmitClick}
             aria-disabled={!canSubmit}
-            className={`flex h-full w-full items-center justify-center gap-2 border-0 py-3 text-xs font-bold tracking-[0.2rem] transition-all duration-150 ${
+            className={`flex size-full items-center justify-center gap-2 border-0 py-3 text-xs font-bold tracking-[0.2rem] transition-all duration-150 ${
               canSubmit
                 ? 'cursor-pointer bg-gold text-bg'
                 : 'cursor-not-allowed bg-gold/30 text-fg/50'

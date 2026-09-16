@@ -277,7 +277,7 @@ export function VenueMap() {
       <div className="relative h-40 overflow-hidden border border-fg/10">
         {NAVER_KEY && !mapError ? (
           <>
-            <div ref={naverRef} className="h-full w-full" />
+            <div ref={naverRef} className="size-full" />
             {outOfView && (
               <button
                 onClick={handleGoToVenue}

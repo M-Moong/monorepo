@@ -298,7 +298,7 @@ export function Splash({ onDone, onEnter }: Props) {
         {showAffordance && (
           <div
             key={`arrow-left-${bounceNonce}`}
-            className="absolute bottom-28 left-6 flex h-14 w-14 items-center justify-center rounded-full text-3xl"
+            className="absolute bottom-28 left-6 flex size-14 items-center justify-center rounded-full text-3xl"
             style={{
               color: 'var(--color-gold)',
               background: 'color-mix(in srgb, var(--color-gold) 12%, transparent)',
@@ -371,7 +371,7 @@ export function Splash({ onDone, onEnter }: Props) {
         {showAffordance && (
           <div
             key={`arrow-right-${bounceNonce}`}
-            className="absolute right-6 bottom-28 flex h-14 w-14 items-center justify-center rounded-full text-3xl"
+            className="absolute right-6 bottom-28 flex size-14 items-center justify-center rounded-full text-3xl"
             style={{
               color: 'var(--color-gold)',
               background: 'color-mix(in srgb, var(--color-gold) 12%, transparent)',

@@ -27,7 +27,7 @@ export function PhotoFrame({ label = 'photo', tone = 'warm', src, style }: Photo
 
   return (
     <div
-      className={`relative flex h-full w-full items-center justify-center overflow-hidden font-mono text-[10px] tracking-[0.5px] uppercase ${isInk ? 'text-white/45' : 'text-black/40'}`}
+      className={`relative flex size-full items-center justify-center overflow-hidden font-mono text-2xs tracking-[0.5px] uppercase ${isInk ? 'text-white/45' : 'text-black/40'}`}
       style={{
         background: `repeating-linear-gradient(135deg, ${a} 0 12px, ${b} 12px 24px)`,
         ...style,

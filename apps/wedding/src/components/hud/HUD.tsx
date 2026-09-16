@@ -68,7 +68,7 @@ export function HUD({
   return (
     <div className="relative">
       {/* HUD 바 */}
-      <div className="flex items-center justify-between bg-[var(--color-hud-gradient)] px-3.5 pt-3 pb-2.5 backdrop-blur">
+      <div className="flex items-center justify-between bg-(--color-hud-gradient) px-3.5 pt-3 pb-2.5 backdrop-blur">
         {/* 챕터 번호 */}
         <span className="text-3xs tracking-[0.3rem] text-gold">
           CH. {String(chapter + 1).padStart(2, '0')} / {String(totalChapters).padStart(2, '0')}
@@ -84,7 +84,7 @@ export function HUD({
               className="flex cursor-pointer items-center border-0 bg-transparent px-0 py-2"
             >
               <span
-                className="block h-[2px] w-4 transition-[background] duration-300"
+                className="block h-0.5 w-4 transition-[background] duration-300"
                 style={{
                   background: i <= chapter ? 'var(--color-gold)' : 'var(--color-dot-inactive)',
                 }}

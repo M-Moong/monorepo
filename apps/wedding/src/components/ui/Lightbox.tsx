@@ -162,7 +162,7 @@ export function Lightbox({ index, total, tones, photos, onClose, onJump }: Light
       transition={{ duration: 0.3 }}
       className="fixed inset-0 z-100 flex flex-col bg-bg/98"
     >
-      <div className="mx-auto flex h-full w-full max-w-[450px] flex-col">
+      <div className="mx-auto flex size-full max-w-[450px] flex-col">
         {/* 상단 닫기 */}
         <div className="flex shrink-0 items-center justify-end px-5 pt-[max(1.25rem,env(safe-area-inset-top))]">
           <motion.button
@@ -220,7 +220,7 @@ export function Lightbox({ index, total, tones, photos, onClose, onJump }: Light
               whileHover={{ scale: 1.1, x: -2 }}
               whileTap={{ scale: 0.88 }}
               transition={{ type: 'spring', stiffness: 400, damping: 20 }}
-              className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-fg/15 bg-bg/70 text-fg/80 backdrop-blur-sm transition-colors hover:border-fg/40 hover:text-fg"
+              className="flex size-11 cursor-pointer items-center justify-center rounded-full border border-fg/15 bg-bg/70 text-fg/80 backdrop-blur-sm transition-colors hover:border-fg/40 hover:text-fg"
             >
               <ChevronLeft size={22} strokeWidth={1.5} />
             </motion.button>
@@ -229,7 +229,7 @@ export function Lightbox({ index, total, tones, photos, onClose, onJump }: Light
               whileHover={{ scale: 1.1, x: 2 }}
               whileTap={{ scale: 0.88 }}
               transition={{ type: 'spring', stiffness: 400, damping: 20 }}
-              className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-fg/15 bg-bg/70 text-fg/80 backdrop-blur-sm transition-colors hover:border-fg/40 hover:text-fg"
+              className="flex size-11 cursor-pointer items-center justify-center rounded-full border border-fg/15 bg-bg/70 text-fg/80 backdrop-blur-sm transition-colors hover:border-fg/40 hover:text-fg"
             >
               <ChevronRight size={22} strokeWidth={1.5} />
             </motion.button>
