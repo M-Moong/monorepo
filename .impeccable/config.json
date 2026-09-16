@@ -8,6 +8,13 @@
         "value": "cubic-bezier(0.34, 1.56, 0.64, 1)",
         "createdAt": "2026-09-14T07:57:37.689Z",
         "reason": "user requested softer/organic knock animation this session (Splash idle knock effect) — slight overshoot chosen deliberately over linear/expo easing"
+      },
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": ["apps/wedding/src/app/guestbook/admin/page.tsx"],
+        "createdAt": "2026-09-16T05:27:02.839Z",
+        "reason": "user confirmed: 왼쪽 4색 accent 바를 명시적으로 요청, 이후 2배 두껍게 해달라고 재확인함"
       }
     ]
   }
