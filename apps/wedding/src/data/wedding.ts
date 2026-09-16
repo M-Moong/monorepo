@@ -76,9 +76,7 @@ export const WEDDING = {
     address: '경기 성남시 분당구 야탑동 344-1',
     detail: '8층',
     mapUrls: {
-      // kakao: 'https://map.kakao.com/link/map/그랜드하얏트서울,37.539565,126.992161',
       kakao: 'https://kko.to/HjMuUBXPae',
-      // naver: 'https://map.naver.com/v5/search/그랜드하얏트서울',
       naver: 'https://map.naver.com/p/entry/place/1781336022?c=15.54,0,0,0,dh',
       tmap: 'https://tmap.life/place?lat=37.3995&lng=127.1272&name=더바실리움',
     },

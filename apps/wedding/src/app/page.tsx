@@ -54,12 +54,6 @@ export default function InvitationPage() {
     setChapter(current);
   });
 
-  // 방명록 바로 이동하기
-  // const jumpToGuestbook = () => {
-  //   const el = containerRef.current?.querySelector<HTMLElement>('[data-ch="7"]');
-  //   if (el) el.scrollIntoView({ behavior: 'smooth' });
-  // };
-
   if (isMarried && !enteredInvite) {
     return <MarriedScreen onEnter={() => setEnteredInvite(true)} />;
   }
@@ -69,7 +63,7 @@ export default function InvitationPage() {
       {!splashDone && <Splash onDone={() => setSplashDone(true)} onEnter={retryBGM} />}
       <div className="relative w-full max-w-md">
         {/* HUD: normal flow 밖에 두어 스크롤 컨테이너 레이아웃에 영향 없도록 */}
-        <div className="pointer-events-none absolute top-0 right-0 left-0 z-50">
+        <div className="pointer-events-none absolute inset-x-0 top-0 z-50">
           <div className="pointer-events-auto">
             <HUD
               chapter={chapter}
